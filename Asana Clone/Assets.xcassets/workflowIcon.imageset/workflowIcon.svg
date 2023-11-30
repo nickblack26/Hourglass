@@ -1,0 +1,47 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect y="5" width="24" height="10" rx="5" fill="#EDEBEA"/>
+<rect x="2.5" y="7.5" width="5" height="5" rx="2.5" stroke="#0D0E10"/>
+<rect x="16" y="25" width="24" height="10" rx="5" fill="#A9DCD9"/>
+<rect x="18.5" y="27.5" width="5" height="5" rx="2.5" stroke="#0D0E10"/>
+<path d="M6 19.75H34" stroke="#0D0E10" stroke-width="1.5"/>
+<path d="M28 9.25L34 9.25" stroke="#0D0E10" stroke-width="1.5"/>
+<path d="M6 30.25L12 30.25" stroke="#0D0E10" stroke-width="1.5"/>
+<g clip-path="url(#clip0)">
+<circle cx="34" cy="14.5" r="5.25" stroke="black" stroke-width="1.5"/>
+</g>
+<g clip-path="url(#clip1)">
+<circle cx="6" cy="25" r="5.25" transform="rotate(-180 6 25)" stroke="black" stroke-width="1.5"/>
+</g>
+<g clip-path="url(#clip2)">
+<circle r="5.25" transform="matrix(0 1 1 0 14.5 25.001)" stroke="black" stroke-width="1.5"/>
+</g>
+<g clip-path="url(#clip3)">
+<circle cx="14.5" cy="35.5" r="5.25" transform="rotate(-90 14.5 35.5)" stroke="black" stroke-width="1.5"/>
+</g>
+<g clip-path="url(#clip4)">
+<circle cx="25.5" cy="4.00098" r="5.25" transform="rotate(90 25.5 4.00098)" stroke="black" stroke-width="1.5"/>
+</g>
+<g clip-path="url(#clip5)">
+<circle r="5.25" transform="matrix(0 -1 -1 0 25.5 14.5)" stroke="black" stroke-width="1.5"/>
+</g>
+<defs>
+<clipPath id="clip0">
+<rect width="6" height="12" fill="white" transform="translate(34 8.5)"/>
+</clipPath>
+<clipPath id="clip1">
+<rect width="6" height="12" fill="white" transform="translate(6 31) rotate(-180)"/>
+</clipPath>
+<clipPath id="clip2">
+<rect width="6" height="6" fill="white" transform="matrix(0 1 1 0 8 25.001)"/>
+</clipPath>
+<clipPath id="clip3">
+<rect width="6" height="6" fill="white" transform="translate(8 35.5) rotate(-90)"/>
+</clipPath>
+<clipPath id="clip4">
+<rect width="6" height="6" fill="white" transform="translate(32 4.00098) rotate(90)"/>
+</clipPath>
+<clipPath id="clip5">
+<rect width="6" height="6" fill="white" transform="matrix(0 -1 -1 0 32 14.5)"/>
+</clipPath>
+</defs>
+</svg>
