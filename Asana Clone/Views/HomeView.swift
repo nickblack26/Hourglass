@@ -52,6 +52,7 @@ struct HomeView: View {
 	}
 	
 	var body: some View {
+		
 		VStack {
 			VStack {
 				Text("\(getFormattedDate())")
@@ -86,32 +87,49 @@ struct HomeView: View {
 				}
 			}
 			
-			Grid(horizontalSpacing: 15, verticalSpacing: 15) {
-				ForEach(0..<3, id: \.self) { row in
-					GridRow {
-						ForEach(getIndices(row).0 ..< getIndices(row).1, id: \.self) { index in
-							Text("Hello")
-								.gridCellColumns(defaultWidgets[index].columns)
-								.dropDestination(for: WidgetOptionModel.self) { items, location in
-									return false
-								} isTargeted: { status in
-									let option = defaultWidgets[index]
-									let draggingItem = vm.draggingItem
-									
-									
-									if let draggingItem, status, draggingItem != option {
-										if let sourceIndex = vm.availableWidgets.firstIndex(of: draggingItem), let destinationIndex = vm.homeWidgets.firstIndex(of: vm.homeWidgets[index]) {
-											withAnimation {
-												let sourceItem = vm.availableWidgets.remove(at: sourceIndex)
-												vm.homeWidgets.insert(sourceItem, at: destinationIndex)
-											}
-										}
-									}
-								}
+			LazyVGrid(columns: [GridItem(),GridItem()], spacing: 0) {
+				ForEach(defaultWidgets) { widget in
+					ZStack {
+						switch widget.type {
+							case .myTasks:
+								Text(widget.name)
+							case .people:
+								Text(widget.name)
+							case .projects:
+								Text(widget.name)
+							case .notepad:
+								Text(widget.name)
+							case .tasksAssigned:
+								Text(widget.name)
+							case .draftComments:
+								Text(widget.name)
+							case .forms:
+								Text(widget.name)
+							case .myGoals:
+								Text(widget.name)
+								
+						}
+					}
+					.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+					.dropDestination(for: WidgetOptionModel.self) { items, location in
+						return false
+					} isTargeted: { status in
+						let option = widget
+						let draggingItem = vm.draggingItem
+						
+						
+						if let draggingItem, status, draggingItem != option {
+//								if let sourceIndex = vm.availableWidgets.firstIndex(of: draggingItem), let destinationIndex = vm.homeWidgets.firstIndex(of: vm.homeWidgets[index]) {
+//									withAnimation {
+//										let sourceItem = vm.availableWidgets.remove(at: sourceIndex)
+//										vm.homeWidgets.insert(sourceItem, at: destinationIndex)
+//									}
+//								}
 						}
 					}
 				}
 			}
+			.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 		}
 		.padding()
 		.frame(maxWidth: 1200)
