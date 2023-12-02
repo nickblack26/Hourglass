@@ -13,7 +13,12 @@ struct TaskListView: View {
 	var tasks: [PublicTasksModel] = [
 		.init(id: UUID(), name: "Draft project brief", is_complete: false),
 		.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
-		.init(id: UUID(), name: "Share timeline with teammates", is_complete: false),
+		.init(id: UUID(), name: "Share timeline with teammates", is_complete: false, subtasks: [
+			.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
+			.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
+			.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
+			.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false)
+		]),
 	]
 	
     var body: some View {
@@ -22,22 +27,22 @@ struct TaskListView: View {
 				VStack(alignment: .leading, spacing: 0) {
 					Divider()
 					
-					HStack(spacing: 0) {
-						ForEach(columns.indices, id: \.self) { index in
-							if index == 0 {
-								TableCellView(width: 500, isFirst: true, text: columns[index], isLast: false, isHeader: true)
-							} else {
-								TableCellView(isFirst: true, text: columns[index], isLast: false,  isHeader: true)
-							}
-						}
-						
-						Button {
-							
-						} label: {
-							Image(systemName: "plus")
-						}
-						.padding(.horizontal)
-					}
+//					HStack(spacing: 0) {
+//						ForEach(columns.indices, id: \.self) { index in
+//							if index == 0 {
+//								TableDateCellView(width: 500, isFirst: true, text: columns[index], isLast: false, isHeader: true)
+//							} else {
+//								TableDateCellView(isFirst: true, text: columns[index], isLast: false,  isHeader: true)
+//							}
+//						}
+//						
+//						Button {
+//							
+//						} label: {
+//							Image(systemName: "plus")
+//						}
+//						.padding(.horizontal)
+//					}
 					
 					Divider()
 				}
@@ -46,7 +51,7 @@ struct TaskListView: View {
 					DisclosureGroup(section) {
 						HStack(spacing: 0) {
 							ForEach(tasks.indices, id: \.self) { index in
-								TableCellView(isFirst: index == 0, text: tasks[index].name, isLast: false , isHeader: false)
+//								TableDateCellView(isFirst: index == 0, text: tasks[index].name, isLast: false , isHeader: false)
 							}
 							
 							Text(" ")

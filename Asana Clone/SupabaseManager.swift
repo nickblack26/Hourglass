@@ -109,7 +109,7 @@ class SupabaseManger {
 	func getProject(id: UUID) async throws -> PublicProjectsModel {
 		let query = client.database
 			.from("projects")
-			.select(columns: "id, name, team: team_id(id, name), sections: project_sections(id, name, section_tasks: project_tasks(task: task_id(id, name, is_complete)))")
+			.select(columns: "id, name, team: team_id(id, name), sections: sections(id, name, section_tasks: project_tasks(task: task_id(id, name, is_complete)))")
 			.eq(column: "id", value: id)
 			.single()
 		

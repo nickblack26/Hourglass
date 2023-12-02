@@ -1,14 +1,8 @@
-//
-//  Asana_CloneApp.swift
-//  Asana Clone
-//
-//  Created by Nick on 6/21/23.
-//
-
 import SwiftUI
 
 @main
 struct Asana_CloneApp: App {
+	@UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
 	@State private var vm = UserDefaultsViewModel()
 	@State private var manager = SupabaseManger()
 	

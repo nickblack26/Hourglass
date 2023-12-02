@@ -167,7 +167,7 @@ struct TaskCardView: View {
 
 #Preview {
 	ZStack {
-		Color(.systemGray6)
+		Color(uiColor: .systemGray6)
 		TaskCardView(currentlyDragging: .constant(nil), currentlyDraggingSection: .constant(nil), task: .init(id: UUID(), name: "Task name", is_complete: false, end_date: Date(), subtasks: [
 			.init(id: UUID(), name: "First Subtask", is_complete: false),
 			.init(id: UUID(), name: "Second Subtask", is_complete: false),

@@ -15,8 +15,6 @@ struct TaskBoardView: View {
 	var sections: [PublicProjectSectionModel]
 	
 	init(sections: [PublicProjectSectionModel] = []) {
-		self.currentlyDraggingTask = nil
-		self.currentlyDraggingSection = nil
 		self._updatedSections = State(initialValue: sections)
 		self.sections = sections
 	}
@@ -105,7 +103,7 @@ struct TaskBoardView: View {
 					.frame(maxHeight: .infinity, alignment: .top)
 				} header: {
 					Button {
-						addSection()
+//						addSection()
 					} label: {
 						Label("Add section", systemImage: "plus")
 					}
@@ -128,7 +126,7 @@ struct TaskBoardView: View {
 	func addTask(_ section: PublicProjectSectionModel) {
 		if let section_tasks = section.section_tasks {
 			let task: PublicTasksModel = .init(id: UUID(), name: "Testing", is_complete: false)
-			let section_task: PublicProjectTaskModel = .init(project_id: <#T##PublicProjectsModel?#>, task: <#T##PublicTasksModel#>, section_id: <#T##PublicProjectSectionModel?#>)
+//			let section_task: PublicProjectTaskModel = .init(project_id: <#T##PublicProjectsModel?#>, task: <#T##PublicTasksModel#>, section_id: <#T##PublicProjectSectionModel?#>)
 //			section_tasks.append(.init(project_id: .init(id: UUID(), name: "Project"), task: task, section_id: section))
 		}
 	}

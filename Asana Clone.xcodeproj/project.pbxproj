@@ -18,7 +18,7 @@
 		0106F2EF2A4B98050010B058 /* MyTasksWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106F2EE2A4B98050010B058 /* MyTasksWidget.swift */; };
 		0106F2F42A4B99110010B058 /* MyTasksWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106F2F32A4B99110010B058 /* MyTasksWidgetViewModel.swift */; };
 		010C12F82A662964001C2722 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C12F72A662964001C2722 /* TaskListView.swift */; };
-		010C12FB2A662A1B001C2722 /* TableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C12FA2A662A1B001C2722 /* TableCellView.swift */; };
+		010C12FB2A662A1B001C2722 /* TableDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C12FA2A662A1B001C2722 /* TableDateCellView.swift */; };
 		010C12FD2A66397F001C2722 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C12FC2A66397F001C2722 /* Encodable+Extension.swift */; };
 		010D51FA2A44DD5E0030989B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D51F92A44DD5E0030989B /* HomeView.swift */; };
 		010D51FC2A44DD7A0030989B /* MyTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D51FB2A44DD7A0030989B /* MyTasksView.swift */; };
@@ -72,6 +72,11 @@
 		01EA484D2A47505C00B0E6C3 /* TeamsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA484C2A47505C00B0E6C3 /* TeamsModels.swift */; };
 		01EA484F2A4750C000B0E6C3 /* TasksModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA484E2A4750C000B0E6C3 /* TasksModels.swift */; };
 		01EA48512A48FB0000B0E6C3 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA48502A48FB0000B0E6C3 /* HomeViewModel.swift */; };
+		1D578D9F2B1A270A005AAB54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D578D9E2B1A270A005AAB54 /* AppDelegate.swift */; };
+		1D578DA12B1A2721005AAB54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D578DA02B1A2721005AAB54 /* SceneDelegate.swift */; };
+		1D6031FE2B1A2BF100ECEB91 /* TaskTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6031FD2B1A2BF100ECEB91 /* TaskTableView.swift */; };
+		1D6032002B1A7D5B00ECEB91 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6031FF2B1A7D5B00ECEB91 /* SectionModel.swift */; };
+		1D6032022B1A87F900ECEB91 /* PreviewMockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6032012B1A87F900ECEB91 /* PreviewMockedData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,7 +93,7 @@
 		0106F2EE2A4B98050010B058 /* MyTasksWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTasksWidget.swift; sourceTree = "<group>"; };
 		0106F2F32A4B99110010B058 /* MyTasksWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTasksWidgetViewModel.swift; sourceTree = "<group>"; };
 		010C12F72A662964001C2722 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
-		010C12FA2A662A1B001C2722 /* TableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellView.swift; sourceTree = "<group>"; };
+		010C12FA2A662A1B001C2722 /* TableDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDateCellView.swift; sourceTree = "<group>"; };
 		010C12FC2A66397F001C2722 /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
 		010D51F92A44DD5E0030989B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		010D51FB2A44DD7A0030989B /* MyTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTasksView.swift; sourceTree = "<group>"; };
@@ -141,6 +146,11 @@
 		01EA484C2A47505C00B0E6C3 /* TeamsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsModels.swift; sourceTree = "<group>"; };
 		01EA484E2A4750C000B0E6C3 /* TasksModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksModels.swift; sourceTree = "<group>"; };
 		01EA48502A48FB0000B0E6C3 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		1D578D9E2B1A270A005AAB54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1D578DA02B1A2721005AAB54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		1D6031FD2B1A2BF100ECEB91 /* TaskTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableView.swift; sourceTree = "<group>"; };
+		1D6031FF2B1A7D5B00ECEB91 /* SectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
+		1D6032012B1A87F900ECEB91 /* PreviewMockedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMockedData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +194,8 @@
 				0100F5ED2A43F3F4001BD781 /* Asana_Clone.entitlements */,
 				0100F5EE2A43F3F4001BD781 /* Preview Content */,
 				018D8D312A45403400324A79 /* SupabaseManager.swift */,
+				1D578D9E2B1A270A005AAB54 /* AppDelegate.swift */,
+				1D578DA02B1A2721005AAB54 /* SceneDelegate.swift */,
 			);
 			path = "Asana Clone";
 			sourceTree = "<group>";
@@ -192,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				0100F5EF2A43F3F4001BD781 /* Preview Assets.xcassets */,
+				1D6032012B1A87F900ECEB91 /* PreviewMockedData.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -233,7 +246,7 @@
 		010C12F92A662A0A001C2722 /* Table */ = {
 			isa = PBXGroup;
 			children = (
-				010C12FA2A662A1B001C2722 /* TableCellView.swift */,
+				010C12FA2A662A1B001C2722 /* TableDateCellView.swift */,
 			);
 			path = Table;
 			sourceTree = "<group>";
@@ -242,9 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				010C12F92A662A0A001C2722 /* Table */,
-				018DF6762A5E101600752C32 /* New Group */,
 				01A142082A5C63690090BDEF /* Goal */,
-				01A142072A5C63620090BDEF /* Portfolio */,
 				01A142062A5C635A0090BDEF /* Dashboard */,
 				01DF50742A570C5100768649 /* Project */,
 				019144782A56FC6A00F33151 /* Sidebar */,
@@ -268,6 +279,7 @@
 				010C12F72A662964001C2722 /* TaskListView.swift */,
 				017C8BCC2A69CF72006A2C74 /* TaskCardView.swift */,
 				017C8BCE2A69E435006A2C74 /* TaskBoardView.swift */,
+				1D6031FD2B1A2BF100ECEB91 /* TaskTableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -314,13 +326,6 @@
 			path = "View Models";
 			sourceTree = "<group>";
 		};
-		018DF6762A5E101600752C32 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		018DF67A2A5EEAAC00752C32 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,13 +358,6 @@
 				01A142092A5C63770090BDEF /* NewDashboardModal.swift */,
 			);
 			path = Dashboard;
-			sourceTree = "<group>";
-		};
-		01A142072A5C63620090BDEF /* Portfolio */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Portfolio;
 			sourceTree = "<group>";
 		};
 		01A142082A5C63690090BDEF /* Goal */ = {
@@ -407,6 +405,7 @@
 				01EA484E2A4750C000B0E6C3 /* TasksModels.swift */,
 				0106F2EC2A4B83210010B058 /* WidgetOptionModel.swift */,
 				01A1420B2A5C6D120090BDEF /* ChartModel.swift */,
+				1D6031FF2B1A7D5B00ECEB91 /* SectionModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -501,6 +500,7 @@
 				010D52022A44DD9E0030989B /* PortfolioView.swift in Sources */,
 				01A142052A5C562B0090BDEF /* ContentDetail.swift in Sources */,
 				0100F5EA2A43F3F3001BD781 /* ContentView.swift in Sources */,
+				1D6031FE2B1A2BF100ECEB91 /* TaskTableView.swift in Sources */,
 				018BCE402A49E75800F2E7B8 /* AchievmentsWidgetView.swift in Sources */,
 				017C8BCF2A69E435006A2C74 /* TaskBoardView.swift in Sources */,
 				010D51FE2A44DD850030989B /* InboxView.swift in Sources */,
@@ -526,7 +526,10 @@
 				01EA484F2A4750C000B0E6C3 /* TasksModels.swift in Sources */,
 				018BCE3D2A49DEB600F2E7B8 /* VerifyEmail.swift in Sources */,
 				010D51FC2A44DD7A0030989B /* MyTasksView.swift in Sources */,
+				1D578D9F2B1A270A005AAB54 /* AppDelegate.swift in Sources */,
+				1D6032002B1A7D5B00ECEB91 /* SectionModel.swift in Sources */,
 				018D8D292A453B0800324A79 /* UserDefaultsViewModel.swift in Sources */,
+				1D6032022B1A87F900ECEB91 /* PreviewMockedData.swift in Sources */,
 				011B11B42A56518E004D44A4 /* UserSettingsGeneralTab.swift in Sources */,
 				010D52042A44DDA90030989B /* GoalView.swift in Sources */,
 				01A142102A5C7A8B0090BDEF /* NewGenericGoal.swift in Sources */,
@@ -538,9 +541,10 @@
 				01EA484B2A474C5900B0E6C3 /* UserModels.swift in Sources */,
 				011B11B82A566643004D44A4 /* UserSettingsEmailForwardingTab.swift in Sources */,
 				011B11C22A567649004D44A4 /* ProfileView.swift in Sources */,
-				010C12FB2A662A1B001C2722 /* TableCellView.swift in Sources */,
+				010C12FB2A662A1B001C2722 /* TableDateCellView.swift in Sources */,
 				01A1420C2A5C6D120090BDEF /* ChartModel.swift in Sources */,
 				018BCE422A49F3E800F2E7B8 /* CardView.swift in Sources */,
+				1D578DA12B1A2721005AAB54 /* SceneDelegate.swift in Sources */,
 				01DF50792A57195600768649 /* ProjectListTab.swift in Sources */,
 				01743B842A4F2ED1002CBC30 /* ProjectTile.swift in Sources */,
 				0106F2ED2A4B83210010B058 /* WidgetOptionModel.swift in Sources */,
@@ -706,7 +710,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nicholasblack.Asana-Clone";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -745,7 +750,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nicholasblack.Asana-Clone";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -7,7 +7,18 @@
 
 import SwiftUI
 
-enum TaskView: String, CaseIterable, Identifiable {
+let testTasks: [PublicTasksModel] = [
+		.init(id: UUID(), name: "Draft project brief", is_complete: false),
+		.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
+		.init(id: UUID(), name: "Share timeline with teammates", is_complete: false, subtasks: [
+		.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
+		.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
+		.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
+		.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false)
+	]),
+]
+
+enum MyTaskTab: String, CaseIterable, Identifiable {
 	var id: Self {
 		return self
 	}
@@ -18,8 +29,11 @@ enum TaskView: String, CaseIterable, Identifiable {
 }
 
 struct MyTasksView: View {
+	@Environment(SupabaseManger.self) private var supabase
+	@State private var tasks: [PublicTasksModel] = []
+	@State private var sections: [SectionModel] = []
 	@State private var vm = MyTasksViewModel()
-	@State private var view: TaskView = .list
+	@State private var view: MyTaskTab = .list
 	@State private var selectedTasks = Set<PublicTasksModel.ID>()
 	@State private var sortOrder = [KeyPathComparator(\PublicTasksModel.name)]
 	
@@ -34,11 +48,11 @@ struct MyTasksView: View {
 				
 				VStack(alignment: .leading) {
 					Text("My Tasks")
-						.font(.title3)
+						.font(.title2)
 						.fontWeight(.bold)
 					
 					Picker("", selection: $view) {
-						ForEach(TaskView.allCases) { view in
+						ForEach(MyTaskTab.allCases) { view in
 							Text(view.rawValue)
 								.tag(view)
 						}
@@ -51,55 +65,42 @@ struct MyTasksView: View {
 			
 			Divider()
 			
-//			Table(state.animals, selection: $state.selection) {
-//				TableColumn("Name") { animal in
-//					HStack {
-//						Text(animal.emoji).font(.title)
-//							.padding(2)
-//							.background(.thickMaterial, in: RoundedRectangle(cornerRadius: 3))
-//						Text(animal.name + " " + animal.species).font(.title3)
-//					}
-//				}
-//				TableColumn("Favorite Fruits") { animal in
-//					HStack {
-//						ForEach(animal.favoriteFruits.prefix(3)) { fruit in
-//							FruitImage(fruit: fruit, size: .init(width: fruitWidth, height: fruitWidth), scale: 2.0, bordered: state.selection == animal.id)
-//						}
-//					}
-//					.padding(3.5)
-//				}
-//				TableColumn("Suspicion Level") { animal in
-//					SuspicionTableCell(animal: animal)
-//				}
-//			}
-//#if os(macOS)
-//			.alternatingRowBackgrounds(.disabled)
-//#endif
-//			.tableStyle(.inset)
+			TaskTableView([])
 			
-			Table(vm.recentTasks, selection: $selectedTasks) {
-				TableColumn("") {
-					Text($0.is_complete ? "Yes" : "No")
-				}.width(25)
-				
-				TableColumn("Task name", value: \.name)
-				
-				TableColumn("Due date") { task in
-					if(task.end_date != nil) {
-						Text(task.end_date!.formatted(date: .numeric, time: .omitted))
-					} 
-				}
-				
-			}
 		}
-		.toolbar {
-			EditButton()
-		}
+//		.task {
+//			let query = supabase.client.database
+//				.from("sections")
+//				.select(columns: """
+//					id,
+//					name,
+//					project: project_id(id, name),
+//					user: user_id(id, name),
+//					section_tasks: section_tasks(id, name)
+//					is_default,
+//					order
+//				""")
+//			
+//			do {
+//				self.sections = try await supabase.makeRequest(
+//					[SectionModel.self],
+//					query: query
+//				)
+//				print(sections)
+//			} catch {
+//				print(error.localizedDescription)
+//			}
+//		}
+//		.toolbar {
+//			EditButton()
+//		}
 	}
 }
 
 #Preview {
-	NavigationStack {
+	@Environment(SupabaseManger.self) var supabase
+	return NavigationStack {
 		MyTasksView()
+			.environment(supabase)
 	}
 }

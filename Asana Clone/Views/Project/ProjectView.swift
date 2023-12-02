@@ -74,7 +74,7 @@ struct ProjectView: View {
 					.tag(ProjectTab.list)
 					.padding()
 				
-				TaskBoardView(sections: project?.sections)
+				TaskBoardView(sections: project?.sections ?? [])
 					.tag(ProjectTab.board)
 					.padding()
 			}
@@ -89,7 +89,7 @@ struct ProjectView: View {
 	private func getProject() async {
 		let query = manager.client.database
 			.from("projects")
-			.select(columns: "id, name, team: team_id(id, name), sections: project_sections(id, name, section_tasks: project_tasks(task: task_id(id, name, is_complete)))")
+			.select(columns: "id, name, team: team_id(id, name), sections: sections(id, name, section_tasks: project_tasks(task: task_id(id, name, is_complete)))")
 			.eq(column: "id", value: self.project_id)
 			.single()
 		

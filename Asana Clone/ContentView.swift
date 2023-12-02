@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Asana Clone
-//
-//  Created by Nick on 6/21/23.
-//
-
 import SwiftUI
 
 struct ContentView: View {
