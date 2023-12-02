@@ -266,16 +266,10 @@
 				010D51F92A44DD5E0030989B /* HomeView.swift */,
 				010D51FB2A44DD7A0030989B /* MyTasksView.swift */,
 				010D51FD2A44DD850030989B /* InboxView.swift */,
-				010D51FF2A44DD920030989B /* DashboardView.swift */,
 				010D52012A44DD9E0030989B /* PortfolioView.swift */,
-				010D52032A44DDA90030989B /* GoalView.swift */,
 				010D52072A44DDC00030989B /* TeamView.swift */,
 				018D8D2A2A453C4400324A79 /* LoginView.swift */,
-				018BCE412A49F3E800F2E7B8 /* CardView.swift */,
-				01ACCD142A4A95F5003E59B8 /* NotificationView.swift */,
-				01743B832A4F2ED1002CBC30 /* ProjectTile.swift */,
 				01A142042A5C562B0090BDEF /* ContentDetail.swift */,
-				01A1420D2A5C6F970090BDEF /* ChartSelector.swift */,
 				010C12F72A662964001C2722 /* TaskListView.swift */,
 				017C8BCC2A69CF72006A2C74 /* TaskCardView.swift */,
 				017C8BCE2A69E435006A2C74 /* TaskBoardView.swift */,
@@ -338,6 +332,9 @@
 		018E72302A49FB3D001481F3 /* Miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
+				01A1420D2A5C6F970090BDEF /* ChartSelector.swift */,
+				01ACCD142A4A95F5003E59B8 /* NotificationView.swift */,
+				018BCE412A49F3E800F2E7B8 /* CardView.swift */,
 				018E72312A49FB4A001481F3 /* SwatchView.swift */,
 				018DF6772A5E103900752C32 /* AvatarView.swift */,
 			);
@@ -355,6 +352,7 @@
 		01A142062A5C635A0090BDEF /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				010D51FF2A44DD920030989B /* DashboardView.swift */,
 				01A142092A5C63770090BDEF /* NewDashboardModal.swift */,
 			);
 			path = Dashboard;
@@ -363,6 +361,7 @@
 		01A142082A5C63690090BDEF /* Goal */ = {
 			isa = PBXGroup;
 			children = (
+				010D52032A44DDA90030989B /* GoalView.swift */,
 				01A1420F2A5C7A8B0090BDEF /* NewGenericGoal.swift */,
 			);
 			path = Goal;
@@ -371,6 +370,7 @@
 		01DF50742A570C5100768649 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				01743B832A4F2ED1002CBC30 /* ProjectTile.swift */,
 				010D52052A44DDB40030989B /* ProjectView.swift */,
 				01DF50752A570C5C00768649 /* Project View Tabs */,
 				01743B852A4F3371002CBC30 /* New Project */,
