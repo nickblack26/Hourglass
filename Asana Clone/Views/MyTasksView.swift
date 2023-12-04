@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-let testTasks: [PublicTasksModel] = [
-		.init(id: UUID(), name: "Draft project brief", is_complete: false),
-		.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
-		.init(id: UUID(), name: "Share timeline with teammates", is_complete: false, subtasks: [
-		.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
-		.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
-		.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
-		.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false)
-	]),
-]
-
 enum MyTaskTab: String, CaseIterable, Identifiable {
 	var id: Self {
 		return self
@@ -30,12 +19,9 @@ enum MyTaskTab: String, CaseIterable, Identifiable {
 
 struct MyTasksView: View {
 	@Environment(SupabaseManger.self) private var supabase
-	@State private var tasks: [PublicTasksModel] = []
 	@State private var sections: [SectionModel] = []
-	@State private var vm = MyTasksViewModel()
-	@State private var view: MyTaskTab = .list
-	@State private var selectedTasks = Set<PublicTasksModel.ID>()
-	@State private var sortOrder = [KeyPathComparator(\PublicTasksModel.name)]
+	@State private var tabProgress: CGFloat = 0
+	@State private var selectedTab: MyTaskTab? = .list
 	
 	var body: some View {
 		VStack(alignment: .leading) {
@@ -43,21 +29,55 @@ struct MyTasksView: View {
 				Image("profile")
 					.resizable()
 					.scaledToFill()
-					.frame(width: 50, height: 50)
+					.frame(width: 72, height: 72)
 					.cornerRadius(50)
 				
 				VStack(alignment: .leading) {
-					Text("My Tasks")
-						.font(.title2)
-						.fontWeight(.bold)
+					Text("My tasks")
 					
-					Picker("", selection: $view) {
-						ForEach(MyTaskTab.allCases) { view in
-							Text(view.rawValue)
-								.tag(view)
+					
+					HStack(spacing: 0) {
+						ForEach(MyTaskTab.allCases) { tab in
+							Button(tab.rawValue) {
+								withAnimation {
+									selectedTab = tab
+								}
+							}
+							.padding(.horizontal)
 						}
 					}
-					.pickerStyle(.segmented)
+					.background {
+						GeometryReader {
+							let size = $0.size
+							let lineWidth = size.width / CGFloat(MyTaskTab.allCases.count)
+							
+							Capsule()
+								.frame(
+									width: lineWidth,
+									height: 2
+								)
+								.frame(
+									maxHeight: .infinity,
+									alignment: .bottom
+								)
+								.offset(
+									x: tabProgress * (size.width - lineWidth)
+								)
+						}
+					}
+				}
+				
+				Spacer()
+				
+				Button("Share", systemImage: "lock.fill") {
+					
+				}
+				
+				Divider()
+					.frame(maxHeight: 50)
+				
+				Button("Share", systemImage: "lock.fill") {
+					
 				}
 			}
 			.padding(.horizontal)
@@ -65,8 +85,21 @@ struct MyTasksView: View {
 			
 			Divider()
 			
-			TaskTableView([])
-			
+			ScrollView(.horizontal) {
+				LazyHStack(spacing: 16) {
+					TaskTableView([])
+						.containerRelativeFrame(.horizontal)
+					
+					TaskBoardView(sections: [])
+						.containerRelativeFrame(.horizontal)
+					
+					Text("Hello")
+						.containerRelativeFrame(.horizontal)
+				}
+			}
+			.scrollPosition(id: $selectedTab)
+			.scrollIndicators(.hidden)
+			.scrollTargetBehavior(.paging)
 		}
 //		.task {
 //			let query = supabase.client.database
@@ -104,3 +137,4 @@ struct MyTasksView: View {
 			.environment(supabase)
 	}
 }
+
