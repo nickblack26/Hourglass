@@ -90,25 +90,25 @@ struct HomeView: View {
 			LazyVGrid(columns: [GridItem(),GridItem()], spacing: 0) {
 				ForEach(defaultWidgets) { widget in
 					ZStack {
-						switch widget.type {
-							case .myTasks:
-								Text(widget.name)
-							case .people:
-								Text(widget.name)
-							case .projects:
-								Text(widget.name)
-							case .notepad:
-								Text(widget.name)
-							case .tasksAssigned:
-								Text(widget.name)
-							case .draftComments:
-								Text(widget.name)
-							case .forms:
-								Text(widget.name)
-							case .myGoals:
-								Text(widget.name)
-								
-						}
+//						switch widget.type {
+//							case .myTasks:
+//								Text(widget.name)
+//							case .people:
+//								Text(widget.name)
+//							case .projects:
+//								Text(widget.name)
+//							case .notepad:
+//								Text(widget.name)
+//							case .tasksAssigned:
+//								Text(widget.name)
+//							case .draftComments:
+//								Text(widget.name)
+//							case .forms:
+//								Text(widget.name)
+//							case .myGoals:
+//								Text(widget.name)
+//								
+//						}
 					}
 					.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 					.dropDestination(for: WidgetOptionModel.self) { items, location in
