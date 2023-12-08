@@ -10,7 +10,7 @@ import SwiftUI
 struct UserSettingsProfileTab: View {
 	@State private var name: String = ""
 	@State private var ooo: Bool = false
-	@State private var vm = UserSettingsProfileTabViewModel()
+    var member: MemberModel
 
     var body: some View {
 		Form {
@@ -49,24 +49,24 @@ struct UserSettingsProfileTab: View {
 			
 			Section {
 				HStack {
-					TextField("Your full name", text: $vm.fullName)
-					TextField("Pronouns", text: $vm.pronouns)
+//					TextField("Your full name", text: $vm.fullName)
+//					TextField("Pronouns", text: $vm.pronouns)
 				}
 				HStack {
-					TextField("Job title", text: $vm.jobTitle)
-					TextField("Department or team", text: $vm.area)
+//					TextField("Job title", text: $vm.jobTitle)
+//					TextField("Department or team", text: $vm.area)
 				}
-				TextField("Email", text: $vm.email)
+//				TextField("Email", text: $vm.email)
 								
-				TextField("I usually work from 9am-5pm PST. Feel free to assign me a task with a due date anytime. Also, I love dogs!", text: $vm.about, axis: .vertical)
-					.lineLimit(3, reservesSpace: true)
+//				TextField("I usually work from 9am-5pm PST. Feel free to assign me a task with a due date anytime. Also, I love dogs!", text: $vm.about, axis: .vertical)
+//					.lineLimit(3, reservesSpace: true)
 				
 				
 			}
 			
 			Section {
-				Toggle("Set out of office", isOn: $vm.outOfOffice)
-				Toggle("Allow others in your organization to see when you're active in Asana", isOn: $vm.allowOutsideObservation)
+//				Toggle("Set out of office", isOn: $vm.outOfOffice)
+//				Toggle("Allow others in your organization to see when you're active in Asana", isOn: $vm.allowOutsideObservation)
 			}
 			
 			Section("Invite type") {
@@ -78,5 +78,5 @@ struct UserSettingsProfileTab: View {
 }
 
 #Preview {
-    UserSettingsProfileTab()
+    UserSettingsProfileTab(member: .preview)
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 import SwiftUI
 
 enum ProjectColor: CaseIterable {
@@ -46,47 +47,6 @@ enum ProjectColor: CaseIterable {
 			case .coolGray: Color(.darkGray)
 		}
 	}
-}
-
-struct PublicProjectsModel: Identifiable, Codable {
-	var id: UUID
-	var name: String
-	var team: PublicTeamsModel?
-	var user_id: PublicUsersModel?
-	var is_private: Bool?
-	var due_date: Date?
-	var is_archived: Bool?
-	var sections: [PublicProjectSectionModel]?
-	var members: [PublicProjectUserModel]?
-}
-
-struct PublicProjectUserModel: Codable {
-	var project_id: PublicProjectsModel?
-	var user_id: PublicUsersModel
-	var role: String?
-}
-
-struct PublicProjectTaskModel: Codable {
-	var project_id: PublicProjectsModel?
-	var task: PublicTasksModel
-	var section_id: PublicProjectSectionModel?
-}
-
-struct PublicProjectSectionModel: Identifiable, Codable {
-	var id: UUID
-	var name: String
-	var project_id: PublicProjectsModel?
-	var section_tasks: [PublicProjectTaskModel]? = []
-}
-
-struct PublicProjectServerModel: Codable {
-	var name: String
-	var team_id: UUID?
-	var user_id: UUID?
-	var due_date: Date?
-	var is_archived: Bool?
-	var is_private: Bool
-	var default_view: String
 }
 
 enum PrivacyStatus: String, CaseIterable, Codable {
@@ -133,3 +93,29 @@ enum FirstStep: String, CaseIterable {
 		}
 	}
 }
+
+@Model
+class ProjectModel {
+    var name: String
+    var startDate: Date?
+    var endDate: Date?
+    var details: String?
+    var owner: MemberModel
+    var team: TeamModel
+    var tasks: [TaskModel]
+    var members: [MemberModel]
+    var sections: [SectionModel]
+    
+    init(name: String, startDate: Date? = nil, endDate: Date? = nil, details: String? = nil, owner: MemberModel, team: TeamModel, tasks: [TaskModel] = [], members: [MemberModel] = [], sections: [SectionModel] = []) {
+        self.name = name
+        self.startDate = startDate
+        self.endDate = endDate
+        self.details = details
+        self.owner = owner
+        self.team = team
+        self.tasks = tasks
+        self.members = members
+        self.sections = sections
+    }
+}
+

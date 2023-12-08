@@ -1,10 +1,3 @@
-//
-//  ContentDetail.swift
-//  Asana Clone
-//
-//  Created by Nick on 7/10/23.
-//
-
 import SwiftUI
 
 struct ContentDetail: View {
@@ -24,8 +17,8 @@ struct ContentDetail: View {
 				PortfolioView()
 			case .goals:
 				GoalView()
-			case .project(let uuid):
-				ProjectView(project_id: uuid)
+			case .project(let project):
+				ProjectView(project)
 			case .team(_):
 				TeamView()
 			case nil:

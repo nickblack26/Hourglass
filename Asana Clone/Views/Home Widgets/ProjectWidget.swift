@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProjectWidget: View {
-	@State private var vm = ProjectsWidgetViewModel()
 	
 	// eventually be able to pass the amount of columns to show
 	// this will depend on whether or not the card is full width or not
@@ -36,26 +35,26 @@ struct ProjectWidget: View {
 						Text("Create project")
 					}
 				}
-				ForEach(vm.projects) { project in
-					HStack {
-						Image(systemName: "list.bullet")
-							.symbolRenderingMode(.hierarchical)
-							.padding()
-							.background {
-								RoundedRectangle(cornerRadius: 5)
-									.fill(.mint)
-							}
-						VStack(alignment: .leading) {
-							Text(project.name)
-								.lineLimit(1)
-								.fontWeight(.semibold)
-							
-							Text("3 tasks due soon")
-								.foregroundStyle(.secondary)
-								.lineLimit(1)
-						}
-					}
-				}
+//				ForEach(vm.projects) { project in
+//					HStack {
+//						Image(systemName: "list.bullet")
+//							.symbolRenderingMode(.hierarchical)
+//							.padding()
+//							.background {
+//								RoundedRectangle(cornerRadius: 5)
+//									.fill(.mint)
+//							}
+//						VStack(alignment: .leading) {
+//							Text(project.name)
+//								.lineLimit(1)
+//								.fontWeight(.semibold)
+//							
+//							Text("3 tasks due soon")
+//								.foregroundStyle(.secondary)
+//								.lineLimit(1)
+//						}
+//					}
+//				}
 			}
 			
 //			LazyVGrid(alignment: .center) {

@@ -44,7 +44,7 @@ struct UserSettingsProfileModal: View {
 				UserSettingsGeneralTab()
 					.tag(UserSettingsTab.general)
 				
-				UserSettingsProfileTab()
+                UserSettingsProfileTab(member: .preview)
 					.tag(UserSettingsTab.profile)
 				
 				UserSettingsNotificationsTab()

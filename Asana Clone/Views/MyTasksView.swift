@@ -1,11 +1,5 @@
-//
-//  MyTasksView.swift
-//  Asana Clone
-//
-//  Created by Nick on 6/22/23.
-//
-
 import SwiftUI
+import SwiftData
 
 enum MyTaskTab: String, CaseIterable, Identifiable {
 	var id: Self {
@@ -18,8 +12,7 @@ enum MyTaskTab: String, CaseIterable, Identifiable {
 }
 
 struct MyTasksView: View {
-	@Environment(SupabaseManger.self) private var supabase
-	@State private var sections: [SectionModel] = []
+    @Query var sections: [SectionModel]
 	@State private var tabProgress: CGFloat = 0
 	@State private var selectedTab: MyTaskTab? = .list
 	
@@ -87,10 +80,10 @@ struct MyTasksView: View {
 			
 			ScrollView(.horizontal) {
 				LazyHStack(spacing: 16) {
-					TaskTableView([])
+					TaskTableView(sections)
 						.containerRelativeFrame(.horizontal)
 					
-					TaskBoardView(sections: [])
+					TaskBoardView([])
 						.containerRelativeFrame(.horizontal)
 					
 					Text("Hello")
@@ -101,29 +94,6 @@ struct MyTasksView: View {
 			.scrollIndicators(.hidden)
 			.scrollTargetBehavior(.paging)
 		}
-//		.task {
-//			let query = supabase.client.database
-//				.from("sections")
-//				.select(columns: """
-//					id,
-//					name,
-//					project: project_id(id, name),
-//					user: user_id(id, name),
-//					section_tasks: section_tasks(id, name)
-//					is_default,
-//					order
-//				""")
-//			
-//			do {
-//				self.sections = try await supabase.makeRequest(
-//					[SectionModel.self],
-//					query: query
-//				)
-//				print(sections)
-//			} catch {
-//				print(error.localizedDescription)
-//			}
-//		}
 //		.toolbar {
 //			EditButton()
 //		}
@@ -131,10 +101,8 @@ struct MyTasksView: View {
 }
 
 #Preview {
-	@Environment(SupabaseManger.self) var supabase
 	return NavigationStack {
 		MyTasksView()
-			.environment(supabase)
 	}
 }
 

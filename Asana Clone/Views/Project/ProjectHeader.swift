@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProjectHeader: View {
 	@Binding var selectedTab: ProjectTab
-	var project: PublicProjectsModel
+	var project: ProjectModel
 	
     var body: some View {
 		HStack {
@@ -166,5 +166,5 @@ struct ProjectHeader: View {
 }
 
 #Preview {
-	ProjectHeader(selectedTab: .constant(.board), project: .init(id: UUID(), name: "name"))
+    ProjectHeader(selectedTab: .constant(.board), project: .preview)
 }

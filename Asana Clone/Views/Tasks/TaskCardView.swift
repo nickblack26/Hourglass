@@ -10,23 +10,11 @@ import SwiftUI
 struct TaskCardView: View {
 	@State private var showSubtasks: Bool = false
 	@State private var isHovering: Bool = false
-	@Binding var currentlyDragging: PublicTasksModel?
-	@Binding var currentlyDraggingSection: PublicProjectSectionModel?
-	var task: PublicTasksModel
-	var section: PublicProjectSectionModel
-	
-	//	let task: PublicTasksModel = .init(id: UUID(), name: "First Task", is_complete: false)
-	
-	let subtasks: [PublicTasksModel] = [
-		.init(id: UUID(), name: "First Subtask", is_complete: false),
-		.init(id: UUID(), name: "Second Subtask", is_complete: false),
-		.init(id: UUID(), name: "Third Subtask", is_complete: false),
-		.init(id: UUID(), name: "Fourth Subtask", is_complete: false),
-		.init(id: UUID(), name: "Fifth Subtask", is_complete: false),
-		.init(id: UUID(), name: "Sixth Subtask", is_complete: false),
-		.init(id: UUID(), name: "Seventh Subtask", is_complete: false)
-	]
-	
+	@Binding var currentlyDragging: TaskModel?
+	@Binding var currentlyDraggingSection: SectionModel?
+	var task: TaskModel
+	var section: SectionModel
+		
 	let columns = Array(repeating: GridItem(), count: 5)
 	
 	var body: some View {
@@ -63,7 +51,7 @@ struct TaskCardView: View {
 //						task.is_complete.toggle()
 					}
 				} label: {
-					if task.is_complete {
+					if task.isCompleted {
 						Image(systemName: "checkmark.circle.fill")
 							.foregroundStyle(.green)
 							.listRowSeparator(.hidden)
@@ -80,7 +68,7 @@ struct TaskCardView: View {
 			HStack {
 				AvatarView(image: "IMG_0455.jpeg", fallback: "Nick Black", size: .tiny)
 				
-				if let endDate = task.end_date {
+				if let endDate = task.endDate {
 					Text(endDate, format: Date.FormatStyle().day().month())
 						.font(.caption)
 						.foregroundStyle(.green)
@@ -155,27 +143,19 @@ struct TaskCardView: View {
 			isHovering = hovering
 		}
 		.background(.white)
-		.draggable(task.id.uuidString) {
-			TaskCardView(currentlyDragging: .constant(nil), currentlyDraggingSection: .constant(nil), task: task, section: section)
-				.onAppear {
-					currentlyDragging = task
-					currentlyDraggingSection = section
-				}
-		}
+//        .draggable(task.id) {
+//			TaskCardView(currentlyDragging: .constant(nil), currentlyDraggingSection: .constant(nil), task: task, section: section)
+//				.onAppear {
+//					currentlyDragging = task
+//					currentlyDraggingSection = section
+//				}
+//		}
 	}
 }
 
 #Preview {
 	ZStack {
 		Color(uiColor: .systemGray6)
-		TaskCardView(currentlyDragging: .constant(nil), currentlyDraggingSection: .constant(nil), task: .init(id: UUID(), name: "Task name", is_complete: false, end_date: Date(), subtasks: [
-			.init(id: UUID(), name: "First Subtask", is_complete: false),
-			.init(id: UUID(), name: "Second Subtask", is_complete: false),
-			.init(id: UUID(), name: "Third Subtask", is_complete: false),
-			.init(id: UUID(), name: "Fourth Subtask", is_complete: false),
-			.init(id: UUID(), name: "Fifth Subtask", is_complete: false),
-			.init(id: UUID(), name: "Sixth Subtask", is_complete: false),
-			.init(id: UUID(), name: "Seventh Subtask", is_complete: false)
-		]), section: .init(id: UUID(), name: "testing"))
+        TaskCardView(currentlyDragging: .constant(nil), currentlyDraggingSection: .constant(nil), task: .preview[0], section: .preview)
 	}
 }

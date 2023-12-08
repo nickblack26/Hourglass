@@ -1,23 +1,15 @@
-//
-//  HomeView.swift
-//  Asana Clone
-//
-//  Created by Nick on 6/22/23.
-//
-
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
-	@State private var vm = HomeViewModel.shared
+    @Query private var tasks: [TaskModel]
 	@State private var taskTab: String = "Upcoming"
-	@State private var selectedTask: PublicTasksModel? = nil
+	@State private var selectedTask: TaskModel? = nil
 	@State private var openSheet: Bool = false
 	@State private var showInspector: Bool = false
 	@State private var colorScheme: ColorScheme = .white
 	@Environment(\.colorScheme) var backgroundColor
-	
-	//	@Environment(UserDefaultsViewModel.self) private var userDefaults
-	
+		
 	func getFormattedDate() -> String {
 		let today = Date()
 		let calendar = Calendar.current
@@ -52,7 +44,6 @@ struct HomeView: View {
 	}
 	
 	var body: some View {
-		
 		VStack {
 			VStack {
 				Text("\(getFormattedDate())")
@@ -68,7 +59,7 @@ struct HomeView: View {
 				Spacer()
 				Spacer()
 				
-				AchievmentsWidgetView(number: 1, collaborators: 1)
+                AchievmentsWidgetView(number: tasks.count, collaborators: 1)
 				
 				Spacer()
 				
@@ -115,17 +106,16 @@ struct HomeView: View {
 						return false
 					} isTargeted: { status in
 						let option = widget
-						let draggingItem = vm.draggingItem
 						
 						
-						if let draggingItem, status, draggingItem != option {
+//						if let draggingItem, status, draggingItem != option {
 //								if let sourceIndex = vm.availableWidgets.firstIndex(of: draggingItem), let destinationIndex = vm.homeWidgets.firstIndex(of: vm.homeWidgets[index]) {
 //									withAnimation {
 //										let sourceItem = vm.availableWidgets.remove(at: sourceIndex)
 //										vm.homeWidgets.insert(sourceItem, at: destinationIndex)
 //									}
 //								}
-						}
+//						}
 					}
 				}
 			}

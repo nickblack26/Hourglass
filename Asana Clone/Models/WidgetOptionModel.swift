@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreTransferable
-let manager = SupabaseManger.shared
 
 struct WidgetOptionModel: Identifiable, Codable, Hashable {
 	var id: UUID

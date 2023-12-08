@@ -1,52 +1,25 @@
-//
-//  PreviewMockedData.swift
-//  Asana Clone
-//
-//  Created by Nick Black on 12/1/23.
-//
-
 import Foundation
 
-extension PublicProjectsModel {
-	static var preview = PublicProjectsModel(id: UUID(), name: "Hourglass")
+extension TeamModel {
+    static var preview = TeamModel(name: "Engineering", members: [], projects: [])
 }
 
-extension PublicUsersModel {
-	static var preview = PublicUsersModel(id: UUID(), name: "Hourglass")
+extension ProjectModel {
+    static var preview = ProjectModel(name: "Hourglass", owner: .preview, team: .preview)
 }
 
-extension PublicTasksModel {
-	static var preview: [PublicTasksModel] = [
-		.init(id: UUID(), name: "Draft project brief", is_complete: false),
-		.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
-		.init(id: UUID(), name: "Share timeline with teammates", is_complete: false, subtasks: [
-			.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
-			.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
-			.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false),
-			.init(id: UUID(), name: "Schedule kickoff meeting", is_complete: false)
-		])
-	]
-}
-
-extension SectionTask {
-	static var preview: [SectionTask] = PublicTasksModel.preview.map { task in
-		return SectionTask(section: .preview, task: task)
-	}
+extension MemberModel {
+    static var preview = MemberModel(name: "Nick Black", email: "nicholas.black98@icloud.com")
 }
 
 extension SectionModel {
-	static var preview = SectionModel(
-		id: UUID(),
-		name: "📬 New tasks",
-		project: .preview,
-		isDefault: true,
-		user: .preview,
-		order: 0,
-		tasks: 
-			PublicTasksModel.preview.map { task in
-				return .init(section: .init(id: UUID(), name: "Test", isDefault: false, order: 0, tasks: []), task: task)
-			}
-			
-		
-	)
+    static var preview = SectionModel(name: "Backlog", tasks: [])
+}
+
+extension TaskModel {
+    static var preview = [
+        TaskModel(name: "Look into frame accurate notes on video", section: .preview), 
+        TaskModel(name: "Write tests from user stories", section: .preview, assignee: .preview),
+        TaskModel(name: "Look at best practices for public page viewing", section: .preview),
+    ]
 }

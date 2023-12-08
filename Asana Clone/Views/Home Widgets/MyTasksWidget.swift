@@ -14,9 +14,8 @@ enum MyTasksTab: String, CaseIterable {
 }
 
 struct MyTasksWidget: View {
-	@State private var vm = MyTasksWidgetViewModel()
 	@State private var tabSelection: MyTasksTab = .upcoming
-	@State private var selectedTask: PublicTasksModel? = nil
+	@State private var selectedTask: TaskModel? = nil
 	@State private var openSheet: Bool = false
 	
 	var body: some View {
@@ -57,68 +56,68 @@ struct MyTasksWidget: View {
 			.padding(.top)
 			
 			TabView(selection: $tabSelection) {
-				ForEach(vm.upcoming) { task in
-					HStack {
-						Button {
-							
-						} label: {
-							Image(systemName: task.is_complete ? "checkmark.circle.fill" : "checkmark.circle")
-								.foregroundStyle(task.is_complete ? .green : .primary)
-						}
-						.buttonStyle(.plain)
-						
-						Button {
-							selectedTask = task
-							openSheet.toggle()
-						} label: {
-							Text(task.name)
-						}
-						.buttonStyle(.plain)
-					}
-				}
-				.tag(MyTasksTab.upcoming)
+//				ForEach(vm.upcoming) { task in
+//					HStack {
+//						Button {
+//							
+//						} label: {
+//							Image(systemName: task.is_complete ? "checkmark.circle.fill" : "checkmark.circle")
+//								.foregroundStyle(task.is_complete ? .green : .primary)
+//						}
+//						.buttonStyle(.plain)
+//						
+//						Button {
+//							selectedTask = task
+//							openSheet.toggle()
+//						} label: {
+//							Text(task.name)
+//						}
+//						.buttonStyle(.plain)
+//					}
+//				}
+//				.tag(MyTasksTab.upcoming)
 				
-				ForEach(vm.overdue) { task in
-					HStack {
-						Button {
-							
-						} label: {
-							Image(systemName: task.is_complete ? "checkmark.circle.fill" : "checkmark.circle")
-								.foregroundStyle(task.is_complete ? .green : .primary)
-						}
-						.buttonStyle(.plain)
-						
-						Button {
-							selectedTask = task
-							openSheet.toggle()
-						} label: {
-							Text(task.name)
-						}
-						.buttonStyle(.plain)
-					}
-				}
-				.tag(MyTasksTab.overdue)
+//				ForEach(vm.overdue) { task in
+//					HStack {
+//						Button {
+//							
+//						} label: {
+//							Image(systemName: task.is_complete ? "checkmark.circle.fill" : "checkmark.circle")
+//								.foregroundStyle(task.is_complete ? .green : .primary)
+//						}
+//						.buttonStyle(.plain)
+//						
+//						Button {
+//							selectedTask = task
+//							openSheet.toggle()
+//						} label: {
+//							Text(task.name)
+//						}
+//						.buttonStyle(.plain)
+//					}
+//				}
+//				.tag(MyTasksTab.overdue)
 				
-				ForEach(vm.overdue) { task in
-					HStack {
-						Button {
-							
-						} label: {
-							Image(systemName: task.is_complete ? "checkmark.circle.fill" : "checkmark.circle")
-								.foregroundStyle(task.is_complete ? .green : .primary)
-						}
-						.buttonStyle(.plain)
-						
-						Button {
-							selectedTask = task
-							openSheet.toggle()
-						} label: {
-							Text(task.name)
-						}
-						.buttonStyle(.plain)
-					}
-				}
-				.tag(MyTasksTab.completed)
+//				ForEach(vm.overdue) { task in
+//					HStack {
+//						Button {
+//							
+//						} label: {
+//							Image(systemName: task.is_complete ? "checkmark.circle.fill" : "checkmark.circle")
+//								.foregroundStyle(task.is_complete ? .green : .primary)
+//						}
+//						.buttonStyle(.plain)
+//						
+//						Button {
+//							selectedTask = task
+//							openSheet.toggle()
+//						} label: {
+//							Text(task.name)
+//						}
+//						.buttonStyle(.plain)
+//					}
+//				}
+//				.tag(MyTasksTab.completed)
 			}
 		}
 		.padding()

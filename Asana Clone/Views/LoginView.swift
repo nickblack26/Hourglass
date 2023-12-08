@@ -10,7 +10,6 @@ import SwiftUI
 struct LoginView: View {
 	@State private var email: String = ""
 	@State private var password: String = ""
-	let client = SupabaseManger.shared
 	
 	var body: some View {
 		HStack {
@@ -40,9 +39,7 @@ struct LoginView: View {
 							.textInputAutocapitalization(.never)
 						
 						Button {
-							Task {
-								await client.signIn(email: email, password: password)
-							}
+							
 						} label: {
 							Spacer()
 							Text("Continue")

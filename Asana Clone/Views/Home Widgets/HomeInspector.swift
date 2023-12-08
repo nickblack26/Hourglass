@@ -71,7 +71,6 @@ enum ColorScheme: String, CaseIterable {
 
 
 struct HomeInspector: View {
-	@State private var vm = HomeViewModel.shared
 	@Binding var colorScheme: ColorScheme
 	
 	init(colorScheme: Binding<ColorScheme>) {
@@ -96,27 +95,27 @@ struct HomeInspector: View {
 			}
 			
 			Section {
-				ForEach(vm.availableWidgets, id: \.self) { option in
-					ZStack(alignment: .topLeading) {
-						Image(option.image)
-							.resizable()
-							.scaledToFit()
-						Text(option.name)
-							.padding()
-					}
-					.listRowBackground(EmptyView())
-					.listRowSeparator(.hidden)
-					.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
-					.clipShape(RoundedRectangle(cornerRadius: 10))
-					.draggable(option) {
-						RoundedRectangle(cornerRadius: 10)
-							.fill(.ultraThinMaterial)
-							.frame(width: 150, height: 150)
-							.onAppear {
-								vm.draggingItem = option
-							}
-					}
-				}
+//				ForEach(vm.availableWidgets, id: \.self) { option in
+//					ZStack(alignment: .topLeading) {
+//						Image(option.image)
+//							.resizable()
+//							.scaledToFit()
+//						Text(option.name)
+//							.padding()
+//					}
+//					.listRowBackground(EmptyView())
+//					.listRowSeparator(.hidden)
+//					.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
+//					.clipShape(RoundedRectangle(cornerRadius: 10))
+//					.draggable(option) {
+//						RoundedRectangle(cornerRadius: 10)
+//							.fill(.ultraThinMaterial)
+//							.frame(width: 150, height: 150)
+//							.onAppear {
+//								vm.draggingItem = option
+//							}
+//					}
+//				}
 			} header: {
 				Text("Widgets")
 			} footer: {

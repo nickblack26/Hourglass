@@ -1,11 +1,5 @@
-//
-//  SidebarView.swift
-//  Asana Clone
-//
-//  Created by Nick on 7/6/23.
-//
-
 import SwiftUI
+import SwiftData
 
 enum ProjectSortOption: String, CaseIterable {
 	case Alphabetical
@@ -13,26 +7,25 @@ enum ProjectSortOption: String, CaseIterable {
 	case Top
 }
 
-enum SidebarLink: Hashable, Codable {
+enum SidebarLink: Hashable {
 	case home
 	case myTasks
 	case inbox
 	case reporting
 	case portfolios
 	case goals
-	case project(UUID)
+	case project(ProjectModel)
 	case team(UUID)
 }
 
 struct SidebarView: View {
+    @Query private var projects: [ProjectModel]
 	@Binding var selectedLink: SidebarLink?
 	@State private var selectedSort: ProjectSortOption = .Recent
 	@State private var newDashboard: Bool = false
 	@State private var newPortfolio: Bool = false
 	@State private var newProject: Bool = false
 	@State private var newGoal: Bool = false
-	@State private var projects: [PublicProjectsModel]?
-	private let manager = SupabaseManger.shared
 	
 	var body: some View {
 		List(selection: $selectedLink) {
@@ -91,68 +84,67 @@ struct SidebarView: View {
 				}
 			)
 			
-			if(!manager.starredProjects.isEmpty) {
-				DisclosureGroup {
-					ForEach(manager.starredProjects) { starred in
-						NavigationLink(value: SidebarLink.project(starred.project_id.id)) {
-							Label {
-								Text(starred.project_id.name)
-							} icon: {
-								ZStack(alignment: .bottomTrailing) {
-									RoundedRectangle(cornerRadius: 5)
-										.fill(.pink)
-										.frame(width: 20, height: 20)
-									if (starred.project_id.is_private != nil && starred.project_id.is_private == true) {
-										Image(systemName: "lock.fill")
-									}
-								}
-							}
-						}
-					}
-				} label: {
-					HStack {
-						Text("Starred")
-						Button {
-							
-						} label: {
-							Image(systemName: "ellipsis")
-						}
-						.buttonStyle(.plain)
-						
-						Button {
-							
-						} label: {
-							Image(systemName: "plus")
-						}
-						.buttonStyle(.plain)
-					}
-				}
-			}
+//			if(!manager.starredProjects.isEmpty) {
+//				DisclosureGroup {
+//					ForEach(manager.starredProjects) { starred in
+//						NavigationLink(value: SidebarLink.project(starred.project_id.id)) {
+//							Label {
+//								Text(starred.project_id.name)
+//							} icon: {
+//								ZStack(alignment: .bottomTrailing) {
+//									RoundedRectangle(cornerRadius: 5)
+//										.fill(.pink)
+//										.frame(width: 20, height: 20)
+//									if (starred.project_id.is_private != nil && starred.project_id.is_private == true) {
+//										Image(systemName: "lock.fill")
+//									}
+//								}
+//							}
+//						}
+//					}
+//				} label: {
+//					HStack {
+//						Text("Starred")
+//						Button {
+//							
+//						} label: {
+//							Image(systemName: "ellipsis")
+//						}
+//						.buttonStyle(.plain)
+//						
+//						Button {
+//							
+//						} label: {
+//							Image(systemName: "plus")
+//						}
+//						.buttonStyle(.plain)
+//					}
+//				}
+//			}
 			
 			DisclosureGroup(
 				content: {
-					if let projects = self.projects {
-						ForEach(projects) { project in
-							NavigationLink(value: SidebarLink.project(project.id)) {
-								Label {
-									Text(project.name)
-								} icon: {
-									RoundedRectangle(cornerRadius: 5)
-										.fill(.pink)
-										.frame(width: 25, height: 25)
-										.overlay(alignment: .bottomTrailing, content: {
-											if (project.is_private != nil && project.is_private! == true) {
-												Image(systemName: "lock.fill")
-											}
-										})
-								}
-							}
-						}
-					}
+                    ForEach(projects) { project in
+                        NavigationLink(value: SidebarLink.project(project)) {
+                            Label {
+                                Text(project.name)
+                            } icon: {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(.pink)
+                                    .frame(width: 25, height: 25)
+                                    .overlay(alignment: .bottomTrailing, content: {
+//                                        if (project.is_private != nil && project.is_private! == true) {
+//                                            Image(systemName: "lock.fill")
+//                                        }
+                                    })
+                            }
+                        }
+                    }
 				},
 				label: {
 					HStack {
 						Text("Projects")
+                        
 						Menu {
 							Section("Sort projects and portfolios") {
 								ForEach(ProjectSortOption.allCases, id: \.self) { option in
@@ -167,6 +159,7 @@ struct SidebarView: View {
 							Image(systemName: "ellipsis")
 								.font(.callout)
 						}
+                        
 						Menu {
 							Button {
 								newProject.toggle()
@@ -196,16 +189,11 @@ struct SidebarView: View {
 		.toolbar {
 			ToolbarItem {
 				Button {
-					Task {
-						await getProjects()
-					}
+					
 				} label: {
 					Label("Refresh", systemImage: "arrow.clockwise")
 				}
 			}
-		}
-		.task {
-			await getProjects()
 		}
 		.fullScreenCover(isPresented: $newProject, content: {
 			NavigationStack {
@@ -274,22 +262,13 @@ struct SidebarView: View {
 		}
 		.navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 400)
 	}
-	
-	func getProjects() async {
-		let query = manager.client.database.from("projects").select(columns: "id, name")
-		do {
-			self.projects = try await query.execute().value
-			print("successfully run query")
-		} catch {
-			print(error)
-		}
-	}
 }
 
 #Preview {
-	NavigationSplitView {
+	return NavigationSplitView {
 		SidebarView(selectedLink: .constant(SidebarLink.home))
 	} detail: {
 		EmptyView()
 	}
+    .modelContainer(for: ProjectModel.self, inMemory: true)
 }

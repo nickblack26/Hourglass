@@ -1,13 +1,7 @@
-//
-//  NewProjectSetup.swift
-//  Asana Clone
-//
-//  Created by Nick on 6/30/23.
-//
-
 import SwiftUI
 
 struct NewProjectSetup: View {
+    @Environment(\.modelContext) var modelContext
 	@State private var showNextSteps: Bool = false
 	@State private var name: String = "Test"
 	@State private var privacy: PrivacyStatus = .publicToTeam
@@ -98,11 +92,7 @@ struct NewProjectSetup: View {
 						}
 						
 						Button {
-							print("running")
-							Task {
-								
-								await createProject()
-							}
+							createProject()
 						} label: {
 							Spacer()
 							Text("Go to project")
@@ -151,11 +141,6 @@ struct NewProjectSetup: View {
 							.fontWeight(.medium)
 						}
 						.offset(x: value.width / 7, y: value.height / 30)
-						//						.position(x: value.width / 5, y: value.height / 28)
-						//						.position(x: 285, y: 40)
-						//					.offset(x: 100, y: 30)
-						//					.padding(.top, 20)
-						//					.padding(.leading, 78)
 						
 						if(defaultView == .list || defaultView == .board) {
 							Text("To do")
@@ -187,17 +172,9 @@ struct NewProjectSetup: View {
 		.navigationBarTitleDisplayMode(.large)
 	}
 	
-	private func createProject() async {
-		let data = PublicProjectServerModel(name: name, is_private: privacy.privacyBool, default_view: defaultView.rawValue)
-		let query = manager.client.database.from("projects").insert(values: data).select()
-		
-		do {
-			let data = try await query.execute()
-			isPresented.toggle()
-			print(data)
-		} catch {
-			print(error)
-		}
+	private func createProject() {
+        let newProject = ProjectModel(name: name, owner: .preview, team: .preview)
+        modelContext.insert(newProject)
 	}
 }
 
