@@ -1,10 +1,3 @@
-//
-//  EditProfileModalView.swift
-//  Asana Clone
-//
-//  Created by Nick on 7/5/23.
-//
-
 import SwiftUI
 
 enum UserSettingsTab: String, CaseIterable {

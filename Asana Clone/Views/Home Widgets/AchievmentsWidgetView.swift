@@ -1,10 +1,3 @@
-//
-//  AchievmentsWidgetView.swift
-//  Asana Clone
-//
-//  Created by Nick on 6/26/23.
-//
-
 import SwiftUI
 
 enum OverviewDate: String, CaseIterable {

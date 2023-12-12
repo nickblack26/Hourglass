@@ -1,14 +1,7 @@
-//
-//  SignupView.swift
-//  Asana Clone
-//
-//  Created by Nick on 6/26/23.
-//
-
 import SwiftUI
 
 struct SignupView: View {
-
+    @Environment(\.modelContext) private var context
 	@State private var email: String = ""
 	@FocusState private var nameInFocus: Bool
 	
@@ -61,6 +54,10 @@ struct SignupView: View {
 					.formStyle(.columns)
 					.padding(.horizontal, 50)
 					.padding(.top, 25)
+                    .onSubmit {
+                        let member = MemberModel(name: "", email: email)
+                        context.insert(member)
+                    }
 					
 					Spacer()
 					

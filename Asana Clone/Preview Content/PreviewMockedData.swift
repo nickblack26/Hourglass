@@ -13,13 +13,13 @@ extension MemberModel {
 }
 
 extension SectionModel {
-    static var preview = SectionModel(name: "Backlog", tasks: [])
+    static var preview = SectionModel(name: "Backlog", tasks: [TaskModel(name: "Test", assignee: .preview)])
 }
 
 extension TaskModel {
     static var preview = [
-        TaskModel(name: "Look into frame accurate notes on video", section: .preview), 
+        TaskModel(name: "Look into frame accurate notes on video", section: .preview, assignee: .preview),
         TaskModel(name: "Write tests from user stories", section: .preview, assignee: .preview),
-        TaskModel(name: "Look at best practices for public page viewing", section: .preview),
+        TaskModel(name: "Look at best practices for public page viewing", section: .preview, assignee: .preview),
     ]
 }

@@ -1,47 +1,54 @@
-//
-//  ProjectHeader.swift
-//  Asana Clone
-//
-//  Created by Nick on 7/21/23.
-//
-
 import SwiftUI
 
 struct ProjectHeader: View {
+    @State private var showColorPicker: Bool = false
 	@Binding var selectedTab: ProjectTab
-	var project: ProjectModel
+	@Bindable var project: ProjectModel
 	
     var body: some View {
 		HStack {
-			Menu {
-				LazyVGrid(columns: Array(repeating: GridItem(), count: 8)) {
-					ForEach(ProjectColor.allCases, id: \.self) {color in
-						Button {
-							
-						} label: {
-							RoundedRectangle(cornerRadius: 2.5)
-								.fill(color.color)
-								.overlay {
-									Image(systemName: "checkmark")
-								}
-						}
-						.buttonStyle(.plain)
-					}
-				}
+			Button {
+                showColorPicker.toggle()
 			} label: {
-				Image("project_calendar_icon")
+                Image(project.icon.icon)
 					.resizable()
 					.frame(width: 25, height: 25)
 					.padding()
 					.background {
 						RoundedRectangle(cornerRadius: 10)
-							.fill(.gray)
+                            .fill(project.color.color)
 					}
 			}
+            .buttonStyle(.plain)
+            .popover(isPresented: $showColorPicker, content: {
+                List {
+                    Picker("Colors", selection: $project.color) {
+                        VStack {
+                            HStack {
+                                ForEach(0..<8, id: \.self) { index in
+                                    Image(systemName: project.color == ProjectColor.allCases[index] ? "checkmark.square.fill" : "square.fill")
+                                        .tint(ProjectColor.allCases[index].color)
+                                        .tag(ProjectColor.allCases[index])
+                                }
+                            }
+                            
+                            HStack {
+                                ForEach(8..<16, id: \.self) { index in
+                                    Image(systemName: project.color == ProjectColor.allCases[index] ? "checkmark.square.fill" : "square.fill")
+                                        .tint(ProjectColor.allCases[index].color)
+                                        .tag(ProjectColor.allCases[index])
+                                }
+                            }
+                        }
+                    }
+                    .pickerStyle(.palette)
+                    .paletteSelectionEffect(.custom)
+                }
+            })
 			
 			VStack(alignment: .leading) {
 				HStack {
-					Text(project.name)
+                    TextField("Project name", text: $project.name)
 						.font(.title2)
 						.fontWeight(.medium)
 					
@@ -53,12 +60,28 @@ struct ProjectHeader: View {
 						}
 						
 						Menu {
-							Button {
-								
-							} label: {
-								Text("eh")
-							}
-							
+                            Picker("Colors", selection: $project.color) {
+                                ForEach(ProjectColor.allCases, id: \.self) { color in
+                                    Image(systemName: project.color == color ? "checkmark.square.fill" : "square.fill")
+                                        .tint(color.color)
+                                        .tag(color)
+                                }
+                            }
+                            .pickerStyle(.palette)
+                            .paletteSelectionEffect(.custom)
+                            
+                            Divider()
+                            
+                            Picker("Icons", selection: $project.color) {
+                                ForEach(ProjectIcon.allCases, id: \.self) { icon in
+                                    Image(icon.icon)
+                                        .tint(project.color.color)
+                                        .tag(icon)
+                                }
+                            }
+                            .pickerStyle(.palette)
+                            .paletteSelectionEffect(.custom)
+                            
 						} label: {
 							Label {
 								Text("Set color & icon")

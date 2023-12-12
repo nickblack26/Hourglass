@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct ContentDetail: View {
-	@Binding var selectedLink: SidebarLink?
+    @Environment(AsanaManager.self) private var asanaManager
 	
     var body: some View {
-		switch selectedLink {
+        switch asanaManager.selectedLink {
 			case .home:
 				HomeView()
 			case .myTasks:
@@ -34,5 +34,5 @@ struct ContentDetail: View {
 }
 
 #Preview {
-	ContentDetail(selectedLink: .constant(.home))
+	ContentDetail()
 }

@@ -1,50 +1,11 @@
-//
-//  ProjectView.swift
-//  Asana Clone
-//
-//  Created by Nick on 6/22/23.
-//
-
 import SwiftUI
 
-enum ProjectTab: String, CaseIterable {
-	case overview = "Overview"
-	case list = "List"
-	case board = "Board"
-	case timeline = "Timeline"
-	case calendar = "Calendar"
-	case workflow = "Workflow"
-	case dashboard = "Dashboard"
-	case messages = "Messages"
-	case files = "Files"
-	
-	var showMenu: Bool {
-		switch self {
-			case .overview:
-				return false
-			case .list:
-				return true
-			case .board:
-				return true
-			case .timeline:
-				return true
-			case .calendar:
-				return true
-			case .workflow:
-				return false
-			case .dashboard:
-				return false
-			case .messages:
-				return false
-			case .files:
-				return false
-		}
-	}
-}
-
 struct ProjectView: View {
-	@State private var selectedTab: ProjectTab = .board
-	let project: ProjectModel
+    @Environment(\.modelContext) private var modelContext
+    @Environment(AsanaManager.self) private var asanaManager
+    @State private var selectedTab: ProjectTab = .board
+	@State private var showProjectSheet: Bool = false
+	@Bindable var project: ProjectModel
 	
 	init(_ project: ProjectModel) {
 		let defaultView: ProjectTab = ProjectTab(rawValue: "List") ?? .list
@@ -55,25 +16,71 @@ struct ProjectView: View {
 	var body: some View {
 		VStack(alignment: .leading) {
             ProjectHeader(selectedTab: $selectedTab, project: project)
-			
-            ProjectHeader(selectedTab: $selectedTab, project: project)
+            
+            HStack {
+                Button("Add task", systemImage: "plus", action: addNewTask)
+                .tint(.accent)
+                .buttonStyle(.borderedProminent)
+                
+                Menu("", systemImage: "chevron.down") {
+                    Button("Add section") {
+                        showProjectSheet.toggle()
+                    }
+                    Button("Add milestone...", action: addNewSection)
+                }
+                .labelsHidden()
+                .buttonStyle(.borderedProminent)
+                .tint(.clear)
+                .foregroundStyle(.primary)
+                
+                Spacer()
+                
+               
+            }
+            .padding(.horizontal)
 			
 			TabView(selection: $selectedTab) {
 				ProjectOverviewTab()
 					.tag(ProjectTab.overview)
 				
-				TaskListView()
+                TaskTableView(project.sections ?? [])
 					.tag(ProjectTab.list)
 					.padding()
 				
-                TaskBoardView(project.sections)
+                TaskBoardView(project.sections ?? [])
 					.tag(ProjectTab.board)
 					.padding()
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))
 			
 		}
+        .sheet(isPresented: $showProjectSheet, content: {
+            NewSectionForm(showProjectSheet: $showProjectSheet)
+        })
 	}
+    
+    private func addNewSection() {
+        let section = SectionModel(name: "")
+        modelContext.insert(section)
+        if let sections = project.sections, !sections.isEmpty {
+            project.sections!.insert(section, at: 0)
+        } else {
+            project.sections?.append(section)
+        }
+    }
+    
+    private func addNewTask() {
+        if let assignee = asanaManager.currentMember {
+            let task = TaskModel(name: "New task", assignee: assignee)
+            modelContext.insert(task)
+            print("added task \(task)")
+            if project.tasks.isEmpty {
+                project.sections?[0].tasks.append(task)
+            } else {
+                project.sections?[0].tasks.insert(task, at: 0)
+            }
+        }
+    }
 }
 
 #Preview {

@@ -1,14 +1,8 @@
-//
-//  ProjectWidget.swift
-//  Asana Clone
-//
-//  Created by Nick on 6/30/23.
-//
-
 import SwiftUI
+import SwiftData
 
-struct ProjectWidget: View {
-	
+struct ProjectsWidget: View {
+    @Query private var projects: [ProjectModel]
 	// eventually be able to pass the amount of columns to show
 	// this will depend on whether or not the card is full width or not
 	let colNum = 2
@@ -29,32 +23,16 @@ struct ProjectWidget: View {
 							.padding()
 							.background {
 								RoundedRectangle(cornerRadius: 5)
-									.strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [1]))
+									.strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [2]))
 							}
 						
 						Text("Create project")
 					}
 				}
-//				ForEach(vm.projects) { project in
-//					HStack {
-//						Image(systemName: "list.bullet")
-//							.symbolRenderingMode(.hierarchical)
-//							.padding()
-//							.background {
-//								RoundedRectangle(cornerRadius: 5)
-//									.fill(.mint)
-//							}
-//						VStack(alignment: .leading) {
-//							Text(project.name)
-//								.lineLimit(1)
-//								.fontWeight(.semibold)
-//							
-//							Text("3 tasks due soon")
-//								.foregroundStyle(.secondary)
-//								.lineLimit(1)
-//						}
-//					}
-//				}
+                
+				ForEach(projects) { project in
+                    ProjectListItemView(project)
+				}
 			}
 			
 //			LazyVGrid(alignment: .center) {
@@ -112,5 +90,54 @@ struct ProjectWidget: View {
 }
 
 #Preview {
-	ProjectWidget()
+	ProjectsWidget()
+}
+
+struct ProjectListItemView: View {
+    @Environment(AsanaManager.self) private var asanaManager
+    @State private var isHovering: Bool = false
+    var project: ProjectModel
+    
+    init(_ project: ProjectModel) {
+        self.project = project
+    }
+    
+    var body: some View {
+        let calendar = Calendar.current
+        let addOneWeekToCurrentDate = calendar.date(byAdding: .weekOfYear, value: 2, to: Date())
+        let upcomingTasks = project.tasks.filter {
+            $0.endDate != nil && $0.endDate! > addOneWeekToCurrentDate!
+        }
+        
+        NavigationLink(value: project) {
+            HStack {
+                Image(project.icon.icon)
+                    .padding()
+                    .background(project.color.color)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                
+                VStack(alignment: .leading) {
+                    Text(project.name)
+                        .lineLimit(1)
+                        .fontWeight(.semibold)
+                    
+                    if project.archived {
+                        Label("Archived", systemImage: "archivebox.fill")
+                            .font(.caption)
+                    } else {
+                        if upcomingTasks.count > 0 {
+                            Text("\(upcomingTasks.count) tasks due soon")
+                                .foregroundStyle(.secondary)
+                                .lineLimit(1)
+                        }
+                    }
+                }
+            }
+        }
+        .onHover(perform: { isHovering = $0 })
+    }
+}
+
+#Preview("Project List Item") {
+    ProjectListItemView(.preview)
 }

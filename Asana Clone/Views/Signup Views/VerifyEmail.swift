@@ -1,10 +1,3 @@
-//
-//  VerifyEmail.swift
-//  Asana Clone
-//
-//  Created by Nick on 6/26/23.
-//
-
 import SwiftUI
 
 struct VerifyEmail: View {

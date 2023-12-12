@@ -106,7 +106,7 @@ struct ProfileView: View {
 					}
 					
 					GridRow {
-						ProjectWidget()
+						ProjectsWidget()
 							.gridCellColumns(2)
 					}
 				}

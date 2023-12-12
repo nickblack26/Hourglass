@@ -6,30 +6,7 @@
 //
 
 import SwiftUI
-
-//enum WidgetOption: String, CaseIterable {
-//	case myTasks = "My Tasks"
-//	case people = "People"
-//	case projects  = "Projects"
-//	case notepad = "Private notepad"
-//	case tasksAssigned = "Tasks I've assigned"
-//	case draftComments = "Draft comments"
-//	case forms = "forms"
-//	case myGoals = "My goals"
-//
-//	var image: String {
-//		switch self {
-//			case .myTasks: return "peopleWidgetExample"
-//			case .people: return "peopleWidgetExample"
-//			case .projects: return "peopleWidgetExample"
-//			case .notepad: return "peopleWidgetExample"
-//			case .tasksAssigned: return "peopleWidgetExample"
-//			case .draftComments: return "peopleWidgetExample"
-//			case .forms: return "peopleWidgetExample"
-//			case .myGoals: return "peopleWidgetExample"
-//		}
-//	}
-//}
+import SwiftData
 
 struct Scheme {
 	var background: Color
@@ -69,8 +46,16 @@ enum ColorScheme: String, CaseIterable {
 	}
 }
 
-
 struct HomeInspector: View {
+    @Query private var widgets: [WidgetModel]
+    @Environment(AsanaManager.self) private var asanaManager
+    var availableWidgets: [WidgetModel] {
+        widgets.filter {
+            guard let currentMember = asanaManager.currentMember else { return false }
+            return currentMember.widgets.contains($0)
+        }
+    }
+    
 	@Binding var colorScheme: ColorScheme
 	
 	init(colorScheme: Binding<ColorScheme>) {
@@ -86,6 +71,7 @@ struct HomeInspector: View {
 							SwatchView(colorPreference: ColorScheme.allCases[index], selected: $colorScheme)
 						}
 					}
+                    
 					GridRow {
 						ForEach(6..<12) { index in
 							SwatchView(colorPreference: ColorScheme.allCases[index], selected: $colorScheme)
@@ -95,27 +81,28 @@ struct HomeInspector: View {
 			}
 			
 			Section {
-//				ForEach(vm.availableWidgets, id: \.self) { option in
-//					ZStack(alignment: .topLeading) {
-//						Image(option.image)
-//							.resizable()
-//							.scaledToFit()
-//						Text(option.name)
-//							.padding()
-//					}
-//					.listRowBackground(EmptyView())
-//					.listRowSeparator(.hidden)
-//					.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
-//					.clipShape(RoundedRectangle(cornerRadius: 10))
+                
+				ForEach(availableWidgets, id: \.self) { option in
+					ZStack(alignment: .topLeading) {
+						Image(option.image)
+							.resizable()
+							.scaledToFit()
+						Text(option.name)
+							.padding()
+					}
+					.listRowBackground(EmptyView())
+					.listRowSeparator(.hidden)
+					.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
+					.clipShape(RoundedRectangle(cornerRadius: 10))
 //					.draggable(option) {
 //						RoundedRectangle(cornerRadius: 10)
 //							.fill(.ultraThinMaterial)
 //							.frame(width: 150, height: 150)
 //							.onAppear {
-//								vm.draggingItem = option
+////								vm.draggingItem = option
 //							}
 //					}
-//				}
+				}
 			} header: {
 				Text("Widgets")
 			} footer: {
@@ -123,9 +110,6 @@ struct HomeInspector: View {
 					.padding(.top, -15)
 			}
 		}
-#if os(iOS)
-		.navigationBarTitleDisplayMode(.inline)
-#endif
 		.navigationTitle("Customize Home")
 		.inspectorColumnWidth(min: 300, ideal: 400, max: 500)
 		//		.scrollContentBackground(.hidden)
@@ -133,9 +117,14 @@ struct HomeInspector: View {
 }
 
 #Preview {
-	VStack {
+    @State var asanaManager = AsanaManager()
+    
+	return VStack {
 		
-	}.inspector(isPresented: .constant(true)) {
+	}
+    .environment(asanaManager)
+    .inspector(isPresented: .constant(true)) {
 		HomeInspector(colorScheme: .constant(.maroon))
+            .environment(asanaManager)
 	}
 }

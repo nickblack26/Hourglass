@@ -1,30 +1,18 @@
-//
-//  TaskCardView.swift
-//  Asana Clone
-//
-//  Created by Nick on 7/20/23.
-//
-
 import SwiftUI
 
 struct TaskCardView: View {
+    @Environment(\.colorScheme) private var colorScheme
 	@State private var showSubtasks: Bool = false
 	@State private var isHovering: Bool = false
 	@Binding var currentlyDragging: TaskModel?
 	@Binding var currentlyDraggingSection: SectionModel?
-	var task: TaskModel
-	var section: SectionModel
-		
+	@Bindable var task: TaskModel
+	var section: SectionModel?
+
 	let columns = Array(repeating: GridItem(), count: 5)
 	
 	var body: some View {
 		VStack(alignment: .leading) {
-			Image("cardImage")
-				.resizable()
-				.scaledToFill()
-				.frame(maxHeight: 200)
-				.listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-			
 			HStack {
 				LazyVGrid(columns: columns) {
 					Capsule()
@@ -45,10 +33,10 @@ struct TaskCardView: View {
 				}
 			}
 			
-			HStack {
+            HStack(alignment: .top) {
 				Button {
 					withAnimation {
-//						task.is_complete.toggle()
+						task.isCompleted.toggle()
 					}
 				} label: {
 					if task.isCompleted {
@@ -116,34 +104,38 @@ struct TaskCardView: View {
 			}
 			
 			if showSubtasks {
-				if let subtasks = task.subtasks {
-					ForEach(subtasks) { task in
-						HStack {
-							Image(systemName: "checkmark.circle")
-								.foregroundStyle(.secondary)
-							Text(task.name)
-						}
-						.font(.subheadline)
-					}
-					
-					HStack {
-						Image(systemName: "plus")
-						Text("Add subtask")
-					}
-					.font(.caption)
-					.foregroundStyle(.secondary)
-				}
+                let subtasks = task.subtasks
+                
+                ForEach(subtasks) { task in
+                    HStack {
+                        Image(systemName: "checkmark.circle")
+                            .foregroundStyle(.secondary)
+                        Text(task.name)
+                    }
+                    .font(.subheadline)
+                }
+                
+                HStack {
+                    Image(systemName: "plus")
+                    Text("Add subtask")
+                }
+                .font(.caption)
+                .foregroundStyle(.secondary)
+				
 			}
 		}
-		.listStyle(.plain)
-		.clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding()
+        .background {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(colorScheme == .dark ? .black : .white)
+                .strokeBorder(Color(uiColor: .systemGray5), lineWidth: 1)
+        }
 		.contentShape(.dragPreview, RoundedRectangle(cornerRadius: 10))
-		.frame(maxWidth: 250)
+		.frame(maxWidth: 375, alignment: .leading)
 		.onHover { hovering in
 			isHovering = hovering
 		}
-		.background(.white)
-//        .draggable(task.id) {
+//        .draggable(task) {
 //			TaskCardView(currentlyDragging: .constant(nil), currentlyDraggingSection: .constant(nil), task: task, section: section)
 //				.onAppear {
 //					currentlyDragging = task

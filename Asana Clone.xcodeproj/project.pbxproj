@@ -13,7 +13,7 @@
 		0100F5F02A43F3F4001BD781 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0100F5EF2A43F3F4001BD781 /* Preview Assets.xcassets */; };
 		010429132A55FD6F005ADFE9 /* UserSettingsProfileModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010429122A55FD6F005ADFE9 /* UserSettingsProfileModal.swift */; };
 		010429152A5606BC005ADFE9 /* UserSettingsProfileTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010429142A5606BC005ADFE9 /* UserSettingsProfileTab.swift */; };
-		0106F2ED2A4B83210010B058 /* WidgetOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106F2EC2A4B83210010B058 /* WidgetOptionModel.swift */; };
+		0106F2ED2A4B83210010B058 /* WidgetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106F2EC2A4B83210010B058 /* WidgetModel.swift */; };
 		0106F2EF2A4B98050010B058 /* MyTasksWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106F2EE2A4B98050010B058 /* MyTasksWidget.swift */; };
 		010C12F82A662964001C2722 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C12F72A662964001C2722 /* TaskListView.swift */; };
 		010C12FB2A662A1B001C2722 /* TableDateCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C12FA2A662A1B001C2722 /* TableDateCellView.swift */; };
@@ -34,7 +34,12 @@
 		011B11BE2A56728A004D44A4 /* UserSettingsAppsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011B11BD2A56728A004D44A4 /* UserSettingsAppsTab.swift */; };
 		011B11C02A5673D7004D44A4 /* UserSettingsHacksTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011B11BF2A5673D7004D44A4 /* UserSettingsHacksTab.swift */; };
 		011B11C22A567649004D44A4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011B11C12A567649004D44A4 /* ProfileView.swift */; };
-		01743B7E2A4F25F4002CBC30 /* ProjectWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B7D2A4F25F4002CBC30 /* ProjectWidget.swift */; };
+		0138106B2B277252003EE7E1 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138106A2B277252003EE7E1 /* TaskDetailView.swift */; };
+		0138106D2B2796ED003EE7E1 /* AsanaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138106C2B2796ED003EE7E1 /* AsanaManager.swift */; };
+		0138106F2B27CC9B003EE7E1 /* NewTeamModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138106E2B27CC9B003EE7E1 /* NewTeamModal.swift */; };
+		013810712B27D83F003EE7E1 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013810702B27D83F003EE7E1 /* CommentModel.swift */; };
+		013810742B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013810732B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift */; };
+		01743B7E2A4F25F4002CBC30 /* ProjectsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B7D2A4F25F4002CBC30 /* ProjectsWidget.swift */; };
 		01743B822A4F2B71002CBC30 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B812A4F2B71002CBC30 /* NewProjectView.swift */; };
 		01743B842A4F2ED1002CBC30 /* ProjectTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B832A4F2ED1002CBC30 /* ProjectTile.swift */; };
 		01743B892A4F34B6002CBC30 /* NewProjectSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B882A4F34B6002CBC30 /* NewProjectSetup.swift */; };
@@ -56,6 +61,10 @@
 		01A1420C2A5C6D120090BDEF /* ChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1420B2A5C6D120090BDEF /* ChartModel.swift */; };
 		01A1420E2A5C6F970090BDEF /* ChartSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1420D2A5C6F970090BDEF /* ChartSelector.swift */; };
 		01A142102A5C7A8B0090BDEF /* NewGenericGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1420F2A5C7A8B0090BDEF /* NewGenericGoal.swift */; };
+		01AA7BE82B24FBF700EF3CD7 /* TableTagCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7BE72B24FBF700EF3CD7 /* TableTagCellView.swift */; };
+		01AA7BEA2B250AEA00EF3CD7 /* FilterBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7BE92B250AEA00EF3CD7 /* FilterBuilderView.swift */; };
+		01AA7BEC2B25596800EF3CD7 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7BEB2B25596800EF3CD7 /* CloudKitManager.swift */; };
+		01AA7BF02B26826600EF3CD7 /* NewSectionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7BEF2B26826600EF3CD7 /* NewSectionForm.swift */; };
 		01ACCD152A4A95F5003E59B8 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ACCD142A4A95F5003E59B8 /* NotificationView.swift */; };
 		01DF50772A570C9200768649 /* ProjectOverviewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF50762A570C9200768649 /* ProjectOverviewTab.swift */; };
 		01DF50792A57195600768649 /* ProjectListTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF50782A57195600768649 /* ProjectListTab.swift */; };
@@ -79,7 +88,7 @@
 		0100F5EF2A43F3F4001BD781 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		010429122A55FD6F005ADFE9 /* UserSettingsProfileModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsProfileModal.swift; sourceTree = "<group>"; };
 		010429142A5606BC005ADFE9 /* UserSettingsProfileTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsProfileTab.swift; sourceTree = "<group>"; };
-		0106F2EC2A4B83210010B058 /* WidgetOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetOptionModel.swift; sourceTree = "<group>"; };
+		0106F2EC2A4B83210010B058 /* WidgetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetModel.swift; sourceTree = "<group>"; };
 		0106F2EE2A4B98050010B058 /* MyTasksWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTasksWidget.swift; sourceTree = "<group>"; };
 		010C12F72A662964001C2722 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		010C12FA2A662A1B001C2722 /* TableDateCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDateCellView.swift; sourceTree = "<group>"; };
@@ -100,7 +109,12 @@
 		011B11BD2A56728A004D44A4 /* UserSettingsAppsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsAppsTab.swift; sourceTree = "<group>"; };
 		011B11BF2A5673D7004D44A4 /* UserSettingsHacksTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsHacksTab.swift; sourceTree = "<group>"; };
 		011B11C12A567649004D44A4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		01743B7D2A4F25F4002CBC30 /* ProjectWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectWidget.swift; sourceTree = "<group>"; };
+		0138106A2B277252003EE7E1 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
+		0138106C2B2796ED003EE7E1 /* AsanaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsanaManager.swift; sourceTree = "<group>"; };
+		0138106E2B27CC9B003EE7E1 /* NewTeamModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTeamModal.swift; sourceTree = "<group>"; };
+		013810702B27D83F003EE7E1 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		013810732B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateNotepadWidgetView.swift; sourceTree = "<group>"; };
+		01743B7D2A4F25F4002CBC30 /* ProjectsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsWidget.swift; sourceTree = "<group>"; };
 		01743B812A4F2B71002CBC30 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
 		01743B832A4F2ED1002CBC30 /* ProjectTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTile.swift; sourceTree = "<group>"; };
 		01743B882A4F34B6002CBC30 /* NewProjectSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectSetup.swift; sourceTree = "<group>"; };
@@ -122,6 +136,10 @@
 		01A1420B2A5C6D120090BDEF /* ChartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartModel.swift; sourceTree = "<group>"; };
 		01A1420D2A5C6F970090BDEF /* ChartSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSelector.swift; sourceTree = "<group>"; };
 		01A1420F2A5C7A8B0090BDEF /* NewGenericGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGenericGoal.swift; sourceTree = "<group>"; };
+		01AA7BE72B24FBF700EF3CD7 /* TableTagCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTagCellView.swift; sourceTree = "<group>"; };
+		01AA7BE92B250AEA00EF3CD7 /* FilterBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBuilderView.swift; sourceTree = "<group>"; };
+		01AA7BEB2B25596800EF3CD7 /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
+		01AA7BEF2B26826600EF3CD7 /* NewSectionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSectionForm.swift; sourceTree = "<group>"; };
 		01ACCD142A4A95F5003E59B8 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		01DF50762A570C9200768649 /* ProjectOverviewTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectOverviewTab.swift; sourceTree = "<group>"; };
 		01DF50782A57195600768649 /* ProjectListTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListTab.swift; sourceTree = "<group>"; };
@@ -176,6 +194,8 @@
 				0100F5EE2A43F3F4001BD781 /* Preview Content */,
 				1D578D9E2B1A270A005AAB54 /* AppDelegate.swift */,
 				1D578DA02B1A2721005AAB54 /* SceneDelegate.swift */,
+				01AA7BEB2B25596800EF3CD7 /* CloudKitManager.swift */,
+				0138106C2B2796ED003EE7E1 /* AsanaManager.swift */,
 			);
 			path = "Asana Clone";
 			sourceTree = "<group>";
@@ -209,7 +229,9 @@
 		010C12F92A662A0A001C2722 /* Table */ = {
 			isa = PBXGroup;
 			children = (
+				1D6031FD2B1A2BF100ECEB91 /* TaskTableView.swift */,
 				010C12FA2A662A1B001C2722 /* TableDateCellView.swift */,
+				01AA7BE72B24FBF700EF3CD7 /* TableTagCellView.swift */,
 			);
 			path = Table;
 			sourceTree = "<group>";
@@ -217,6 +239,7 @@
 		010D51F82A44DD520030989B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				013810722B27DD4D003EE7E1 /* Widgets */,
 				010C12F92A662A0A001C2722 /* Table */,
 				01A142082A5C63690090BDEF /* Goal */,
 				01A142062A5C635A0090BDEF /* Dashboard */,
@@ -226,6 +249,7 @@
 				018E72302A49FB3D001481F3 /* Miscellaneous */,
 				018BCE3E2A49E73B00F2E7B8 /* Home Widgets */,
 				018BCE372A49D6C700F2E7B8 /* Signup Views */,
+				01A1926A2B228888009BF39B /* Tasks */,
 				010D51F92A44DD5E0030989B /* HomeView.swift */,
 				010D51FB2A44DD7A0030989B /* MyTasksView.swift */,
 				010D51FD2A44DD850030989B /* InboxView.swift */,
@@ -233,9 +257,19 @@
 				010D52072A44DDC00030989B /* TeamView.swift */,
 				018D8D2A2A453C4400324A79 /* LoginView.swift */,
 				01A142042A5C562B0090BDEF /* ContentDetail.swift */,
-				01A1926A2B228888009BF39B /* Tasks */,
+				01AA7BE92B250AEA00EF3CD7 /* FilterBuilderView.swift */,
+				01AA7BEF2B26826600EF3CD7 /* NewSectionForm.swift */,
+				0138106E2B27CC9B003EE7E1 /* NewTeamModal.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		013810722B27DD4D003EE7E1 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				013810732B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift */,
+			);
+			path = Widgets;
 			sourceTree = "<group>";
 		};
 		01743B852A4F3371002CBC30 /* New Project */ = {
@@ -262,7 +296,7 @@
 				018BCE3F2A49E75800F2E7B8 /* AchievmentsWidgetView.swift */,
 				018E722E2A49FA2E001481F3 /* HomeInspector.swift */,
 				0106F2EE2A4B98050010B058 /* MyTasksWidget.swift */,
-				01743B7D2A4F25F4002CBC30 /* ProjectWidget.swift */,
+				01743B7D2A4F25F4002CBC30 /* ProjectsWidget.swift */,
 			);
 			path = "Home Widgets";
 			sourceTree = "<group>";
@@ -320,7 +354,7 @@
 				010C12F72A662964001C2722 /* TaskListView.swift */,
 				017C8BCC2A69CF72006A2C74 /* TaskCardView.swift */,
 				017C8BCE2A69E435006A2C74 /* TaskBoardView.swift */,
-				1D6031FD2B1A2BF100ECEB91 /* TaskTableView.swift */,
+				0138106A2B277252003EE7E1 /* TaskDetailView.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -353,9 +387,10 @@
 				01EA484A2A474C5900B0E6C3 /* MemberModel.swift */,
 				01EA484C2A47505C00B0E6C3 /* TeamModel.swift */,
 				01EA484E2A4750C000B0E6C3 /* TaskModel.swift */,
-				0106F2EC2A4B83210010B058 /* WidgetOptionModel.swift */,
+				0106F2EC2A4B83210010B058 /* WidgetModel.swift */,
 				01A1420B2A5C6D120090BDEF /* ChartModel.swift */,
 				1D6031FF2B1A7D5B00ECEB91 /* SectionModel.swift */,
+				013810702B27D83F003EE7E1 /* CommentModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -435,6 +470,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				011B11BA2A566914004D44A4 /* UserSettingsAccountTab.swift in Sources */,
+				0138106F2B27CC9B003EE7E1 /* NewTeamModal.swift in Sources */,
 				010D51FA2A44DD5E0030989B /* HomeView.swift in Sources */,
 				010C12FD2A66397F001C2722 /* Encodable+Extension.swift in Sources */,
 				01ACCD152A4A95F5003E59B8 /* NotificationView.swift in Sources */,
@@ -450,6 +486,9 @@
 				018BCE402A49E75800F2E7B8 /* AchievmentsWidgetView.swift in Sources */,
 				017C8BCF2A69E435006A2C74 /* TaskBoardView.swift in Sources */,
 				010D51FE2A44DD850030989B /* InboxView.swift in Sources */,
+				013810712B27D83F003EE7E1 /* CommentModel.swift in Sources */,
+				013810742B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift in Sources */,
+				01AA7BF02B26826600EF3CD7 /* NewSectionForm.swift in Sources */,
 				010C12F82A662964001C2722 /* TaskListView.swift in Sources */,
 				01743B822A4F2B71002CBC30 /* NewProjectView.swift in Sources */,
 				010429152A5606BC005ADFE9 /* UserSettingsProfileTab.swift in Sources */,
@@ -460,12 +499,13 @@
 				01743B892A4F34B6002CBC30 /* NewProjectSetup.swift in Sources */,
 				0191447A2A56FC7900F33151 /* SidebarView.swift in Sources */,
 				011B11BE2A56728A004D44A4 /* UserSettingsAppsTab.swift in Sources */,
-				01743B7E2A4F25F4002CBC30 /* ProjectWidget.swift in Sources */,
+				01743B7E2A4F25F4002CBC30 /* ProjectsWidget.swift in Sources */,
 				018DF6782A5E103900752C32 /* AvatarView.swift in Sources */,
 				0100F5E82A43F3F3001BD781 /* Asana_CloneApp.swift in Sources */,
 				018D8D2B2A453C4400324A79 /* LoginView.swift in Sources */,
 				010D52062A44DDB40030989B /* ProjectView.swift in Sources */,
 				010429132A55FD6F005ADFE9 /* UserSettingsProfileModal.swift in Sources */,
+				0138106D2B2796ED003EE7E1 /* AsanaManager.swift in Sources */,
 				010D52082A44DDC00030989B /* TeamView.swift in Sources */,
 				01A1420E2A5C6F970090BDEF /* ChartSelector.swift in Sources */,
 				01EA484F2A4750C000B0E6C3 /* TaskModel.swift in Sources */,
@@ -474,14 +514,18 @@
 				1D578D9F2B1A270A005AAB54 /* AppDelegate.swift in Sources */,
 				1D6032002B1A7D5B00ECEB91 /* SectionModel.swift in Sources */,
 				1D6032022B1A87F900ECEB91 /* PreviewMockedData.swift in Sources */,
+				01AA7BEC2B25596800EF3CD7 /* CloudKitManager.swift in Sources */,
+				01AA7BE82B24FBF700EF3CD7 /* TableTagCellView.swift in Sources */,
 				011B11B42A56518E004D44A4 /* UserSettingsGeneralTab.swift in Sources */,
 				010D52042A44DDA90030989B /* GoalView.swift in Sources */,
 				01A142102A5C7A8B0090BDEF /* NewGenericGoal.swift in Sources */,
 				017C8BCD2A69CF72006A2C74 /* TaskCardView.swift in Sources */,
 				018DF67C2A5EEABD00752C32 /* Array+Extension.swift in Sources */,
+				0138106B2B277252003EE7E1 /* TaskDetailView.swift in Sources */,
 				018BCE392A49D6FD00F2E7B8 /* SignupView.swift in Sources */,
 				01EA484B2A474C5900B0E6C3 /* MemberModel.swift in Sources */,
 				011B11B82A566643004D44A4 /* UserSettingsEmailForwardingTab.swift in Sources */,
+				01AA7BEA2B250AEA00EF3CD7 /* FilterBuilderView.swift in Sources */,
 				011B11C22A567649004D44A4 /* ProfileView.swift in Sources */,
 				010C12FB2A662A1B001C2722 /* TableDateCellView.swift in Sources */,
 				01A1420C2A5C6D120090BDEF /* ChartModel.swift in Sources */,
@@ -489,7 +533,7 @@
 				1D578DA12B1A2721005AAB54 /* SceneDelegate.swift in Sources */,
 				01DF50792A57195600768649 /* ProjectListTab.swift in Sources */,
 				01743B842A4F2ED1002CBC30 /* ProjectTile.swift in Sources */,
-				0106F2ED2A4B83210010B058 /* WidgetOptionModel.swift in Sources */,
+				0106F2ED2A4B83210010B058 /* WidgetModel.swift in Sources */,
 				011B11BC2A56705F004D44A4 /* UserSettingsDisplayTab.swift in Sources */,
 				01A1420A2A5C63770090BDEF /* NewDashboardModal.swift in Sources */,
 				018E722F2A49FA2E001481F3 /* HomeInspector.swift in Sources */,

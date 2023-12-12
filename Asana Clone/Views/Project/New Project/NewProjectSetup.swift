@@ -1,185 +1,182 @@
 import SwiftUI
 
 struct NewProjectSetup: View {
+    @Environment(AsanaManager.self) private var asanaManager
     @Environment(\.modelContext) var modelContext
-	@State private var showNextSteps: Bool = false
-	@State private var name: String = "Test"
-	@State private var privacy: PrivacyStatus = .publicToTeam
-	@State private var defaultView: TaskViewChoice = .list
-	@State private var nextStep: FirstStep = .tasks
-	@Binding var isPresented: Bool
-
-	var body: some View {
-		GeometryReader { geometry in
-			HStack {
-				if(!showNextSteps) {
-					Form {
-						Section("Project name") {
-							TextField("", text: $name)
-						}
-						
-						Section("Privacy") {
-							Picker("Privacy" ,selection: $privacy) {
-								ForEach(PrivacyStatus.allCases, id: \.self) { status in
-									Text(status.rawValue)
-								}
-							}
-							.labelsHidden()
-							.pickerStyle(.inline)
-						}
-						
-						
-						Section("Default view") {
-							Picker("Default view" ,selection: $defaultView) {
-								ForEach(TaskViewChoice.allCases, id: \.self) { view in
-									HStack {
-										Image("nux_project_\(view)")
-											.resizable()
-											.frame(width: 35, height: 35)
-										Text(view.rawValue)
-										Spacer()
-										
-									}
-									
-									.padding()
-									.background {
-										RoundedRectangle(cornerRadius: 10)
-											.fill(defaultView == view ? .accent.opacity(0.05) : .clear)
-											.stroke(defaultView == view ? .accent : .secondary.opacity(0.25), lineWidth: 1.0)
-									}
-								}
-							}
-							.labelsHidden()
-							.pickerStyle(.inline)
-						}
-						
-						Button {
-							showNextSteps.toggle()
-						} label: {
-							Text("Continue")
-						}
-						.disabled(name.isEmpty)
-					}
-				} else {
-					VStack(spacing: 30) {
-						VStack(spacing: 15) {
-							ForEach(FirstStep.allCases, id: \.self) { step in
-								Button {
-									nextStep = step
-								} label: {
-									HStack {
-										Image(step.details.0)
-											.resizable()
-											.frame(width: 35, height: 35)
-										
-										VStack(alignment: .leading) {
-											Text(step.details.1)
-												.foregroundStyle(.primary)
-											Text(step.details.2)
-												.foregroundStyle(.secondary)
-										}
-										Spacer()
-									}
-									.padding()
-									.background {
-										RoundedRectangle(cornerRadius: 10)
-											.fill(nextStep == step ? .accent.opacity(0.1) : .clear)
-											.stroke(nextStep == step ? .accent : .secondary)
-									}
-								}
-								.buttonStyle(.plain)
-							}
-						}
-						
-						Button {
-							createProject()
-						} label: {
-							Spacer()
-							Text("Go to project")
-								.padding(.vertical, 10)
-								.fontWeight(.medium)
-							Spacer()
-						}
-						.buttonStyle(.plain)
-						.background(Color("paleBlue"))
-						.foregroundStyle(.white)
-						.cornerRadius(5)
-						
-						Spacer()
-					}
-					.padding()
-				}
-				ZStack(alignment: .topLeading) {
-					GeometryReader{g in
-						let value = g.frame(in: .local)
-						
-						Image(defaultView.image)
-							.resizable()
-							.imageScale(.large)
-							.aspectRatio(contentMode: .fill)
-						
-						VStack(alignment: .leading) {
-							Text(name)
-							
-							HStack {
-								Text("Overview")
-								Text("List")
-									.underline(defaultView == .list, color: .accentColor)
-									.foregroundStyle(defaultView == .list ? .accent : .secondary)
-								Text("Board")
-									.underline(defaultView == .board, color: .accentColor)
-									.foregroundStyle(defaultView == .board ? .accent : .secondary)
-								Text("Timeline")
-									.underline(defaultView == .timeline, color: .accentColor)
-									.foregroundStyle(defaultView == .timeline ? .accent : .secondary)
-								Text("Calendar")
-									.underline(defaultView == .calendar, color: .accentColor)
-									.foregroundStyle(defaultView == .calendar ? .accent : .secondary)
-								Text("Workflow")
-							}
-							.foregroundStyle(.secondary)
-							.fontWeight(.medium)
-						}
-						.offset(x: value.width / 7, y: value.height / 30)
-						
-						if(defaultView == .list || defaultView == .board) {
-							Text("To do")
-								.font(.title2)
-								.fontWeight(.medium)
-								.padding(.top, 107)
-								.padding(.leading, 25)
-							
-							Text("In progess")
-								.font(.title2)
-								.fontWeight(.medium)
-								.padding(.top, defaultView == .list ? 285 : 107)
-								.padding(.leading, defaultView == .list ? 25 : 375)
-							
-							Text("Complete")
-								.font(.title2)
-								.fontWeight(.medium)
-								.padding(.top, defaultView == .list ? 410 : 107)
-								.padding(.leading, defaultView == .list ? 25 : 725)
-						}
-					}
-				}
-				.background(.green)
-				.frame(width: geometry.size.width * 0.5, alignment: .leading)
-				.clipped()
-			}
-		}
-		.navigationTitle(showNextSteps ? "What do you want to do first?" : "New Project")
-		.navigationBarTitleDisplayMode(.large)
-	}
-	
-	private func createProject() {
-        let newProject = ProjectModel(name: name, owner: .preview, team: .preview)
+    @State private var showNextSteps: Bool = false
+    @State private var name: String = "Testing"
+    @State private var privacy: PrivacyStatus = .publicToTeam
+    @State private var defaultView: ProjectTab = .list
+    @State private var nextStep: FirstStep = .tasks
+    @Binding var isPresented: Bool
+    
+    var body: some View {
+        @Bindable var asanaManager = asanaManager
+        Grid {
+            GridRow {
+                VStack(alignment: .leading, spacing: 32) {
+                    Section {
+                        TextField("Project name", text: $name)
+                            .textFieldStyle(.roundedBorder)
+                    } header: {
+                        Text("Project name")
+                    } footer: {
+                        if name.isEmpty {
+                            Text("Project name is required.")
+                                .foregroundStyle(.red)
+                        }
+                    }
+                    
+                    Section("Privacy") {
+                        Picker("Privacy" ,selection: $privacy) {
+                            ForEach(PrivacyStatus.allCases, id: \.self) { status in
+                                Text(status.rawValue)
+                            }
+                        }
+                        .labelsHidden()
+                        .pickerStyle(.menu)
+                    }
+                    
+                    Section("Default view") {
+                        let views = [ProjectTab.list, ProjectTab.board, ProjectTab.timeline, ProjectTab.calendar]
+                        
+                        Grid {
+                            GridRow {
+                                ForEach(views, id: \.self) { view in
+                                    Button {
+                                        defaultView = view
+                                    } label: {
+                                        VStack {
+                                            Image("nux_project_\(view)")
+                                                .resizable()
+                                                .frame(width: 35, height: 35)
+                                            
+                                            Text(view.rawValue)
+                                        }
+                                        .padding()
+                                        .frame(maxWidth: .infinity)
+                                        .background {
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .fill(defaultView == view ? .accent.opacity(0.05) : .clear)
+                                                .stroke(defaultView == view ? .accent : .secondary.opacity(0.25), lineWidth: 1.0)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    Button {
+                        createProject()
+                    } label: {
+                        Text("Create project")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.accent)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity,
+                    alignment: .topLeading
+                )
+                .padding()
+                .gridCellColumns(1)
+                
+                Image(defaultView.image)
+                    .resizable()
+                    .scaledToFit()
+                    .gridCellColumns(2)
+                    .overlay(alignment: .topLeading) {
+                        GeometryReader {
+                            let size = $0.size
+                            
+                            VStack(alignment: .leading) {
+                                Text(name)
+                                
+                                HStack {
+                                    Text("Overview")
+                                    
+                                    Text("List")
+                                        .underline(defaultView == .list, color: .accentColor)
+                                        .foregroundStyle(defaultView == .list ? .accent : .secondary)
+                                    
+                                    Text("Board")
+                                        .underline(defaultView == .board, color: .accentColor)
+                                        .foregroundStyle(defaultView == .board ? .accent : .secondary)
+                                    Text("Timeline")
+                                        .underline(defaultView == .timeline, color: .accentColor)
+                                        .foregroundStyle(defaultView == .timeline ? .accent : .secondary)
+                                    Text("Calendar")
+                                        .underline(defaultView == .calendar, color: .accentColor)
+                                        .foregroundStyle(defaultView == .calendar ? .accent : .secondary)
+                                    Text("Workflow")
+                                }
+                                .foregroundStyle(.secondary)
+                                .fontWeight(.medium)
+                            }
+                            .offset(x: size.width * 0.07, y: size.height * 0.035)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        }
+                    }
+                    .overlay(alignment: .topLeading) {
+                        GeometryReader {
+                            let size = $0.size
+                            VStack(alignment: .leading, spacing: 0) {
+                                if(defaultView == .list || defaultView == .board) {
+                                    Text("To do")
+                                        .font(.title2)
+                                        .fontWeight(.medium)
+                                        .offset(y: size.height * 0.16)
+                                    
+                                    Text("In progess")
+                                        .font(.title2)
+                                        .fontWeight(.medium)
+                                        .offset(y: size.height * 0.395)
+                                    
+                                    Text("Complete")
+                                        .font(.title2)
+                                        .fontWeight(.medium)
+                                        .offset(y: size.height * 0.555)
+                                }
+                            }
+                            .offset(x: size.width * 0.026)
+                        }
+                    }
+            }
+        }
+        .navigationTitle(showNextSteps ? "What do you want to do first?" : "New Project")
+    }
+    
+    private func createProject() {
+        guard let currentTeam = asanaManager.currentTeam else { return }
+        guard let currentMember = asanaManager.currentMember else { return }
+        
+        let newSection = SectionModel(name: "")
+        modelContext.insert(newSection)
+        
+        let newProject = ProjectModel(
+            name: name,
+            owner: currentMember,
+            team: currentTeam,
+            sections: [],
+            defaultTab: defaultView
+        )
         modelContext.insert(newProject)
-	}
+        
+        newProject.sections?.append(newSection)
+        
+        asanaManager.selectedLink = .project(newProject)
+    }
 }
 
 #Preview {
-	NavigationStack {
-		NewProjectSetup(isPresented: .constant(false))
-	}
+    @State var asanaManager = AsanaManager()
+    
+    return NavigationStack {
+        NewProjectSetup(isPresented: .constant(false))
+    }
+    .environment(asanaManager)
 }
