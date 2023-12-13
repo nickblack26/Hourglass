@@ -52,7 +52,7 @@ struct HomeInspector: View {
     var availableWidgets: [WidgetModel] {
         widgets.filter {
             guard let currentMember = asanaManager.currentMember else { return false }
-            return currentMember.widgets.contains($0)
+            return !currentMember.widgets.contains($0)
         }
     }
     
@@ -63,6 +63,7 @@ struct HomeInspector: View {
 	}
 	
 	var body: some View {
+        @Bindable var asanaManager = asanaManager
 		Form {
 			Section("Background") {
 				Grid {
@@ -82,18 +83,25 @@ struct HomeInspector: View {
 			
 			Section {
                 
-				ForEach(availableWidgets, id: \.self) { option in
+				ForEach(availableWidgets, id: \.self) { widget in
 					ZStack(alignment: .topLeading) {
-						Image(option.image)
+						Image(widget.image)
 							.resizable()
 							.scaledToFit()
-						Text(option.name)
+						Text(widget.name)
 							.padding()
 					}
 					.listRowBackground(EmptyView())
 					.listRowSeparator(.hidden)
 					.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
 					.clipShape(RoundedRectangle(cornerRadius: 10))
+                    .onTapGesture {
+                        if let currentMember = asanaManager.currentMember {
+                            withAnimation(.snappy) {
+                                currentMember.widgets.append(widget)
+                            }
+                        }
+                    }
 //					.draggable(option) {
 //						RoundedRectangle(cornerRadius: 10)
 //							.fill(.ultraThinMaterial)

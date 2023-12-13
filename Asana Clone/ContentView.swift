@@ -22,86 +22,90 @@ struct ContentView: View {
         @Bindable var asanaManager = asanaManager
         
         if cloudKitManager.isSignedInToiCloud && !teams.isEmpty && !members.isEmpty {
-            NavigationSplitView(columnVisibility: $columnVisibility, sidebar: {
-                SidebarView()
-            }, detail: {
-                ContentDetail()
-                    .inspector(isPresented: Binding(get: {
-                        return asanaManager.showHomeCustomization
-                    }, set: { newValue in
-                        asanaManager.showHomeCustomization = newValue
-                    })) {
-                        HomeInspector(colorScheme: $colorScheme)
-                    }
-                    .toolbar {
-                        ToolbarItem(placement: .topBarLeading) {
-                            Menu {
-                                Section {
-                                    Button {
-                                        if let currentMember = asanaManager.currentMember {
-                                            let task = TaskModel(name: "Test", assignee: currentMember)
-                                            modelContext.insert(task)
+            NavigationSplitView(
+                columnVisibility: $columnVisibility, 
+                sidebar: {
+                    SidebarView()
+                }, detail: {
+                    ContentDetail()
+                        .inspector(isPresented: Binding(get: {
+                            return asanaManager.showHomeCustomization
+                        }, set: { newValue in
+                            asanaManager.showHomeCustomization = newValue
+                        })) {
+                            HomeInspector(colorScheme: $colorScheme)
+                        }
+                        .toolbar {
+                            ToolbarItem(placement: .topBarLeading) {
+                                Menu {
+                                    Section {
+                                        Button {
+                                            if let currentMember = asanaManager.currentMember {
+                                                let task = TaskModel(name: "Test", assignee: currentMember)
+                                                modelContext.insert(task)
+                                            }
+                                        } label: {
+                                            Label("Task", systemImage: "checkmark.circle")
                                         }
-                                    } label: {
-                                        Label("Task", systemImage: "checkmark.circle")
+                                        
+                                        Button {
+                                            
+                                        } label: {
+                                            Label("Project", systemImage: "list.bullet.clipboard")
+                                        }
+                                        
+                                        Button {
+                                            
+                                        } label: {
+                                            Label("Message", systemImage: "message")
+                                        }
                                     }
                                     
-                                    Button {
-                                        
-                                    } label: {
-                                        Label("Project", systemImage: "list.bullet.clipboard")
+                                    Section {
+                                        Button {
+                                            
+                                        } label: {
+                                            Label("Invite", systemImage: "person.badge.plus")
+                                        }
                                     }
                                     
-                                    Button {
-                                        
-                                    } label: {
-                                        Label("Message", systemImage: "message")
-                                    }
+                                } label: {
+                                    Label("Create", systemImage: "plus")
                                 }
-                                
-                                Section {
-                                    Button {
-                                        
-                                    } label: {
-                                        Label("Invite", systemImage: "person.badge.plus")
-                                    }
-                                }
-                                
-                            } label: {
-                                Label("Create", systemImage: "plus")
                             }
-                        }
-                        
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button {
-                                
-                            } label: {
-                                Text("Upgrade")
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .tint(.yellow)
-                            .foregroundStyle(.black)
-                        }
-                        
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Menu {
+                            
+                            ToolbarItem(placement: .topBarTrailing) {
                                 Button {
                                     
                                 } label: {
-                                    Label("Sign out", systemImage: "arrow.right.to.line")
+                                    Text("Upgrade")
                                 }
-                            } label: {
-                                Label("Menu", systemImage: "ellipsis")
+                                .buttonStyle(.borderedProminent)
+                                .tint(.yellow)
+                                .foregroundStyle(.black)
+                            }
+                            
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Menu {
+                                    Button {
+                                        
+                                    } label: {
+                                        Label("Sign out", systemImage: "arrow.right.to.line")
+                                    }
+                                } label: {
+                                    Label("Menu", systemImage: "ellipsis")
+                                }
                             }
                         }
-                    }
-                    .background(Color("defaultBackground"))
-            })
+                        .background(Color("defaultBackground"))
+                }
+            )
             .sheet(item: $asanaManager.selectedTask) { task in
                 TaskDetailView(task)
             }
             .onAppear {
                 asanaManager.currentTeam = teams[0]
+                asanaManager.currentMember = members[0]
             }
         } else {
             if !cloudKitManager.error.isEmpty {

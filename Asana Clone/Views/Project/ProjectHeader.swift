@@ -139,7 +139,7 @@ struct ProjectHeader: View {
 				HStack {
 					ForEach(ProjectTab.allCases, id: \.self) { tab in
 						Button {
-							withAnimation {
+                            withAnimation(.snappy) {
 								selectedTab = tab
 							}
 						} label: {

@@ -3,11 +3,13 @@ import SwiftData
 
 struct NewSectionForm: View {
     @Environment(\.modelContext) private var modelContext
-//    @Query(filter: #Predicate<TaskModel> { !$0.isCompleted })
-    @Query private var tasks: [TaskModel]
+    @Environment(\.dismiss) private var dismiss
+    @Query(filter: #Predicate<TaskModel> { !$0.isCompleted })
+    private var tasks: [TaskModel]
     @State private var name: String = ""
     @State private var selectedTasks: [TaskModel] = []
     @Binding var showProjectSheet: Bool
+    @Bindable var project: ProjectModel
     
     var body: some View {
         NavigationStack {
@@ -21,6 +23,12 @@ struct NewSectionForm: View {
                     }
                 }
                 .pickerStyle(.navigationLink)
+                
+                Button("Submit") {
+                    newSection()
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.accent)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -33,12 +41,30 @@ struct NewSectionForm: View {
             }
             .navigationTitle("New section")
             .onSubmit {
-                modelContext.insert(SectionModel(name: name, tasks: selectedTasks))
+                newSection()
             }
         }
     }
+    
+    private func newSection() {
+        let section = SectionModel(name: name, order: 0)
+        modelContext.insert(section)
+        
+        if let sections = project.sections, !sections.isEmpty {
+            for index in sections.indices {
+                @Bindable var section = sections[index]
+                section.order = index + 1
+            }
+            project.sections!.insert(section, at: 0)
+        } else {
+            project.sections?.append(section)
+        }
+        
+        dismiss()
+    }
+    
 }
 
 #Preview {
-    NewSectionForm(showProjectSheet: .constant(true))
+    NewSectionForm(showProjectSheet: .constant(true), project: .preview)
 }

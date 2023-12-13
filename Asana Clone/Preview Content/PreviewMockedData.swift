@@ -13,7 +13,7 @@ extension MemberModel {
 }
 
 extension SectionModel {
-    static var preview = SectionModel(name: "Backlog", tasks: [TaskModel(name: "Test", assignee: .preview)])
+    static var preview = SectionModel(name: "Backlog", order: 0, tasks: [TaskModel(name: "Test", assignee: .preview)])
 }
 
 extension TaskModel {

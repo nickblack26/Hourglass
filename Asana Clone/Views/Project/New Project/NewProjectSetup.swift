@@ -3,6 +3,7 @@ import SwiftUI
 struct NewProjectSetup: View {
     @Environment(AsanaManager.self) private var asanaManager
     @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) var dismiss
     @State private var showNextSteps: Bool = false
     @State private var name: String = "Testing"
     @State private var privacy: PrivacyStatus = .publicToTeam
@@ -154,7 +155,7 @@ struct NewProjectSetup: View {
         guard let currentTeam = asanaManager.currentTeam else { return }
         guard let currentMember = asanaManager.currentMember else { return }
         
-        let newSection = SectionModel(name: "")
+        let newSection = SectionModel(name: "", order: 0)
         modelContext.insert(newSection)
         
         let newProject = ProjectModel(
@@ -169,6 +170,8 @@ struct NewProjectSetup: View {
         newProject.sections?.append(newSection)
         
         asanaManager.selectedLink = .project(newProject)
+        
+        dismiss()
     }
 }
 

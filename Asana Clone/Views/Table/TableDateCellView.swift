@@ -128,7 +128,7 @@ struct TableDateCellView: View {
                 HStack {
                     if showTime {
                         Button("Show time", systemImage: "clock") {
-                           withAnimation {
+                            withAnimation(.snappy) {
                                 showTime.toggle()
                             }
                         }
@@ -137,7 +137,7 @@ struct TableDateCellView: View {
                         .buttonStyle(.bordered)
                     } else {
                         Button("Show time", systemImage: "clock") {
-                           withAnimation {
+                            withAnimation(.snappy) {
                                 showTime.toggle()
                             }
                         }

@@ -1,18 +1,20 @@
 import SwiftUI
 
 struct TaskCardView: View {
+    @Environment(\.modelContext) private var context
     @Environment(\.colorScheme) private var colorScheme
 	@State private var showSubtasks: Bool = false
 	@State private var isHovering: Bool = false
-	@Binding var currentlyDragging: TaskModel?
-	@Binding var currentlyDraggingSection: SectionModel?
 	@Bindable var task: TaskModel
-	var section: SectionModel?
+    
+    init(_ task: TaskModel) {
+        self.task = task
+    }
 
 	let columns = Array(repeating: GridItem(), count: 5)
 	
 	var body: some View {
-		VStack(alignment: .leading) {
+		VStack(alignment: .leading, spacing: 16) {
 			HStack {
 				LazyVGrid(columns: columns) {
 					Capsule()
@@ -35,7 +37,7 @@ struct TaskCardView: View {
 			
             HStack(alignment: .top) {
 				Button {
-					withAnimation {
+                    withAnimation(.snappy) {
 						task.isCompleted.toggle()
 					}
 				} label: {
@@ -49,7 +51,7 @@ struct TaskCardView: View {
 					}
 				}
 				
-				Text(task.name)
+                TextField("Task name", text: $task.name, axis: .vertical)
 			}
 			.font(.subheadline)
 			
@@ -77,7 +79,7 @@ struct TaskCardView: View {
 				.foregroundStyle(.secondary)
 				
 				Button {
-					withAnimation(.smooth) {
+                    withAnimation(.snappy) {
 						showSubtasks.toggle()
 					}
 				} label: {
@@ -86,11 +88,11 @@ struct TaskCardView: View {
 						Image(systemName: "message")
 						
 						if showSubtasks {
-							withAnimation {
+                            withAnimation(.snappy) {
 								Image(systemName: "chevron.down")
 							}
 						} else {
-							withAnimation {
+                            withAnimation(.snappy) {
 								Image(systemName: "chevron.right")
 							}
 						}
@@ -135,6 +137,53 @@ struct TaskCardView: View {
 		.onHover { hovering in
 			isHovering = hovering
 		}
+        .contextMenu(menuItems: {
+            Button("Edit task name", systemImage: "pencil") {
+                
+            }
+            
+             Button("Add cover image", systemImage: "photo.on.rectangle.angled") {
+                
+            }
+            
+            Divider()
+            
+             Button("Leave task", systemImage: "bell") {
+                
+            }
+            
+             Button("Create follow-up task", systemImage: "circle.dotted") {
+                
+            }
+            
+            Divider()
+            
+            Button("Duplicate task", systemImage: "plus.square.on.square") {
+                
+            }
+            
+            Button("Mark complete", systemImage: "checkmark.circle") {
+                
+            }
+            
+            Divider()
+            
+            Button("Open details", systemImage: "sidebar.trailing") {
+                
+            }
+            
+            Button("Copy task link", systemImage: "link") {
+                
+            }
+            
+            Divider()
+            
+            Button("Delete", systemImage: "trash", role: .destructive) {
+                withAnimation {
+                    deleteTask()
+                }
+            }
+        })
 //        .draggable(task) {
 //			TaskCardView(currentlyDragging: .constant(nil), currentlyDraggingSection: .constant(nil), task: task, section: section)
 //				.onAppear {
@@ -143,11 +192,15 @@ struct TaskCardView: View {
 //				}
 //		}
 	}
+    
+    private func deleteTask() {
+        context.delete(task)
+    }
 }
 
 #Preview {
 	ZStack {
 		Color(uiColor: .systemGray6)
-        TaskCardView(currentlyDragging: .constant(nil), currentlyDraggingSection: .constant(nil), task: .preview[0], section: .preview)
+        TaskCardView(.preview[0])
 	}
 }

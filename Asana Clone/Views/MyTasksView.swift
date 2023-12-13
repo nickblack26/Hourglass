@@ -14,12 +14,15 @@ enum MyTaskTab: String, CaseIterable, Identifiable {
 struct MyTasksView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AsanaManager.self) private var asanaManager
-    @Query var sections: [SectionModel]
+    @Query(sort: \SectionModel.order)
+    var sections: [SectionModel]
     @State private var tabProgress: CGFloat = 0
     @State private var selectedTab: MyTaskTab? = .list
     @State private var showFilters: Bool = false
+    @State private var showSectionForm: Bool = false
     
     var body: some View {
+        @Bindable var asanaManager = asanaManager
         VStack(alignment: .leading) {
             HStack {
                 Image("profile")
@@ -36,7 +39,7 @@ struct MyTasksView: View {
                     HStack(spacing: 0) {
                         ForEach(MyTaskTab.allCases) { tab in
                             Button(tab.rawValue) {
-                                withAnimation {
+                                withAnimation(.snappy) {
                                     selectedTab = tab
                                 }
                             }
@@ -95,8 +98,16 @@ struct MyTasksView: View {
                     .buttonStyle(.borderedProminent)
                     
                     Menu("", systemImage: "chevron.down") {
-                        Button("Add section", action: addNewSection)
-                        Button("Add milestone...", action: addNewSection)
+                        Button("Add section") {
+                            withAnimation(.snappy) {
+                                addNewSection()
+                            }
+                        }
+                        Button("Add milestone...") {
+                            withAnimation(.snappy) {
+                                addNewSection()
+                            }
+                        }
                     }
                     .labelsHidden()
                     .buttonStyle(.borderedProminent)
@@ -143,11 +154,10 @@ struct MyTasksView: View {
                 
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: 16) {
-                        TaskTableView(sections)
+                        TaskTableView(asanaManager.currentMember?.sections?.sorted(by: { $0.order < $1.order }) ?? [])
                             .containerRelativeFrame(.horizontal)
                         
-                        
-                        TaskBoardView([])
+                        TaskBoardView(asanaManager.currentMember?.sections?.sorted(by: { $0.order < $1.order }) ?? [])
                             .containerRelativeFrame(.horizontal)
                         
                         Text("Hello")
@@ -161,15 +171,28 @@ struct MyTasksView: View {
         }
         .onAppear {
             if sections.isEmpty {
-                let section = SectionModel(name: "Untitled section")
+                let section = SectionModel(
+                    name: "Untitled section",
+                    order: 0,
+                    member: asanaManager.currentMember
+                )
                 modelContext.insert(section)
             }
         }
     }
     
     private func addNewSection() {
-        let section = SectionModel(name: "")
-        modelContext.insert(section)
+        let section = SectionModel(
+            name: "",
+            order: 0,
+            member: asanaManager.currentMember
+        )
+        if !sections.isEmpty {
+            section.order = sections.count + 1
+        }
+       
+        asanaManager.currentMember?.sections?.append(section)
+//        modelContext.insert(section)
     }
     
     private func addNewTask() {

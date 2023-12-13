@@ -5,7 +5,7 @@ struct TaskTableView: View {
     @Query var projects: [ProjectModel]
     @Environment(AsanaManager.self) private var asanaManager
     @Environment(\.modelContext) private var modelContext
-    @State private var sortOrder: [KeyPathComparator<TaskModel>] = [.init(\.name)]
+//    @State private var sortOrder: [KeyPathComparator<TaskModel>] = [.init(\.name)]
     
     var sections: [SectionModel]
     
@@ -15,10 +15,7 @@ struct TaskTableView: View {
     
     var body: some View {
         @Bindable var asanaManager = asanaManager
-        Table(
-            of: TaskModel.self,
-            sortOrder: $sortOrder
-        ) {
+        Table(of: TaskModel.self) {
             TableColumn("Task name") { task in
                 @Bindable var task = task
                 HStack {
@@ -158,14 +155,20 @@ struct TaskTableView: View {
         }
     }
     
-    private mutating func addNewSectionAbove() {
-        let newSection = SectionModel(name: "")
-        modelContext.insert(newSection)
-        sections.insert(newSection, at: 0)
+    private mutating func addNewSectionAbove(currentIndex: Int) {
+        if currentIndex == 0 {
+            let newSection = SectionModel(name: "", order: 0)
+            modelContext.insert(newSection)
+            sections.insert(newSection, at: 0)
+        } else {
+            let newSection = SectionModel(name: "", order: currentIndex - 1)
+            modelContext.insert(newSection)
+            sections.insert(newSection, at: currentIndex - 1)
+        }
     }
     
     private mutating func addNewSectionBelow(currentIndex: Int) {
-        let newSection = SectionModel(name: "")
+        let newSection = SectionModel(name: "", order: currentIndex + 1)
         modelContext.insert(newSection)
         sections.insert(newSection, at: currentIndex + 1)
     }

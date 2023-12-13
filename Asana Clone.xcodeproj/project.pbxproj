@@ -114,6 +114,7 @@
 		0138106E2B27CC9B003EE7E1 /* NewTeamModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTeamModal.swift; sourceTree = "<group>"; };
 		013810702B27D83F003EE7E1 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		013810732B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateNotepadWidgetView.swift; sourceTree = "<group>"; };
+		014BBA712B29687C0081D56F /* Asana-Clone-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Asana-Clone-Info.plist"; sourceTree = SOURCE_ROOT; };
 		01743B7D2A4F25F4002CBC30 /* ProjectsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsWidget.swift; sourceTree = "<group>"; };
 		01743B812A4F2B71002CBC30 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
 		01743B832A4F2ED1002CBC30 /* ProjectTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTile.swift; sourceTree = "<group>"; };
@@ -184,6 +185,7 @@
 		0100F5E62A43F3F3001BD781 /* Asana Clone */ = {
 			isa = PBXGroup;
 			children = (
+				014BBA712B29687C0081D56F /* Asana-Clone-Info.plist */,
 				018DF67A2A5EEAAC00752C32 /* Extensions */,
 				01EA48472A474A9200B0E6C3 /* Models */,
 				010D51F82A44DD520030989B /* Views */,
@@ -676,6 +678,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Asana-Clone-Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -716,6 +719,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Asana-Clone-Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

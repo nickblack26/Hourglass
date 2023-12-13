@@ -8,7 +8,8 @@ struct HomeView: View {
     @Environment(\.colorScheme) var backgroundColor
     
     // MARK: Data Variables
-    @Query private var tasks: [TaskModel]
+    @Query(filter: #Predicate<TaskModel>{ $0.isCompleted == true })
+    private var tasks: [TaskModel]
     
     // MARK: State Variables
 	@State private var taskTab: String = "Upcoming"
@@ -32,70 +33,72 @@ struct HomeView: View {
 	var body: some View {
         @Bindable var asanaManager = asanaManager
 
-		VStack {
-			VStack {
-				Text("\(getFormattedDate())")
-					.font(.title3)
-					.fontWeight(.medium)
-				
-                Text("Good afternoon, \(cloudKitManager.userName)")
-					.font(.largeTitle)
-					.fontWeight(.regular)
-			}
-			
-			HStack {
-				Spacer()
-				Spacer()
-				
-                AchievmentsWidgetView(number: tasks.count, collaborators: 1)
-				
-				Spacer()
-				
-				Button {
-                    asanaManager.showHomeCustomization.toggle()
-				} label: {
-					Label("Customize", systemImage: "rectangle.badge.plus")
-				}
-				.buttonStyle(.plain)
-				.padding(.horizontal)
-				.padding(.vertical, 10)
-				.background {
-					RoundedRectangle(cornerRadius: 5)
-						.stroke(.cardBorder, lineWidth: 1)
-						.fill(.cardBackground)
-				}
-			}
-			
-			LazyVGrid(columns: [GridItem(),GridItem()], spacing: 16) {
-                ForEach(asanaManager.currentMember?.widgets ?? []) { widget in
-					ZStack {
-						switch widget.type {
-							case .myTasks:
-                                MyTasksWidget()
-							case .people:
-								Text(widget.name)
-							case .projects:
-								ProjectsWidget()
-							case .notepad:
-                                PrivateNotepadWidgetView()
-							case .tasksAssigned:
-								Text(widget.name)
-							case .draftComments:
-								Text(widget.name)
-							case .forms:
-								Text(widget.name)
-							case .myGoals:
-								Text(widget.name)
-						}
-					}
-					.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack {
+                VStack {
+                    Text("\(getFormattedDate())")
+                        .font(.title3)
+                        .fontWeight(.medium)
+                    
+                    Text("Good afternoon, \(cloudKitManager.userName)")
+                        .font(.largeTitle)
+                        .fontWeight(.regular)
+                }
+                
+                HStack {
+                    Spacer()
+                    Spacer()
+                    
+                    AchievmentsWidgetView(number: tasks.count, collaborators: 1)
+                    
+                    Spacer()
+                    
+                    Button {
+                        asanaManager.showHomeCustomization.toggle()
+                    } label: {
+                        Label("Customize", systemImage: "rectangle.badge.plus")
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.horizontal)
+                    .padding(.vertical, 10)
+                    .background {
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(.cardBorder, lineWidth: 1)
+                            .fill(.cardBackground)
+                    }
+                }
+                
+                LazyVGrid(columns: [GridItem(),GridItem()], spacing: 16) {
+                    ForEach(asanaManager.currentMember?.widgets ?? []) { widget in
+                        ZStack {
+                            switch widget.type {
+                                case .myTasks:
+                                    MyTasksWidget()
+                                case .people:
+                                    Text(widget.name)
+                                case .projects:
+                                    ProjectsWidget()
+                                case .notepad:
+                                    PrivateNotepadWidgetView()
+                                case .tasksAssigned:
+                                    Text(widget.name)
+                                case .draftComments:
+                                    Text(widget.name)
+                                case .forms:
+                                    Text(widget.name)
+                                case .myGoals:
+                                    Text(widget.name)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 
-				}
-			}
-			.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-		}
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            }
+            .frame(maxWidth: 1200)
+        }
 		.padding()
-		.frame(maxWidth: 1200)
 		.navigationTitle("Home")
 		.background {
 			if(backgroundColor == .dark && colorScheme == .white) {

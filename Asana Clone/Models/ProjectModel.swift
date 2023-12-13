@@ -201,8 +201,8 @@ class ProjectModel {
         tasks: [TaskModel] = [],
         members: [MemberModel] = [],
         sections: [SectionModel] = [],
-        color: ProjectColor = ProjectColor.allCases.randomElement()!,
-        icon: ProjectIcon = ProjectIcon.allCases.randomElement()!,
+        color: ProjectColor = ProjectColor.allCases.randomElement() ?? .aqua,
+        icon: ProjectIcon = ProjectIcon.allCases.randomElement() ?? .calendar,
         defaultTab: ProjectTab = .list,
         privacy: PrivacyStatus = PrivacyStatus.publicToTeam,
         archived: Bool = false

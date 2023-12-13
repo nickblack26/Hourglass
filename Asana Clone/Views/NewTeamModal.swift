@@ -57,7 +57,7 @@ struct NewTeamModal: View {
                 Spacer()
                 
                 Button("Create workspace") {
-                    
+                    createNewTeam()
                 }
                 .buttonStyle(.borderedProminent)
             }

@@ -50,13 +50,15 @@ struct SignupView: View {
 						.background(.black)
 						.foregroundStyle(.white)
 						.cornerRadius(4)
+                        .onTapGesture {
+                            createMember()
+                        }
 					}
 					.formStyle(.columns)
 					.padding(.horizontal, 50)
 					.padding(.top, 25)
                     .onSubmit {
-                        let member = MemberModel(name: "", email: email)
-                        context.insert(member)
+                       createMember()
                     }
 					
 					Spacer()
@@ -107,6 +109,11 @@ struct SignupView: View {
 			
 		}
 		.padding()
+    }
+    
+    private func createMember() {
+        let member = MemberModel(name: "", email: email)
+        context.insert(member)
     }
 }
 

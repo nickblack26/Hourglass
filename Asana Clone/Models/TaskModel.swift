@@ -49,7 +49,7 @@ class TaskModel: Hashable {
         parentTask: TaskModel? = nil,
         projects: [ProjectModel] = [],
         section: SectionModel? = nil,
-        assignee: MemberModel,
+        assignee: MemberModel? = nil,
         collaborators: [MemberModel] = [],
         comments: [CommentModel] = [],
         subtasks: [TaskModel] = []

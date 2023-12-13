@@ -149,12 +149,8 @@ struct TasksView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             ForEach(tasks) { task in
-                TaskCardView(
-                    currentlyDragging: .constant(nil),
-                    currentlyDraggingSection: .constant(nil),
-                    task: task,
-                    section: task.section
-                )
+                @Bindable var task = task
+                TaskCardView(task)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -185,14 +181,37 @@ struct ColumnView: View {
                     .fontWeight(.medium)
                     
                     Button {
-                        
+                        withAnimation(.snappy) {
+                            addTaskToSection()
+                        }
                     } label: {
                         Image(systemName: "plus")
                     }
                     .buttonStyle(.plain)
                     
-                    Button {
+                    
+                    Menu {
+                        Button("Add rule to section", systemImage: "bolt") {
+                            
+                        }
                         
+                        Button("Rename section", systemImage: "pencil") {
+                            
+                        }
+                        
+                        Menu("Add section", systemImage: "lines.measurement.vertical") {
+                            Button("Add section to left", systemImage: "arrow.left") {
+                                
+                            }
+                            
+                            Button("Add section to right", systemImage: "arrow.right") {
+                                
+                            }
+                        }
+                        
+                        Button("Delete section", systemImage: "trash", role: .destructive) {
+                            
+                        }
                     } label: {
                         Image(systemName: "ellipsis")
                     }
@@ -204,5 +223,10 @@ struct ColumnView: View {
         }
         .frame(width: 375, alignment: .leading)
         .background(section.tasks.isEmpty ? Color(uiColor: .systemGray6).opacity(0.5) : .clear)
+    }
+    
+    private func addTaskToSection() {
+        let newTask = TaskModel(name: "")
+        section.tasks.append(newTask)
     }
 }

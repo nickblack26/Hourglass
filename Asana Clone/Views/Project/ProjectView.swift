@@ -43,26 +43,28 @@ struct ProjectView: View {
 				ProjectOverviewTab()
 					.tag(ProjectTab.overview)
 				
-                TaskTableView(project.sections ?? [])
-					.tag(ProjectTab.list)
-					.padding()
+                TaskTableView(project.sections?.sorted(by: { $0.order < $1.order }) ?? [])
+                .tag(ProjectTab.list)
+                .padding()
 				
-                TaskBoardView(project.sections ?? [])
+                TaskBoardView(project.sections?.sorted(by: { $0.order < $1.order }) ?? [])
 					.tag(ProjectTab.board)
 					.padding()
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))
-			
 		}
         .sheet(isPresented: $showProjectSheet, content: {
-            NewSectionForm(showProjectSheet: $showProjectSheet)
+            NewSectionForm(showProjectSheet: $showProjectSheet, project: project)
         })
 	}
     
     private func addNewSection() {
-        let section = SectionModel(name: "")
-        modelContext.insert(section)
+        let section = SectionModel(name: "", order: 0)
         if let sections = project.sections, !sections.isEmpty {
+            for index in sections.indices {
+                @Bindable var section = sections[index]
+                section.order = index + 1
+            }
             project.sections!.insert(section, at: 0)
         } else {
             project.sections?.append(section)

@@ -12,6 +12,11 @@ struct Asana_CloneApp: App {
         do {
             let config = ModelConfiguration(cloudKitDatabase: .none)
             let container = try ModelContainer(for: fullSchema, configurations: config)
+                        
+            var itemFetchDescriptor = FetchDescriptor<WidgetModel>()
+            itemFetchDescriptor.fetchLimit = 1
+            
+            guard try container.mainContext.fetch(itemFetchDescriptor).count == 0 else { return container }
     
             let myTasksWidget: WidgetModel = .init(name: "My Tasks", image: "myTasksWidgetPreview", type: .myTasks)
             let peopleWidget: WidgetModel = .init(name: "People", image: "peopleWidgetPreview",  columns: 2, type: .people)
