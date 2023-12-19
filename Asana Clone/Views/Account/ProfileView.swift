@@ -14,11 +14,11 @@ struct ProfileView: View {
 		ScrollView {
 			VStack(alignment: .leading) {
 				HStack(alignment: .center) {
-					Image("profile")
-						.resizable()
-						.scaledToFill()
-						.frame(width: 150, height: 150)
-						.clipShape(Circle())
+                    AvatarView(
+                        image: tempUrl,
+                        fallback: "Nick Black",
+                        size: .xmega
+                    )
 					
 					VStack(alignment: .leading) {
 						Text("Nick Black")

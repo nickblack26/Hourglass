@@ -14,7 +14,7 @@ struct UserSettingsHacksTab: View {
 	
 	var body: some View {
 		Form {
-			Section {
+            SwiftUI.Section {
 				Toggle(isOn: $extraDelight) {
 					VStack(alignment: .leading) {
 						Text("Extra delight")

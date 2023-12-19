@@ -41,18 +41,19 @@ enum ColorScheme: String, CaseIterable {
 			case .pink_purple: return .init(background: Color("PinkPurpleColor"), foreground: .white, image: "pink_purple")
 			case .pink: return .init(background: Color("PinkColor"), foreground: .black, image: "pink")
 			case .oat: return .init(background: .oat, foreground: .black, image: "oat")
-			case .white: return .init(background: Color("Classic"), foreground: .black, image: "classic")
+            case .white: return .init(background: .white, foreground: .black, image: "classic")
 		}
 	}
 }
 
 struct HomeInspector: View {
-    @Query private var widgets: [WidgetModel]
+    @Query private var widgets: [Widget]
     @Environment(AsanaManager.self) private var asanaManager
-    var availableWidgets: [WidgetModel] {
+    var availableWidgets: [Widget] {
         widgets.filter {
             guard let currentMember = asanaManager.currentMember else { return false }
-            return !currentMember.widgets.contains($0)
+            guard let widgets = currentMember.widgets else {return false}
+            return !widgets.contains($0)
         }
     }
     
@@ -65,7 +66,7 @@ struct HomeInspector: View {
 	var body: some View {
         @Bindable var asanaManager = asanaManager
 		Form {
-			Section("Background") {
+            SwiftUI.Section("Background") {
 				Grid {
 					GridRow {
 						ForEach(0..<6) { index in
@@ -81,7 +82,7 @@ struct HomeInspector: View {
 				}
 			}
 			
-			Section {
+            SwiftUI.Section {
                 
 				ForEach(availableWidgets, id: \.self) { widget in
 					ZStack(alignment: .topLeading) {
@@ -98,7 +99,7 @@ struct HomeInspector: View {
                     .onTapGesture {
                         if let currentMember = asanaManager.currentMember {
                             withAnimation(.snappy) {
-                                currentMember.widgets.append(widget)
+                                currentMember.widgets?.append(widget)
                             }
                         }
                     }

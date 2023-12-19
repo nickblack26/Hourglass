@@ -66,7 +66,7 @@ struct NewTeamModal: View {
     }
     
     private func createNewTeam() {
-        let team = TeamModel(name: name)
+        let team = Team(name: name)
         modelContext.insert(team)
         dismiss()
     }

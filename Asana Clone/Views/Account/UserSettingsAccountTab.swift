@@ -25,7 +25,7 @@ struct UserSettingsAccountTab: View {
 	
 	var body: some View {
 		Form {
-			Section("Organizations and workspaces") {
+            SwiftUI.Section("Organizations and workspaces") {
 				VStack(alignment: .leading) {
 					HStack(alignment: organizations.count > 1 ? .top : .center) {
 						Text("Organizations")
@@ -57,7 +57,7 @@ struct UserSettingsAccountTab: View {
 			}
 			.headerProminence(.increased)
 			
-			Section("Password") {
+            SwiftUI.Section("Password") {
 				if(changePassword) {
 //					SecureField("Current Password", text: $currentPassword)
 //					VStack(alignment: .leading) {
@@ -107,7 +107,7 @@ struct UserSettingsAccountTab: View {
 			}
 			.headerProminence(.increased)
 			
-			Section("Two-Factor Authentication") {
+            SwiftUI.Section("Two-Factor Authentication") {
 				HStack {
 					Text("Require an authentication code when you log in with an email and password")
 					Spacer()
@@ -120,7 +120,7 @@ struct UserSettingsAccountTab: View {
 			}
 			.headerProminence(.increased)
 			
-			Section("Two-Factor Authentication") {
+            SwiftUI.Section("Two-Factor Authentication") {
 				HStack {
 					Text("Log out of all sessions except this current browser")
 					Spacer()
@@ -133,7 +133,7 @@ struct UserSettingsAccountTab: View {
 			}
 			.headerProminence(.increased)
 			
-			Section("Deactivation") {
+            SwiftUI.Section("Deactivation") {
 				HStack {
 					Text("Remove access to all organizations and workspaces in Asana")
 					Spacer()

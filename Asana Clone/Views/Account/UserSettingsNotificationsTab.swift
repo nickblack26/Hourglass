@@ -41,7 +41,7 @@ struct UserSettingsNotificationsTab: View {
 	
 	var body: some View {
 		Form {
-			Section {
+            SwiftUI.Section {
 				Button {
 					
 				} label: {
@@ -63,7 +63,7 @@ struct UserSettingsNotificationsTab: View {
 			}
 			.headerProminence(.increased)
 			
-			Section("Schedule") {
+            SwiftUI.Section("Schedule") {
 				Toggle(isOn: .constant(true), label: {
 					HStack {
 						Text("Do not notify me from:")
@@ -80,7 +80,7 @@ struct UserSettingsNotificationsTab: View {
 			}
 			.headerProminence(.increased)
 			
-			Section("Do not disturb me on my days off") {
+            SwiftUI.Section("Do not disturb me on my days off") {
 				HStack {
 					List(Day.allCases, id: \.self, selection: $selectedDays) { day in
 						Text(String(day.rawValue.prefix(3)))
@@ -100,7 +100,7 @@ struct UserSettingsNotificationsTab: View {
 				}
 			}
 			
-			Section("Email notifications") {
+            SwiftUI.Section("Email notifications") {
 				Picker("Preferred email", selection: .constant("nicholas.black98@icloud.com")) {
 					Text("nicholas.black98@icloud.com")
 				}

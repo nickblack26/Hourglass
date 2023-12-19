@@ -16,7 +16,7 @@ struct UserSettingsGeneralTab: View {
 	
     var body: some View {
 		Form {
-			Section {
+            SwiftUI.Section {
 				Toggle(isOn: $globalShortcutsEnabled) {
 					VStack(alignment: .leading) {
 						Text("Enable global keyboard shortcuts")
@@ -31,7 +31,7 @@ struct UserSettingsGeneralTab: View {
 			}
 			.headerProminence(.increased)
 			
-			Section {
+            SwiftUI.Section {
 				Toggle(isOn: $appIcon) {
 					VStack(alignment: .leading) {
 						Text("Enable Asana app icon")
@@ -46,7 +46,7 @@ struct UserSettingsGeneralTab: View {
 			}
 			.headerProminence(.increased)
 			
-			Section {
+            SwiftUI.Section {
 				Toggle(isOn: $pomodoroUi) {
 					VStack(alignment: .leading) {
 						Text("Enable persistent pomodoro UI")

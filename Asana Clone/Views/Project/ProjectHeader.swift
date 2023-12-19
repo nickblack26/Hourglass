@@ -1,143 +1,53 @@
 import SwiftUI
 
 struct ProjectHeader: View {
+    @Environment(AsanaManager.self) private var asanaManager
     @State private var showColorPicker: Bool = false
-	@Binding var selectedTab: ProjectTab
-	@Bindable var project: ProjectModel
+    @Binding var selectedTab: Project.Tab
+	@Bindable var project: Project
 	
     var body: some View {
 		HStack {
-			Button {
-                showColorPicker.toggle()
-			} label: {
+            Menu {
+                ProjectThemeMenuContent(project)
+            } label: {
                 Image(project.icon.icon)
-					.resizable()
-					.frame(width: 25, height: 25)
-					.padding()
-					.background {
-						RoundedRectangle(cornerRadius: 10)
+                    .resizable()
+                    .frame(width: 25, height: 25)
+                    .padding()
+                    .background {
+                        RoundedRectangle(cornerRadius: 10)
                             .fill(project.color.color)
-					}
-			}
-            .buttonStyle(.plain)
-            .popover(isPresented: $showColorPicker, content: {
-                List {
-                    Picker("Colors", selection: $project.color) {
-                        VStack {
-                            HStack {
-                                ForEach(0..<8, id: \.self) { index in
-                                    Image(systemName: project.color == ProjectColor.allCases[index] ? "checkmark.square.fill" : "square.fill")
-                                        .tint(ProjectColor.allCases[index].color)
-                                        .tag(ProjectColor.allCases[index])
-                                }
-                            }
-                            
-                            HStack {
-                                ForEach(8..<16, id: \.self) { index in
-                                    Image(systemName: project.color == ProjectColor.allCases[index] ? "checkmark.square.fill" : "square.fill")
-                                        .tint(ProjectColor.allCases[index].color)
-                                        .tag(ProjectColor.allCases[index])
-                                }
-                            }
-                        }
                     }
-                    .pickerStyle(.palette)
-                    .paletteSelectionEffect(.custom)
-                }
-            })
+            }
 			
 			VStack(alignment: .leading) {
 				HStack {
-                    TextField("Project name", text: $project.name)
+                    TextField("Project name", text: $project.name, axis: .horizontal)
 						.font(.title2)
 						.fontWeight(.medium)
+                        .fixedSize()
 					
-					Menu {
-						Button {
-							
-						} label: {
-							Label("Edit project details", systemImage: "pencil")
-						}
-						
-						Menu {
-                            Picker("Colors", selection: $project.color) {
-                                ForEach(ProjectColor.allCases, id: \.self) { color in
-                                    Image(systemName: project.color == color ? "checkmark.square.fill" : "square.fill")
-                                        .tint(color.color)
-                                        .tag(color)
-                                }
-                            }
-                            .pickerStyle(.palette)
-                            .paletteSelectionEffect(.custom)
-                            
-                            Divider()
-                            
-                            Picker("Icons", selection: $project.color) {
-                                ForEach(ProjectIcon.allCases, id: \.self) { icon in
-                                    Image(icon.icon)
-                                        .tint(project.color.color)
-                                        .tag(icon)
-                                }
-                            }
-                            .pickerStyle(.palette)
-                            .paletteSelectionEffect(.custom)
-                            
-						} label: {
-							Label {
-								Text("Set color & icon")
-							} icon: {
-								Image(systemName: "square.fill")
-									.foregroundStyle(.yellow)
-							}
-						}
-						
-						
-					} label: {
-						Image(systemName: "chevron.down")
-					}
-					Image(systemName: "star")
-						.fontWeight(.light)
+					ProjectActionsMenu(project)
+                    
+                    Button {
+                        withAnimation(.snappy) {
+                            project.starred.toggle()
+                        }
+                    } label: {
+                        Image(systemName: project.starred ? "star.fill" : "star")
+                            .fontWeight(.light)
+                            .foregroundStyle(project.color.color)
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.clear)
+                    .foregroundStyle(.primary)
 					
-					Menu {
-						Section {
-							Button {
-								
-							} label: {
-								Label("On track", systemImage: "circle.fill")
-							}
-							
-							Button {
-								
-							} label: {
-								Label("At risk", systemImage: "circle.fill")
-							}
-							Button {
-								
-							} label: {
-								Label("Off track", systemImage: "circle.fill")
-							}
-							Button {
-								
-							} label: {
-								Label("On hold", systemImage: "circle.fill")
-							}
-						}
-						
-						Section {
-							Button {
-								
-							} label: {
-								Label("Complete", systemImage: "checkmark")
-							}
-						}
-						
-					} label: {
-						Label("Set status", systemImage: "circle")
-					}
+                    ProjectStatusMenu(project)
 				}
 				
 				HStack {
-					ForEach(ProjectTab.allCases, id: \.self) { tab in
+                    ForEach(Project.Tab.allCases, id: \.self) { tab in
 						Button {
                             withAnimation(.snappy) {
 								selectedTab = tab
@@ -149,7 +59,7 @@ struct ProjectHeader: View {
 							if(selectedTab == tab && selectedTab.showMenu) {
 								Menu {
 									Button {
-										
+                                        project.defaultTab = tab
 									} label: {
 										Text("Set as default")
 									}
@@ -167,7 +77,7 @@ struct ProjectHeader: View {
 			Spacer()
 			
 			HStack {
-				AvatarView(image: "IMG_0455.jpeg", fallback: "Nicholas Black", size: .small)
+                MemberGroupView(project.members)
 				
 				Button {
 					
@@ -189,5 +99,7 @@ struct ProjectHeader: View {
 }
 
 #Preview {
-    ProjectHeader(selectedTab: .constant(.board), project: .preview)
+    @State var asanaManager = AsanaManager.self()
+    return ProjectHeader(selectedTab: .constant(.board), project: .preview)
+        .environment(asanaManager)
 }

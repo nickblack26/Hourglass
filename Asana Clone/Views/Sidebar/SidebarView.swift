@@ -14,14 +14,26 @@ enum SidebarLink: Hashable {
     case reporting
     case portfolios
     case goals
-    case project(ProjectModel)
+    case project(Project)
     case team(UUID)
 }
 
 struct SidebarView: View {
     @Environment(AsanaManager.self) private var asanaManager
-    @Query private var projects: [ProjectModel]
-    @Query private var teams: [TeamModel]
+    
+    @Query(
+        filter: #Predicate<Project> { !$0.starred },
+        sort: \Project.name
+    )
+    private var projects: [Project]
+    
+    @Query(
+        filter: #Predicate<Project> { $0.starred },
+        sort: \Project.name
+    )
+    private var starredProjects: [Project]
+    
+    @Query(sort: \Team.name) private var teams: [Team]
     @State private var selectedSort: ProjectSortOption = .Recent
     @State private var newDashboard: Bool = false
     @State private var newPortfolio: Bool = false
@@ -46,71 +58,60 @@ struct SidebarView: View {
             
             Divider()
             
-            DisclosureGroup(isExpanded: .constant(true)) {
+            SidebarSectionItem(label: "Insights") {
                 NavigationLink(value: SidebarLink.reporting) {
                     Label("Reporting", systemImage: "chart.xyaxis.line")
                 }
+                
                 NavigationLink(value: SidebarLink.portfolios) {
                     Label("Portfolios", systemImage: "folder")
                 }
+                
                 NavigationLink(value: SidebarLink.goals) {
                     Label("Goals", systemImage: "mountain.2")
                 }
-            } label: {
-                HStack {
-                    Text("Insights")
-                    
-                    Spacer()
-                    
-                    Menu {
-                        Button {
-                            newDashboard.toggle()
-                        } label: {
-                            Label("New dashboard", systemImage: "chart.xyaxis.line")
+            }
+            
+            if !starredProjects.isEmpty {
+                SidebarSectionItem(label: "Starred") {
+                    ForEach(starredProjects) { project in
+                        NavigationLink(value: SidebarLink.project(project)) {
+                            ProjectListItem(
+                                name: project.name,
+                                color: project.color.color,
+                                privacy: project.privacy
+                            )
                         }
-                        
-                        Button {
-                            newPortfolio.toggle()
-                        } label: {
-                            Label("New portfolio", systemImage: "folder")
+                        .contextMenu {
+                            ProjectListItemContextMenu(project)
                         }
-                        
-                        Button {
-                            newGoal.toggle()
-                        } label: {
-                            Label("New goal", systemImage: "mountain.2")
-                        }
-                    } label: {
-                        Image(systemName: "plus")
-                            .font(.callout)
+                    }
+                }
+            }
+            
+            SidebarSectionItem(label: "Projects") {
+                ForEach(projects) { project in
+                    NavigationLink(value: SidebarLink.project(project)) {
+                        ProjectListItem(
+                            name: project.name,
+                            color: project.color.color,
+                            privacy: project.privacy
+                        )
+                    }
+                    .contextMenu {
+                        ProjectListItemContextMenu(project)
                     }
                 }
             }
             
             DisclosureGroup(isExpanded: .constant(true)) {
-                ForEach(projects) { project in
-                    NavigationLink(value: SidebarLink.project(project)) {
-                        Label {
-                            Text(project.name)
-                                .lineLimit(1)
-                        } icon: {
-                            RoundedRectangle(cornerRadius: 5)
-                                .fill(project.color.color)
-                                .frame(width: 25, height: 25)
-                                .overlay(alignment: .bottomTrailing) {
-                                    if (project.privacy == .privateToMe) {
-                                        Image(systemName: "lock.fill")
-                                    }
-                                }
-                        }
-                    }
-                }
+                
             } label: {
                 HStack {
                     Text("Projects")
                     
                     Menu {
-                        Section("Sort projects and portfolios") {
+                        SwiftUI.Section("Sort projects and portfolios") {
                             ForEach(ProjectSortOption.allCases, id: \.self) { option in
                                 Button {
                                     selectedSort = option
@@ -151,15 +152,7 @@ struct SidebarView: View {
                 }
             }
         }
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    
-                } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
-                }
-            }
-        }
+        .padding(.top)
         .fullScreenCover(isPresented: $newProject, content: {
             NavigationStack {
                 NewProjectView(isPresented: $newProject)
@@ -226,54 +219,18 @@ struct SidebarView: View {
                 }
         }
         .navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 400)
-        
-        //			if(!manager.starredProjects.isEmpty) {
-        //				DisclosureGroup {
-        //					ForEach(manager.starredProjects) { starred in
-        //						NavigationLink(value: SidebarLink.project(starred.project_id.id)) {
-        //							Label {
-        //								Text(starred.project_id.name)
-        //							} icon: {
-        //								ZStack(alignment: .bottomTrailing) {
-        //									RoundedRectangle(cornerRadius: 5)
-        //										.fill(.pink)
-        //										.frame(width: 20, height: 20)
-        //									if (starred.project_id.is_private != nil && starred.project_id.is_private == true) {
-        //										Image(systemName: "lock.fill")
-        //									}
-        //								}
-        //							}
-        //						}
-        //					}
-        //				} label: {
-        //					HStack {
-        //						Text("Starred")
-        //						Button {
-        //
-        //						} label: {
-        //							Image(systemName: "ellipsis")
-        //						}
-        //						.buttonStyle(.plain)
-        //
-        //						Button {
-        //
-        //						} label: {
-        //							Image(systemName: "plus")
-        //						}
-        //						.buttonStyle(.plain)
-        //					}
-        //				}
-        //			}
-        
     }
 }
 
 
 #Preview {
+    @State var asanaManager = AsanaManager()
+    
     return NavigationSplitView {
         SidebarView()
     } detail: {
         EmptyView()
     }
-    .modelContainer(for: ProjectModel.self, inMemory: true)
+    .environment(asanaManager)
+    .modelContainer(for: Project.self, inMemory: true)
 }

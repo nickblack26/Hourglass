@@ -1,25 +1,25 @@
 import Foundation
 
-extension TeamModel {
-    static var preview = TeamModel(name: "Engineering", members: [], projects: [])
+extension Team {
+    static var preview = Team(name: "Engineering", members: [], projects: [])
 }
 
-extension ProjectModel {
-    static var preview = ProjectModel(name: "Hourglass", owner: .preview, team: .preview)
+extension Project {
+    static var preview = Project(name: "Hourglass", owner: .preview, team: .preview)
 }
 
-extension MemberModel {
-    static var preview = MemberModel(name: "Nick Black", email: "nicholas.black98@icloud.com")
+extension Member {
+    static var preview = Member(name: "Nick Black", email: "nicholas.black98@icloud.com")
 }
 
-extension SectionModel {
-    static var preview = SectionModel(name: "Backlog", order: 0, tasks: [TaskModel(name: "Test", assignee: .preview)])
+extension Section {
+    static var preview = Section(name: "Backlog", order: 0, tasks: [Task(name: "Test", order: 0, assignee: .preview)])
 }
 
-extension TaskModel {
+extension Task {
     static var preview = [
-        TaskModel(name: "Look into frame accurate notes on video", section: .preview, assignee: .preview),
-        TaskModel(name: "Write tests from user stories", section: .preview, assignee: .preview),
-        TaskModel(name: "Look at best practices for public page viewing", section: .preview, assignee: .preview),
+        Task(name: "Look into frame accurate notes on video", order: 0, endDate: Date(), section: .preview, assignee: .preview),
+        Task(name: "Write tests from user stories", order: 1, section: .preview, assignee: .preview),
+        Task(name: "Look at best practices for public page viewing", order: 2, section: .preview, assignee: .preview),
     ]
 }

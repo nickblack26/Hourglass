@@ -10,17 +10,17 @@ import SwiftUI
 struct UserSettingsProfileTab: View {
 	@State private var name: String = ""
 	@State private var ooo: Bool = false
-    var member: MemberModel
+    var member: Member
 
     var body: some View {
 		Form {
-			Section("Your photo") {
+            SwiftUI.Section("Your photo") {
 				HStack {
-					Image("profile")
-						.resizable()
-						.scaledToFill()
-						.frame(width: 50, height: 50)
-						.clipShape(Circle())
+                    AvatarView(
+                        image: tempUrl,
+                        fallback: "Nick Black",
+                        size: .xlarge
+                    )
 					
 					VStack(alignment: .leading) {
 						HStack {
@@ -47,7 +47,7 @@ struct UserSettingsProfileTab: View {
 				}
 			}
 			
-			Section {
+            SwiftUI.Section {
 				HStack {
 //					TextField("Your full name", text: $vm.fullName)
 //					TextField("Pronouns", text: $vm.pronouns)
@@ -64,12 +64,12 @@ struct UserSettingsProfileTab: View {
 				
 			}
 			
-			Section {
+            SwiftUI.Section {
 //				Toggle("Set out of office", isOn: $vm.outOfOffice)
 //				Toggle("Allow others in your organization to see when you're active in Asana", isOn: $vm.allowOutsideObservation)
 			}
 			
-			Section("Invite type") {
+            SwiftUI.Section("Invite type") {
 				Text("Signed up on \(Date(), format: Date.FormatStyle(date: .abbreviated, time: .omitted))")
 			}
 		}

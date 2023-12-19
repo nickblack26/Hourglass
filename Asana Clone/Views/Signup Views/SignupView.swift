@@ -112,7 +112,7 @@ struct SignupView: View {
     }
     
     private func createMember() {
-        let member = MemberModel(name: "", email: email)
+        let member = Member(name: "", email: email)
         context.insert(member)
     }
 }

@@ -4,12 +4,15 @@ import SwiftData
 struct NewSectionForm: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    @Query(filter: #Predicate<TaskModel> { !$0.isCompleted })
-    private var tasks: [TaskModel]
+    @Query(
+        filter: #Predicate<Task> { !$0.isCompleted },
+        sort: \Task.order
+    )
+    private var tasks: [Task]
     @State private var name: String = ""
-    @State private var selectedTasks: [TaskModel] = []
+    @State private var selectedTasks: [Task] = []
     @Binding var showProjectSheet: Bool
-    @Bindable var project: ProjectModel
+    @Bindable var project: Project
     
     var body: some View {
         NavigationStack {
@@ -47,17 +50,17 @@ struct NewSectionForm: View {
     }
     
     private func newSection() {
-        let section = SectionModel(name: name, order: 0)
+        let section = Section(name: name, order: 0)
         modelContext.insert(section)
         
-        if let sections = project.sections, !sections.isEmpty {
-            for index in sections.indices {
-                @Bindable var section = sections[index]
+        if !project.sections.isEmpty {
+            for index in project.sections.indices {
+                @Bindable var section = project.sections[index]
                 section.order = index + 1
             }
-            project.sections!.insert(section, at: 0)
+            project.sections.insert(section, at: 0)
         } else {
-            project.sections?.append(section)
+            project.sections.append(section)
         }
         
         dismiss()

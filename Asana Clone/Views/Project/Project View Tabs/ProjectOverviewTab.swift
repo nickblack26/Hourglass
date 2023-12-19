@@ -14,7 +14,7 @@ struct ProjectOverviewTab: View {
 		Grid(alignment: .top) {
 			GridRow {
 				VStack(alignment: .leading) {
-					Section {
+                    SwiftUI.Section {
 						TextField("What's this project about?", text: $description)
 							.lineLimit(4, reservesSpace: true)
 					} header: {
@@ -23,7 +23,7 @@ struct ProjectOverviewTab: View {
 							.fontWeight(.medium)
 					}
 					
-					Section {
+                    SwiftUI.Section {
 						let columns = Array(repeating: GridItem(), count: 3)
 					
 						LazyVGrid(columns: columns, alignment: .leading, content: {
@@ -40,11 +40,11 @@ struct ProjectOverviewTab: View {
 							.foregroundStyle(.secondary)
 							
 							HStack {
-								Image("profile")
-									.resizable()
-									.clipShape(Circle())
-									.scaledToFill()
-									.frame(width: 50, height: 50)
+                                AvatarView(
+                                    image: tempUrl,
+                                    fallback: "Nick Black",
+                                    size: .large
+                                )
 								
 								VStack(alignment: .leading) {
 									Text("Nick Black")
@@ -60,7 +60,7 @@ struct ProjectOverviewTab: View {
 							.fontWeight(.medium)
 					}
 					
-					Section {
+                    SwiftUI.Section {
 						HStack {
 							Image("key_resources")
 							

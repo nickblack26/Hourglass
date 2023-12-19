@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
 
-let fullSchema = Schema([TeamModel.self, ProjectModel.self, TaskModel.self, SectionModel.self, MemberModel.self, WidgetModel.self])
+let fullSchema = Schema([Team.self, Project.self, Task.self, Section.self, Member.self, Widget.self])
 
 @main
 struct Asana_CloneApp: App {
@@ -10,24 +10,25 @@ struct Asana_CloneApp: App {
     @State var asanaManager = AsanaManager()
     let container: ModelContainer = {
         do {
+            
             let config = ModelConfiguration(cloudKitDatabase: .none)
             let container = try ModelContainer(for: fullSchema, configurations: config)
                         
-            var itemFetchDescriptor = FetchDescriptor<WidgetModel>()
+            var itemFetchDescriptor = FetchDescriptor<Widget>()
             itemFetchDescriptor.fetchLimit = 1
             
             guard try container.mainContext.fetch(itemFetchDescriptor).count == 0 else { return container }
     
-            let myTasksWidget: WidgetModel = .init(name: "My Tasks", image: "myTasksWidgetPreview", type: .myTasks)
-            let peopleWidget: WidgetModel = .init(name: "People", image: "peopleWidgetPreview",  columns: 2, type: .people)
-            let projectsWidget: WidgetModel = .init(name: "Projects", image: "projectsWidgetPreview", type: .projects)
-            let notepadWidget: WidgetModel = .init(name: "Private notepad", image: "notepadWidgetPreview", type: .notepad)
-            let tasksAssignedWidget: WidgetModel = .init(name: "Tasks I've assigned", image: "assignedTasksWidgetPreview", type: .tasksAssigned)
-            let draftCommentsWidget: WidgetModel = .init(name: "Draft comments", image: "draftedCommentsWidgetPreview", type: .draftComments)
-            let formsWidget: WidgetModel = .init(name: "Forms", image: "formsWidgetPreview", type: .forms)
-            let myGoalsWidget: WidgetModel = .init(name: "My goals", image: "myGoalsWidgetPreview", type: .myGoals)
+            let myTasksWidget: Widget = .init(name: "My Tasks", image: "myTasksWidgetPreview", type: .myTasks)
+            let peopleWidget: Widget = .init(name: "People", image: "peopleWidgetPreview",  columns: 2, type: .people)
+            let projectsWidget: Widget = .init(name: "Projects", image: "projectsWidgetPreview", type: .projects)
+            let notepadWidget: Widget = .init(name: "Private notepad", image: "notepadWidgetPreview", type: .notepad)
+            let tasksAssignedWidget: Widget = .init(name: "Tasks I've assigned", image: "assignedTasksWidgetPreview", type: .tasksAssigned)
+            let draftCommentsWidget: Widget = .init(name: "Draft comments", image: "draftedCommentsWidgetPreview", type: .draftComments)
+            let formsWidget: Widget = .init(name: "Forms", image: "formsWidgetPreview", type: .forms)
+            let myGoalsWidget: Widget = .init(name: "My goals", image: "myGoalsWidgetPreview", type: .myGoals)
             
-            let allWidgets: [WidgetModel] = [
+            let allWidgets: [Widget] = [
                 myTasksWidget,
                 peopleWidget,
                 projectsWidget,
@@ -50,11 +51,21 @@ struct Asana_CloneApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(cloudKitManager)
-                .environment(asanaManager)
-                .modelContainer(container)
-                .modelContainer(for: [TeamModel.self, ProjectModel.self, TaskModel.self, SectionModel.self, MemberModel.self, WidgetModel.self])
+            VStack(spacing: 0) {
+                NavigationMenu()
+                
+                Divider()
+                
+                ContentView()
+            }
+            .environment(asanaManager)
+            .environment(cloudKitManager)
+            .modelContainer(container)
+        }
+        .commands {
+            SidebarCommands()
+            TextEditingCommands()
+            TextFormattingCommands()
         }
     }
 }

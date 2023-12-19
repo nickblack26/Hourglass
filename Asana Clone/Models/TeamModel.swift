@@ -2,25 +2,25 @@ import Foundation
 import SwiftData
 
 @Model
-class TeamModel {
-    var name: String
+class Team {
+    var name: String = ""
     var details: String?
     
-    @Relationship(deleteRule: .nullify, inverse: \MemberModel.projects) 
-    var members: [MemberModel]
+    @Relationship(deleteRule: .nullify, inverse: \Member.teams)
+    var members: [Member] = []
     
-    @Relationship(deleteRule: .nullify, inverse: \ProjectModel.team)
-    var projects: [ProjectModel]
+    @Relationship(deleteRule: .nullify, inverse: \Project.team)
+    var projects: [Project] = []
     
-    @Relationship(deleteRule: .nullify, inverse: \CommentModel.teams)
-    var messages: [CommentModel]
+    @Relationship(deleteRule: .nullify, inverse: \Comment.teams)
+    var messages: [Comment] = []
     
     init(
         name: String,
         details: String? = nil,
-        members: [MemberModel] = [],
-        projects: [ProjectModel] = [],
-        messages: [CommentModel] = []
+        members: [Member] = [],
+        projects: [Project] = [],
+        messages: [Comment] = []
     ) {
         self.name = name
         self.details = details

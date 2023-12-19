@@ -8,8 +8,8 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     
     // MARK: Data
-    @Query private var teams: [TeamModel]
-    @Query private var members: [MemberModel]
+    @Query private var teams: [Team]
+    @Query private var members: [Member]
     
     // MARK: State Variables
     @State private var colorScheme: ColorScheme = .white
@@ -23,83 +23,19 @@ struct ContentView: View {
         
         if cloudKitManager.isSignedInToiCloud && !teams.isEmpty && !members.isEmpty {
             NavigationSplitView(
-                columnVisibility: $columnVisibility, 
+                columnVisibility: $asanaManager.columnVisibility, 
                 sidebar: {
                     SidebarView()
+                        .toolbar(removing: .sidebarToggle)
                 }, detail: {
                     ContentDetail()
-                        .inspector(isPresented: Binding(get: {
-                            return asanaManager.showHomeCustomization
-                        }, set: { newValue in
-                            asanaManager.showHomeCustomization = newValue
-                        })) {
+                        .toolbar(.hidden)
+                        .inspector(isPresented: $asanaManager.showHomeCustomization) {
                             HomeInspector(colorScheme: $colorScheme)
                         }
-                        .toolbar {
-                            ToolbarItem(placement: .topBarLeading) {
-                                Menu {
-                                    Section {
-                                        Button {
-                                            if let currentMember = asanaManager.currentMember {
-                                                let task = TaskModel(name: "Test", assignee: currentMember)
-                                                modelContext.insert(task)
-                                            }
-                                        } label: {
-                                            Label("Task", systemImage: "checkmark.circle")
-                                        }
-                                        
-                                        Button {
-                                            
-                                        } label: {
-                                            Label("Project", systemImage: "list.bullet.clipboard")
-                                        }
-                                        
-                                        Button {
-                                            
-                                        } label: {
-                                            Label("Message", systemImage: "message")
-                                        }
-                                    }
-                                    
-                                    Section {
-                                        Button {
-                                            
-                                        } label: {
-                                            Label("Invite", systemImage: "person.badge.plus")
-                                        }
-                                    }
-                                    
-                                } label: {
-                                    Label("Create", systemImage: "plus")
-                                }
-                            }
-                            
-                            ToolbarItem(placement: .topBarTrailing) {
-                                Button {
-                                    
-                                } label: {
-                                    Text("Upgrade")
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .tint(.yellow)
-                                .foregroundStyle(.black)
-                            }
-                            
-                            ToolbarItem(placement: .topBarTrailing) {
-                                Menu {
-                                    Button {
-                                        
-                                    } label: {
-                                        Label("Sign out", systemImage: "arrow.right.to.line")
-                                    }
-                                } label: {
-                                    Label("Menu", systemImage: "ellipsis")
-                                }
-                            }
-                        }
-                        .background(Color("defaultBackground"))
                 }
             )
+            
             .sheet(item: $asanaManager.selectedTask) { task in
                 TaskDetailView(task)
             }
@@ -109,7 +45,7 @@ struct ContentView: View {
             }
         } else {
             if !cloudKitManager.error.isEmpty {
-                ContentUnavailableView(cloudKitManager.error, image: "exclamationmark.triangle.fill")
+                ContentUnavailableView(cloudKitManager.error, systemImage: "exclamationmark.triangle.fill")
                 
             } else if members.isEmpty {
                 SignupView()
@@ -131,7 +67,7 @@ struct ContentView: View {
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             } else {
-                ContentUnavailableView(cloudKitManager.error, image: "exclamationmark.triangle.fill")
+                ContentUnavailableView(cloudKitManager.error, systemImage: "exclamationmark.triangle.fill")
             }
         }
     }

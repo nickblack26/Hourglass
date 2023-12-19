@@ -7,19 +7,19 @@
 
 import Foundation
 
-struct ChartModel: Identifiable {
+struct Chart: Identifiable {
 	var id: UUID = UUID()
 	var title: String
 	var image: String
 	
-	static func recommendedCharts() -> [ChartModel] {
+	static func recommendedCharts() -> [Chart] {
 		[
 			.init(title: "Incomplete tasks by project", image: "green_column_chart"),
 			.init(title: "Project by status", image: "donut_status")
 		]
 	}
 	
-	static func resourcingCharts() -> [ChartModel] {
+	static func resourcingCharts() -> [Chart] {
 		[
 			.init(title: "Goals by team", image: "upcoming_tasks_by_project"),
 			.init(title: "Upcoming tasks by assignee this week", image: "lollipop_aqua"),
@@ -31,7 +31,7 @@ struct ChartModel: Identifiable {
 		]
 	}
 	
-	static func workHealth() -> [ChartModel] {
+	static func workHealth() -> [Chart] {
 		[
 			.init(title: "Time in custom field", image: "bar_multicolored"),
 			.init(title: "Tasks by custom field", image: "lollipop_aqua"),
@@ -43,7 +43,7 @@ struct ChartModel: Identifiable {
 		]
 	}
 	
-	static func progress() -> [ChartModel] {
+	static func progress() -> [Chart] {
 		[
 			.init(title: "Projects with the most completed tasks", image: "green_column_chart"),
 			.init(title: "Tasks by completion status this month", image: "tasks_by_completion_status_this_month"),

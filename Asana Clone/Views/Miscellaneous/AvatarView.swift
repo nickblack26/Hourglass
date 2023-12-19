@@ -1,24 +1,23 @@
-//
-//  SwiftUIView.swift
-//  Asana Clone
-//
-//  Created by Nick on 7/11/23.
-//
-
 import SwiftUI
+
+let tempUrl = "https://s3.us-east-1.amazonaws.com/asana-user-private-us-east-1/assets/1201967348541907/profile_photos/1203922574287441/682a20e8db34c907fd6cb692410409c0_128x128.png"
 
 enum AvatarSize {
 	case tiny
 	case small
 	case medium
-	case large
+    case large
+    case xlarge
+	case xmega
 	
 	var sizing: CGFloat {
 		switch self {
 			case .tiny: return 15
-			case .small: return 25
-			case .medium: return 50
-			case .large: return 75
+			case .small: return 32
+			case .medium: return 38
+            case .large: return 48
+            case .xlarge: return 64
+			case .xmega: return 213
 		}
 	}
 	
@@ -27,7 +26,9 @@ enum AvatarSize {
 			case .tiny: return .caption
 			case .small: return .callout
 			case .medium: return .body
-			case .large: return .headline
+            case .large: return .title2
+            case .xlarge: return .title
+			case .xmega: return .largeTitle
 		}
 	}
 }
@@ -40,14 +41,8 @@ enum AvatarStyle {
 struct AvatarView: View {
 	let image: String?
 	let fallback: String?
-	let size: AvatarSize
-	
-	init(size: AvatarSize) {
-		self.image = nil
-		self.fallback = nil
-		self.size = size
-	}
-	
+    let size: AvatarSize
+		
 	init(image: String?, fallback: String, size: AvatarSize) {
 		self.image = image
 		self.fallback = fallback
@@ -55,7 +50,7 @@ struct AvatarView: View {
 	}
 	
 	var body: some View {
-		AsyncImage(url: URL(string: "https://idesgwavccmmhoztqnfw.supabase.co/profiles_images/\(String(describing: image))")) { Image in
+        AsyncImage(url: URL(string: image ?? "")) { Image in
 			Image
 				.resizable()
 				.frame(width: size.sizing, height: size.sizing)
@@ -78,7 +73,7 @@ struct AvatarView: View {
 					}
 				}
 				.textCase(.uppercase)
-				.padding(.all, 10)
+                .frame(width: size.sizing, height: size.sizing)
 				.background(.blue)
 				.clipShape(Circle())
 			}

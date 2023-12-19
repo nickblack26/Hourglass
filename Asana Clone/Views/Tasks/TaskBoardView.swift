@@ -1,148 +1,50 @@
 import SwiftUI
 
 struct TaskBoardView: View {
-    @State private var currentlyDraggingTask: TaskModel?
-    @State private var currentlyDraggingSection: SectionModel?
-    var sections: [SectionModel]
+    @State private var currentlyDraggingTask: Task?
+    @State private var currentlyDraggingSection: Section?
+    var sections: [Section]
     
-    init(_ sections: [SectionModel]) {
+    init(_ sections: [Section]) {
         self.sections = sections
     }
     
     var body: some View {
         ScrollView(.horizontal) {
-            HStack(alignment: .top, spacing: 2) {
+            HStack(alignment: .top, spacing: 16) {
                 ForEach(sections) { section in
                     ColumnView(section: section)
                 }
-                //            if !sections.isEmpty {
-                ////                    ForEach(sections, id: \.name) { section in
-                ////                        VStack(spacing: 15) {
-                ////                            Section {
-                ////                                VStack(alignment: .leading) {
-                ////                                    ScrollView(.vertical) {
-                ////                                        VStack {
-                ////                                            if let tasks = section.section_tasks {
-                ////                                                ForEach(tasks, id: \.task.id) { task in
-                ////                                                    TaskCardView(currentlyDragging: $currentlyDraggingTask, currentlyDraggingSection: $currentlyDraggingSection, task: task.task, section: section)
-                ////                                                        .dropDestination(for: TaskModel.self) { items, location in
-                ////                                                            currentlyDraggingTask = nil
-                ////                                                            currentlyDraggingSection = nil
-                ////                                                            return false
-                ////                                                        } isTargeted: { status in
-                ////                                                            if let currentlyDraggingTask, status, currentlyDraggingTask.id != task.task.id {
-                ////                                                                withAnimation(.snappy) {
-                ////                                                                    //                                                            replaceItems(items: &tasks, droppingTask: currentlyDragging, section: section, droppingSection: section)
-                ////                                                                }
-                ////                                                            }
-                ////                                                        }
-                ////                                                }
-                ////                                            }
-                ////
-                ////                                            HStack {
-                ////                                                Spacer()
-                ////
-                ////                                                Button {
-                ////
-                ////                                                } label: {
-                ////                                                    Label("Add task", systemImage: "plus")
-                ////                                                        .font(.caption)
-                ////                                                        .foregroundStyle(.secondary)
-                ////                                                        .padding()
-                ////                                                }
-                ////                                                .buttonStyle(.plain)
-                ////
-                ////                                                Spacer()
-                ////                                            }
-                ////
-                ////                                        }
-                ////                                    }
-                ////                                }
-                ////                                .background {
-                ////                                    LinearGradient(gradient: Gradient(colors: [.gray.opacity(0.05), .clear]), startPoint: .top, endPoint: .bottom)
-                ////                                }
-                ////                                .frame(maxHeight: .infinity, alignment: .top)
-                ////                            } header: {
-                ////                                HStack {
-                ////                                    Text(section.name)
-                ////
-                ////                                    Spacer()
-                ////
-                ////                                    Button {
-                ////                                        addTask(section)
-                ////                                    } label: {
-                ////                                        Image(systemName: "plus")
-                ////                                    }
-                ////
-                ////                                    Button {
-                ////
-                ////                                    } label: {
-                ////                                        Image(systemName: "ellipsis")
-                ////                                    }
-                ////                                }
-                ////                            }
-                ////                        }
-                ////                        .frame(minWidth: 200)
-                ////                    }
-                //            }
-                //
-                //
-                //            Section {
-                //                VStack(alignment: .leading) {
-                //                    Spacer()
-                //                }
-                //                .background {
-                //                    LinearGradient(gradient: Gradient(colors: [.gray.opacity(0.05), .clear]), startPoint: .top, endPoint: .bottom)
-                //                }
-                //                .frame(maxHeight: .infinity, alignment: .top)
-                //            } header: {
-                //                Button {
-                ////                        addSection()
-                //                } label: {
-                //                    Label("Add section", systemImage: "plus")
-                //                }
-                //                .buttonStyle(.plain)
-                //                .foregroundStyle(.secondary)
-                //            }
+                VStack(alignment: .leading) {
+                    Button("Add section", systemImage: "plus") {
+                        
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    .padding()
+                }
+                .frame(width: 375, alignment: .topLeading)
+                .frame(maxHeight: .infinity)
+                .background(Color(uiColor: .systemGray6).opacity(0.5))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                
             }
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
+        .padding(.horizontal)
     }
-    
-    
-    //	func appendTask(_ section: PublicProjectSectionModel, droppingTask: PublicTasksModel) {
-    //		if let currentlyDraggingTask, let currentlyDraggingSection {
-    //			if let sectionIndex = currentlyDraggingTask.sections?.firstIndex(where: { $0.id == currentlyDraggingSection.id }) {
-    //				var updatedTask = currentlyDraggingTask
-    //				updatedTask.sections?.remove(at: sectionIndex)
-    //				updatedTask.sections?.insert(section, at: sectionIndex)
-    //
-    //				var updatedSection = currentlyDraggingSection
-    //				//				updatedSection.tasks?.removeAll(where: { $0.id == updatedTask.id })
-    //
-    //			}
-    //		}
-    //	}
-    
-    //	func replaceItems(items: inout [PublicTasksModel], droppingTask: PublicTasksModel, section: PublicProjectSectionModel) {
-    //		if let currentlyDraggingTask {
-    //			if let sourceIndex = items.firstIndex(where: { $0.id == currentlyDraggingTask.id }),
-    //			   let destinationIndex = items.firstIndex(where: { $0.id == droppingTask.id }) {
-    //				var sourceItem = items.remove(at: sourceIndex)
-    //				items.insert(sourceItem, at: destinationIndex)
-    //			}
-    //		}
-    //	}
 }
 
 #Preview {
-    TaskBoardView([.preview])
+    @State var asanaManager = AsanaManager()
+    
+    return TaskBoardView([.preview])
+        .environment(asanaManager)
 }
 
 struct TasksView: View {
-    var tasks: [TaskModel]
+    var tasks: [Task]
     
-    init(_ tasks: [TaskModel]) {
+    init(_ tasks: [Task]) {
         self.tasks = tasks
     }
     
@@ -159,11 +61,12 @@ struct TasksView: View {
 }
 
 struct ColumnView: View {
-    @Bindable var section: SectionModel
+    @Environment(AsanaManager.self) var asanaManager
+    @Bindable var section: Section
     
     var body: some View {
         ScrollView(.vertical) {
-            Section {
+            SwiftUI.Section {
                 TasksView(section.tasks)
             } header: {
                 HStack {
@@ -189,29 +92,12 @@ struct ColumnView: View {
                     }
                     .buttonStyle(.plain)
                     
-                    
                     Menu {
-                        Button("Add rule to section", systemImage: "bolt") {
-                            
-                        }
-                        
-                        Button("Rename section", systemImage: "pencil") {
-                            
-                        }
-                        
-                        Menu("Add section", systemImage: "lines.measurement.vertical") {
-                            Button("Add section to left", systemImage: "arrow.left") {
-                                
-                            }
-                            
-                            Button("Add section to right", systemImage: "arrow.right") {
-                                
-                            }
-                        }
-                        
-                        Button("Delete section", systemImage: "trash", role: .destructive) {
-                            
-                        }
+                        SectionActionsContent(
+                            viewType: .board,
+                            sections: .constant([]),
+                            section: section
+                        )
                     } label: {
                         Image(systemName: "ellipsis")
                     }
@@ -223,10 +109,16 @@ struct ColumnView: View {
         }
         .frame(width: 375, alignment: .leading)
         .background(section.tasks.isEmpty ? Color(uiColor: .systemGray6).opacity(0.5) : .clear)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
     private func addTaskToSection() {
-        let newTask = TaskModel(name: "")
-        section.tasks.append(newTask)
+        if let project = section.project {
+            let newTask = Task(name: "", order: section.tasks.count, projects: [project], section: section)
+            section.tasks.append(newTask)
+        } else if let currentMember = asanaManager.currentMember {
+            let newTask = Task(name: "", order: section.tasks.count, section: section, assignee: currentMember)
+            section.tasks.append(newTask)
+        }
     }
 }

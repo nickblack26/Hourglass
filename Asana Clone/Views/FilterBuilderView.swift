@@ -2,7 +2,7 @@ import SwiftUI
 
 struct FilterModel: Hashable {
     var name: String
-    var filters: [KeyPathComparator<TaskModel>]
+    var filters: [KeyPathComparator<Task>]
 }
 
 var quickFilters: [FilterModel] = [
@@ -17,7 +17,7 @@ struct FilterBuilderView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Section("Quick filters") {
+            SwiftUI.Section("Quick filters") {
                 HStack {
                     ForEach(quickFilters, id: \.self) { filter in
                         Button(filter.name) { }
@@ -35,7 +35,7 @@ struct FilterBuilderView: View {
             }
             
             ForEach(filters, id: \.self) { filter in
-                Section(filter.name) {
+                SwiftUI.Section(filter.name) {
                     
                 }
             }

@@ -12,7 +12,7 @@ struct TableDateCellView: View {
 	@Environment(\.timeZone) var timeZone
 	@State private var showPicker: Bool = false
     @State private var showTime: Bool = false
-    @State private var dates: Set<DateComponents> = [] {
+    @State private var dates = Set<DateComponents>() {
         didSet {
             let dateArray = Array(dates)
             print(dateArray)
@@ -120,6 +120,39 @@ struct TableDateCellView: View {
                     }
                     .padding([.horizontal])
                 }
+                
+                MultiDatePicker(
+                    "Date picker",
+                    selection: Binding(
+                        get: {
+                            var dateArray: [DateComponents] = []
+                            if let start_date {
+                                dateArray.append(Calendar.current.dateComponents(
+                                    in: TimeZone.current,
+                                    from: start_date
+                                ))
+                            }
+                            if let end_date {
+                                dateArray.append(Calendar.current.dateComponents(
+                                    in: TimeZone.current,
+                                    from: end_date
+                                ))
+                            }
+                            
+                            return Set(dateArray)
+                        },
+                        set: { newValue in
+                            let dateArray = Array(newValue)
+                            if dateArray.count > 1 {
+                                let stuff = dateArray.sorted { $0.date! < $1.date! }
+                                start_date = stuff.first?.date
+                                end_date = stuff.last?.date
+                            } else {
+                                end_date = dateArray.first?.date
+                            }
+                        }
+                    )
+                )
                 
                 MultiDatePicker(title, selection: $dates)
                 

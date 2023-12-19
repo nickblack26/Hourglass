@@ -3,24 +3,23 @@ import SwiftUI
 struct ProjectView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AsanaManager.self) private var asanaManager
-    @State private var selectedTab: ProjectTab = .board
-	@State private var showProjectSheet: Bool = false
-	@Bindable var project: ProjectModel
-	
-	init(_ project: ProjectModel) {
-		let defaultView: ProjectTab = ProjectTab(rawValue: "List") ?? .list
-		self._selectedTab = State(initialValue: defaultView)
-		self.project = project
-	}
-	
-	var body: some View {
-		VStack(alignment: .leading) {
+    @State private var selectedTab: Project.Tab = .board
+    @State private var showProjectSheet: Bool = false
+    @Bindable var project: Project
+    
+    init(_ project: Project) {
+        self._selectedTab = State(initialValue: project.defaultTab)
+        self.project = project
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
             ProjectHeader(selectedTab: $selectedTab, project: project)
             
             HStack {
                 Button("Add task", systemImage: "plus", action: addNewTask)
-                .tint(.accent)
-                .buttonStyle(.borderedProminent)
+                    .tint(.accent)
+                    .buttonStyle(.borderedProminent)
                 
                 Menu("", systemImage: "chevron.down") {
                     Button("Add section") {
@@ -35,56 +34,65 @@ struct ProjectView: View {
                 
                 Spacer()
                 
-               
+                
             }
             .padding(.horizontal)
-			
-			TabView(selection: $selectedTab) {
-				ProjectOverviewTab()
-					.tag(ProjectTab.overview)
-				
-                TaskTableView(project.sections?.sorted(by: { $0.order < $1.order }) ?? [])
-                .tag(ProjectTab.list)
-                .padding()
-				
-                TaskBoardView(project.sections?.sorted(by: { $0.order < $1.order }) ?? [])
-					.tag(ProjectTab.board)
-					.padding()
-			}
-			.tabViewStyle(.page(indexDisplayMode: .never))
-		}
+            
+            switch selectedTab {
+            case .overview:
+                ProjectOverviewTab()
+            case .list:
+                TaskListView(project.sections.sorted(by: { $0.order < $1.order }))
+            case .board:
+                TaskBoardView(project.sections.sorted(by: { $0.order < $1.order }))
+            case .timeline:
+                EmptyView()
+            case .calendar:
+                EmptyView()
+            case .workflow:
+                EmptyView()
+            case .dashboard:
+                EmptyView()
+            case .messages:
+                EmptyView()
+            case .files:
+                EmptyView()
+            }
+        }
         .sheet(isPresented: $showProjectSheet, content: {
             NewSectionForm(showProjectSheet: $showProjectSheet, project: project)
         })
-	}
+    }
     
     private func addNewSection() {
-        let section = SectionModel(name: "", order: 0)
-        if let sections = project.sections, !sections.isEmpty {
-            for index in sections.indices {
-                @Bindable var section = sections[index]
+        let section = Section(name: "", order: 0)
+        if !project.sections.isEmpty {
+            for index in project.sections.indices {
+                @Bindable var section = project.sections[index]
                 section.order = index + 1
             }
-            project.sections!.insert(section, at: 0)
+            project.sections.insert(section, at: 0)
         } else {
-            project.sections?.append(section)
+            project.sections.append(section)
         }
     }
     
     private func addNewTask() {
         if let assignee = asanaManager.currentMember {
-            let task = TaskModel(name: "New task", assignee: assignee)
-            modelContext.insert(task)
-            print("added task \(task)")
+            let task = Task(name: "New task", order: project.tasks.count, assignee: assignee)
+            
             if project.tasks.isEmpty {
-                project.sections?[0].tasks.append(task)
+                project.sections[0].tasks.append(task)
             } else {
-                project.sections?[0].tasks.insert(task, at: 0)
+                project.sections[0].tasks.insert(task, at: 0)
             }
         }
     }
 }
 
 #Preview {
-    ProjectView(.preview)
+    @State var asanaManager = AsanaManager()
+    
+    return ProjectView(.preview)
+        .environment(asanaManager)
 }

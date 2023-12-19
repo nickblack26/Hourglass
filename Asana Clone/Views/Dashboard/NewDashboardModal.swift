@@ -12,7 +12,7 @@ struct NewDashboardModal: View {
 	
     var body: some View {
 		List {
-			Section("Recommended") {
+            SwiftUI.Section("Recommended") {
 				LazyVGrid(columns: columns, content: {
 					VStack {
 						Image(systemName: "chart.bar.xaxis")
@@ -27,7 +27,7 @@ struct NewDashboardModal: View {
 					}
 					.foregroundStyle(.secondary)
 					
-					ForEach(ChartModel.recommendedCharts()) { chart in
+					ForEach(Chart.recommendedCharts()) { chart in
 						ChartSelector(title: chart.title, image: chart.image)
 					}
 				})
@@ -35,20 +35,9 @@ struct NewDashboardModal: View {
 			.headerProminence(.increased)
 			.listRowSeparator(.hidden)
 			
-			Section("Resourcing") {
+            SwiftUI.Section("Resourcing") {
 				LazyVGrid(columns: columns, content: {
-					ForEach(ChartModel.resourcingCharts()) { chart in
-						ChartSelector(title: chart.title, image: chart.image)
-					}
-				})
-			}
-			.headerProminence(.increased)
-			.listRowSeparator(.hidden)
-
-			
-			Section("Work health") {
-				LazyVGrid(columns: columns, content: {
-					ForEach(ChartModel.workHealth()) { chart in
+					ForEach(Chart.resourcingCharts()) { chart in
 						ChartSelector(title: chart.title, image: chart.image)
 					}
 				})
@@ -57,9 +46,20 @@ struct NewDashboardModal: View {
 			.listRowSeparator(.hidden)
 
 			
-			Section("Progress") {
+            SwiftUI.Section("Work health") {
 				LazyVGrid(columns: columns, content: {
-					ForEach(ChartModel.progress()) { chart in
+					ForEach(Chart.workHealth()) { chart in
+						ChartSelector(title: chart.title, image: chart.image)
+					}
+				})
+			}
+			.headerProminence(.increased)
+			.listRowSeparator(.hidden)
+
+			
+            SwiftUI.Section("Progress") {
+				LazyVGrid(columns: columns, content: {
+					ForEach(Chart.progress()) { chart in
 						ChartSelector(title: chart.title, image: chart.image)
 					}
 				})

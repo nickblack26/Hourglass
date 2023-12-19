@@ -6,9 +6,9 @@ struct NewProjectSetup: View {
     @Environment(\.dismiss) var dismiss
     @State private var showNextSteps: Bool = false
     @State private var name: String = "Testing"
-    @State private var privacy: PrivacyStatus = .publicToTeam
-    @State private var defaultView: ProjectTab = .list
-    @State private var nextStep: FirstStep = .tasks
+    @State private var privacy: Project.Privacy = .publicToTeam
+    @State private var defaultView: Project.Tab = .list
+    @State private var nextStep: Project.FirstStep = .tasks
     @Binding var isPresented: Bool
     
     var body: some View {
@@ -16,7 +16,7 @@ struct NewProjectSetup: View {
         Grid {
             GridRow {
                 VStack(alignment: .leading, spacing: 32) {
-                    Section {
+                    SwiftUI.Section {
                         TextField("Project name", text: $name)
                             .textFieldStyle(.roundedBorder)
                     } header: {
@@ -28,9 +28,9 @@ struct NewProjectSetup: View {
                         }
                     }
                     
-                    Section("Privacy") {
+                    SwiftUI.Section("Privacy") {
                         Picker("Privacy" ,selection: $privacy) {
-                            ForEach(PrivacyStatus.allCases, id: \.self) { status in
+                            ForEach(Project.Privacy.allCases, id: \.self) { status in
                                 Text(status.rawValue)
                             }
                         }
@@ -38,8 +38,8 @@ struct NewProjectSetup: View {
                         .pickerStyle(.menu)
                     }
                     
-                    Section("Default view") {
-                        let views = [ProjectTab.list, ProjectTab.board, ProjectTab.timeline, ProjectTab.calendar]
+                    SwiftUI.Section("Default view") {
+                        let views: [Project.Tab] = [.list, .board, .timeline, .calendar]
                         
                         Grid {
                             GridRow {
@@ -155,10 +155,10 @@ struct NewProjectSetup: View {
         guard let currentTeam = asanaManager.currentTeam else { return }
         guard let currentMember = asanaManager.currentMember else { return }
         
-        let newSection = SectionModel(name: "", order: 0)
+        let newSection = Section(name: "", order: 0)
         modelContext.insert(newSection)
         
-        let newProject = ProjectModel(
+        let newProject = Project(
             name: name,
             owner: currentMember,
             team: currentTeam,
@@ -167,7 +167,7 @@ struct NewProjectSetup: View {
         )
         modelContext.insert(newProject)
         
-        newProject.sections?.append(newSection)
+        newProject.sections.append(newSection)
         
         asanaManager.selectedLink = .project(newProject)
         

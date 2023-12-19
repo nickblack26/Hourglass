@@ -23,7 +23,7 @@ struct UserSettingsDisplayTab: View {
 	
     var body: some View {
 		Form {
-			Section("Theme") {
+            SwiftUI.Section("Theme") {
 				Picker("Theme", selection: $themeSelection) {
 					ForEach(SystemTheme.allCases, id: \.self) {theme in
 						Text(theme.rawValue)
@@ -32,14 +32,14 @@ struct UserSettingsDisplayTab: View {
 			}
 			.labelsHidden()
 			
-			Section("Language") {
+            SwiftUI.Section("Language") {
 				Picker("Language", selection: .constant("English")) {
 					Text("English")
 				}
 				.labelsHidden()
 			}
 			
-			Section("First day of the week") {
+            SwiftUI.Section("First day of the week") {
 				Picker("Language", selection: $weekStart) {
 					Text(Day.Sunday.rawValue)
 						.tag(Day.Sunday)
@@ -53,7 +53,7 @@ struct UserSettingsDisplayTab: View {
 				.labelsHidden()
 			}
 			
-			Section("Advanced Options") {
+            SwiftUI.Section("Advanced Options") {
 				Toggle("Show task row numbers", isOn: $showTaskRowNums)
 				Toggle("Enable compact mode", isOn: $compactMode)
 				Toggle("Enable color blind friendly mode (protanopia and deuteranopia)", isOn: $colorBlindMode)

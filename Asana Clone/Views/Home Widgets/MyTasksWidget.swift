@@ -7,31 +7,73 @@ enum MyTasksTab: String, CaseIterable {
     case completed = "Completed"
 }
 
+func getCurrentWeeksDates() -> [Date] {
+    let calendar = Calendar.current
+    let today = calendar.startOfDay(for: Date())
+    let dayOfWeek = calendar.component(.weekday, from: today)
+    let dates = calendar.range(of: .weekday, in: .weekOfYear, for: today)!
+        .compactMap { calendar.date(byAdding: .day, value: $0 - dayOfWeek, to: today) }    
+    return dates
+}
+
 struct MyTasksWidget: View {
     @Environment(AsanaManager.self) private var asanaManager
     static var now: Date { Date.now }
-//    @Query(filter: #Predicate<TaskModel> { task in
-//        task.endDate != nil && task.endDate! > now && !task.isCompleted
-//    })
-    @Query private var upcomingTasks: [TaskModel]
     
-//    @Query(filter: #Predicate<TaskModel> { task in
-//        task.endDate != nil && task.endDate! < now && !task.isCompleted
-//    })
-    @Query private var overdueTasks: [TaskModel]
+    @Query(
+        filter: #Predicate<Task> { task in
+            if !task.isCompleted {
+                if let endDate = task.endDate {
+                    if endDate > now {
+                        return true
+                    } else {
+                        return false
+                    }
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        },
+        sort: \Task.order
+    )
+    private var upcomingTasks: [Task]
     
-//    @Query(filter: #Predicate<TaskModel> { $0.isCompleted })
-    @Query private var completedTasks: [TaskModel]
+    @Query(
+        filter: #Predicate<Task> { task in
+            if !task.isCompleted {
+                if let endDate = task.endDate {
+                    if endDate > now {
+                        return true
+                    } else {
+                        return false
+                    }
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        },
+        sort: \Task.order)
+    private var overdueTasks: [Task]
+    
+    @Query(
+        filter: #Predicate<Task> { $0.isCompleted },
+        sort: \Task.order
+    )
+    private var completedTasks: [Task]
     
     @State private var tabSelection: MyTasksTab = .upcoming
-    @State private var selectedTask: TaskModel? = nil
+    @State private var selectedTask: Task? = nil
     @State private var openSheet: Bool = false
     
     var body: some View {
         @Bindable var asanaManager = asanaManager
         
         List {
-            Section {
+            SwiftUI.Section {
                 switch tabSelection {
                 case .upcoming:
                     if upcomingTasks.isEmpty {
@@ -133,18 +175,18 @@ struct MyTasksWidget: View {
                     }
                 }
             } header: {
-                HStack {
-                    Image("profile")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 50, height: 50)
-                        .cornerRadius(50)
+                HStack(spacing: 20) {
+                    AvatarView(
+                        image: tempUrl,
+                        fallback: "Nick Black",
+                        size: .xlarge
+                    )
                     
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("My Tasks")
-                                .font(.title3)
-                                .fontWeight(.bold)
+                            Text("My tasks")
+                                .font(.title2)
+                                .fontWeight(.semibold)
                             
                             Image(systemName: "lock.fill")
                                 .foregroundStyle(.secondary)
@@ -165,8 +207,10 @@ struct MyTasksWidget: View {
                         }
                     }
                 }
+                .foregroundStyle(.primary)
             }
         }
+        .scrollContentBackground(.hidden)
         .listStyle(.plain)
         .padding()
         .frame(height: 400)
@@ -176,16 +220,16 @@ struct MyTasksWidget: View {
                 .stroke(.cardBorder, lineWidth: 1)
         }
         .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 10))
-//        .draggable(MyTasksWidget) {
-//            MyTasksWidget()
-//                .onAppear {
-//                    asanaManager.draggingWidget = MyTasksWidget
-//                }
-//        }
+        //        .draggable(MyTasksWidget) {
+        //            MyTasksWidget()
+        //                .onAppear {
+        //                    asanaManager.draggingWidget = MyTasksWidget
+        //                }
+        //        }
     }
 }
 
 #Preview {
     MyTasksWidget()
-        .modelContainer(for: TaskModel.self)
+        .modelContainer(for: Task.self)
 }

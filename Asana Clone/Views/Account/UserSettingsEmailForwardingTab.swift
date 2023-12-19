@@ -33,7 +33,7 @@ struct UserSettingsEmailForwardingTab: View {
 
 			HStack {
 				VStack(alignment: .leading) {
-					Section("Emails Sent From") {
+                    SwiftUI.Section("Emails Sent From") {
 						Text("nicholas.black98@icloud.com")
 					}
 				}
@@ -41,7 +41,7 @@ struct UserSettingsEmailForwardingTab: View {
 				Spacer()
 				
 				VStack(alignment: .leading) {
-					Section("Create Tasks & Messages in") {
+                    SwiftUI.Section("Create Tasks & Messages in") {
 						Picker("", selection: .constant("Engineering")) {
 							Text("Engineering")
 						}

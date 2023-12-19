@@ -2,9 +2,9 @@ import SwiftUI
 import SwiftData
 
 struct TaskDetailView: View {
-    @Bindable var task: TaskModel
+    @Bindable var task: Task
     
-    init(_ task: TaskModel) {
+    init(_ task: Task) {
         self.task = task
     }
     
@@ -21,7 +21,7 @@ struct TaskDetailView: View {
             
             Divider()
             
-            TaskDetailFooter()
+            TaskDetailFooter(task)
         }
         .frame(
             maxWidth: .infinity,
@@ -44,9 +44,9 @@ struct TaskDetailView: View {
 
 struct TaskDetailHeader: View {
     @Environment(AsanaManager.self) private var asanaManager
-    @Bindable var task: TaskModel
+    @Bindable var task: Task
     
-    init(_ task: TaskModel) {
+    init(_ task: Task) {
         self.task = task
     }
     
@@ -56,6 +56,9 @@ struct TaskDetailHeader: View {
             Button(task.isCompleted ? "Completed" : "Mark complete", systemImage: "checkmark") {
                 withAnimation(.snappy) {
                     task.isCompleted.toggle()
+                    if task.isCompleted {
+                        task.completedAt = Date()
+                    }
                 }
             }
             .buttonStyle(.bordered)
@@ -100,91 +103,106 @@ struct TaskDetailHeader: View {
 }
 
 struct TaskDetailFooter: View {
-    @State private var comment: String = ""
+    @Environment(AsanaManager.self) private var asanaManager
+    @Environment(\.modelContext) private var context
+    @State private var message: String = ""
+    @Bindable var task: Task
     
-    var body: some View {
-        HStack(alignment: .top, spacing: 16) {
-            Image("profile")
-                .resizable()
-                .scaledToFill()
-                .clipShape(Circle())
-                .frame(maxWidth: 48, maxHeight: 48)
-            
-            VStack(alignment: .leading) {
-                TextField("Comment", text: $comment, prompt: Text("Add a comment"), axis: .vertical)
-                    .lineLimit(4, reservesSpace: true)
-                    .textFieldStyle(.roundedBorder)
-                
-                HStack {
-                    Text("Collaborators")
-                        .foregroundStyle(.secondary)
-                    
-                    HStack(alignment: .center, spacing: 0) {
-                        Image("profile")
-                            .resizable()
-                            .scaledToFill()
-                            .clipShape(Circle())
-                            .frame(maxWidth: 28, maxHeight: 28)
-                            .padding(.trailing, 2)
-                        
-                        ForEach(0..<2, id: \.self) { _ in
-                            Button {} label: {
-                                Image(systemName: "person")
-                                    .imageScale(.small)
-                            }
-                            .buttonStyle(.bordered)
-                            .tint(.clear)
-                            .foregroundStyle(.secondary)
-                            .overlay(
-                                Circle()
-                                    .strokeBorder(
-                                        .secondary,
-                                        style:
-                                            StrokeStyle(
-                                                lineWidth: 1,
-                                                dash: [4]
-                                            )
-                                    )
-                            )
-                            .clipShape(Circle())
-                        }
-                    }
-                    
-                    Image(systemName: "plus")
-                        .imageScale(.small)
-                        .foregroundStyle(.secondary)
-                    
-                    Spacer()
-                    
-                    Button("Leave task", systemImage: "bell.fill") {
-                        
-                    }
-                    .tint(.secondary)
-                    
-                }
-                .padding(.top)
-            }
-        }
-        .padding()
-        .background(.primary.quinary)
-    }
-}
-
-#Preview("Footer") {
-    TaskDetailFooter()
-}
-
-struct TaskDetailBody: View {
-    @Query private var allProjects: [ProjectModel]
-    @State private var showProjectPicker: Bool = false
-    @Bindable var task: TaskModel
-    
-    init(_ task: TaskModel) {
+    init(_ task: Task) {
         self.task = task
     }
     
     var body: some View {
-        Section {
+        if let currentMember = asanaManager.currentMember {
+            HStack(alignment: .top, spacing: 16) {
+                AvatarView(
+                    image: tempUrl,
+                    fallback: "Nick Black",
+                    size: .medium
+                )
+                
+                VStack(alignment: .leading) {
+                    TextField("Comment", text: $message, prompt: Text("Add a comment"), axis: .vertical)
+                        .lineLimit(4, reservesSpace: true)
+                        .textFieldStyle(.roundedBorder)
+                        .onSubmit {
+                            let comment = Comment(message: message, sender: currentMember, status: .Sent)
+                            task.comments.append(comment)
+                        }
+                    
+                    HStack {
+                        Text("Collaborators")
+                            .foregroundStyle(.secondary)
+                        
+                        HStack(alignment: .center, spacing: 0) {
+                            AvatarView(
+                                image: tempUrl,
+                                fallback: "Nick Black",
+                                size: .small
+                            )
+                            
+                            ForEach(0..<2, id: \.self) { _ in
+                                Button {} label: {
+                                    Image(systemName: "person")
+                                        .imageScale(.small)
+                                }
+                                .buttonStyle(.bordered)
+                                .tint(.clear)
+                                .foregroundStyle(.secondary)
+                                .overlay(
+                                    Circle()
+                                        .strokeBorder(
+                                            .secondary,
+                                            style:
+                                                StrokeStyle(
+                                                    lineWidth: 1,
+                                                    dash: [4]
+                                                )
+                                        )
+                                )
+                                .clipShape(Circle())
+                            }
+                        }
+                        
+                        Image(systemName: "plus")
+                            .imageScale(.small)
+                            .foregroundStyle(.secondary)
+                        
+                        Spacer()
+                        
+                        Button("Leave task", systemImage: "bell.fill") {
+                            
+                        }
+                        .tint(.secondary)
+                        
+                    }
+                    .padding(.top)
+                }
+            }
+            .padding()
+            .background(.primary.quinary)
+        }
+    }
+}
+
+#Preview("Footer") {
+    TaskDetailFooter(.preview[0])
+}
+
+struct TaskDetailBody: View {
+    @Query private var allProjects: [Project]
+    @State private var showProjectPicker: Bool = false
+    @State private var showMemberPicker: Bool = false
+    @State private var showDatePicker: Bool = false
+    @Bindable var task: Task
+    
+    init(_ task: Task) {
+        self.task = task
+    }
+    
+    var body: some View {
+        
+        SwiftUI.Section {
             VStack(alignment: .leading, spacing: 32) {
                 TextField("Task name", text: $task.name)
                     .font(.title)
@@ -192,68 +210,71 @@ struct TaskDetailBody: View {
                 
                 LabeledContent("Assignee") {
                     HStack {
-                        if let assignee = task.assignee {
-                            Image("profile")
-                                .resizable()
-                                .scaledToFill()
-                                .clipShape(Circle())
-                                .frame(maxWidth: 32, maxHeight: 32)
-                            
+                        ZStack {
                             if let assignee = task.assignee {
-                                Text(assignee.name)
-                            }
-                            
-                            HStack(spacing: 2) {
-                                Text("Nick Black")
-                                Image(systemName: "moon.zzz")
-                                    .imageScale(.small)
-                            }
-                            .foregroundStyle(.primary)
-                            
-                            Image(systemName: "xmark")
-                                .imageScale(.small)
-                            
-                            Menu {
-                                Section("My tasks") {
+                                HStack {
+                                    Button {
+                                        showMemberPicker.toggle()
+                                    } label: {
+                                        AvatarView(
+                                            image: tempUrl,
+                                            fallback: "Nick Black",
+                                            size: .small
+                                        )
+                                        
+                                        Text(assignee.name.isEmpty ? "Name" : assignee.name)
+                                    }
+                                    .buttonStyle(.bordered)
+                                    .tint(.clear)
+                                    .foregroundStyle(.primary)
                                     
-                                }
-                            } label: {
-                                Text("📬 New tasks")
-                                Image(systemName: "chevron.down")
-                                    .imageScale(.small)
-                            }
-                            .foregroundStyle(.secondary)
-                            .padding(.leading, 16)
-                        } else {
-                            Button {} label: {
-                                Image(systemName: "person")
-                                    .imageScale(.medium)
-                            }
-                            .buttonStyle(.bordered)
-                            .tint(.white)
-                            .overlay(
-                                Circle()
-                                    .strokeBorder(
-                                        .secondary,
-                                        style:
-                                            StrokeStyle(
-                                                lineWidth: 1,
-                                                dash: [4]
-                                            )
-                                    )
-                            )
-                            .clipShape(Circle())
-                            .foregroundStyle(.secondary)
-                            
-                            if let startDate = task.startDate {
-                                if let endDate = task.endDate {
-                                    Text("\(startDate.formatted(date: .numeric, time: .omitted)) - \(endDate.formatted(date: .numeric, time: .omitted))")
-                                } else {
-                                    Text("\(startDate.formatted(date: .numeric, time: .omitted))")
+                                    Button {
+                                        withAnimation(.snappy) {
+                                            task.assignee = nil
+                                        }
+                                    } label: {
+                                        Image(systemName: "xmark")
+                                            .imageScale(.small)
+                                    }
+                                    
+                                    if !assignee.sections.isEmpty {
+                                        Menu {
+                                            SwiftUI.Section("My tasks") {
+                                                
+                                            }
+                                        } label: {
+                                            Text(assignee.sections[0].name)
+                                            Image(systemName: "chevron.down")
+                                                .imageScale(.small)
+                                        }
+                                        .foregroundStyle(.secondary)
+                                    }
                                 }
                             } else {
-                                Text("No due date")
+                                Button {
+                                    showMemberPicker.toggle()
+                                } label: {
+                                    Image(systemName: "person")
+                                }
+                                .buttonStyle(.bordered)
+                                .tint(.white)
+                                .overlay(
+                                    Circle()
+                                        .strokeBorder(
+                                            .secondary,
+                                            style:
+                                                StrokeStyle(
+                                                    lineWidth: 1,
+                                                    dash: [4]
+                                                )
+                                        )
+                                )
+                                .clipShape(Circle())
+                                .foregroundStyle(.secondary)
                             }
+                        }
+                        .popover(isPresented: $showMemberPicker) {
+                            MemberPicker($task.assignee)
                         }
                         
                         Spacer()
@@ -263,35 +284,52 @@ struct TaskDetailBody: View {
                 
                 LabeledContent("Due date") {
                     HStack {
-                        Button {} label: {
-                            Image(systemName: "calendar")
-                                .imageScale(.medium)
-                        }
-                        .buttonStyle(.bordered)
-                        .tint(.white)
-                        .overlay(
-                            Circle()
-                                .strokeBorder(
-                                    .secondary,
-                                    style:
-                                        StrokeStyle(
-                                            lineWidth: 1,
-                                            dash: [4]
-                                        )
-                                )
-                        )
-                        .clipShape(Circle())
-                        .foregroundStyle(.secondary)
-                        
-                        if let startDate = task.startDate {
+                        ZStack {
                             if let endDate = task.endDate {
-                                Text("\(startDate.formatted(date: .numeric, time: .omitted)) - \(endDate.formatted(date: .numeric, time: .omitted))")
+                                Button(getRelativeDate(endDate)) {
+                                    showDatePicker.toggle()
+                                }
+                                .buttonStyle(.bordered)
+                                .tint(.white)
+                                .foregroundStyle(.secondary)
                             } else {
-                                Text("\(startDate.formatted(date: .numeric, time: .omitted))")
+                                HStack {
+                                    Button {
+                                        showDatePicker.toggle()
+                                    } label: {
+                                        Image(systemName: "calendar")
+                                            .imageScale(.medium)
+                                    }
+                                    .buttonStyle(.bordered)
+                                    .tint(.white)
+                                    .overlay(
+                                        Circle()
+                                            .strokeBorder(
+                                                .secondary,
+                                                style:
+                                                    StrokeStyle(
+                                                        lineWidth: 1,
+                                                        dash: [4]
+                                                    )
+                                            )
+                                    )
+                                    .clipShape(Circle())
+                                    .foregroundStyle(.secondary)
+                                    
+                                    Button {
+                                        withAnimation(.snappy) {
+                                            task.assignee = nil
+                                        }
+                                    } label: {
+                                        Image(systemName: "xmark")
+                                            .imageScale(.small)
+                                    }
+                                }
                             }
-                        } else {
-                            Text("No due date")
                         }
+                        .popover(isPresented: $showDatePicker, content: {
+                            DatePickerPopover(date: $task.endDate)
+                        })
                         
                         Spacer()
                     }
@@ -300,33 +338,28 @@ struct TaskDetailBody: View {
                 
                 LabeledContent("Projects") {
                     HStack {
-                        if let projects = task.projects {
-                            ForEach(projects) { project in
-                                HStack {
-                                    HStack(spacing: 4) {
-                                        RoundedRectangle(cornerRadius: 4)
-                                            .fill(project.color.color)
-                                            .frame(width: 8, height: 8)
-                                        
-                                        Text(project.name)
-                                            .font(.caption)
-                                    }
+                        ForEach(task.projects) { project in
+                            HStack {
+                                HStack(spacing: 4) {
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .fill(project.color.color)
+                                        .frame(width: 8, height: 8)
                                     
-                                    Menu {
-                                        if let sections = project.sections {
-                                            ForEach(sections) { section in
-                                                Button(section.name) {
-                                                    task.section = section
-                                                }
-                                            }
+                                    Text(project.name)
+                                        .font(.caption)
+                                }
+                                
+                                Menu {
+                                    ForEach(project.sections) { section in
+                                        Button(section.name) {
+                                            task.section = section
                                         }
-                                        
-                                    } label: {
-                                        if let sections = project.sections, sections.isEmpty {
-                                            Text("Untitled Sections")
-                                        } else {
-                                            Text(project.sections?[0].name ?? "")
-                                        }
+                                    }
+                                } label: {
+                                    if project.sections.isEmpty {
+                                        Text("Untitled Sections")
+                                    } else {
+                                        Text(project.sections[0].name)
                                     }
                                 }
                             }
@@ -340,7 +373,7 @@ struct TaskDetailBody: View {
                             VStack {
                                 ForEach(allProjects) { project in
                                     Button(project.name) {
-                                        task.projects?.append(project)
+                                        task.projects.append(project)
                                     }
                                 }
                             }
@@ -367,58 +400,30 @@ struct TaskDetailBody: View {
                     .lineLimit(10, reservesSpace: true)
                 }
                 
-                HStack(spacing: 0) {
-                    Button("Add subtask", systemImage: "plus") {
-                        
+                if !task.subtasks.isEmpty {
+                    VStack {
+                        ForEach(task.subtasks) { subtask in
+                            TaskRowItem(subtask)
+                        }
                     }
-                    .font(.callout)
-                    .buttonStyle(.bordered)
-                    .tint(.clear)
-                    .foregroundStyle(.primary)
-                    .overlay(
-                        UnevenRoundedRectangle(
-                            topLeadingRadius: 8,
-                            bottomLeadingRadius: 8,
-                            bottomTrailingRadius: 0,
-                            topTrailingRadius: 0
-                        )
-                        .stroke(.secondary, lineWidth: 1)
-                    )
-                    .clipShape(
-                        UnevenRoundedRectangle(
-                            topLeadingRadius: 0,
-                            bottomLeadingRadius: 0,
-                            bottomTrailingRadius: 8,
-                            topTrailingRadius: 8
-                        )
-                    )
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "chevron.down")
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(.clear)
-                    .foregroundStyle(.primary)
-                    .overlay(
-                        UnevenRoundedRectangle(
-                            topLeadingRadius: 0,
-                            bottomLeadingRadius: 0,
-                            bottomTrailingRadius: 8,
-                            topTrailingRadius: 8
-                        )
-                        .stroke(.secondary, lineWidth: 1)
-                    )
-                    .clipShape(
-                        UnevenRoundedRectangle(
-                            topLeadingRadius: 0,
-                            bottomLeadingRadius: 0,
-                            bottomTrailingRadius: 8,
-                            topTrailingRadius: 8
-                        )
-                    )
                 }
+                
+                Button("Add subtask", systemImage: "plus") {
+                    withAnimation(.snappy) {
+                        task.subtasks.append(Task(name: "", order: task.subtasks.count))
+                    }
+                }
+                .font(.callout)
+                .buttonStyle(.bordered)
+                .tint(.clear)
+                .foregroundStyle(.primary)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                    .stroke(.secondary, lineWidth: 1)
+                )
+                .clipShape(
+                    RoundedRectangle(cornerRadius: 8)
+                )
             }
             .padding()
         } header: {
@@ -454,14 +459,11 @@ struct TaskDetailBody: View {
                 .foregroundStyle(.secondary)
                 
                 HStack(alignment: .top) {
-                    Image("profile")
-                        .resizable()
-                        .scaledToFill()
-                        .clipShape(Circle())
-                        .frame(
-                            maxWidth: 48,
-                            maxHeight: 48
-                        )
+                    AvatarView(
+                        image: tempUrl,
+                        fallback: "Nick Black",
+                        size: .medium
+                    )
                     
                     VStack(alignment: .leading) {
                         Text("\(Text("Nick Black").fontWeight(.semibold)) created this task • 4 days ago")
@@ -479,14 +481,49 @@ struct TaskDetailBody: View {
                     }
                     .foregroundStyle(.secondary)
                 }
+                
+               
+                let filteredComments = task.comments.filter{$0.status == .Sent}
+                ForEach(filteredComments.sorted(by: { $0.sentAt! < $1.sentAt! })) { comment in
+                    HStack {
+                        AvatarView(
+                            image: tempUrl,
+                            fallback: "Nick Black",
+                            size: .medium
+                        )
+                        
+                        VStack(alignment: .leading) {
+                            if let sender = comment.sender {
+                                Text("\(Text(sender.name).fontWeight(.semibold)) • \(comment.sentAt?.formatted(date: .numeric, time: .omitted) ?? "")")
+                                    .font(.callout)
+                                    .padding(.bottom)
+                            }
+                           
+                            Text(comment.message)
+                                .font(.caption)
+                        }
+                        .foregroundStyle(.secondary)
+                    }
+                }
+                
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(.primary.quinary)
         }
     }
+    
+    private func getRelativeDate(_ date: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        // get exampleDate relative to the current date
+        let relativeDate = formatter.localizedString(for: date, relativeTo: Date.now)
+        return relativeDate
+    }
+    
 }
 
 #Preview("Body") {
-    TaskDetailBody(.preview[0])
+   return TaskDetailBody(.preview[0])
+        .modelContainer(for: Project.self)
 }

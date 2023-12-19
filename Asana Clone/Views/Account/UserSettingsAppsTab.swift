@@ -10,7 +10,7 @@ import SwiftUI
 struct UserSettingsAppsTab: View {
     var body: some View {
 		Form {
-			Section("Available Apps") {
+            SwiftUI.Section("Available Apps") {
 				HStack {
 					Image("harvestIcon")
 						.resizable()
@@ -25,7 +25,7 @@ struct UserSettingsAppsTab: View {
 				}
 			}
 			
-			Section {
+            SwiftUI.Section {
 				
 			} header: {
 				Text("Authorized Apps")

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TableTagCellView: View {
     @Environment(AsanaManager.self) private var asanaManager
-    @Binding var projects: [ProjectModel]
+    @Binding var projects: [Project]
     
     var body: some View {
         HStack {
@@ -26,8 +26,8 @@ struct TableTagCellView: View {
 }
 
 fileprivate struct TagView: View {
-    @Binding var tag: ProjectModel
-    @Binding var allTags: [ProjectModel]
+    @Binding var tag: Project
+    @Binding var allTags: [Project]
     @FocusState private var isFocused: Bool
     
     var body: some View {
