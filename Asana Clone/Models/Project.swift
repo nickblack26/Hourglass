@@ -22,17 +22,17 @@ class Project {
     // or if the model has just a singular variable
     var owner: Member?
     var team: Team?
-    var sections: [Section]  = []
+    var sections: [Section]?  = []
     
     // MARK: Explicit relationships
     @Relationship(deleteRule: .nullify, inverse: \Task.projects)
-    var tasks: [Task] = []
+    var tasks: [Task]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \Member.projects)
-    var members: [Member] = []
+    var members: [Member]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \Comment.projects)
-    var comments: [Comment] = []
+    var comments: [Comment]? = []
     
     init(
         name: String,

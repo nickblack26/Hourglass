@@ -44,8 +44,8 @@ struct TaskCardView: View {
     var body: some View {
         @Bindable var asanaManager = asanaManager
         VStack(alignment: .leading, spacing: 16) {
-            if !task.projects.isEmpty {
-                ProjectPills(task.projects)
+			if let projects = task.projects, !projects.isEmpty {
+                ProjectPills(projects)
             }
             
             HStack(alignment: .top) {
@@ -182,9 +182,9 @@ struct TaskCardView: View {
                 
                 Spacer()
                 
-                if !task.likes.isEmpty {
+                if let likes = task.likes, !likes.isEmpty {
                     HStack(spacing: 2) {
-                        Text("\(task.likes.count)")
+                        Text("\(likes.count)")
                         Image(systemName: "hand.thumbsup")
                             .font(.caption2)
                             .foregroundStyle(.secondary)
@@ -193,26 +193,24 @@ struct TaskCardView: View {
                     .foregroundStyle(.secondary)
                 }
                 
-                if !task.comments.isEmpty {
-                    let filteredComments = task.comments.filter({ $0.status != .Sent })
-                    if !task.comments.isEmpty {
-                        HStack(spacing: 2) {
-                            Text("\(filteredComments.count)")
-                            Image(systemName: "message")
-                        }
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
-                    }
+                if let comments = task.comments, !comments.isEmpty {
+                    let filteredComments = comments.filter({ $0.status != .Sent })
+					HStack(spacing: 2) {
+						Text("\(filteredComments.count)")
+						Image(systemName: "message")
+					}
+					.font(.caption2)
+					.foregroundStyle(.secondary)
                 }
                 
-                if !task.subtasks.isEmpty {
+                if let subtasks = task.subtasks, !subtasks.isEmpty {
                     Button {
                         withAnimation(.snappy) {
                             showSubtasks.toggle()
                         }
                     } label: {
                         HStack(spacing: 2) {
-                            Text("\(task.subtasks.count)")
+                            Text("\(subtasks.count)")
                             Image("subtask_icon")
                                 .resizable()
                                 .frame(width: 12, height: 12)
@@ -231,8 +229,8 @@ struct TaskCardView: View {
                 }
             }
             
-            if showSubtasks, !task.subtasks.isEmpty {
-                ForEach(task.subtasks) { task in
+			if showSubtasks, let subtasks = task.subtasks, !subtasks.isEmpty {
+                ForEach(subtasks) { task in
                     @Bindable var task = task
                     TaskRowItem(task)
                         .font(.subheadline)

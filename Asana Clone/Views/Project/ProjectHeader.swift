@@ -77,7 +77,7 @@ struct ProjectHeader: View {
 			Spacer()
 			
 			HStack {
-                MemberGroupView(project.members)
+				MemberGroupView(project.members ?? [])
 				
 				Button {
 					

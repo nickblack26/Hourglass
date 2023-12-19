@@ -12,7 +12,7 @@ class Section {
     // MARK: Inferred relationships
     var project: Project?
     var member: Member?
-    var tasks: [Task]  = []
+    var tasks: [Task]?  = []
     
     init(
         name: String,

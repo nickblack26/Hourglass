@@ -167,7 +167,7 @@ struct NewProjectSetup: View {
         )
         modelContext.insert(newProject)
         
-        newProject.sections.append(newSection)
+        newProject.sections?.append(newSection)
         
         asanaManager.selectedLink = .project(newProject)
         

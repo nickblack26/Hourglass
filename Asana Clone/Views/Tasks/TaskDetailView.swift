@@ -127,7 +127,7 @@ struct TaskDetailFooter: View {
                         .textFieldStyle(.roundedBorder)
                         .onSubmit {
                             let comment = Comment(message: message, sender: currentMember, status: .Sent)
-                            task.comments.append(comment)
+                            task.comments?.append(comment)
                         }
                     
                     HStack {
@@ -237,13 +237,13 @@ struct TaskDetailBody: View {
                                             .imageScale(.small)
                                     }
                                     
-                                    if !assignee.sections.isEmpty {
+                                    if let sections = assignee.sections, !sections.isEmpty {
                                         Menu {
                                             SwiftUI.Section("My tasks") {
                                                 
                                             }
                                         } label: {
-                                            Text(assignee.sections[0].name)
+                                            Text(sections[0].name)
                                             Image(systemName: "chevron.down")
                                                 .imageScale(.small)
                                         }
@@ -338,7 +338,7 @@ struct TaskDetailBody: View {
                 
                 LabeledContent("Projects") {
                     HStack {
-                        ForEach(task.projects) { project in
+						ForEach(task.projects ?? []) { project in
                             HStack {
                                 HStack(spacing: 4) {
                                     RoundedRectangle(cornerRadius: 4)
@@ -350,16 +350,16 @@ struct TaskDetailBody: View {
                                 }
                                 
                                 Menu {
-                                    ForEach(project.sections) { section in
+									ForEach(project.sections ?? []) { section in
                                         Button(section.name) {
                                             task.section = section
                                         }
                                     }
                                 } label: {
-                                    if project.sections.isEmpty {
+									if let sections = project.sections, sections.isEmpty {
                                         Text("Untitled Sections")
                                     } else {
-                                        Text(project.sections[0].name)
+										Text(project.sections?[0].name ?? "")
                                     }
                                 }
                             }
@@ -373,7 +373,7 @@ struct TaskDetailBody: View {
                             VStack {
                                 ForEach(allProjects) { project in
                                     Button(project.name) {
-                                        task.projects.append(project)
+										task.projects?.append(project)
                                     }
                                 }
                             }
@@ -400,9 +400,9 @@ struct TaskDetailBody: View {
                     .lineLimit(10, reservesSpace: true)
                 }
                 
-                if !task.subtasks.isEmpty {
+                if let subtasks = task.subtasks, !subtasks.isEmpty {
                     VStack {
-                        ForEach(task.subtasks) { subtask in
+                        ForEach(subtasks) { subtask in
                             TaskRowItem(subtask)
                         }
                     }
@@ -410,7 +410,7 @@ struct TaskDetailBody: View {
                 
                 Button("Add subtask", systemImage: "plus") {
                     withAnimation(.snappy) {
-                        task.subtasks.append(Task(name: "", order: task.subtasks.count))
+						task.subtasks?.append(Task(name: "", order: task.subtasks?.count ?? 0))
                     }
                 }
                 .font(.callout)
@@ -483,8 +483,8 @@ struct TaskDetailBody: View {
                 }
                 
                
-                let filteredComments = task.comments.filter{$0.status == .Sent}
-                ForEach(filteredComments.sorted(by: { $0.sentAt! < $1.sentAt! })) { comment in
+				let filteredComments = task.comments?.filter{$0.status == .Sent}
+				ForEach(filteredComments?.sorted(by: { $0.sentAt! < $1.sentAt! }) ?? []) { comment in
                     HStack {
                         AvatarView(
                             image: tempUrl,

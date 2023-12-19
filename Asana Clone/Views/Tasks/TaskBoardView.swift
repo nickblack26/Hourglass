@@ -67,7 +67,7 @@ struct ColumnView: View {
     var body: some View {
         ScrollView(.vertical) {
             SwiftUI.Section {
-                TasksView(section.tasks)
+				TasksView(section.tasks ?? [])
             } header: {
                 HStack {
                     TextField(
@@ -108,17 +108,17 @@ struct ColumnView: View {
             .padding(.top)
         }
         .frame(width: 375, alignment: .leading)
-        .background(section.tasks.isEmpty ? Color(uiColor: .systemGray6).opacity(0.5) : .clear)
+		.background(section.tasks != nil && section.tasks!.isEmpty ? Color(uiColor: .systemGray6).opacity(0.5) : .clear)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
     private func addTaskToSection() {
         if let project = section.project {
-            let newTask = Task(name: "", order: section.tasks.count, projects: [project], section: section)
-            section.tasks.append(newTask)
+			let newTask = Task(name: "", order: section.tasks?.count ?? 0, projects: [project], section: section)
+            section.tasks?.append(newTask)
         } else if let currentMember = asanaManager.currentMember {
-            let newTask = Task(name: "", order: section.tasks.count, section: section, assignee: currentMember)
-            section.tasks.append(newTask)
+            let newTask = Task(name: "", order: section.tasks?.count ?? 0, section: section, assignee: currentMember)
+            section.tasks?.append(newTask)
         }
     }
 }

@@ -13,23 +13,23 @@ class Member {
     var widgets: [Widget]?
     
     // MARK: Inferred relationships
-    var teams: [Team] = [] // set on team model
-    var projects: [Project] = [] // set on project model
-    var assignedTasks: [Task] = [] // set on task model
-    var collaboratingTasks: [Task] = [] // set on task model
-    var mentions: [Comment] = [] // set on comment model
-    var likes: [Task] = [] // set on task model
-    var sections: [Section] = [] // inferred by swift data
+    var teams: [Team]? = [] // set on team model
+    var projects: [Project]? = [] // set on project model
+    var assignedTasks: [Task]? = [] // set on task model
+    var collaboratingTasks: [Task]? = [] // set on task model
+    var mentions: [Comment]? = [] // set on comment model
+    var likes: [Task]? = [] // set on task model
+    var sections: [Section]? = [] // inferred by swift data
    
     // MARK: Explicit relationships
     @Relationship(deleteRule: .nullify, inverse: \Comment.sender)
-    var sentComments: [Comment] = []
+    var sentComments: [Comment]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \Comment.members)
-    var receivedComments: [Comment] = []
+    var receivedComments: [Comment]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \Project.owner)
-    var ownedProjects: [Project] = []
+    var ownedProjects: [Project]? = []
     
     init(
         name: String,

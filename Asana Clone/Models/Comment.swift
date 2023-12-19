@@ -13,12 +13,12 @@ final class Comment {
     // MARK: Inferred relationships
     var sender: Member? // set on member model
     var task: Task? // set on task model
-    var projects: [Project] = [] // set on project model
-    var teams: [Team] = [] // set on team model
-    var members: [Member] = [] // set on member model
+    var projects: [Project]? = [] // set on project model
+    var teams: [Team]? = [] // set on team model
+    var members: [Member]? = [] // set on member model
     
     @Relationship(inverse: \Member.mentions)
-    var mentions: [Member] = []
+    var mentions: [Member]? = []
     
     init(
         subject: String? = nil,

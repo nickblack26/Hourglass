@@ -17,24 +17,24 @@ class Task: Hashable {
     // MARK: Inferred relationships
     // Relationships inferred from parent
     var parentTask: Task?
-    var projects: [Project] = []
+    var projects: [Project]? = []
     var section: Section?
    
     // MARK: Explicit relationships
     @Relationship(deleteRule: .nullify, inverse: \Member.collaboratingTasks)
-    var collaborators: [Member] = []
+    var collaborators: [Member]? = []
     
     @Relationship(deleteRule: .cascade, inverse: \Comment.task)
-    var comments: [Comment] = []
+    var comments: [Comment]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \Member.assignedTasks)
     var assignee: Member?
     
     @Relationship(deleteRule: .nullify, inverse: \Task.parentTask)
-    var subtasks: [Task] = []
+    var subtasks: [Task]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \Member.likes)
-    var likes: [Member] = []
+    var likes: [Member]? = []
     
     init(
         name: String,

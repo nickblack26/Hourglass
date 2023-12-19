@@ -7,13 +7,13 @@ class Team {
     var details: String?
     
     @Relationship(deleteRule: .nullify, inverse: \Member.teams)
-    var members: [Member] = []
+    var members: [Member]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \Project.team)
-    var projects: [Project] = []
+    var projects: [Project]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \Comment.teams)
-    var messages: [Comment] = []
+    var messages: [Comment]? = []
     
     init(
         name: String,

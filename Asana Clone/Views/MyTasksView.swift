@@ -145,11 +145,11 @@ struct MyTasksView: View {
                 switch selectedTab {
                 case .list:
                     TaskListView(
-                        asanaManager.currentMember?.sections.sorted(by: { $0.order < $1.order }) ?? []
+						asanaManager.currentMember?.sections?.sorted(by: { $0.order < $1.order }) ?? []
                     )
                 case .board:
                     TaskBoardView(
-                        asanaManager.currentMember?.sections.sorted(by: { $0.order < $1.order }) ?? []
+						asanaManager.currentMember?.sections?.sorted(by: { $0.order < $1.order }) ?? []
                     )
                 case .calendar:
                     TaskCalendarView()
@@ -180,19 +180,21 @@ struct MyTasksView: View {
             section.order = sections.count + 1
         }
         
-        asanaManager.currentMember?.sections.append(section)
+        asanaManager.currentMember?.sections?.append(section)
         //        modelContext.insert(section)
     }
     
     private func addNewTask() {
         guard let currentMember = asanaManager.currentMember else { return }
         
-        let task = Task(name: "New task", order: sections[0].tasks.count, assignee: currentMember)
+		let task = Task(name: "New task", order: sections[0].tasks?.count ?? 0, assignee: currentMember)
+		
+		let section = sections[0]
         
-        if sections[0].tasks.isEmpty {
-            sections[0].tasks.append(task)
+		if let tasks = section.tasks, tasks.isEmpty {
+			sections[0].tasks?.append(task)
         } else {
-            sections[0].tasks.insert(task, at: 0)
+			sections[0].tasks?.insert(task, at: 0)
         }
     }
 }

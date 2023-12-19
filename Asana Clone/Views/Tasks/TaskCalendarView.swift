@@ -65,8 +65,8 @@ struct TaskCalendarView: View {
                         ScrollView {
                             Button("Add task", systemImage: "plus") {
                                 if let currentMember = asanaManager.currentMember {
-                                    let task = Task(name: "", order: currentMember.sections[0].tasks.count)
-                                    currentMember.sections[0].tasks.append(task)
+									let task = Task(name: "", order: currentMember.sections?[0].tasks?.count ?? 0)
+									currentMember.sections?[0].tasks?.append(task)
                                 }
                             }
                             .buttonStyle(.plain)

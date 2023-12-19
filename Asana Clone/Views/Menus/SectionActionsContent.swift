@@ -39,8 +39,8 @@ struct SectionActionsContent: View {
     
     private func addTaskToSection(_ section: Section) {
         if let currentMember = asanaManager.currentMember {
-            let task = Task(name: "", order: section.tasks.count, assignee: currentMember)
-            section.tasks.insert(task, at: 0)
+			let task = Task(name: "", order: section.tasks?.count ?? 0, assignee: currentMember)
+            section.tasks?.insert(task, at: 0)
         }
     }
     

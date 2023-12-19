@@ -64,7 +64,7 @@ struct ProjectListItemView: View {
     var body: some View {
         let calendar = Calendar.current
         let addOneWeekToCurrentDate = calendar.date(byAdding: .weekOfYear, value: 2, to: Date())
-        let upcomingTasks = project.tasks.filter {
+		let upcomingTasks = project.tasks?.filter {
             $0.endDate != nil && $0.endDate! > addOneWeekToCurrentDate!
         }
         
@@ -84,7 +84,7 @@ struct ProjectListItemView: View {
                         Label("Archived", systemImage: "archivebox.fill")
                             .font(.caption)
                     } else {
-                        if upcomingTasks.count > 0 {
+						if let upcomingTasks, upcomingTasks.count > 0 {
                             Text("\(upcomingTasks.count) tasks due soon")
                                 .foregroundStyle(.secondary)
                                 .lineLimit(1)

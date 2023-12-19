@@ -53,14 +53,14 @@ struct NewSectionForm: View {
         let section = Section(name: name, order: 0)
         modelContext.insert(section)
         
-        if !project.sections.isEmpty {
-            for index in project.sections.indices {
-                @Bindable var section = project.sections[index]
+        if let sections = project.sections, !sections.isEmpty {
+            for index in sections.indices {
+                @Bindable var section = sections[index]
                 section.order = index + 1
             }
-            project.sections.insert(section, at: 0)
+			project.sections!.insert(section, at: 0)
         } else {
-            project.sections.append(section)
+            project.sections?.append(section)
         }
         
         dismiss()

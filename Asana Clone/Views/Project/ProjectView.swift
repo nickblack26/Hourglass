@@ -42,9 +42,9 @@ struct ProjectView: View {
             case .overview:
                 ProjectOverviewTab()
             case .list:
-                TaskListView(project.sections.sorted(by: { $0.order < $1.order }))
+					TaskListView(project.sections?.sorted(by: { $0.order < $1.order }) ?? [])
             case .board:
-                TaskBoardView(project.sections.sorted(by: { $0.order < $1.order }))
+					TaskBoardView(project.sections?.sorted(by: { $0.order < $1.order }) ?? [])
             case .timeline:
                 EmptyView()
             case .calendar:
@@ -66,25 +66,25 @@ struct ProjectView: View {
     
     private func addNewSection() {
         let section = Section(name: "", order: 0)
-        if !project.sections.isEmpty {
-            for index in project.sections.indices {
-                @Bindable var section = project.sections[index]
+		if let sections = project.sections, !sections.isEmpty {
+            for index in sections.indices {
+                @Bindable var section = sections[index]
                 section.order = index + 1
             }
-            project.sections.insert(section, at: 0)
+            project.sections?.insert(section, at: 0)
         } else {
-            project.sections.append(section)
+            project.sections?.append(section)
         }
     }
     
     private func addNewTask() {
         if let assignee = asanaManager.currentMember {
-            let task = Task(name: "New task", order: project.tasks.count, assignee: assignee)
+            let task = Task(name: "New task", order: project.tasks?.count ?? 0, assignee: assignee)
             
-            if project.tasks.isEmpty {
-                project.sections[0].tasks.append(task)
+			if let tasks = project.tasks, tasks.isEmpty {
+				project.sections?[0].tasks?.append(task)
             } else {
-                project.sections[0].tasks.insert(task, at: 0)
+				project.sections?[0].tasks?.insert(task, at: 0)
             }
         }
     }

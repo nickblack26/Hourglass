@@ -2,8 +2,6 @@ import Foundation
 import SwiftData
 import CoreTransferable
 
-
-
 @Model
 class Widget: Hashable {
 	var name: String = ""
