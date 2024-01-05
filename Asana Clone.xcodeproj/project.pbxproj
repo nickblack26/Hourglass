@@ -33,6 +33,15 @@
 		011B11BE2A56728A004D44A4 /* UserSettingsAppsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011B11BD2A56728A004D44A4 /* UserSettingsAppsTab.swift */; };
 		011B11C02A5673D7004D44A4 /* UserSettingsHacksTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011B11BF2A5673D7004D44A4 /* UserSettingsHacksTab.swift */; };
 		011B11C22A567649004D44A4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011B11C12A567649004D44A4 /* ProfileView.swift */; };
+		0127EDAC2B47498F003FABBD /* SwiftDataKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0127EDAB2B47498F003FABBD /* SwiftDataKit */; };
+		0127EDAE2B4749B9003FABBD /* ModelContext+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127EDAD2B4749B9003FABBD /* ModelContext+Extension.swift */; };
+		0127EDB02B474BF4003FABBD /* CloudKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127EDAF2B474BF4003FABBD /* CloudKit+Extension.swift */; };
+		0127EDB22B474C28003FABBD /* CoreDataHelper+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127EDB12B474C28003FABBD /* CoreDataHelper+Extension.swift */; };
+		0127EDB42B474C4E003FABBD /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127EDB32B474C4E003FABBD /* PersistenceController.swift */; };
+		0127EDBA2B474D9F003FABBD /* PersistenceController+SharingUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127EDB52B474D9E003FABBD /* PersistenceController+SharingUtilities.swift */; };
+		0127EDBB2B474D9F003FABBD /* PersistenceController+UISharingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127EDB62B474D9F003FABBD /* PersistenceController+UISharingController.swift */; };
+		0127EDBC2B474D9F003FABBD /* PersistenceController+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127EDB72B474D9F003FABBD /* PersistenceController+History.swift */; };
+		0127EDC02B4750AF003FABBD /* PersistenceController+Deduplicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127EDBF2B4750AF003FABBD /* PersistenceController+Deduplicate.swift */; };
 		0138106B2B277252003EE7E1 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138106A2B277252003EE7E1 /* TaskDetailView.swift */; };
 		0138106D2B2796ED003EE7E1 /* AsanaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138106C2B2796ED003EE7E1 /* AsanaManager.swift */; };
 		0138106F2B27CC9B003EE7E1 /* NewTeamModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138106E2B27CC9B003EE7E1 /* NewTeamModal.swift */; };
@@ -50,6 +59,7 @@
 		014BBA8A2B2B87FB0081D56F /* DatePickerPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BBA892B2B87FB0081D56F /* DatePickerPopover.swift */; };
 		014BBA8C2B2BA1F20081D56F /* SectionActionsContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BBA8B2B2BA1F20081D56F /* SectionActionsContent.swift */; };
 		014BDE0C2B2E76FC00361BF5 /* TaskCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BDE0B2B2E76FC00361BF5 /* TaskCalendarView.swift */; };
+		0151D09C2B47795C00825215 /* PageTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0151D09B2B47795C00825215 /* PageTabButton.swift */; };
 		01743B7E2A4F25F4002CBC30 /* ProjectsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B7D2A4F25F4002CBC30 /* ProjectsWidget.swift */; };
 		01743B822A4F2B71002CBC30 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B812A4F2B71002CBC30 /* NewProjectView.swift */; };
 		01743B842A4F2ED1002CBC30 /* ProjectTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B832A4F2ED1002CBC30 /* ProjectTile.swift */; };
@@ -122,6 +132,14 @@
 		011B11BD2A56728A004D44A4 /* UserSettingsAppsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsAppsTab.swift; sourceTree = "<group>"; };
 		011B11BF2A5673D7004D44A4 /* UserSettingsHacksTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsHacksTab.swift; sourceTree = "<group>"; };
 		011B11C12A567649004D44A4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		0127EDAD2B4749B9003FABBD /* ModelContext+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModelContext+Extension.swift"; sourceTree = "<group>"; };
+		0127EDAF2B474BF4003FABBD /* CloudKit+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudKit+Extension.swift"; sourceTree = "<group>"; };
+		0127EDB12B474C28003FABBD /* CoreDataHelper+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataHelper+Extension.swift"; sourceTree = "<group>"; };
+		0127EDB32B474C4E003FABBD /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		0127EDB52B474D9E003FABBD /* PersistenceController+SharingUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PersistenceController+SharingUtilities.swift"; sourceTree = "<group>"; };
+		0127EDB62B474D9F003FABBD /* PersistenceController+UISharingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PersistenceController+UISharingController.swift"; sourceTree = "<group>"; };
+		0127EDB72B474D9F003FABBD /* PersistenceController+History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PersistenceController+History.swift"; sourceTree = "<group>"; };
+		0127EDBF2B4750AF003FABBD /* PersistenceController+Deduplicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PersistenceController+Deduplicate.swift"; path = "../../../../Library/Mobile Documents/com~apple~CloudDocs/Downloads/SharingCoreDataObjectsBetweenICloudUsers/Persistence/PersistenceController+Deduplicate.swift"; sourceTree = "<group>"; };
 		0138106A2B277252003EE7E1 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		0138106C2B2796ED003EE7E1 /* AsanaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsanaManager.swift; sourceTree = "<group>"; };
 		0138106E2B27CC9B003EE7E1 /* NewTeamModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTeamModal.swift; sourceTree = "<group>"; };
@@ -140,6 +158,7 @@
 		014BBA892B2B87FB0081D56F /* DatePickerPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPopover.swift; sourceTree = "<group>"; };
 		014BBA8B2B2BA1F20081D56F /* SectionActionsContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionActionsContent.swift; sourceTree = "<group>"; };
 		014BDE0B2B2E76FC00361BF5 /* TaskCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCalendarView.swift; sourceTree = "<group>"; };
+		0151D09B2B47795C00825215 /* PageTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTabButton.swift; sourceTree = "<group>"; };
 		01743B7D2A4F25F4002CBC30 /* ProjectsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsWidget.swift; sourceTree = "<group>"; };
 		01743B812A4F2B71002CBC30 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
 		01743B832A4F2ED1002CBC30 /* ProjectTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTile.swift; sourceTree = "<group>"; };
@@ -188,6 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0127EDAC2B47498F003FABBD /* SwiftDataKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +247,7 @@
 				01AA7BEB2B25596800EF3CD7 /* CloudKitManager.swift */,
 				0138106C2B2796ED003EE7E1 /* AsanaManager.swift */,
 				0174A5872B31C34B0043978F /* NavigationMenu.swift */,
+				0127EDB32B474C4E003FABBD /* PersistenceController.swift */,
 			);
 			path = "Asana Clone";
 			sourceTree = "<group>";
@@ -282,6 +303,7 @@
 				01AA7BEF2B26826600EF3CD7 /* NewSectionForm.swift */,
 				0138106E2B27CC9B003EE7E1 /* NewTeamModal.swift */,
 				014BBA872B2B7D990081D56F /* MemberPicker.swift */,
+				0151D09B2B47795C00825215 /* PageTabButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -357,7 +379,14 @@
 			isa = PBXGroup;
 			children = (
 				018DF67B2A5EEABD00752C32 /* Array+Extension.swift */,
+				0127EDAF2B474BF4003FABBD /* CloudKit+Extension.swift */,
+				0127EDB12B474C28003FABBD /* CoreDataHelper+Extension.swift */,
 				010C12FC2A66397F001C2722 /* Encodable+Extension.swift */,
+				0127EDAD2B4749B9003FABBD /* ModelContext+Extension.swift */,
+				0127EDBF2B4750AF003FABBD /* PersistenceController+Deduplicate.swift */,
+				0127EDB72B474D9F003FABBD /* PersistenceController+History.swift */,
+				0127EDB52B474D9E003FABBD /* PersistenceController+SharingUtilities.swift */,
+				0127EDB62B474D9F003FABBD /* PersistenceController+UISharingController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -472,6 +501,7 @@
 			);
 			name = "Asana Clone";
 			packageProductDependencies = (
+				0127EDAB2B47498F003FABBD /* SwiftDataKit */,
 			);
 			productName = "Asana Clone";
 			productReference = 0100F5E42A43F3F2001BD781 /* Asana Clone.app */;
@@ -502,6 +532,7 @@
 			);
 			mainGroup = 0100F5DB2A43F3F2001BD781;
 			packageReferences = (
+				0127EDAA2B47498F003FABBD /* XCRemoteSwiftPackageReference "SwiftDataKit" */,
 			);
 			productRefGroup = 0100F5E52A43F3F2001BD781 /* Products */;
 			projectDirPath = "";
@@ -533,6 +564,7 @@
 				0138106F2B27CC9B003EE7E1 /* NewTeamModal.swift in Sources */,
 				0180945A2B30CFA200B22D82 /* ProjectListItem.swift in Sources */,
 				010D51FA2A44DD5E0030989B /* HomeView.swift in Sources */,
+				0127EDB02B474BF4003FABBD /* CloudKit+Extension.swift in Sources */,
 				010C12FD2A66397F001C2722 /* Encodable+Extension.swift in Sources */,
 				014BBA772B2B4E1F0081D56F /* ProjectThemeMenuContent.swift in Sources */,
 				01ACCD152A4A95F5003E59B8 /* NotificationView.swift in Sources */,
@@ -552,6 +584,7 @@
 				017C8BCF2A69E435006A2C74 /* TaskBoardView.swift in Sources */,
 				010D51FE2A44DD850030989B /* InboxView.swift in Sources */,
 				013810712B27D83F003EE7E1 /* Comment.swift in Sources */,
+				0151D09C2B47795C00825215 /* PageTabButton.swift in Sources */,
 				013810742B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift in Sources */,
 				01AA7BF02B26826600EF3CD7 /* NewSectionForm.swift in Sources */,
 				01743B822A4F2B71002CBC30 /* NewProjectView.swift in Sources */,
@@ -570,13 +603,16 @@
 				014BBA882B2B7D990081D56F /* MemberPicker.swift in Sources */,
 				018D8D2B2A453C4400324A79 /* LoginView.swift in Sources */,
 				010D52062A44DDB40030989B /* ProjectView.swift in Sources */,
+				0127EDC02B4750AF003FABBD /* PersistenceController+Deduplicate.swift in Sources */,
 				010429132A55FD6F005ADFE9 /* UserSettingsProfileModal.swift in Sources */,
 				0138106D2B2796ED003EE7E1 /* AsanaManager.swift in Sources */,
 				010D52082A44DDC00030989B /* TeamView.swift in Sources */,
 				01A1420E2A5C6F970090BDEF /* ChartSelector.swift in Sources */,
 				01EA484F2A4750C000B0E6C3 /* Task.swift in Sources */,
+				0127EDB42B474C4E003FABBD /* PersistenceController.swift in Sources */,
 				018BCE3D2A49DEB600F2E7B8 /* VerifyEmail.swift in Sources */,
 				010D51FC2A44DD7A0030989B /* MyTasksView.swift in Sources */,
+				0127EDBC2B474D9F003FABBD /* PersistenceController+History.swift in Sources */,
 				1D578D9F2B1A270A005AAB54 /* AppDelegate.swift in Sources */,
 				1D6032002B1A7D5B00ECEB91 /* Section.swift in Sources */,
 				1D6032022B1A87F900ECEB91 /* PreviewMockedData.swift in Sources */,
@@ -606,10 +642,14 @@
 				01DF50792A57195600768649 /* ProjectListTab.swift in Sources */,
 				014BBA7B2B2B56880081D56F /* ProjectStatusMenu.swift in Sources */,
 				01743B842A4F2ED1002CBC30 /* ProjectTile.swift in Sources */,
+				0127EDBA2B474D9F003FABBD /* PersistenceController+SharingUtilities.swift in Sources */,
 				0106F2ED2A4B83210010B058 /* Widget.swift in Sources */,
 				011B11BC2A56705F004D44A4 /* UserSettingsDisplayTab.swift in Sources */,
 				01A1420A2A5C63770090BDEF /* NewDashboardModal.swift in Sources */,
+				0127EDB22B474C28003FABBD /* CoreDataHelper+Extension.swift in Sources */,
+				0127EDBB2B474D9F003FABBD /* PersistenceController+UISharingController.swift in Sources */,
 				014BBA862B2B77160081D56F /* TaskRowItem.swift in Sources */,
+				0127EDAE2B4749B9003FABBD /* ModelContext+Extension.swift in Sources */,
 				018E722F2A49FA2E001481F3 /* HomeInspector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -840,6 +880,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0127EDAA2B47498F003FABBD /* XCRemoteSwiftPackageReference "SwiftDataKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fatbobman/SwiftDataKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0127EDAB2B47498F003FABBD /* SwiftDataKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0127EDAA2B47498F003FABBD /* XCRemoteSwiftPackageReference "SwiftDataKit" */;
+			productName = SwiftDataKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0100F5DC2A43F3F2001BD781 /* Project object */;
 }

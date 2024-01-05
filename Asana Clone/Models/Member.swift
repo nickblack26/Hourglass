@@ -1,8 +1,9 @@
 import Foundation
 import SwiftData
+import CoreTransferable
 
 @Model
-class Member {
+class Member: Codable {
     // MARK: Generic variables
     var name: String = ""
     var email: String = ""
@@ -64,5 +65,25 @@ class Member {
         self.sections = sections
         self.sentComments = sentComments
         self.receivedComments = receivedComments
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        let container = encoder.container(keyedBy: CodingKeys.self)
+        
+    }
+}
+
+extension Member: Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .data)
     }
 }

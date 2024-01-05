@@ -6,13 +6,29 @@ struct SidebarSectionItem<Content: View>: View {
     @ViewBuilder var content: () -> Content
     
     var body: some View {
-        SwiftUI.Section(isExpanded: $isExpanded) {
+        SwiftUI.DisclosureGroup(isExpanded: $isExpanded) {
             content()
-        } header: {
+        } label: {
             HStack {
                 Text(label)
+                    .font(.title3)
+                    .fontWeight(.medium)
                 
                 Spacer()
+                
+                Menu {
+                    
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.callout)
+                }
+                
+                Menu {
+                    
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.callout)
+                }
             }
         }
     }
@@ -20,8 +36,33 @@ struct SidebarSectionItem<Content: View>: View {
 
 #Preview {
     NavigationSplitView {
-        SidebarSectionItem(label: "Testing") {
+        List {
+            NavigationLink(value: SidebarLink.home) {
+                Label("Home", systemImage: "house")
+            }
             
+            NavigationLink(value: SidebarLink.myTasks) {
+                Label("My Tasks", systemImage: "checkmark.circle")
+            }
+            
+            NavigationLink(value: SidebarLink.inbox) {
+                Label("Inbox", systemImage: "bell")
+            }
+            
+            
+            SidebarSectionItem(label: "Insights") {
+                NavigationLink(value: SidebarLink.reporting) {
+                    Label("Reporting", systemImage: "chart.xyaxis.line")
+                }
+                
+                NavigationLink(value: SidebarLink.portfolios) {
+                    Label("Portfolios", systemImage: "folder")
+                }
+                
+                NavigationLink(value: SidebarLink.goals) {
+                    Label("Goals", systemImage: "mountain.2")
+                }
+            }
         }
     } detail: {
         

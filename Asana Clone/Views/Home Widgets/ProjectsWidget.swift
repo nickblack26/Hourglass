@@ -131,14 +131,14 @@ struct ProjectListItemView: View {
         }
         .onHover(perform: {
             isHovering = $0
-#if TARGET_OS_MACCATALYST
-			DispatchQueue.main.async {
-				if (self.isHovering) {
-					NSCursor.pointingHand.push()
-				} else {
-					NSCursor.pop()
-				}
-			}
+#if targetEnvironment(macCatalyst)
+            DispatchQueue.main.async {
+                if (self.isHovering) {
+                    NSCursor.pointingHand.push()
+                } else {
+                    NSCursor.pop()
+                }
+            }
 #endif
         })
     }

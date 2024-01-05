@@ -55,9 +55,7 @@ struct SidebarView: View {
             NavigationLink(value: SidebarLink.inbox) {
                 Label("Inbox", systemImage: "bell")
             }
-            
-            Divider()
-            
+                        
             SidebarSectionItem(label: "Insights") {
                 NavigationLink(value: SidebarLink.reporting) {
                     Label("Reporting", systemImage: "chart.xyaxis.line")
@@ -152,7 +150,6 @@ struct SidebarView: View {
                 }
             }
         }
-        .padding(.top)
         .fullScreenCover(isPresented: $newProject, content: {
             NavigationStack {
                 NewProjectView(isPresented: $newProject)

@@ -1,8 +1,9 @@
 import Foundation
 import SwiftData
+import CoreTransferable
 
 @Model
-final class Comment {
+final class Comment: Codable {
     // MARK: Generic variables
     var message: String = ""
     var subject: String?
@@ -38,6 +39,26 @@ final class Comment {
         self.sentAt = nil
         self.status = status
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case message
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        let container = encoder.container(keyedBy: CodingKeys.self)
+        
+    }
+}
+
+extension Comment: Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .data)
+    }
 }
 
 extension Comment {
@@ -46,4 +67,3 @@ extension Comment {
         case Sent
     }
 }
-

@@ -3,7 +3,7 @@ import SwiftData
 import CoreTransferable
 
 @Model
-class Task: Hashable {
+class Task: Hashable, Codable {
     // MARK: Generic variables
     var name: String = ""
     var isCompleted: Bool = false
@@ -71,13 +71,27 @@ class Task: Hashable {
         self.subtasks = subtasks
         self.likes = likes
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        let container = encoder.container(keyedBy: CodingKeys.self)
+        
+    }
 }
 
-//extension TaskModel: Transferable {
-//    static var transferRepresentation: some TransferRepresentation {
-//        CodableRepresentation(contentType: .data)
-//    }
-//}
+extension Task: Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .data)
+    }
+}
 
 extension [Task] {
     func updateOrderIndices() {
