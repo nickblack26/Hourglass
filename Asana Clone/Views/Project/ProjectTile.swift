@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectTile: View {
-	@State private var hovering: Bool = false
+	@State private var isHovering: Bool = false
 	let image: String?
 	let icon: String?
 	let title: String
@@ -46,19 +46,21 @@ struct ProjectTile: View {
 				.foregroundStyle(.secondary)
 		}
 		.padding()
-		.padding(.bottom, hovering ? 25 : 0)
-		.animation(.easeInOut, value: hovering)
-		.background(hovering ? .gray.opacity(0.05) : .clear)
+		.padding(.bottom, isHovering ? 25 : 0)
+		.animation(.easeInOut, value: isHovering)
+		.background(isHovering ? .gray.opacity(0.05) : .clear)
 		.clipShape(RoundedRectangle(cornerRadius: 30))
 		.onHover(perform: { hovering in
-			self.hovering = hovering
-            DispatchQueue.main.async {
-                if (self.hovering) {
-                    NSCursor.pointingHand.push()
-                } else {
-                    NSCursor.pop()
-                }
-            }
+			self.isHovering = hovering
+#if TARGET_OS_MACCATALYST
+			DispatchQueue.main.async {
+				if (self.isHovering) {
+					NSCursor.pointingHand.push()
+				} else {
+					NSCursor.pop()
+				}
+			}
+#endif
 		})
 	}
 }

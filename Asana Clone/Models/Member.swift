@@ -7,7 +7,7 @@ class Member {
     var name: String = ""
     var email: String = ""
     var about: String?
-    var notepad: String?
+    var notepad: Data?
     var jobTitle: String?
     var department: String?
     var widgets: [Widget]?
@@ -35,7 +35,7 @@ class Member {
         name: String,
         email: String,
         about: String? = nil,
-        notepad: String? = nil,
+        notepad: Data? = nil,
         jobTitle: String? = nil,
         department: String? = nil,
         widgets: [Widget] = [],

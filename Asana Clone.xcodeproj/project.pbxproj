@@ -83,7 +83,7 @@
 		01DF50772A570C9200768649 /* ProjectOverviewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF50762A570C9200768649 /* ProjectOverviewTab.swift */; };
 		01DF50792A57195600768649 /* ProjectListTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF50782A57195600768649 /* ProjectListTab.swift */; };
 		01EA48492A474A9F00B0E6C3 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA48482A474A9F00B0E6C3 /* Project.swift */; };
-		01EA484B2A474C5900B0E6C3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA484A2A474C5900B0E6C3 /* Model.swift */; };
+		01EA484B2A474C5900B0E6C3 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA484A2A474C5900B0E6C3 /* Member.swift */; };
 		01EA484D2A47505C00B0E6C3 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA484C2A47505C00B0E6C3 /* Team.swift */; };
 		01EA484F2A4750C000B0E6C3 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA484E2A4750C000B0E6C3 /* Task.swift */; };
 		1D578D9F2B1A270A005AAB54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D578D9E2B1A270A005AAB54 /* AppDelegate.swift */; };
@@ -173,7 +173,7 @@
 		01DF50762A570C9200768649 /* ProjectOverviewTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectOverviewTab.swift; sourceTree = "<group>"; };
 		01DF50782A57195600768649 /* ProjectListTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListTab.swift; sourceTree = "<group>"; };
 		01EA48482A474A9F00B0E6C3 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		01EA484A2A474C5900B0E6C3 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		01EA484A2A474C5900B0E6C3 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		01EA484C2A47505C00B0E6C3 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		01EA484E2A4750C000B0E6C3 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		1D578D9E2B1A270A005AAB54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -444,7 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				01EA48482A474A9F00B0E6C3 /* Project.swift */,
-				01EA484A2A474C5900B0E6C3 /* Model.swift */,
+				01EA484A2A474C5900B0E6C3 /* Member.swift */,
 				01EA484C2A47505C00B0E6C3 /* Team.swift */,
 				01EA484E2A4750C000B0E6C3 /* Task.swift */,
 				0106F2EC2A4B83210010B058 /* Widget.swift */,
@@ -593,7 +593,7 @@
 				018BCE392A49D6FD00F2E7B8 /* SignupView.swift in Sources */,
 				014BBA842B2B72C70081D56F /* ProjectPills.swift in Sources */,
 				014BBA812B2B71910081D56F /* TaskContextMenu.swift in Sources */,
-				01EA484B2A474C5900B0E6C3 /* Model.swift in Sources */,
+				01EA484B2A474C5900B0E6C3 /* Member.swift in Sources */,
 				011B11B82A566643004D44A4 /* UserSettingsEmailForwardingTab.swift in Sources */,
 				01AA7BEA2B250AEA00EF3CD7 /* FilterBuilderView.swift in Sources */,
 				011B11C22A567649004D44A4 /* ProfileView.swift in Sources */,
