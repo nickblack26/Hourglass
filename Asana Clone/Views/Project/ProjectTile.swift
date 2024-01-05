@@ -52,13 +52,7 @@ struct ProjectTile: View {
 		.clipShape(RoundedRectangle(cornerRadius: 30))
 		.onHover(perform: { hovering in
 			self.hovering = hovering
-            DispatchQueue.main.async {
-                if (self.hovering) {
-                    NSCursor.pointingHand.push()
-                } else {
-                    NSCursor.pop()
-                }
-            }
+            
 		})
 	}
 }

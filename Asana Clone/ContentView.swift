@@ -35,7 +35,6 @@ struct ContentView: View {
                         }
                 }
             )
-            
             .sheet(item: $asanaManager.selectedTask) { task in
                 TaskDetailView(task)
             }

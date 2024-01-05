@@ -24,6 +24,7 @@ struct ProjectListItem: View {
         .listRowBackground(isHovering ? Color.navigationBackgroundHover : nil)
         .onHover {
             isHovering = $0
+#if targetEnvironment(macCatalyst)
             DispatchQueue.main.async {
                 if (self.isHovering) {
                     NSCursor.pointingHand.push()
@@ -31,6 +32,7 @@ struct ProjectListItem: View {
                     NSCursor.pop()
                 }
             }
+#endif
         }
     }
 }

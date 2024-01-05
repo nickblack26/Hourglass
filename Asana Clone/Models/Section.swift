@@ -3,7 +3,7 @@ import SwiftData
 import CoreTransferable
 
 @Model
-class Section {
+class Section: Codable {
     // MARK: Generic variables
     var name: String = ""
     var order: Int = 0
@@ -28,13 +28,27 @@ class Section {
         self.tasks = tasks
         self.createdAt = Date()
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        let container = encoder.container(keyedBy: CodingKeys.self)
+        
+    }
 }
 
-//extension SectionModel: Transferable {
-//    static var transferRepresentation: some TransferRepresentation {
-//        CodableRepresentation(contentType: .data)
-//    }
-//}
+extension Section: Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .data)
+    }
+}
 
 
 extension [Section] {

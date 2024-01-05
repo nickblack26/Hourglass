@@ -254,6 +254,7 @@ struct TaskCardView: View {
         .frame(maxWidth: 375, alignment: .leading)
         .onHover { hovering in
             isHovering = hovering
+#if targetEnvironment(macCatalyst)
             DispatchQueue.main.async {
                 if (self.isHovering) {
                     NSCursor.pointingHand.push()
@@ -261,6 +262,7 @@ struct TaskCardView: View {
                     NSCursor.pop()
                 }
             }
+#endif
         }
         .contextMenu {
             TaskContextMenu(task)

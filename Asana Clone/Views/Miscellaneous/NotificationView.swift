@@ -109,6 +109,7 @@ struct NotificationView: View {
 		.background(isHovering ? Color("CardBackground") : .clear)
 		.onHover(perform: { hovering in
 			isHovering = hovering
+#if targetEnvironment(macCatalyst)
             DispatchQueue.main.async {
                 if (self.isHovering) {
                     NSCursor.pointingHand.push()
@@ -116,6 +117,7 @@ struct NotificationView: View {
                     NSCursor.pop()
                 }
             }
+#endif
 		})
 	}
 }

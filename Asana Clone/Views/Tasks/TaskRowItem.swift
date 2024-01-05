@@ -82,13 +82,7 @@ struct TaskRowItem: View {
         .background(isHovering ? Color(uiColor: .systemGray6) : .clear)
         .onHover(perform: { hovering in
             isHovering = hovering
-            DispatchQueue.main.async {
-                if (self.isHovering) {
-                    NSCursor.pointingHand.push()
-                } else {
-                    NSCursor.pop()
-                }
-            }
+            
         })
         .onTapGesture {
             asanaManager.selectedTask = task

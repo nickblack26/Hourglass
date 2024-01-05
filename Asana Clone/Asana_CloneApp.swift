@@ -11,7 +11,8 @@ struct Asana_CloneApp: App {
     let container: ModelContainer = {
         do {
             
-            let config = ModelConfiguration(cloudKitDatabase: .none)
+            let config = ModelConfiguration("AsanaClone", cloudKitDatabase: .automatic)
+            
             let container = try ModelContainer(for: fullSchema, configurations: config)
                         
             var itemFetchDescriptor = FetchDescriptor<Widget>()

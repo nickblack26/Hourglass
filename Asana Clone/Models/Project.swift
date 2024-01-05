@@ -1,9 +1,10 @@
 import Foundation
 import SwiftData
 import SwiftUI
+import CoreTransferable
 
 @Model
-class Project {
+class Project: Codable {
     // MARK: Generic variables
     var name: String = ""
     var startDate: Date?
@@ -65,6 +66,26 @@ class Project {
         self.defaultTab = defaultTab
         self.privacy = privacy
         self.archived = archived
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        let container = encoder.container(keyedBy: CodingKeys.self)
+        
+    }
+}
+
+extension Project: Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .data)
     }
 }
 
@@ -198,11 +219,15 @@ extension Project {
         
         var image: String {
             switch self {
-                case .list: return "newProjectList"
-                case .board: return "newProjectBoard"
-                case .timeline: return "newProjectTimeline"
-                case .calendar: return "newProjectCalendar"
-                default: return ""
+                case .overview: return "list.clipboard"
+                case .list: return "checklist.unchecked"
+                case .board: return "rectangle.split.3x1"
+                case .timeline: return "timeline.selection"
+                case .calendar: return "calendar"
+                case .workflow: return "point.3.connected.trianglepath.dotted"
+                case .dashboard: return "chart.xyaxis.line"
+                case .messages: return "message"
+                case .files: return "paperclip"
             }
         }
     }

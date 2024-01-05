@@ -131,6 +131,7 @@ struct ProjectListItemView: View {
         }
         .onHover(perform: {
             isHovering = $0
+#if targetEnvironment(macCatalyst)
             DispatchQueue.main.async {
                 if (self.isHovering) {
                     NSCursor.pointingHand.push()
@@ -138,6 +139,7 @@ struct ProjectListItemView: View {
                     NSCursor.pop()
                 }
             }
+#endif
         })
     }
 }
