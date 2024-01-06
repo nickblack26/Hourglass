@@ -5,6 +5,7 @@ struct ContentView: View {
     // MARK: Environment Variables
     @Environment(CloudKitManager.self) private var cloudKitManager
     @Environment(AsanaManager.self) private var asanaManager
+    @Environment(SupabaseManager.self) private var supabase
     @Environment(\.modelContext) private var modelContext
     
     // MARK: Data
@@ -21,7 +22,7 @@ struct ContentView: View {
     var body: some View {
         @Bindable var asanaManager = asanaManager
         
-        if cloudKitManager.isSignedInToiCloud && !teams.isEmpty && !members.isEmpty {
+		if supabase.signedIn {
             NavigationSplitView(
                 columnVisibility: $asanaManager.columnVisibility, 
                 sidebar: {
@@ -35,6 +36,9 @@ struct ContentView: View {
                         }
                 }
             )
+			.task {
+				let _ = await supabase.database.from("teams").select()
+			}
             .sheet(item: $asanaManager.selectedTask) { task in
                 TaskDetailView(task)
             }
@@ -70,6 +74,7 @@ struct ContentView: View {
             }
         }
     }
+	
 }
 
 #Preview {

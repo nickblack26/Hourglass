@@ -8,6 +8,7 @@ struct Asana_CloneApp: App {
 	@UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     @State var cloudKitManager = CloudKitManager()
     @State var asanaManager = AsanaManager()
+//    @State var supabaseManager = SupabaseManager()
     let container: ModelContainer = {
         do {
             
