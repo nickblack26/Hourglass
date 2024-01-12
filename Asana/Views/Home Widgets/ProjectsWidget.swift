@@ -68,66 +68,67 @@ struct ProjectListItemView: View {
             $0.endDate != nil && $0.endDate! > addOneWeekToCurrentDate!
         }
         
-        NavigationLink(value: project) {
-            HStack {
-                Image(project.icon.icon)
-                    .padding()
-                    .background(project.color.color)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+        HStack {
+            Image(project.icon.icon)
+                .padding()
+                .background(project.color.color)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            
+            VStack(alignment: .leading) {
+                Text(project.name)
+                    .lineLimit(1)
+                    .fontWeight(.semibold)
                 
-                VStack(alignment: .leading) {
-                    Text(project.name)
-                        .lineLimit(1)
-                        .fontWeight(.semibold)
-                    
-                    if project.archived {
-                        Label("Archived", systemImage: "archivebox.fill")
-                            .font(.caption)
-                    } else {
-						if let upcomingTasks, upcomingTasks.count > 0 {
-                            Text("\(upcomingTasks.count) tasks due soon")
-                                .foregroundStyle(.secondary)
-                                .lineLimit(1)
-                        }
-                    }
-                }
-                
-                if isHovering {
-                    Menu {
-                        Button("Share...", systemImage: "person.2") {
-                            
-                        }
-                        
-                        Button("Add to starred", systemImage: "star") {
-                            
-                        }
-                        
-                        Menu {
-                            
-                        } label: {
-                            HStack {
-                                Rectangle()
-                                
-                                Text("Set color & icon")
-                            }
-                        }
-                        
-                        Button("Edit project details", systemImage: "pencil") {
-                            
-                        }
-                        
-                        Button("Copy project link", systemImage: "link") {
-                            
-                        }
-                        
-                        Button("Archive", systemImage: "archivebox") {
-                            
-                        }
-                    } label: {
-                        Image(systemName: "ellipsis")
+                if project.archived {
+                    Label("Archived", systemImage: "archivebox.fill")
+                        .font(.caption)
+                } else {
+                    if let upcomingTasks, upcomingTasks.count > 0 {
+                        Text("\(upcomingTasks.count) tasks due soon")
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
                     }
                 }
             }
+            
+            if isHovering {
+                Menu {
+                    Button("Share...", systemImage: "person.2") {
+                        
+                    }
+                    
+                    Button("Add to starred", systemImage: "star") {
+                        
+                    }
+                    
+                    Menu {
+                        
+                    } label: {
+                        HStack {
+                            Rectangle()
+                            
+                            Text("Set color & icon")
+                        }
+                    }
+                    
+                    Button("Edit project details", systemImage: "pencil") {
+                        
+                    }
+                    
+                    Button("Copy project link", systemImage: "link") {
+                        
+                    }
+                    
+                    Button("Archive", systemImage: "archivebox") {
+                        
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                }
+            }
+        }
+        .onTapGesture {
+            asanaManager.selectedLink = .project(project)
         }
         .onHover(perform: {
             isHovering = $0
@@ -146,7 +147,11 @@ struct ProjectListItemView: View {
 
 #Preview("Project List Item") {
     @State var asanaManager = AsanaManager()
+    let project = Project(name: "")
+
     
-    return NavigationStack { ProjectListItemView(.preview) }
+    return NavigationStack { ProjectListItemView(project) }
         .environment(asanaManager)
+        .modelContainer(previewContainer)
+
 }

@@ -15,16 +15,16 @@ struct TaskListView: View {
     
 //    @State private var selectedPeople = Set<Task.>()
     
-    var sections: [Section]
+    var sections: [aSection]
     
-    init(_ sections: [Section]) {
+    init(_ sections: [aSection]) {
         self.sections = sections
     }
     
     var body: some View {
         @Bindable var asanaManager = asanaManager
         
-        Table(of: Task.self) {
+        Table(of: aTask.self) {
             TableColumn("Task name") { task in
                 @Bindable var task = task
                 HStack {
@@ -114,25 +114,25 @@ struct TaskListView: View {
         }
     }
     
-    private func addTaskToSection(_ section: Section) {
-        let task = Task(name: "", order: section.tasks?.count ?? 0)
+    private func addTaskToSection(_ section: aSection) {
+        let task = aTask(name: "", order: section.tasks?.count ?? 0)
         section.tasks?.insert(task, at: 0)
     }
     
     private mutating func addNewSectionAbove(currentIndex: Int) {
         if currentIndex == 0 {
-            let newSection = Section(name: "", order: 0)
+            let newSection = aSection(name: "", order: 0)
             modelContext.insert(newSection)
             sections.insert(newSection, at: 0)
         } else {
-            let newSection = Section(name: "", order: currentIndex - 1)
+            let newSection = aSection(name: "", order: currentIndex - 1)
             modelContext.insert(newSection)
             sections.insert(newSection, at: currentIndex - 1)
         }
     }
     
     private mutating func addNewSectionBelow(currentIndex: Int) {
-        let newSection = Section(name: "", order: currentIndex + 1)
+        let newSection = aSection(name: "", order: currentIndex + 1)
         modelContext.insert(newSection)
         sections.insert(newSection, at: currentIndex + 1)
     }
@@ -140,11 +140,14 @@ struct TaskListView: View {
 
 #Preview {
     @State var asanaManager = AsanaManager()
+    let section = aSection(name: "", order: 0)
+
     return TaskListView(
         [
-            .preview
+            section
         ]
     )
     .environment(asanaManager)
-    .modelContainer(for: [Task.self, Project.self, Section.self])
+    .modelContainer(previewContainer)
+
 }

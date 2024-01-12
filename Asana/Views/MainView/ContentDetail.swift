@@ -12,15 +12,13 @@ struct ContentDetail: View {
 			case .inbox:
 				InboxView()
 			case .reporting:
-				DashboardView()
+				ReportingView()
 			case .portfolios:
 				PortfolioView()
 			case .goals:
 				GoalView()
 			case .project(let project):
 				ProjectView(project)
-			case .team(_):
-				TeamView()
 			case nil:
 				ContentUnavailableView {
 					Image(systemName: "magnifyingglass.circle")
@@ -34,5 +32,8 @@ struct ContentDetail: View {
 }
 
 #Preview {
-	ContentDetail()
+    @State var asana = AsanaManager()
+    
+	return ContentDetail()
+        .environment(asana)
 }

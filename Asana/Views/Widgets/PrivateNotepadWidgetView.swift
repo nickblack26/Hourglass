@@ -25,7 +25,7 @@ struct PrivateNotepadWidgetView: View {
 						return NSAttributedString(string: "")
 					},
 					set: { newValue in
-						let data = try? NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: true)
+						let _ = try? NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: true)
 					}
 				),
 				allowsEditingTextAttributes: true

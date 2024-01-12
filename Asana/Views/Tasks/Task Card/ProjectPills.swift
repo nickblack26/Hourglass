@@ -20,5 +20,9 @@ struct ProjectPills: View {
 }
 
 #Preview {
-    ProjectPills([.preview])
+    let project = Project(name: "")
+
+    return ProjectPills([project])
+        .modelContainer(previewContainer)
+
 }

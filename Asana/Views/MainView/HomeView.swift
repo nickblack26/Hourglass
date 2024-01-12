@@ -8,11 +8,8 @@ struct HomeView: View {
     @Environment(\.colorScheme) var backgroundColor
     
     // MARK: Data Variables
-    @Query(
-        filter: #Predicate<Task>{ $0.isCompleted },
-        sort: \Task.order
-    )
-    private var tasks: [Task]
+    @Query(sort: \aTask.order )
+    private var tasks: [aTask]
     
     // MARK: State Variables
 	@State private var colorScheme: ColorScheme = .white

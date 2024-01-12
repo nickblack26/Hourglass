@@ -1,20 +1,19 @@
-//
-//  NewDashboardModal.swift
-//  Asana Clone
-//
-//  Created by Nick on 7/10/23.
-//
-
 import SwiftUI
 
 struct NewDashboardModal: View {
+    @Environment(\.dismiss) private var dismiss
+    @Environment(AsanaManager.self) private var asana
 	let columns = Array(repeating: GridItem(), count: 3)
+    @Bindable var dashboard: Dashboard
 	
     var body: some View {
 		List {
-            SwiftUI.Section("Recommended") {
+            Section("Recommended") {
 				LazyVGrid(columns: columns, content: {
-					VStack {
+                    Button {
+                        dismiss()
+                        asana.selectedChart = .init(name: "")
+                    } label: {
 						Image(systemName: "chart.bar.xaxis")
 						Text("Add custom chart")
 					}
@@ -26,10 +25,6 @@ struct NewDashboardModal: View {
 							.stroke(.secondary, style: StrokeStyle(lineWidth: 1, dash: [5]))
 					}
 					.foregroundStyle(.secondary)
-					
-//					ForEach(Chart.recommendedCharts()) { chart in
-//						ChartSelector(title: chart.title, image: chart.image)
-//					}
 				})
 			}
 			.headerProminence(.increased)
@@ -76,7 +71,7 @@ struct NewDashboardModal: View {
 	Text("hello")
 		.sheet(isPresented: .constant(true), content: {
 			NavigationView {
-				NewDashboardModal()
+                NewDashboardModal(dashboard: .init(name: ""))
 			}
 		})
 }

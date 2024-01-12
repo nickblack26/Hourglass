@@ -15,15 +15,11 @@ struct TableDateCellView: View {
     @State private var dates = Set<DateComponents>() {
         didSet {
             let dateArray = Array(dates)
-            print(dateArray)
             if dateArray.count > 1 {
                 start_date = dateArray.first?.date
                 end_date = dateArray.last?.date
-                
-                print(start_date, end_date)
             } else {
                 end_date = dateArray.first?.date
-                print(end_date)
             }
         }
     }

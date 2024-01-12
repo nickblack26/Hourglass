@@ -3,9 +3,9 @@ import SwiftUI
 struct TaskContextMenu: View {
     @Environment(AsanaManager.self) private var asanaManager
     @Environment(\.modelContext) private var context
-    @Bindable var task: Task
+    @Bindable var task: aTask
     
-    init(_ task: Task) {
+    init(_ task: aTask) {
         self.task = task
     }
     
@@ -64,5 +64,9 @@ struct TaskContextMenu: View {
 }
 
 #Preview {
-    TaskContextMenu(.preview[0])
+    let task = aTask(name: "", order: 0)
+
+    return TaskContextMenu(task)
+        .modelContainer(previewContainer)
+
 }

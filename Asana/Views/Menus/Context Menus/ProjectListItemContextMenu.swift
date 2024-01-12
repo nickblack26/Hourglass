@@ -39,5 +39,9 @@ struct ProjectListItemContextMenu: View {
 }
 
 #Preview {
-    ProjectListItemContextMenu(.preview)
+    let project = Project(name: "")
+
+    return ProjectListItemContextMenu(project)
+        .modelContainer(previewContainer)
+
 }

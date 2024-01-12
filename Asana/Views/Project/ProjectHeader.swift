@@ -86,7 +86,10 @@ struct ProjectHeader: View {
 }
 
 #Preview {
-    @State var asanaManager = AsanaManager.self()
-    return ProjectHeader(selectedTab: .constant(.board), project: .preview)
+    @State var asanaManager = AsanaManager()
+    let project = Project(name: "")
+    
+    return ProjectHeader(selectedTab: .constant(.board), project: project)
         .environment(asanaManager)
+        .modelContainer(previewContainer)
 }

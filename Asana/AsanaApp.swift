@@ -1,28 +1,45 @@
 import SwiftUI
 import SwiftData
 
-let fullSchema = Schema([Team.self, Project.self, Task.self, Section.self])
+let fullSchema = Schema(
+    [
+        aSection.self,
+        aTask.self,
+        Chart.self,
+        Comment.self,
+        CustomField.self,
+        Dashboard.self,
+        Goal.self,
+        Project.self,
+        StatusSection.self,
+        StatusUpdate.self,
+        Story.self
+    ]
+)
 
 @main
 struct Asana_App: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+    @State private var statusUpdate: StatusUpdate? = nil
     @State var cloudKitManager = CloudKitManager()
-    @State var asanaManager = AsanaManager()
+    @State var asana = AsanaManager()
     let container: ModelContainer = {
         do {
-            
-            let config = ModelConfiguration("Asana", cloudKitDatabase: .automatic)
+            let config = ModelConfiguration(cloudKitDatabase: .none)
             
             let container = try ModelContainer(for: fullSchema, configurations: config)
             
-            var sectionFetchDescriptor = FetchDescriptor<Section>()
+            let statusUpdateFetchDescriptor = FetchDescriptor<StatusUpdate>()
+            let sectionFetchDescriptor = FetchDescriptor<aSection>()
+            
+            let updates = try? container.mainContext.fetch(statusUpdateFetchDescriptor)
             
             guard try container.mainContext.fetchCount(sectionFetchDescriptor) > 0  else { return container }
             
-            let recentlyAssignedSection: Section = .init(name: "Recently assigned", order: 0)
-            let doTodaySection: Section = .init(name: "Do today", order: 1)
-            let doNextWeekSection: Section = .init(name: "Do next week", order: 2)
-            let doLaterSection: Section = .init(name: "Do later", order: 3)
+            let recentlyAssignedSection: aSection = .init(name: "Recently assigned", order: 0)
+            let doTodaySection: aSection = .init(name: "Do today", order: 1)
+            let doNextWeekSection: aSection = .init(name: "Do next week", order: 2)
+            let doLaterSection: aSection = .init(name: "Do later", order: 3)
             
             return container
         } catch {
@@ -34,43 +51,37 @@ struct Asana_App: App {
         WindowGroup {
             ContentView()
                 .onAppear {
-                    asanaManager.path.append(.home)
+                    asana.path.append(.home)
                 }
-                .sheet(item: $asanaManager.selectedTask) { task in
+                .sheet(item: $asana.selectedTask) { task in
                     TaskDetailView(task)
-                        .environment(asanaManager)
+                        .environment(asana)
                 }
-                .sheet(item: $asanaManager.selectedCustomField) { field in
+                .sheet(item: $asana.selectedCustomField) { field in
                     CustomFieldModal(field)
+                        .environment(asana)
                 }
-                .environment(asanaManager)
+                .sheet(item: $asana.selectedDashboard) { dashboard in
+                    NavigationStack {
+                        NewDashboardModal(dashboard: dashboard)
+                    }
+                    .environment(asana)
+                }
+                .sheet(item: $asana.selectedChart) { chart in
+                    NavigationStack {
+                        
+                    }
+                    .environment(asana)
+                }
+                .environment(asana)
                 .environment(cloudKitManager)
                 .modelContainer(container)
                 .toolbar(.hidden)
         }
-        .commands {
-            SidebarCommands()
-            TextEditingCommands()
-            TextFormattingCommands()
-        }
     }
 }
 
-extension ModelContext {
-    func existingModel<T>(for objectID: PersistentIdentifier)
-    throws -> T? where T: PersistentModel {
-        if let registered: T = registeredModel(for: objectID) {
-            return registered
-        }
-        
-        let fetchDescriptor = FetchDescriptor<T>(
-            predicate: #Predicate {
-                $0.persistentModelID == objectID
-            })
-        
-        return try fetch(fetchDescriptor).first
-    }
-}
+
 
 let myTasksWidget: Widget = .init(name: "My Tasks", image: "myTasksWidgetPreview", type: .myTasks)
 let peopleWidget: Widget = .init(name: "People", image: "peopleWidgetPreview",  columns: 2, type: .people)

@@ -44,5 +44,9 @@ struct ProjectStatusMenu: View {
 }
 
 #Preview {
-    ProjectStatusMenu(.preview)
+    let project = Project(name: "")
+
+    return ProjectStatusMenu(project)
+        .modelContainer(previewContainer)
+
 }

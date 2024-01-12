@@ -26,7 +26,9 @@ struct ProjectView: View {
                 
                 Menu("", systemImage: "chevron.down") {
                     Button("Add section") {
-                        showProjectSheet.toggle()
+                        withAnimation(.snappy) {
+                            addNewSection()
+                        }
                     }
                     Button("Add milestone...", action: addNewSection)
                     Button("Add custom field") {
@@ -74,25 +76,18 @@ struct ProjectView: View {
             }
         }
         .sheet(isPresented: $showProjectSheet, content: {
-            NewSectionForm(showProjectSheet: $showProjectSheet, project: project)
+            SectionForm(project: project)
         })
     }
     
     private func addNewSection() {
-        let section = Section(name: "", order: 0)
-		if let sections = project.sections, !sections.isEmpty {
-            for index in sections.indices {
-                @Bindable var section = sections[index]
-                section.order = index + 1
-            }
-            project.sections?.insert(section, at: 0)
-        } else {
-            project.sections?.append(section)
-        }
+        let section = aSection(name: "", order: project.sections?.count ?? 0)
+        
+        project.sections?.append(section)
     }
     
     private func addNewTask() {
-        let task = Task(name: "New task", order: project.tasks?.count ?? 0)
+        let task = aTask(name: "New task", order: project.tasks?.count ?? 0)
         
         if let tasks = project.tasks, tasks.isEmpty {
             project.sections?[0].tasks?.append(task)
@@ -104,7 +99,11 @@ struct ProjectView: View {
 
 #Preview {
     @State var asanaManager = AsanaManager()
+    let project = Project(name: "")
+
     
-    return ProjectView(.preview)
+    return ProjectView(project)
         .environment(asanaManager)
+        .modelContainer(previewContainer)
+
 }

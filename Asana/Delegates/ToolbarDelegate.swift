@@ -6,10 +6,15 @@
 //
 
 import UIKit
+import Foundation
+//import AppKit
+import SwiftUI
 
-class ToolbarDelegate: NSObject {
+class ToolbarDelegate: NSObject  {
     
 }
+
+
 
 #if targetEnvironment(macCatalyst)
 extension NSToolbarItem.Identifier {
@@ -25,15 +30,11 @@ extension ToolbarDelegate: NSToolbarDelegate {
             .toggleSidebar,
             .primarySidebarTrackingSeparatorItemIdentifier,
 //            .space,
-            .backButton,
-            .primarySidebarTrackingSeparatorItemIdentifier,
-            .forwardButton,
-            .primarySidebarTrackingSeparatorItemIdentifier,
-            .cloudSharing,
-            .flexibleSpace,
-            .globalSearch,
-            .flexibleSpace,
-            .editRecipe
+//            .backButton,
+//            .forwardButton,
+//            .cloudSharing,
+//            .flexibleSpace,
+//            .editRecipe
         ]
         return identifiers
     }
@@ -59,31 +60,37 @@ extension ToolbarDelegate: NSToolbarDelegate {
             item.target = nil
             toolbarItem = item
         case .globalSearch:
-            
-            let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-            
-            item.label = "Toggle Favorite"
-            //                        item.action = #selector(RecipeDetailViewController.toggleFavorite(_:))
+//            let view = UIHostingController(rootView: CustomToolbarItem(image: "chevron.left"))
+            let item = NSToolbarItem(
+                itemIdentifier: itemIdentifier
+//                barButtonItem: UIBarButtonItem(customView: view.view)
+            )
+            item.image = .init(named: "chevron.left")
+            item.label = "Go back"
             item.target = nil
-
+            
             toolbarItem = item
         case .backButton:
-            let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-            
-            item.label = "Go back"
-            item.image = UIImage(named: "chevron.left")
-            //                        item.action = #selector(RecipeDetailViewController.toggleFavorite(_:))
-            item.target = nil
+//            let view = UIHostingController(rootView: CustomToolbarItem(image: "chevron.left"))
+            let item = NSToolbarItem(
+                itemIdentifier: itemIdentifier
+//                barButtonItem: UIBarButtonItem(customView: view.view)
+            )
+            item.image = .init(named: "chevron.left")
 
+            item.label = "Go back"
+            item.target = nil
+            
             toolbarItem = item
         case .forwardButton:
-            let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-            
+//            let view = UIHostingController(rootView: CustomToolbarItem(image: "chevron.right"))
+            let item = NSToolbarItem(
+                itemIdentifier: itemIdentifier
+//                barButtonItem: UIBarButtonItem(customView: view.view)
+            )
+            item.image = .init(named: "chevron.right")
             item.label = "Go forward"
-            item.image = UIImage(named: "chevron.right")
-            //                        item.action = #selector(RecipeDetailViewController.toggleFavorite(_:))
             item.target = nil
-
             toolbarItem = item
         default:
             toolbarItem = nil

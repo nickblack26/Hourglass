@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct TaskBoardView: View {
-    @State private var currentlyDraggingTask: Task?
-    @State private var currentlyDraggingSection: Section?
-    var sections: [Section]
+    @State private var currentlyDraggingTask: aTask?
+    @State private var currentlyDraggingSection: aSection?
+    var sections: [aSection]
     
-    init(_ sections: [Section]) {
+    init(_ sections: [aSection]) {
         self.sections = sections
     }
     
@@ -17,14 +17,18 @@ struct TaskBoardView: View {
                 }
                 VStack(alignment: .leading) {
                     Button("Add section", systemImage: "plus") {
-                        
+//                        sections.append(aSection(name: "", order: sections.count))
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity,
+                        alignment: .topLeading
+                    )
                     .padding()
                 }
                 .frame(width: 375, alignment: .topLeading)
                 .frame(maxHeight: .infinity)
-                .background(Color(uiColor: .systemGray6).opacity(0.5))
+                .background(Color(uiColor: .systemGray6).opacity(0.5).gradient)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 
             }
@@ -36,15 +40,19 @@ struct TaskBoardView: View {
 
 #Preview {
     @State var asanaManager = AsanaManager()
+    let section = aSection(name: "", order: 0)
+
     
-    return TaskBoardView([.preview])
+    return TaskBoardView([section])
         .environment(asanaManager)
+        .modelContainer(previewContainer)
+
 }
 
 struct TasksView: View {
-    var tasks: [Task]
+    var tasks: [aTask]
     
-    init(_ tasks: [Task]) {
+    init(_ tasks: [aTask]) {
         self.tasks = tasks
     }
     
@@ -62,7 +70,7 @@ struct TasksView: View {
 
 struct ColumnView: View {
     @Environment(AsanaManager.self) var asanaManager
-    @Bindable var section: Section
+    @Bindable var section: aSection
     
     var body: some View {
         ScrollView(.vertical) {
@@ -114,10 +122,10 @@ struct ColumnView: View {
     
     private func addTaskToSection() {
         if let project = section.project {
-			let newTask = Task(name: "", order: section.tasks?.count ?? 0, projects: [project], section: section)
+			let newTask = aTask(name: "", order: section.tasks?.count ?? 0, projects: [project], section: section)
             section.tasks?.append(newTask)
         } else  {
-            let newTask = Task(name: "", order: section.tasks?.count ?? 0, section: section)
+            let newTask = aTask(name: "", order: section.tasks?.count ?? 0, section: section)
             section.tasks?.append(newTask)
         }
     }

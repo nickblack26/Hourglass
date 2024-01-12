@@ -1,10 +1,3 @@
-//
-//  InboxView.swift
-//  Asana Clone
-//
-//  Created by Nick on 6/22/23.
-//
-
 import SwiftUI
 
 enum InboxTab: CaseIterable {
@@ -95,14 +88,6 @@ struct InboxView: View {
 					.padding()
 					
 					Divider()
-					
-					List {
-						NotificationView(type: .task)
-							.listRowBackground(EmptyView())
-						
-						NotificationView(type: .information)
-							.listRowBackground(EmptyView())
-					}
 					
 					Spacer()
 				}

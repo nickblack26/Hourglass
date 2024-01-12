@@ -142,15 +142,12 @@ struct NewProjectSetup: View {
         .navigationTitle(showNextSteps ? "What do you want to do first?" : "New Project")
     }
     
-    private func createProject() async {
-        guard let currentTeam = asanaManager.currentTeam else { return }
-        
-        let newSection = Section(name: "", order: 0)
+    private func createProject() async {        
+        let newSection = aSection(name: "", order: 0)
         modelContext.insert(newSection)
         
         let newProject = Project(
             name: name,
-            team: currentTeam,
             sections: [],
             defaultTab: defaultView
         )

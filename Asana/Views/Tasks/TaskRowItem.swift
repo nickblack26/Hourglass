@@ -3,14 +3,13 @@ import SwiftUI
 struct TaskRowItem: View {
     @Environment(AsanaManager.self) private var asanaManager
     @State private var isHovering: Bool = false
-    @Bindable var task: Task
+    @Bindable var task: aTask
     
-    init(_ task: Task) {
+    init(_ task: aTask) {
         self.task = task
     }
     
     var body: some View {
-        @Bindable var asanaManager = asanaManager
         HStack {
             Button {
                 withAnimation {
@@ -93,11 +92,17 @@ struct TaskRowItem: View {
 #endif
         })
         .onTapGesture {
-            asanaManager.selectedTask = task
+            if !task.name.isEmpty {
+                asanaManager.selectedTask = task
+            }
         }
     }
 }
 
 #Preview {
-    TaskRowItem(.preview[0])
+    let task = aTask(name: "", order: 0)
+
+    return TaskRowItem(task)
+        .modelContainer(previewContainer)
+
 }

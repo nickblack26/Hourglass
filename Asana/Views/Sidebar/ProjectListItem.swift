@@ -32,15 +32,19 @@ struct ProjectListItem: View {
 }
 
 #Preview {
-    NavigationSplitView {
+    let project = Project(name: "")
+
+    return NavigationSplitView {
         List {
             ProjectListItem(
-                name: Project.preview.name,
-                color: Project.preview.color.color
+                name: project.name,
+                color: project.color.color
             )
         }
         .listStyle(.insetGrouped)
     } detail: {
         EmptyView()
     }
+    .modelContainer(previewContainer)
+
 }

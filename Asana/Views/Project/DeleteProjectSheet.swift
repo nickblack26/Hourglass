@@ -65,5 +65,7 @@ struct DeleteProjectSheet: View {
 }
 
 #Preview {
-    DeleteProjectSheet(.preview)
+    let project = Project(name: "")
+    return DeleteProjectSheet(project)
+        .modelContainer(previewContainer)
 }

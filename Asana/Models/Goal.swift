@@ -3,30 +3,31 @@ import SwiftData
 
 @Model
 final class Goal {
-    let name : String
-    let liked: Bool = false
-    let due_on: Date?
-    let html_notes: Data?
-    let notes : String?
-    let start_on : Date?
-    let status : String?
-    let num_likes : Int?
+    var name : String
+    var liked: Bool = false
+    var dueOn: Date?
+    var htmlNotes: Data?
+    var notes : String?
+    var startOn : Date?
+    var status : StatusType?
+    var numLikes : Int?
+    var currentStatusUpdate: StatusUpdate?
 
     init(
         name: String,
-        due_on: Date? = nil,
-        html_notes: Data? = nil,
+        dueOn: Date? = nil,
+        htmlNotes: Data? = nil,
         notes: String? = nil,
-        start_on: Date? = nil,
-        status: String? = nil,
+        startOn: Date? = nil,
+        status: StatusType? = nil,
         num_likes: Int? = nil
     ) {
         self.name = name
-        self.due_on = due_on
-        self.html_notes = html_notes
+        self.dueOn = dueOn
+        self.htmlNotes = htmlNotes
         self.notes = notes
-        self.start_on = start_on
+        self.startOn = startOn
         self.status = status
-        self.num_likes = num_likes
+        self.numLikes = numLikes
     }
 }

@@ -12,21 +12,18 @@ final class Comment: Codable {
     var status: Status = Status.Draft
     
     // MARK: Inferred relationships
-    var task: Task? // set on task model
+    var task: aTask? // set on task model
     var projects: [Project]? = [] // set on project model
-    var teams: [Team]? = [] // set on team model
     
     init(
         subject: String? = nil,
         message: String,
         projects: [Project] = [],
-        teams: [Team] = [],
         status: Status = .Draft
     ) {
         self.subject = subject
         self.message = message
         self.projects = projects
-        self.teams = teams
         self.sentAt = nil
         self.status = status
     }
@@ -36,12 +33,12 @@ final class Comment: Codable {
     }
     
     required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let _ = try decoder.container(keyedBy: CodingKeys.self)
         
     }
     
     func encode(to encoder: Encoder) throws {
-        let container = encoder.container(keyedBy: CodingKeys.self)
+        let _ = encoder.container(keyedBy: CodingKeys.self)
         
     }
 }

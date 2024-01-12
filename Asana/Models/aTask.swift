@@ -3,7 +3,7 @@ import SwiftData
 import CoreTransferable
 
 @Model
-class Task: Hashable, Codable {
+final class aTask: Hashable, Codable {
     // MARK: Generic variables
     var name: String = ""
     var isCompleted: Bool = false
@@ -16,16 +16,16 @@ class Task: Hashable, Codable {
     
     // MARK: Inferred relationships
     // Relationships inferred from parent
-    var parentTask: Task?
+    var parentTask: aTask?
     var projects: [Project]? = []
-    var section: Section?
+    var section: aSection?
    
     // MARK: Explicit relationships
     @Relationship(deleteRule: .cascade, inverse: \Comment.task)
     var comments: [Comment]? = []
     
-    @Relationship(deleteRule: .nullify, inverse: \Task.parentTask)
-    var subtasks: [Task]? = []
+    @Relationship(deleteRule: .nullify, inverse: \aTask.parentTask)
+    var subtasks: [aTask]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \CustomField.task)
     var customFields: [CustomField]? = []
@@ -39,11 +39,11 @@ class Task: Hashable, Codable {
         endDate: Date? = nil,
         createdAt: Date = Date(),
         completedAt: Date? = nil,
-        parentTask: Task? = nil,
+        parentTask: aTask? = nil,
         projects: [Project] = [],
-        section: Section? = nil,
+        section: aSection? = nil,
         comments: [Comment] = [],
-        subtasks: [Task] = []
+        subtasks: [aTask] = []
     ) {
         self.name = name
         self.isCompleted = isCompleted
@@ -65,23 +65,23 @@ class Task: Hashable, Codable {
     }
     
     required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let _ = try decoder.container(keyedBy: CodingKeys.self)
         
     }
     
     func encode(to encoder: Encoder) throws {
-        let container = encoder.container(keyedBy: CodingKeys.self)
+        let _ = encoder.container(keyedBy: CodingKeys.self)
         
     }
 }
 
-extension Task: Transferable {
+extension aTask: Transferable {
     static var transferRepresentation: some TransferRepresentation {
         CodableRepresentation(contentType: .data)
     }
 }
 
-extension [Task] {
+extension [aTask] {
     func updateOrderIndices() {
         for (index, item) in enumerated() {
             item.order = index

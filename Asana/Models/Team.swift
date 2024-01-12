@@ -3,7 +3,7 @@ import SwiftData
 import CoreTransferable
 
 @Model
-class Team: Codable {
+final class Team: Codable {
     var name: String = ""
     var details: String?
         

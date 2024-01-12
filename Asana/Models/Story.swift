@@ -8,7 +8,7 @@ final class Story {
     let text: String?
     let source: String?
     let project: Project?
-    let task: Task?
+    let task: aTask?
     
     enum CodingKeys: String, CodingKey {
         case id, type, created_at, text, source

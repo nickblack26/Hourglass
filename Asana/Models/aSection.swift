@@ -3,7 +3,7 @@ import SwiftData
 import CoreTransferable
 
 @Model
-class Section: Codable {
+class aSection: Codable {
     // MARK: Generic variables
     var name: String = ""
     var order: Int = 0
@@ -11,19 +11,24 @@ class Section: Codable {
     
     // MARK: Inferred relationships
     var project: Project?
-    var tasks: [Task]?  = []
+    var tasks: [aTask]?  = []
     
     init(
         name: String,
         order: Int,
         project: Project? = nil,
-        tasks: [Task] = []
+        tasks: [aTask] = []
     ) {
         self.name = name
         self.order = order
         self.project = project
         self.tasks = tasks
         self.createdAt = Date()
+    }
+    
+    
+    init() {
+        self.name = ""
     }
     
     enum CodingKeys: String, CodingKey {
@@ -42,14 +47,14 @@ class Section: Codable {
     }
 }
 
-extension Section: Transferable {
+extension aSection: Transferable {
     static var transferRepresentation: some TransferRepresentation {
         CodableRepresentation(contentType: .data)
     }
 }
 
 
-extension [Section] {
+extension [aSection] {
     func updateOrderIndices() {
         for (index, item) in enumerated() {
             item.order = index

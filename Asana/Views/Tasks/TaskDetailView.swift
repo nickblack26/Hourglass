@@ -2,9 +2,9 @@ import SwiftUI
 import SwiftData
 
 struct TaskDetailView: View {
-    @Bindable var task: Task
+    @Bindable var task: aTask
     
-    init(_ task: Task) {
+    init(_ task: aTask) {
         self.task = task
     }
     
@@ -33,20 +33,24 @@ struct TaskDetailView: View {
 
 #Preview("Sheet") {
     @State var asanaManager = AsanaManager()
+    let task = aTask(name: "", order: 0)
+
     return VStack {
         Text("Test")
     }
     .environment(asanaManager)
     .sheet(isPresented: .constant(true), content: {
-        TaskDetailView(.preview[0])
+        TaskDetailView(task)
     })
+    .modelContainer(previewContainer)
+
 }
 
 struct TaskDetailHeader: View {
     @Environment(AsanaManager.self) private var asanaManager
-    @Bindable var task: Task
+    @Bindable var task: aTask
     
-    init(_ task: Task) {
+    init(_ task: aTask) {
         self.task = task
     }
     
@@ -98,17 +102,21 @@ struct TaskDetailHeader: View {
 
 #Preview("Header") {
     @State var asanaManager = AsanaManager()
-    return TaskDetailHeader(.preview[0])
+    let task = aTask(name: "", order: 0)
+
+    return TaskDetailHeader(task)
         .environment(asanaManager)
+        .modelContainer(previewContainer)
+
 }
 
 struct TaskDetailFooter: View {
     @Environment(AsanaManager.self) private var asanaManager
     @Environment(\.modelContext) private var context
     @State private var message: String = ""
-    @Bindable var task: Task
+    @Bindable var task: aTask
     
-    init(_ task: Task) {
+    init(_ task: aTask) {
         self.task = task
     }
     
@@ -184,7 +192,11 @@ struct TaskDetailFooter: View {
 }
 
 #Preview("Footer") {
-    TaskDetailFooter(.preview[0])
+    let task = aTask(name: "", order: 0)
+
+   return TaskDetailFooter(task)
+        .modelContainer(previewContainer)
+
 }
 
 struct TaskDetailBody: View {
@@ -192,9 +204,9 @@ struct TaskDetailBody: View {
     @State private var showProjectPicker: Bool = false
     @State private var showMemberPicker: Bool = false
     @State private var showDatePicker: Bool = false
-    @Bindable var task: Task
+    @Bindable var task: aTask
 
-    init(_ task: Task) {
+    init(_ task: aTask) {
         self.task = task
     }
     
@@ -407,7 +419,7 @@ struct TaskDetailBody: View {
                 
                 Button("Add subtask", systemImage: "plus") {
                     withAnimation(.snappy) {
-						task.subtasks?.append(Task(name: "", order: task.subtasks?.count ?? 0))
+						task.subtasks?.append(aTask(name: "", order: task.subtasks?.count ?? 0))
                     }
                 }
                 .font(.callout)
@@ -520,6 +532,9 @@ struct TaskDetailBody: View {
 }
 
 #Preview("Body") {
-   return TaskDetailBody(.preview[0])
-        .modelContainer(for: Project.self)
+    let task = aTask(name: "", order: 0)
+
+   return TaskDetailBody(task)
+        .modelContainer(previewContainer)
+
 }

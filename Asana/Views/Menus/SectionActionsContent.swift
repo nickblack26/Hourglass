@@ -4,8 +4,8 @@ struct SectionActionsContent: View {
     @Environment(\.modelContext) private var context
     @Environment(AsanaManager.self) private var asanaManager
     var viewType: Project.Tab
-    @Binding var sections: [Section]
-    @Bindable var section: Section
+    @Binding var sections: [aSection]
+    @Bindable var section: aSection
 
     var body: some View {
         Button("Add rule to section", systemImage: "bolt") {
@@ -37,30 +37,34 @@ struct SectionActionsContent: View {
         }
     }
     
-    private func addTaskToSection(_ section: Section) {
-        let task = Task(name: "", order: section.tasks?.count ?? 0)
+    private func addTaskToSection(_ section: aSection) {
+        let task = aTask(name: "", order: section.tasks?.count ?? 0)
         section.tasks?.insert(task, at: 0)
     }
     
     private func addSectionBefore(currentIndex: Int) {
         if currentIndex == 0 {
-            let newSection = Section(name: "", order: 0)
+            let newSection = aSection(name: "", order: 0)
             context.insert(newSection)
             sections.insert(newSection, at: 0)
         } else {
-            let newSection = Section(name: "", order: currentIndex - 1)
+            let newSection = aSection(name: "", order: currentIndex - 1)
             context.insert(newSection)
             sections.insert(newSection, at: currentIndex - 1)
         }
     }
     
     private func addSectionAfter(currentIndex: Int) {
-        let newSection = Section(name: "", order: currentIndex + 1)
+        let newSection = aSection(name: "", order: currentIndex + 1)
         context.insert(newSection)
         sections.insert(newSection, at: currentIndex + 1)
     }
 }
 
 #Preview {
-    SectionActionsContent(viewType: .board, sections: .constant([]), section: .preview)
+    let section = aSection(name: "", order: 0)
+
+    return SectionActionsContent(viewType: .board, sections: .constant([]), section: section)
+        .modelContainer(previewContainer)
+
 }

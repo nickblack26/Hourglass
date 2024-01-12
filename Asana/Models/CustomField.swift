@@ -17,13 +17,14 @@ final class CustomField: Codable {
     var resourceSubtype: String?
     var textValue: String?
     var type: String?
+    var task: aTask?
+    var project: Project?
+    
     @Relationship(deleteRule: .cascade, inverse: \EnumOption.field)
     var enumOptions: [EnumOption]? = []
     
     @Relationship(deleteRule: .cascade, inverse: \EnumOption.field)
     var enumValue: [EnumOption]?
-    var task: Task?
-    var project: Project?
 
     enum CodingKeys: String, CodingKey {
         case currencyCode = "currency_code"
@@ -75,11 +76,11 @@ final class CustomField: Codable {
     }
     
     init(from decoder: Decoder) throws {
-        var container = try decoder.container(keyedBy: CodingKeys.self)
+        var _ = try decoder.container(keyedBy: CodingKeys.self)
     }
     
     func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
+        var _ = encoder.container(keyedBy: CodingKeys.self)
     }
 }
 

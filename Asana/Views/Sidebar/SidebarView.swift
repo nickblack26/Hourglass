@@ -1,25 +1,8 @@
 import SwiftUI
 import SwiftData
 
-enum ProjectSortOption: String, CaseIterable {
-    case Alphabetical
-    case Recent
-    case Top
-}
-
-enum SidebarLink: Hashable {
-    case home
-    case myTasks
-    case inbox
-    case reporting
-    case portfolios
-    case goals
-    case project(Project)
-    case team(UUID)
-}
 
 struct SidebarView: View {
-    @Environment(\.modelContext) private var context
     @Environment(AsanaManager.self) private var asanaManager
     
     @Query(
@@ -34,29 +17,26 @@ struct SidebarView: View {
     )
     private var starredProjects: [Project]
     
-    @Query(sort: \Team.name) private var teams: [Team]
-    @State private var selectedSort: ProjectSortOption = .Recent
-    @State private var newDashboard: Bool = false
-    @State private var newPortfolio: Bool = false
     @State private var newProject: Bool = false
-    @State private var newGoal: Bool = false
     
     var body: some View {
         @Bindable var asanaManager = asanaManager
         
         List(selection: $asanaManager.selectedLink) {
-            NavigationLink(value: SidebarLink.home) {
-                Label("Home", systemImage: "house")
+            SwiftUI.Section {
+                NavigationLink(value: SidebarLink.home) {
+                    Label("Home", systemImage: "house")
+                }
+                
+                NavigationLink(value: SidebarLink.myTasks) {
+                    Label("My Tasks", systemImage: "checkmark.circle")
+                }
+                
+                NavigationLink(value: SidebarLink.inbox) {
+                    Label("Inbox", systemImage: "bell")
+                }
             }
-            
-            NavigationLink(value: SidebarLink.myTasks) {
-                Label("My Tasks", systemImage: "checkmark.circle")
-            }
-            
-            NavigationLink(value: SidebarLink.inbox) {
-                Label("Inbox", systemImage: "bell")
-            }
-                        
+               
             SidebarSectionItem(label: "Insights") {
                 NavigationLink(value: SidebarLink.reporting) {
                     Label("Reporting", systemImage: "chart.xyaxis.line")
@@ -100,14 +80,6 @@ struct SidebarView: View {
                     }
                 }
             }
-            
-            SidebarSectionItem(label: "Teams") {
-                ForEach(teams) { team in
-                    NavigationLink(value: SidebarLink.team(UUID())) {
-                        Label(team.name, systemImage: "person.2.fill")
-                    }
-                }
-            }
         }
         .toolbar(removing: .sidebarToggle)
         .fullScreenCover(isPresented: $newProject, content: {
@@ -124,57 +96,6 @@ struct SidebarView: View {
                     }
             }
         })
-        .sheet(isPresented: $newDashboard) {
-            NewDashboardModal()
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Text("Add chart")
-                            .font(.title)
-                            .fontWeight(.medium)
-                    }
-                    ToolbarItem {
-                        Button {
-                            newDashboard.toggle()
-                        } label: {
-                            Image(systemName: "xmark")
-                        }
-                    }
-                }
-        }
-        .sheet(isPresented: $newPortfolio) {
-            NewDashboardModal()
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Text("Add chart")
-                            .font(.title)
-                            .fontWeight(.medium)
-                    }
-                    ToolbarItem {
-                        Button {
-                            newPortfolio.toggle()
-                        } label: {
-                            Image(systemName: "xmark")
-                        }
-                    }
-                }
-        }
-        .sheet(isPresented: $newGoal) {
-            NewDashboardModal()
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Text("Add chart")
-                            .font(.title)
-                            .fontWeight(.medium)
-                    }
-                    ToolbarItem {
-                        Button {
-                            newGoal.toggle()
-                        } label: {
-                            Image(systemName: "xmark")
-                        }
-                    }
-                }
-        }
         .navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 400)
     }
 }

@@ -36,5 +36,9 @@ struct ProjectThemeMenuContent: View {
 }
 
 #Preview {
-    ProjectThemeMenuContent(.preview)
+    let project = Project(name: "")
+
+    return ProjectThemeMenuContent(project)
+        .modelContainer(previewContainer)
+
 }

@@ -12,13 +12,7 @@ struct TableTagCellView: View {
         }
         .padding(.vertical, 10)
         .padding(.horizontal, 15)
-        .background(.bar, in: .rect(cornerRadius: 8))
-        .onAppear(perform: {
-            guard let currentTeam = asanaManager.currentTeam else { return }
-            
-            projects.append(.init(name: "", team: currentTeam))
-        })
-        
+        .background(.bar, in: .rect(cornerRadius: 8))        
     }
 }
 
@@ -49,5 +43,9 @@ fileprivate struct TagView: View {
 }
 
 #Preview {
-    TableTagCellView(projects: .constant([.preview]))
+    let project = Project(name: "")
+
+    return TableTagCellView(projects: .constant([project]))
+        .modelContainer(previewContainer)
+
 }

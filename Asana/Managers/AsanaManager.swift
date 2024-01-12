@@ -4,15 +4,17 @@ import Observation
 
 @Observable 
 class AsanaManager {
-    var selectedTask: Task?
-    var draggingTask: Task?
-    var draggingSection: Section?
+    var selectedTask: aTask?
+    var draggingTask: aTask?
+    var draggingSection: aSection?
     var draggingWidget: Widget?
     var selectedCustomField: CustomField?
-    var currentTeam: Team?
+    var selectedChart: Chart?
+    var selectedDashboard: Dashboard?
     var selectedLink: SidebarLink? = .home
     var path: [SidebarLink] = []
     var showHomeCustomization: Bool = false
+    var newDashboard: Bool = false
     var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
 }
 
@@ -54,4 +56,14 @@ enum AsanaColor: CaseIterable, Codable {
         case .coolGray: SwiftUI.Color(.darkGray)
         }
     }
+}
+
+enum SidebarLink: Hashable {
+    case home
+    case myTasks
+    case inbox
+    case reporting
+    case portfolios
+    case goals
+    case project(Project)
 }

@@ -3,13 +3,14 @@ import SwiftData
 
 @Model
 final class Chart {
-    let color: AsanaColor = AsanaColor.none
-    let name: String
-    let source: Source = Source.tasks
+    var color: AsanaColor = AsanaColor.none
+    var name: String
+    var source: Source = Source.tasks
 //    let filters: AnyKeyPath? = nil
-    let style: Style = Style.column
-    let rollupStyle: RollupCalculation?
-    let dashboard: Dashboard?
+    var style: Style = Style.column
+    var rollupStyle: RollupCalculation?
+    var dashboard: Dashboard?
+    var statusSection: StatusSection?
     
     init(
         color: AsanaColor = AsanaColor.none,

@@ -75,5 +75,8 @@ struct ProjectActionsMenu: View {
 }
 
 #Preview {
-    ProjectActionsMenu(.preview)
+    let project = Project(name: "")
+    
+    return ProjectActionsMenu(project)
+        .modelContainer(previewContainer)
 }

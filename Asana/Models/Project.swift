@@ -6,7 +6,7 @@ import CloudKit
 import SwiftDataKit
 
 @Model
-class Project: Codable {
+final class Project: Codable {
     // MARK: Generic variables
     var name: String = ""
     var startDate: Date?
@@ -27,12 +27,11 @@ class Project: Codable {
     // MARK: Inferred relationships
     // These are inferred from setting the relationship on the parent
     // or if the model has just a singular variable
-    var team: Team?
-    var sections: [Section]?
+    var sections: [aSection]?
     
     // MARK: Explicit relationships
-    @Relationship(deleteRule: .nullify, inverse: \Task.projects)
-    var tasks: [Task]? = []
+    @Relationship(deleteRule: .nullify, inverse: \aTask.projects)
+    var tasks: [aTask]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \Comment.projects)
     var comments: [Comment]? = []
@@ -45,9 +44,8 @@ class Project: Codable {
         startDate: Date? = nil,
         endDate: Date? = nil,
         details: String? = nil,
-        team: Team? = nil,
-        tasks: [Task] = [],
-        sections: [Section] = [],
+        tasks: [aTask] = [],
+        sections: [aSection] = [],
         color: AsanaColor = AsanaColor.allCases.randomElement() ?? .aqua,
         icon: Icon = Icon.allCases.randomElement() ?? .calendar,
         defaultTab: Tab = .list,
@@ -58,7 +56,6 @@ class Project: Codable {
         self.startDate = startDate
         self.endDate = endDate
         self.details = details
-        self.team = team
         self.tasks = tasks
         self.sections = sections
         self.color = color
@@ -75,7 +72,7 @@ class Project: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(String.self, forKey: .name)
-        sections = try container.decodeIfPresent([Section].self, forKey: .sections)
+        sections = try container.decodeIfPresent([aSection].self, forKey: .sections)
     }
     
     func encode(to encoder: Encoder) throws {

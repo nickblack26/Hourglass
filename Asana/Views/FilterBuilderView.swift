@@ -2,7 +2,7 @@ import SwiftUI
 
 struct FilterModel: Hashable {
     var name: String
-    var filters: [KeyPathComparator<Task>]
+    var filters: [KeyPathComparator<aTask>]
 }
 
 var quickFilters: [FilterModel] = [

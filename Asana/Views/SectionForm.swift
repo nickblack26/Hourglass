@@ -1,17 +1,21 @@
 import SwiftUI
 import SwiftData
 
-struct NewSectionForm: View {
+struct SectionForm: View {
+    // MARK: Environment Variables
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    
+    // MARK: Swift Data
     @Query(
-        filter: #Predicate<Task> { !$0.isCompleted },
-        sort: \Task.order
+        filter: #Predicate<aTask> { !$0.isCompleted },
+        sort: \aTask.order
     )
-    private var tasks: [Task]
+    private var tasks: [aTask]
+    
+    // MARK: State variables
     @State private var name: String = ""
-    @State private var selectedTasks: [Task] = []
-    @Binding var showProjectSheet: Bool
+    @State private var selectedTasks: [aTask] = []
     @Bindable var project: Project
     
     var body: some View {
@@ -36,7 +40,7 @@ struct NewSectionForm: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        showProjectSheet.toggle()
+                        dismiss()
                     } label: {
                         Image(systemName: "xmark")
                     }
@@ -50,7 +54,7 @@ struct NewSectionForm: View {
     }
     
     private func newSection() {
-        let section = Section(name: name, order: 0)
+        let section = aSection(name: name, order: 0)
         modelContext.insert(section)
         
         if let sections = project.sections, !sections.isEmpty {
@@ -58,7 +62,7 @@ struct NewSectionForm: View {
                 @Bindable var section = sections[index]
                 section.order = index + 1
             }
-			project.sections!.insert(section, at: 0)
+            project.sections!.insert(section, at: 0)
         } else {
             project.sections?.append(section)
         }
@@ -69,5 +73,9 @@ struct NewSectionForm: View {
 }
 
 #Preview {
-    NewSectionForm(showProjectSheet: .constant(true), project: .preview)
+    let project = Project(name: "")
+
+    return SectionForm(project: project)
+        .modelContainer(previewContainer)
+
 }
