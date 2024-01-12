@@ -70,9 +70,7 @@ struct MyTasksWidget: View {
     @State private var openSheet: Bool = false
     @State private var isHovering: Bool = false
     
-    var body: some View {
-        @Bindable var asanaManager = asanaManager
-        
+    var body: some View {        
         Card($isHovering) {
             VStack(alignment: .leading) {
                 Section {

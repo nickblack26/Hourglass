@@ -5,7 +5,7 @@ let fullSchema = Schema(
     [
         aSection.self,
         aTask.self,
-        Chart.self,
+        aChart.self,
         Comment.self,
         CustomField.self,
         Dashboard.self,

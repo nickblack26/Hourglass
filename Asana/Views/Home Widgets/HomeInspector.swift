@@ -61,7 +61,6 @@ struct HomeInspector: View {
 	}
 	
 	var body: some View {
-        @Bindable var asanaManager = asanaManager
 		Form {
             SwiftUI.Section("Background") {
 				Grid {

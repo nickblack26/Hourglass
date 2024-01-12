@@ -9,7 +9,7 @@ class AsanaManager {
     var draggingSection: aSection?
     var draggingWidget: Widget?
     var selectedCustomField: CustomField?
-    var selectedChart: Chart?
+    var selectedChart: aChart?
     var selectedDashboard: Dashboard?
     var selectedLink: SidebarLink? = .home
     var path: [SidebarLink] = []

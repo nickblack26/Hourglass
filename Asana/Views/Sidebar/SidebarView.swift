@@ -23,7 +23,7 @@ struct SidebarView: View {
         @Bindable var asanaManager = asanaManager
         
         List(selection: $asanaManager.selectedLink) {
-            SwiftUI.Section {
+            Section {
                 NavigationLink(value: SidebarLink.home) {
                     Label("Home", systemImage: "house")
                 }
@@ -81,7 +81,9 @@ struct SidebarView: View {
                 }
             }
         }
-        .toolbar(removing: .sidebarToggle)
+#if targetEnvironment(macCatalyst)
+        .toolbar(removing: .sidebarToggle)        
+#endif
         .fullScreenCover(isPresented: $newProject, content: {
             NavigationStack {
                 NewProjectView(isPresented: $newProject)

@@ -221,7 +221,6 @@ extension Project {
         for section in sections {
             if let tasks = section.tasks {
                 for task in tasks {
-                    @Bindable var task = task
                     task.customFields = customFields
                 }
             }

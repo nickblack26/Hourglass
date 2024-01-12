@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Chart {
+final class aChart {
     var color: AsanaColor = AsanaColor.none
     var name: String
     var source: Source = Source.tasks
@@ -15,8 +15,8 @@ final class Chart {
     init(
         color: AsanaColor = AsanaColor.none,
         name: String,
-        source: Chart.Source = Source.tasks,
-        style: Chart.Style = Style.column,
+        source: aChart.Source = Source.tasks,
+        style: aChart.Style = Style.column,
         rollupStyle: RollupCalculation? = nil
     ) {
         self.name = name
@@ -27,7 +27,7 @@ final class Chart {
     }
 }
 
-extension Chart {
+extension aChart {
     enum Style: String, CaseIterable, Codable {
         case column, line, burnup, donut, number, lollipop
     }
@@ -41,7 +41,7 @@ extension Chart {
     }
 }
 
-extension Chart {
+extension aChart {
 //    static func recommendedCharts() -> [Chart] {
 //        [
 //            .init(title: "Incomplete tasks by project", image: "green_column_chart"),

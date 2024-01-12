@@ -5,9 +5,7 @@ struct PrivateNotepadWidgetView: View {
     @Environment(AsanaManager.self) private var asanaManager
     @FocusState private var isFocused: Bool
     
-    var body: some View {
-        @Bindable var asanaManager = asanaManager
-        
+    var body: some View {        
         VStack(alignment: .leading) {
             HStack {
                 Text("Private notepad")

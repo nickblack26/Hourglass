@@ -26,7 +26,6 @@ struct MyTasksView: View {
     @State private var showFilters: Bool = false
     
     var body: some View {
-        @Bindable var asanaManager = asanaManager
         VStack(alignment: .leading) {
             HStack(spacing: 24) {
                 AvatarView(

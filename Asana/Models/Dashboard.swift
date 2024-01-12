@@ -3,21 +3,21 @@ import SwiftData
 
 @Model
 final class Dashboard {
-    let name: String
-    let notes: String?
-    let icon: Icon = Icon.report
-    let color: AsanaColor
-    let starred: Bool = false
+    var name: String
+    var notes: String?
+    var icon: Icon = Icon.report
+    var color: AsanaColor
+    var starred: Bool = false
     
-    @Relationship(deleteRule: .cascade, inverse: \Chart.dashboard)
-    let charts: [Chart] = []
+    @Relationship(deleteRule: .cascade, inverse: \aChart.dashboard)
+    var charts: [aChart] = []
     
     init(
         name: String,
         notes: String? = nil,
         icon: Icon = Icon.report,
         color: AsanaColor = AsanaColor.allCases.randomElement() ?? .aqua,
-        charts: [Chart] = []
+        charts: [aChart] = []
     ) {
         self.name = name
         self.notes = notes

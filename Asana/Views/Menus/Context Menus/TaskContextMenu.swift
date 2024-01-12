@@ -10,7 +10,6 @@ struct TaskContextMenu: View {
     }
     
     var body: some View {
-        @Bindable var asanaManager = asanaManager
         Button("Edit task name", systemImage: "pencil") {
             
         }

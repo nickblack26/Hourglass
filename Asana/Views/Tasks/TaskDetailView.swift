@@ -55,7 +55,6 @@ struct TaskDetailHeader: View {
     }
     
     var body: some View {
-        @Bindable var asanaManager = asanaManager
         HStack(spacing: 16) {
             Button(task.isCompleted ? "Completed" : "Mark complete", systemImage: "checkmark") {
                 withAnimation(.snappy) {

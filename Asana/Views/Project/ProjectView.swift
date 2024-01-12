@@ -13,7 +13,6 @@ struct ProjectView: View {
     }
     
     var body: some View {
-        @Bindable var asanaManager = asanaManager
         VStack(alignment: .leading, spacing: 0) {
             ProjectHeader(selectedTab: $selectedTab, project: project)
             
@@ -68,7 +67,8 @@ struct ProjectView: View {
             case .workflow:
                 EmptyView()
             case .dashboard:
-                EmptyView()
+                ProjectDashboardView()
+                    .padding()
             case .messages:
                 EmptyView()
             case .files:

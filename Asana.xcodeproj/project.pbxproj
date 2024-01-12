@@ -18,7 +18,7 @@
 		010D51FA2A44DD5E0030989B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D51F92A44DD5E0030989B /* HomeView.swift */; };
 		010D51FC2A44DD7A0030989B /* MyTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D51FB2A44DD7A0030989B /* MyTasksView.swift */; };
 		010D51FE2A44DD850030989B /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D51FD2A44DD850030989B /* InboxView.swift */; };
-		010D52002A44DD920030989B /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D51FF2A44DD920030989B /* DashboardView.swift */; };
+		010D52002A44DD920030989B /* ProjectDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D51FF2A44DD920030989B /* ProjectDashboardView.swift */; };
 		010D52022A44DD9E0030989B /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D52012A44DD9E0030989B /* PortfolioView.swift */; };
 		010D52042A44DDA90030989B /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D52032A44DDA90030989B /* GoalView.swift */; };
 		010D52062A44DDB40030989B /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D52052A44DDB40030989B /* ProjectView.swift */; };
@@ -69,7 +69,7 @@
 		0191447A2A56FC7900F33151 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019144792A56FC7900F33151 /* SidebarView.swift */; };
 		01A142052A5C562B0090BDEF /* ContentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A142042A5C562B0090BDEF /* ContentDetail.swift */; };
 		01A1420A2A5C63770090BDEF /* NewDashboardModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A142092A5C63770090BDEF /* NewDashboardModal.swift */; };
-		01A1420C2A5C6D120090BDEF /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1420B2A5C6D120090BDEF /* Chart.swift */; };
+		01A1420C2A5C6D120090BDEF /* aChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1420B2A5C6D120090BDEF /* aChart.swift */; };
 		01A1420E2A5C6F970090BDEF /* ChartSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1420D2A5C6F970090BDEF /* ChartSelector.swift */; };
 		01A142102A5C7A8B0090BDEF /* NewGenericGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1420F2A5C7A8B0090BDEF /* NewGenericGoal.swift */; };
 		01AA7BE82B24FBF700EF3CD7 /* TableTagCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7BE72B24FBF700EF3CD7 /* TableTagCellView.swift */; };
@@ -89,6 +89,7 @@
 		01DFFF732B4EC93E0031C289 /* CoreDataHelper+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DFFF722B4EC93E0031C289 /* CoreDataHelper+Extension.swift */; };
 		01EA48492A474A9F00B0E6C3 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA48482A474A9F00B0E6C3 /* Project.swift */; };
 		01EA484F2A4750C000B0E6C3 /* aTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA484E2A4750C000B0E6C3 /* aTask.swift */; };
+		01FAC8102B51D844000E442D /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FAC80F2B51D844000E442D /* ChartView.swift */; };
 		1D578D9F2B1A270A005AAB54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D578D9E2B1A270A005AAB54 /* AppDelegate.swift */; };
 		1D578DA12B1A2721005AAB54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D578DA02B1A2721005AAB54 /* SceneDelegate.swift */; };
 		1D6031FE2B1A2BF100ECEB91 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6031FD2B1A2BF100ECEB91 /* TaskListView.swift */; };
@@ -109,7 +110,7 @@
 		010D51F92A44DD5E0030989B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		010D51FB2A44DD7A0030989B /* MyTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTasksView.swift; sourceTree = "<group>"; };
 		010D51FD2A44DD850030989B /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
-		010D51FF2A44DD920030989B /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		010D51FF2A44DD920030989B /* ProjectDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDashboardView.swift; sourceTree = "<group>"; };
 		010D52012A44DD9E0030989B /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
 		010D52032A44DDA90030989B /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		010D52052A44DDB40030989B /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
@@ -160,7 +161,7 @@
 		019144792A56FC7900F33151 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		01A142042A5C562B0090BDEF /* ContentDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetail.swift; sourceTree = "<group>"; };
 		01A142092A5C63770090BDEF /* NewDashboardModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDashboardModal.swift; sourceTree = "<group>"; };
-		01A1420B2A5C6D120090BDEF /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
+		01A1420B2A5C6D120090BDEF /* aChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aChart.swift; sourceTree = "<group>"; };
 		01A1420D2A5C6F970090BDEF /* ChartSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSelector.swift; sourceTree = "<group>"; };
 		01A1420F2A5C7A8B0090BDEF /* NewGenericGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGenericGoal.swift; sourceTree = "<group>"; };
 		01AA7BE72B24FBF700EF3CD7 /* TableTagCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTagCellView.swift; sourceTree = "<group>"; };
@@ -180,6 +181,7 @@
 		01DFFF722B4EC93E0031C289 /* CoreDataHelper+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataHelper+Extension.swift"; sourceTree = "<group>"; };
 		01EA48482A474A9F00B0E6C3 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		01EA484E2A4750C000B0E6C3 /* aTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aTask.swift; sourceTree = "<group>"; };
+		01FAC80F2B51D844000E442D /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		1D578D9E2B1A270A005AAB54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D578DA02B1A2721005AAB54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1D6031FD2B1A2BF100ECEB91 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				01A1926A2B228888009BF39B /* Tasks */,
 				011E97672B508A7F000EBE14 /* CustomToolbarItem.swift */,
 				013810722B27DD4D003EE7E1 /* Widgets */,
+				01FAC80F2B51D844000E442D /* ChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -382,7 +385,7 @@
 		01A142062A5C635A0090BDEF /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				010D51FF2A44DD920030989B /* DashboardView.swift */,
+				010D51FF2A44DD920030989B /* ProjectDashboardView.swift */,
 				01A142092A5C63770090BDEF /* NewDashboardModal.swift */,
 			);
 			path = Dashboard;
@@ -462,7 +465,7 @@
 				01B178252B51A23F00A63122 /* DataController.swift */,
 				1D6031FF2B1A7D5B00ECEB91 /* aSection.swift */,
 				01EA484E2A4750C000B0E6C3 /* aTask.swift */,
-				01A1420B2A5C6D120090BDEF /* Chart.swift */,
+				01A1420B2A5C6D120090BDEF /* aChart.swift */,
 				013810702B27D83F003EE7E1 /* Comment.swift */,
 				011EBC8E2B4C5AC50003BC76 /* CustomField.swift */,
 				011EBC8A2B4C412D0003BC76 /* Dashboard.swift */,
@@ -560,7 +563,7 @@
 				01B178212B50AFFD00A63122 /* StatusSectionView.swift in Sources */,
 				014BBA772B2B4E1F0081D56F /* ProjectThemeMenuContent.swift in Sources */,
 				0180287C2A6B3BBD00ED4BB9 /* ProjectHeader.swift in Sources */,
-				010D52002A44DD920030989B /* DashboardView.swift in Sources */,
+				010D52002A44DD920030989B /* ProjectDashboardView.swift in Sources */,
 				01B178282B51A37400A63122 /* StatusSection.swift in Sources */,
 				01B1781C2B50A63100A63122 /* StatusUpdate.swift in Sources */,
 				0180945C2B30CFC600B22D82 /* SidebarSectionItem.swift in Sources */,
@@ -611,6 +614,7 @@
 				011EBC952B4C7A720003BC76 /* Binding+Extension.swift in Sources */,
 				01A142102A5C7A8B0090BDEF /* NewGenericGoal.swift in Sources */,
 				011E97682B508A7F000EBE14 /* CustomToolbarItem.swift in Sources */,
+				01FAC8102B51D844000E442D /* ChartView.swift in Sources */,
 				01C0EDD82B4CAE2C00081A4A /* ToolbarDelegate.swift in Sources */,
 				01B178262B51A23F00A63122 /* DataController.swift in Sources */,
 				01B1781F2B50AABA00A63122 /* StatusUpdateBuilder.swift in Sources */,
@@ -624,7 +628,7 @@
 				011EBC8F2B4C5AC50003BC76 /* CustomField.swift in Sources */,
 				010C12FB2A662A1B001C2722 /* TableDateCellView.swift in Sources */,
 				014BDE0C2B2E76FC00361BF5 /* TaskCalendarView.swift in Sources */,
-				01A1420C2A5C6D120090BDEF /* Chart.swift in Sources */,
+				01A1420C2A5C6D120090BDEF /* aChart.swift in Sources */,
 				014BBA7F2B2B6B8E0081D56F /* MemberGroupView.swift in Sources */,
 				014BBA8C2B2BA1F20081D56F /* SectionActionsContent.swift in Sources */,
 				1D578DA12B1A2721005AAB54 /* SceneDelegate.swift in Sources */,

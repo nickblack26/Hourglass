@@ -45,9 +45,7 @@ struct TaskCardView: View {
     
     let columns = Array(repeating: GridItem(), count: 5)
     
-    var body: some View {
-        @Bindable var asanaManager = asanaManager
-        
+    var body: some View {        
         Card($isHovering) {
             VStack(alignment: .leading, spacing: 16) {
                 if let projects = task.projects, !projects.isEmpty {

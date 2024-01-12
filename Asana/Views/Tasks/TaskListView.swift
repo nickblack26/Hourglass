@@ -21,9 +21,7 @@ struct TaskListView: View {
         self.sections = sections
     }
     
-    var body: some View {
-        @Bindable var asanaManager = asanaManager
-        
+    var body: some View {        
         Table(of: aTask.self) {
             TableColumn("Task name") { task in
                 @Bindable var task = task

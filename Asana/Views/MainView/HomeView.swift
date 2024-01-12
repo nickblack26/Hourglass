@@ -27,8 +27,6 @@ struct HomeView: View {
 	}
 	
 	var body: some View {
-        @Bindable var asanaManager = asanaManager
-
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 Text("Home")
@@ -74,6 +72,7 @@ struct HomeView: View {
                                 .stroke(.cardBorder, lineWidth: 1)
                                 .fill(.cardBackground)
                         }
+                        
                     }
                     
                     LazyVGrid(columns: [GridItem(),GridItem()], spacing: 32) {

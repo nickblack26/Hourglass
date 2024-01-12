@@ -8,8 +8,8 @@ final class StatusSection {
     var order: Int = 0
     var statusUpdate: StatusUpdate?
     
-    @Relationship(deleteRule: .cascade, inverse: \Chart.statusSection)
-    var charts: [Chart] = []
+    @Relationship(deleteRule: .cascade, inverse: \aChart.statusSection)
+    var charts: [aChart] = []
     
     init(name: String, htmlText: Data? = nil, order: Int = 0) {
         self.name = name

@@ -11,7 +11,6 @@ struct NewProjectSetup: View {
     @Binding var isPresented: Bool
     
     var body: some View {
-        @Bindable var asanaManager = asanaManager
         Grid {
             GridRow {
                 VStack(alignment: .leading, spacing: 32) {
