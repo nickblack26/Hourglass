@@ -9,7 +9,7 @@ struct ProjectStatusMenu: View {
     
     var body: some View {
         Menu {
-            SwiftUI.Section {
+            Section {
                 ForEach(Project.Status.allCases, id: \.self) { status in
                     if status != .complete {
                         Button(status.rawValue, systemImage: "circle.fill") {
@@ -20,7 +20,7 @@ struct ProjectStatusMenu: View {
                 }
             }
             
-            SwiftUI.Section {
+            Section {
                 Button {
                     project.status = .complete
                 } label: {

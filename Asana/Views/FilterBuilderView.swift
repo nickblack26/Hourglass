@@ -17,7 +17,7 @@ struct FilterBuilderView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            SwiftUI.Section("Quick filters") {
+            Section("Quick filters") {
                 HStack {
                     ForEach(quickFilters, id: \.self) { filter in
                         Button(filter.name) { }
@@ -35,7 +35,7 @@ struct FilterBuilderView: View {
             }
             
             ForEach(filters, id: \.self) { filter in
-                SwiftUI.Section(filter.name) {
+                Section(filter.name) {
                     
                 }
             }

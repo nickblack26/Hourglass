@@ -3,7 +3,13 @@ import SwiftData
 
 struct ReportingView: View {
     @Environment(AsanaManager.self) private var asana
-    @Query private var dashboards: [Dashboard]
+    
+    // Get all dashboards not tied to a project
+    @Query(
+        filter: #Predicate<Dashboard> { $0.project == nil }
+    )
+    private var dashboards: [Dashboard]
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("Reporting")
@@ -11,18 +17,32 @@ struct ReportingView: View {
             
             Button("Create", systemImage: "plus") {
                 asana.selectedDashboard = .init(name: "")
-//                asana.newDashboard.toggle()
             }
             .buttonStyle(.borderedProminent)
             
-            SwiftUI.Section("Recents") {
+            Section("Recents") {
                 LazyVGrid(
-                    columns: Array(repeating: GridItem(), count: 2),
+                    columns: Array(
+                        repeating: GridItem(),
+                        count: 2
+                    ),
                     alignment: .leading,
                     spacing: 24
                 ) {
                     ForEach(dashboards) { dashboard in
-                        Text(dashboard.name)
+                        Card(.constant(false)) {
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Image(dashboard.icon.image)
+                                        .padding()
+                                        .background(
+                                            dashboard.color.color,
+                                            in: .rect(cornerRadius: 8)
+                                        )
+                                    Text(dashboard.name)
+                                }
+                            }
+                        }
                     }
                 }
             }

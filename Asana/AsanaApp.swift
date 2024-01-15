@@ -25,7 +25,7 @@ struct Asana_App: App {
     @State var asana = AsanaManager()
     let container: ModelContainer = {
         do {
-            let config = ModelConfiguration(cloudKitDatabase: .none)
+            let config = ModelConfiguration("Asana", schema: fullSchema, cloudKitDatabase: .none)
             
             let container = try ModelContainer(for: fullSchema, configurations: config)
             
@@ -76,7 +76,7 @@ struct Asana_App: App {
                 .environment(asana)
                 .environment(cloudKitManager)
                 .modelContainer(container)
-                .toolbar(.hidden)
+//                .toolbar(.hidden)
         }
     }
 }
@@ -85,7 +85,7 @@ struct Asana_App: App {
 
 let myTasksWidget: Widget = .init(name: "My Tasks", image: "myTasksWidgetPreview", type: .myTasks)
 let peopleWidget: Widget = .init(name: "People", image: "peopleWidgetPreview",  columns: 2, type: .people)
-let projectsWidget: Widget = .init(name: "Projects", image: "projectsWidgetPreview", type: .projects)
+let projectsWidget: Widget = .init(name: "Projects", image: "projectsWidgetPreview", columns: 2, type: .projects)
 let notepadWidget: Widget = .init(name: "Private notepad", image: "notepadWidgetPreview", type: .notepad)
 let tasksAssignedWidget: Widget = .init(name: "Tasks I've assigned", image: "assignedTasksWidgetPreview", type: .tasksAssigned)
 let draftCommentsWidget: Widget = .init(name: "Draft comments", image: "draftedCommentsWidgetPreview", type: .draftComments)
@@ -94,9 +94,9 @@ let myGoalsWidget: Widget = .init(name: "My goals", image: "myGoalsWidgetPreview
 
 let allWidgets: [Widget] = [
     myTasksWidget,
-    peopleWidget,
     projectsWidget,
     notepadWidget,
+    peopleWidget,
     tasksAssignedWidget,
     draftCommentsWidget,
     formsWidget,

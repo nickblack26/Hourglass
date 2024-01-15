@@ -8,7 +8,7 @@ struct ProjectThemeMenuContent: View {
     }
     
     var body: some View {
-        SwiftUI.Section {
+        Section {
             Picker("Colors", selection: $project.color) {
                 ForEach(AsanaColor.allCases, id: \.self) { color in
                     Image(systemName: project.color == color ? "checkmark.square.fill" : "square.fill")
@@ -20,7 +20,7 @@ struct ProjectThemeMenuContent: View {
             .paletteSelectionEffect(.custom)
         }
         
-        SwiftUI.Section {
+        Section {
             Picker("Icons", selection: $project.icon) {
                 ForEach(Project.Icon.allCases, id: \.self) { icon in
                     Image(icon.icon)

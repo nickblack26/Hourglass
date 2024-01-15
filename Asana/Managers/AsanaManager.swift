@@ -16,6 +16,11 @@ class AsanaManager {
     var showHomeCustomization: Bool = false
     var newDashboard: Bool = false
     var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+    var availableWidgets: [Widget] {
+        allWidgets.filter {
+            return allWidgets.contains($0)
+        }
+    }
 }
 
 enum AsanaColor: CaseIterable, Codable {

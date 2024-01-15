@@ -30,7 +30,7 @@ struct NewDashboardModal: View {
 			.headerProminence(.increased)
 			.listRowSeparator(.hidden)
 			
-            SwiftUI.Section("Resourcing") {
+            Section("Resourcing") {
 				LazyVGrid(columns: columns, content: {
 //					ForEach(Chart.resourcingCharts()) { chart in
 //						ChartSelector(title: chart.title, image: chart.image)
@@ -41,7 +41,7 @@ struct NewDashboardModal: View {
 			.listRowSeparator(.hidden)
 
 			
-            SwiftUI.Section("Work health") {
+            Section("Work health") {
 				LazyVGrid(columns: columns, content: {
 //					ForEach(Chart.workHealth()) { chart in
 //						ChartSelector(title: chart.title, image: chart.image)
@@ -52,7 +52,7 @@ struct NewDashboardModal: View {
 			.listRowSeparator(.hidden)
 
 			
-            SwiftUI.Section("Progress") {
+            Section("Progress") {
 				LazyVGrid(columns: columns, content: {
 //					ForEach(Chart.progress()) { chart in
 //						ChartSelector(title: chart.title, image: chart.image)

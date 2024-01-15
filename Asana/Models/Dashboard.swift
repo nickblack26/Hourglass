@@ -8,6 +8,7 @@ final class Dashboard {
     var icon: Icon = Icon.report
     var color: AsanaColor
     var starred: Bool = false
+    var project: Project?
     
     @Relationship(deleteRule: .cascade, inverse: \aChart.dashboard)
     var charts: [aChart] = []
@@ -30,6 +31,27 @@ final class Dashboard {
 extension Dashboard {
     enum Icon: String, CaseIterable, Codable {
         case report, brain, satellite, crystalBall, glasses, temperature, health, balance
+        
+        var image: String {
+            switch self {
+            case .report:
+                ""
+            case .brain:
+                ""
+            case .satellite:
+                ""
+            case .crystalBall:
+                ""
+            case .glasses:
+                ""
+            case .temperature:
+                ""
+            case .health:
+                ""
+            case .balance:
+                ""
+            }
+        }
     }
 }
 

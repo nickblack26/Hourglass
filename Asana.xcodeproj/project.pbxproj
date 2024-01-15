@@ -50,6 +50,9 @@
 		014BDE0C2B2E76FC00361BF5 /* TaskCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BDE0B2B2E76FC00361BF5 /* TaskCalendarView.swift */; };
 		0151D09C2B47795C00825215 /* PageTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0151D09B2B47795C00825215 /* PageTabButton.swift */; };
 		0168B9F62B51B2A600B9BB4B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0168B9F52B51B2A600B9BB4B /* Card.swift */; };
+		016F4B672B52F313000514FC /* ColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016F4B662B52F313000514FC /* ColumnView.swift */; };
+		016F4B692B52F333000514FC /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016F4B682B52F333000514FC /* TasksView.swift */; };
+		016F4B6B2B532B7A000514FC /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016F4B6A2B532B7A000514FC /* Date+Extension.swift */; };
 		01743B7E2A4F25F4002CBC30 /* ProjectsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B7D2A4F25F4002CBC30 /* ProjectsWidget.swift */; };
 		01743B822A4F2B71002CBC30 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B812A4F2B71002CBC30 /* NewProjectView.swift */; };
 		01743B842A4F2ED1002CBC30 /* ProjectTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B832A4F2ED1002CBC30 /* ProjectTile.swift */; };
@@ -76,6 +79,7 @@
 		01AA7BEA2B250AEA00EF3CD7 /* FilterBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7BE92B250AEA00EF3CD7 /* FilterBuilderView.swift */; };
 		01AA7BEC2B25596800EF3CD7 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7BEB2B25596800EF3CD7 /* CloudKitManager.swift */; };
 		01AA7BF02B26826600EF3CD7 /* SectionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7BEF2B26826600EF3CD7 /* SectionForm.swift */; };
+		01AE46252B557C0800E89259 /* ProjectToolbarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE46242B557C0800E89259 /* ProjectToolbarContent.swift */; };
 		01B1781C2B50A63100A63122 /* StatusUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B1781B2B50A63100A63122 /* StatusUpdate.swift */; };
 		01B1781F2B50AABA00A63122 /* StatusUpdateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B1781E2B50AABA00A63122 /* StatusUpdateBuilder.swift */; };
 		01B178212B50AFFD00A63122 /* StatusSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B178202B50AFFD00A63122 /* StatusSectionView.swift */; };
@@ -128,7 +132,7 @@
 		0138106C2B2796ED003EE7E1 /* AsanaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsanaManager.swift; sourceTree = "<group>"; };
 		013810702B27D83F003EE7E1 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		013810732B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateNotepadWidgetView.swift; sourceTree = "<group>"; };
-		014BBA712B29687C0081D56F /* Asana-Clone-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Asana-Clone-Info.plist"; sourceTree = SOURCE_ROOT; };
+		014BBA712B29687C0081D56F /* Asana-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Asana-Info.plist"; sourceTree = SOURCE_ROOT; };
 		014BBA742B2B4A4D0081D56F /* ProjectActionsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectActionsMenu.swift; sourceTree = "<group>"; };
 		014BBA762B2B4E1E0081D56F /* ProjectThemeMenuContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectThemeMenuContent.swift; sourceTree = "<group>"; };
 		014BBA782B2B55820081D56F /* DeleteProjectSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProjectSheet.swift; sourceTree = "<group>"; };
@@ -142,6 +146,9 @@
 		014BDE0B2B2E76FC00361BF5 /* TaskCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCalendarView.swift; sourceTree = "<group>"; };
 		0151D09B2B47795C00825215 /* PageTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTabButton.swift; sourceTree = "<group>"; };
 		0168B9F52B51B2A600B9BB4B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		016F4B662B52F313000514FC /* ColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnView.swift; sourceTree = "<group>"; };
+		016F4B682B52F333000514FC /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
+		016F4B6A2B532B7A000514FC /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		01743B7D2A4F25F4002CBC30 /* ProjectsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsWidget.swift; sourceTree = "<group>"; };
 		01743B812A4F2B71002CBC30 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
 		01743B832A4F2ED1002CBC30 /* ProjectTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTile.swift; sourceTree = "<group>"; };
@@ -168,6 +175,7 @@
 		01AA7BE92B250AEA00EF3CD7 /* FilterBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBuilderView.swift; sourceTree = "<group>"; };
 		01AA7BEB2B25596800EF3CD7 /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		01AA7BEF2B26826600EF3CD7 /* SectionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionForm.swift; sourceTree = "<group>"; };
+		01AE46242B557C0800E89259 /* ProjectToolbarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectToolbarContent.swift; sourceTree = "<group>"; };
 		01B1781B2B50A63100A63122 /* StatusUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusUpdate.swift; sourceTree = "<group>"; };
 		01B1781E2B50AABA00A63122 /* StatusUpdateBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusUpdateBuilder.swift; sourceTree = "<group>"; };
 		01B178202B50AFFD00A63122 /* StatusSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSectionView.swift; sourceTree = "<group>"; };
@@ -219,7 +227,7 @@
 		0100F5E62A43F3F3001BD781 /* Asana */ = {
 			isa = PBXGroup;
 			children = (
-				014BBA712B29687C0081D56F /* Asana-Clone-Info.plist */,
+				014BBA712B29687C0081D56F /* Asana-Info.plist */,
 				0100F5ED2A43F3F4001BD781 /* Asana.entitlements */,
 				0100F5E72A43F3F3001BD781 /* AsanaApp.swift */,
 				0100F5EB2A43F3F4001BD781 /* Assets.xcassets */,
@@ -245,25 +253,27 @@
 		010D51F82A44DD520030989B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				01B178242B519DE900A63122 /* MainView */,
+				016F4B652B52F307000514FC /* Board View */,
+				01FAC80F2B51D844000E442D /* ChartView.swift */,
 				011EBC902B4C63890003BC76 /* CustomFieldModal.swift */,
+				011E97672B508A7F000EBE14 /* CustomToolbarItem.swift */,
 				01A142062A5C635A0090BDEF /* Dashboard */,
 				01AA7BE92B250AEA00EF3CD7 /* FilterBuilderView.swift */,
 				01A142082A5C63690090BDEF /* Goal */,
 				018BCE3E2A49E73B00F2E7B8 /* Home Widgets */,
 				011EBC922B4C698A0003BC76 /* LabeledInput.swift */,
+				01B178242B519DE900A63122 /* MainView */,
 				014BBA722B2B489C0081D56F /* Menus */,
 				018E72302A49FB3D001481F3 /* Miscellaneous */,
-				01AA7BEF2B26826600EF3CD7 /* SectionForm.swift */,
 				0151D09B2B47795C00825215 /* PageTabButton.swift */,
 				010D52012A44DD9E0030989B /* PortfolioView.swift */,
 				01DF50742A570C5100768649 /* Project */,
+				01AA7BEF2B26826600EF3CD7 /* SectionForm.swift */,
 				019144782A56FC6A00F33151 /* Sidebar */,
 				01B1781D2B50AAAC00A63122 /* Status Update */,
 				01A1926A2B228888009BF39B /* Tasks */,
-				011E97672B508A7F000EBE14 /* CustomToolbarItem.swift */,
+				01AE46232B557BFA00E89259 /* Toolbars */,
 				013810722B27DD4D003EE7E1 /* Widgets */,
-				01FAC80F2B51D844000E442D /* ChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -326,6 +336,15 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		016F4B652B52F307000514FC /* Board View */ = {
+			isa = PBXGroup;
+			children = (
+				016F4B662B52F313000514FC /* ColumnView.swift */,
+				016F4B682B52F333000514FC /* TasksView.swift */,
+			);
+			path = "Board View";
+			sourceTree = "<group>";
+		};
 		01743B852A4F3371002CBC30 /* New Project */ = {
 			isa = PBXGroup;
 			children = (
@@ -355,6 +374,7 @@
 				01DFFF722B4EC93E0031C289 /* CoreDataHelper+Extension.swift */,
 				010C12FC2A66397F001C2722 /* Encodable+Extension.swift */,
 				01DFFF702B4EC9250031C289 /* ModelContext+Extension.swift */,
+				016F4B6A2B532B7A000514FC /* Date+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -415,6 +435,14 @@
 			path = Tasks;
 			sourceTree = "<group>";
 		};
+		01AE46232B557BFA00E89259 /* Toolbars */ = {
+			isa = PBXGroup;
+			children = (
+				01AE46242B557C0800E89259 /* ProjectToolbarContent.swift */,
+			);
+			path = Toolbars;
+			sourceTree = "<group>";
+		};
 		01B1781D2B50AAAC00A63122 /* Status Update */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,13 +490,13 @@
 		01EA48472A474A9200B0E6C3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				01B178252B51A23F00A63122 /* DataController.swift */,
+				01A1420B2A5C6D120090BDEF /* aChart.swift */,
 				1D6031FF2B1A7D5B00ECEB91 /* aSection.swift */,
 				01EA484E2A4750C000B0E6C3 /* aTask.swift */,
-				01A1420B2A5C6D120090BDEF /* aChart.swift */,
 				013810702B27D83F003EE7E1 /* Comment.swift */,
 				011EBC8E2B4C5AC50003BC76 /* CustomField.swift */,
 				011EBC8A2B4C412D0003BC76 /* Dashboard.swift */,
+				01B178252B51A23F00A63122 /* DataController.swift */,
 				011EBC8C2B4C49F90003BC76 /* Goal.swift */,
 				01EA48482A474A9F00B0E6C3 /* Project.swift */,
 				01B178272B51A37400A63122 /* StatusSection.swift */,
@@ -571,6 +599,7 @@
 				0106F2EF2A4B98050010B058 /* MyTasksWidget.swift in Sources */,
 				010D52022A44DD9E0030989B /* PortfolioView.swift in Sources */,
 				01A142052A5C562B0090BDEF /* ContentDetail.swift in Sources */,
+				016F4B672B52F313000514FC /* ColumnView.swift in Sources */,
 				0100F5EA2A43F3F3001BD781 /* ContentView.swift in Sources */,
 				1D6031FE2B1A2BF100ECEB91 /* TaskListView.swift in Sources */,
 				0174A5882B31C34B0043978F /* NavigationMenu.swift in Sources */,
@@ -578,7 +607,9 @@
 				017C8BCF2A69E435006A2C74 /* TaskBoardView.swift in Sources */,
 				010D51FE2A44DD850030989B /* InboxView.swift in Sources */,
 				013810712B27D83F003EE7E1 /* Comment.swift in Sources */,
+				01AE46252B557C0800E89259 /* ProjectToolbarContent.swift in Sources */,
 				0151D09C2B47795C00825215 /* PageTabButton.swift in Sources */,
+				016F4B692B52F333000514FC /* TasksView.swift in Sources */,
 				013810742B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift in Sources */,
 				01AA7BF02B26826600EF3CD7 /* SectionForm.swift in Sources */,
 				01743B822A4F2B71002CBC30 /* NewProjectView.swift in Sources */,
@@ -627,6 +658,7 @@
 				011EBC8D2B4C49F90003BC76 /* Goal.swift in Sources */,
 				011EBC8F2B4C5AC50003BC76 /* CustomField.swift in Sources */,
 				010C12FB2A662A1B001C2722 /* TableDateCellView.swift in Sources */,
+				016F4B6B2B532B7A000514FC /* Date+Extension.swift in Sources */,
 				014BDE0C2B2E76FC00361BF5 /* TaskCalendarView.swift in Sources */,
 				01A1420C2A5C6D120090BDEF /* aChart.swift in Sources */,
 				014BBA7F2B2B6B8E0081D56F /* MemberGroupView.swift in Sources */,
@@ -781,7 +813,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Asana-Clone-Info.plist";
+				INFOPLIST_FILE = "Asana-Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -824,7 +856,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Asana-Clone-Info.plist";
+				INFOPLIST_FILE = "Asana-Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

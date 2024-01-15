@@ -18,11 +18,7 @@ final class Project: Codable {
     var archived: Bool = false
     var status: Status?
     var starred: Bool = false
-    /*
-     MARK: Custom fields assigned to project
-     Implemented on tasks
-     */
-    //    var custom_fields: [CustomField]
+    var dashboard: Dashboard?
     
     // MARK: Inferred relationships
     // These are inferred from setting the relationship on the parent

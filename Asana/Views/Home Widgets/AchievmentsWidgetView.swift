@@ -7,7 +7,7 @@ enum OverviewDate: String, CaseIterable {
 
 struct AchievmentsWidgetView: View {
 	@State private var viewDate: OverviewDate = .week
-	let number: Int
+	let number: (Int, Int)
 	let collaborators: Int
 	
     var body: some View {
@@ -25,11 +25,11 @@ struct AchievmentsWidgetView: View {
 			
 			Label {
 				HStack {
-					Text("\(number)")
+                    Text("\(viewDate == .week ? number.0 : number.1)")
 						.font(.title)
 						.fontWeight(.bold)
 					
-					Text("\(number == 1 ? "task" : "tasks") completed")
+                    Text("\(number.0 == 1 || number.1 == 1 ? "task" : "tasks") completed")
 				}
 			} icon: {
 				Image(systemName: "checkmark")
@@ -38,11 +38,11 @@ struct AchievmentsWidgetView: View {
 			
 			Label {
 				HStack {
-					Text("\(number)")
+					Text("\(collaborators)")
 						.font(.title)
 						.fontWeight(.bold)
 					
-					Text("\(number == 1 ? "collaborator" : "collaborators")")
+					Text("\(collaborators == 1 ? "collaborator" : "collaborators")")
 				}
 			} icon: {
 				Image(systemName: "person.2")
@@ -58,5 +58,5 @@ struct AchievmentsWidgetView: View {
 }
 
 #Preview {
-	AchievmentsWidgetView(number: 1, collaborators: 1)
+	AchievmentsWidgetView(number: (2,1), collaborators: 1)
 }

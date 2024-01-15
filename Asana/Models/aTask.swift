@@ -13,6 +13,10 @@ final class aTask: Hashable, Codable {
     var endDate: Date?
     var createdAt: Date = Date()
     var completedAt: Date?
+    var taskType: TaskType = TaskType.task
+    var taskTypeId: String {
+        taskType.rawValue
+    }
     
     // MARK: Inferred relationships
     // Relationships inferred from parent
@@ -40,6 +44,7 @@ final class aTask: Hashable, Codable {
         createdAt: Date = Date(),
         completedAt: Date? = nil,
         parentTask: aTask? = nil,
+        taskType: TaskType = TaskType.task,
         projects: [Project] = [],
         section: aSection? = nil,
         comments: [Comment] = [],
@@ -54,6 +59,7 @@ final class aTask: Hashable, Codable {
         self.createdAt = createdAt
         self.completedAt = completedAt
         self.parentTask = parentTask
+        self.taskType = taskType
         self.projects = projects
         self.section = section
         self.comments = comments
@@ -75,16 +81,29 @@ final class aTask: Hashable, Codable {
     }
 }
 
+extension aTask {
+    enum TaskType: String, Codable {
+        case task = "Task"
+        case approval = "Approval"
+        case milestone = "Milestone"
+    }
+}
+
 extension aTask: Transferable {
     static var transferRepresentation: some TransferRepresentation {
         CodableRepresentation(contentType: .data)
     }
 }
 
-extension [aTask] {
-    func updateOrderIndices() {
-        for (index, item) in enumerated() {
-            item.order = index
-        }
-    }
+//extension Collection where Element: Orderable {
+//    mutating func updateOrderIndices() {
+//        for (index, item) in enumerated() {
+////            self[index].order = item.order
+//            item.order = index
+//        }
+//    }
+//}
+
+protocol Orderable {
+    var order: Int { get set }
 }

@@ -33,7 +33,9 @@ struct SectionActionsContent: View {
         }
         
         Button("Delete section", systemImage: "trash", role: .destructive) {
-            
+            withAnimation(.snappy) {
+                context.delete(section)
+            }
         }
     }
     

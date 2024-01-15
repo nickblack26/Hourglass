@@ -210,7 +210,7 @@ struct TaskDetailBody: View {
     }
     
     var body: some View {
-        SwiftUI.Section {
+        Section {
             VStack(alignment: .leading, spacing: 32) {
                 TextField("Task name", text: $task.name)
                     .font(.title)

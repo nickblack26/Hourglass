@@ -13,7 +13,7 @@ struct ProjectActionsMenu: View {
     
     var body: some View {
         Menu {
-            SwiftUI.Section {
+            Section {
                 Button("Edit project details", systemImage: "pencil") {
                     showDetails.toggle()
                 }
@@ -27,7 +27,7 @@ struct ProjectActionsMenu: View {
                 }
             }
             
-            SwiftUI.Section {
+            Section {
                 Button("Copy project link", systemImage: "link") {
                     
                 }
@@ -45,7 +45,7 @@ struct ProjectActionsMenu: View {
                 }
             }
             
-            SwiftUI.Section {
+            Section {
                 Button("Archive", systemImage: "archivebox") {
                     
                 }

@@ -10,10 +10,9 @@ struct TaskListView: View {
     #endif
     @Environment(AsanaManager.self) private var asanaManager
     @Environment(\.modelContext) private var modelContext
-    
-    
-    
-//    @State private var selectedPeople = Set<Task.>()
+//    let data = KeyPath
+    @State private var sortOrder = [KeyPathComparator(\aTask.order)]
+    @State private var selectedTasks = Set<aTask>()
     
     var sections: [aSection]
     
@@ -23,6 +22,7 @@ struct TaskListView: View {
     
     var body: some View {        
         Table(of: aTask.self) {
+//            TableColumn
             TableColumn("Task name") { task in
                 @Bindable var task = task
                 HStack {
@@ -87,7 +87,7 @@ struct TaskListView: View {
                 }
         } rows: {
             ForEach(sections) { section in
-                SwiftUI.Section {
+                Section {
                     ForEach(section.tasks ?? []) { task in
                         TableRow(task)
                     }
@@ -108,7 +108,7 @@ struct TaskListView: View {
                     }
                 }
             }
-            
+//            .sort
         }
     }
     

@@ -62,6 +62,7 @@ struct SectionForm: View {
                 @Bindable var section = sections[index]
                 section.order = index + 1
             }
+            
             project.sections!.insert(section, at: 0)
         } else {
             project.sections?.append(section)

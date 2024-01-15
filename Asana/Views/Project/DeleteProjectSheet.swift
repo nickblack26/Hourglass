@@ -10,7 +10,7 @@ struct DeleteProjectSheet: View {
     }
     
     var body: some View {
-        SwiftUI.Section {
+        Section {
             VStack(alignment: .leading) {
                 Text("This will delete the project, along with any:")
                 Text(" • Unassigned tasks that are only in this project")

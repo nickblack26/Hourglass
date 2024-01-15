@@ -62,7 +62,7 @@ struct HomeInspector: View {
 	
 	var body: some View {
 		Form {
-            SwiftUI.Section("Background") {
+            Section("Background") {
 				Grid {
 					GridRow {
 						ForEach(0..<6) { index in
@@ -78,7 +78,7 @@ struct HomeInspector: View {
 				}
 			}
 			
-            SwiftUI.Section {
+            Section {
                 
 				ForEach(availableWidgets, id: \.self) { widget in
 					ZStack(alignment: .topLeading) {

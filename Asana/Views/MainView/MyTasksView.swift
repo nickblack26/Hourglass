@@ -138,7 +138,7 @@ struct MyTasksView: View {
             case .list:
                 TaskListView(sections)
             case .board:
-                TaskBoardView(sections)
+                TaskBoardView(sections: sections)
             case .calendar:
                 TaskCalendarView()
             case nil:
@@ -148,7 +148,7 @@ struct MyTasksView: View {
         .onAppear {
             if sections.isEmpty {
                 let section = aSection(
-                    name: "Untitled section",
+                    name: "",
                     order: 0
                 )
                 modelContext.insert(section)

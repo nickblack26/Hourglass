@@ -1,7 +1,11 @@
 import SwiftUI
 import SwiftData
 
+
 struct HomeView: View {
+    static var weekStartDate: Date { Date().startOfWeek() }
+    static var monthStartDate: Date { Date().startOfMonth() }
+    
     // MARK: Environment Variables
     @Environment(CloudKitManager.self) private var cloudKitManager
     @Environment(AsanaManager.self) private var asanaManager
@@ -11,20 +15,15 @@ struct HomeView: View {
     @Query(sort: \aTask.order )
     private var tasks: [aTask]
     
+    @Query(filter: #Predicate<aTask> { $0.isCompleted && $0.completedAt != nil && $0.completedAt! >= weekStartDate } )
+    private var weeklyTaskCompleted: [aTask]
+    
+    @Query(filter: #Predicate<aTask> { $0.isCompleted && $0.completedAt != nil && $0.completedAt! >= monthStartDate } )
+    private var monthlyTasksCompleted: [aTask]
+    
     // MARK: State Variables
 	@State private var colorScheme: ColorScheme = .white
 		
-	func getFormattedDate() -> String {
-		let today = Date()
-		let calendar = Calendar.current
-		let f = DateFormatter()
-		
-		let day = f.weekdaySymbols[calendar.component(.weekday, from: today) - 1]
-		let month = f.monthSymbols[calendar.component(.month, from: today) - 1]
-		let dayNum = calendar.component(.day, from: today)
-		
-		return "\(day), \(month) \(dayNum)"
-	}
 	
 	var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -36,11 +35,11 @@ struct HomeView: View {
                 
                 VStack {
                     VStack {
-                        Text("\(getFormattedDate())")
+                        Text(Date.now.getFormattedDate())
                             .font(.title3)
                             .fontWeight(.medium)
                         
-                        Text("Good afternoon, \(cloudKitManager.userName)")
+                        Text("Good afternoon, \(cloudKitManager.userName.isEmpty ? "User" : cloudKitManager.userName)")
                             .font(.largeTitle)
                             .fontWeight(.regular)
                     }
@@ -48,14 +47,8 @@ struct HomeView: View {
                     HStack {
                         Spacer()
                         Spacer()
-                        
-                        let totalTasks = getCurrentWeeksDates()
-                        let filteredTasks = tasks.filter { task in
-                            guard let completedAt = task.completedAt else { return false }
-                            return totalTasks.contains(completedAt)
-                        }
-                        
-                        AchievmentsWidgetView(number: filteredTasks.count, collaborators: 1)
+                                                
+                        AchievmentsWidgetView(number: (weeklyTaskCompleted.count, monthlyTasksCompleted.count), collaborators: 1)
                         
                         Spacer()
                         
@@ -75,34 +68,77 @@ struct HomeView: View {
                         
                     }
                     
-                    LazyVGrid(columns: [GridItem(),GridItem()], spacing: 32) {
-                        ForEach(allWidgets) { widget in
-                            ZStack {
-                                switch widget.type {
-                                    case .myTasks:
-                                        MyTasksWidget()
-                                    case .people:
-                                        Text(widget.name)
-                                    case .projects:
-                                        ProjectsWidget()
-                                    case .notepad:
-                                        PrivateNotepadWidgetView()
-                                    case .tasksAssigned:
-                                        Text(widget.name)
-                                    case .draftComments:
-                                        Text(widget.name)
-                                    case .forms:
-                                        Text(widget.name)
-                                    case .myGoals:
-                                        Text(widget.name)
-                                }
+                    let gridItems = [
+                        GridItem(.fixed(500), spacing: 32, alignment: .leading),
+                        GridItem(.fixed(500), spacing: 32, alignment: .leading)
+                    ]
+                    
+                    
+                    Grid {
+                        GridRow {
+                            Color.clear
+                            Color.clear
+                        }
+                        let widgets = asanaManager.availableWidgets
+                        var widgetTotal = widgets.count
+                        ForEach(widgets.indices, id: \.self) { index in
+                            if index != widgetTotal {
+                                
                             }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                            .padding(8)
-
+                            GridRow {
+                                ZStack {
+                                    switch widgets[index].type {
+                                        case .myTasks:
+                                            MyTasksWidget()
+                                        case .people:
+                                            Text(widgets[index].name)
+                                        case .projects:
+                                            ProjectsWidget()
+                                        case .notepad:
+                                            PrivateNotepadWidgetView()
+                                        case .tasksAssigned:
+                                            Text(widgets[index].name)
+                                        case .draftComments:
+                                            Text(widgets[index].name)
+                                        case .forms:
+                                            Text(widgets[index].name)
+                                        case .myGoals:
+                                            Text(widgets[index].name)
+                                    }
+                                }
+                                .gridCellColumns(widgets[index].columns)
+                            }
                         }
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    
+                    
+//                    LazyVGrid(columns: gridItems, spacing: 32) {
+//                        ForEach(asanaManager.availableWidgets) { widget in
+
+//                            .frame(
+//                                width: widget.columns == 2 ? 1032 : .infinity,
+//                                height: 400
+//                            )
+////                            .frame(
+////                                maxWidth: .infinity,
+////                                maxHeight: .infinity,
+////                                alignment: .topLeading
+////                            )
+////                            .frame(
+////                                maxWidth: .infinity,
+////                                maxHeight: .infinity,
+////                                alignment: .topLeading
+////                            )
+////                            .padding(8)
+//                            
+//                            if widget.columns == 2 { Color.clear }
+//                        }
+//                    }
+//                    .frame(
+//                        maxWidth: .infinity,
+//                        maxHeight: .infinity,
+//                        alignment: .topLeading
+//                    )
                 }
                 .frame(maxWidth: 1575)
             }

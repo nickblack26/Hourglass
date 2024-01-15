@@ -53,7 +53,6 @@ extension aSection: Transferable {
     }
 }
 
-
 extension [aSection] {
     func updateOrderIndices() {
         for (index, item) in enumerated() {

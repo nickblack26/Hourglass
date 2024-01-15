@@ -14,7 +14,7 @@ struct NewProjectSetup: View {
         Grid {
             GridRow {
                 VStack(alignment: .leading, spacing: 32) {
-                    SwiftUI.Section {
+                    Section {
                         TextField("Project name", text: $name)
                             .textFieldStyle(.roundedBorder)
                     } header: {
@@ -26,7 +26,7 @@ struct NewProjectSetup: View {
                         }
                     }
                     
-                    SwiftUI.Section("Default view") {
+                    Section("Default view") {
                         let views: [Project.Tab] = [.list, .board, .timeline, .calendar]
                         
                         Grid {
