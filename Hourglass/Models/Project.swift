@@ -12,7 +12,7 @@ final class Project: Codable {
     var startDate: Date?
     var endDate: Date?
     var details: String?
-    var color: AsanaColor = AsanaColor.aqua
+    var color: ThemeColor = ThemeColor.aqua
     var icon: Icon = Icon.calendar
     var defaultTab: Tab = Tab.list
     var archived: Bool = false
@@ -47,7 +47,7 @@ final class Project: Codable {
         details: String? = nil,
         tasks: [aTask] = [],
         sections: [aSection] = [],
-        color: AsanaColor = AsanaColor.allCases.randomElement() ?? .aqua,
+        color: ThemeColor = ThemeColor.allCases.randomElement() ?? .aqua,
         icon: Icon = Icon.allCases.randomElement() ?? .calendar,
         defaultTab: Tab = .list,
         archived: Bool = false,
@@ -184,7 +184,7 @@ extension Project {
         case onHold = "On hold"
         case complete = "Complete"
         
-        var color: AsanaColor {
+        var color: ThemeColor {
             switch self {
             case .onTrack:
                     .green

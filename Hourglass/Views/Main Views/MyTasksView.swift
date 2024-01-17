@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
 
-enum MyTaskTab: String, CaseIterable, Identifiable {
+private enum MyTaskTab: String, CaseIterable, Identifiable {
     var id: Self {
         return self
     }
@@ -13,7 +13,7 @@ enum MyTaskTab: String, CaseIterable, Identifiable {
 
 struct MyTasksView: View {
     @Environment(\.modelContext) private var modelContext
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @Query(
         filter: #Predicate<aSection> {
             $0.project == nil

@@ -7,7 +7,7 @@ struct HomeView: View {
     
     // MARK: Environment Variables
     @Environment(CloudKitManager.self) private var cloudKitManager
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     
     // MARK: Data Variables
     @Query(sort: \aTask.order )
@@ -55,7 +55,7 @@ struct HomeView: View {
                         Spacer()
                         
                         Button {
-                            asanaManager.showHomeCustomization.toggle()
+                            hourglass.showHomeCustomization.toggle()
                         } label: {
                             Label("Customize", systemImage: "rectangle.badge.plus")
                         }
@@ -71,7 +71,7 @@ struct HomeView: View {
                     }
                 
                     LazyVGrid(columns: [GridItem(), GridItem()], spacing: 32) {
-                        ForEach(asanaManager.availableWidgets) { widget in
+                        ForEach(hourglass.availableWidgets) { widget in
                             ZStack {
                                 switch widget.type {
                                     case .myTasks:
@@ -104,14 +104,14 @@ struct HomeView: View {
 
 #Preview {
     @State var cloudKitManager = CloudKitManager()
-    @State var asanaManager = HourglassManager()
+    @State var hourglass = HourglassManager()
 	return NavigationStack {
 		ScrollView {
 			HomeView()
 		}
 	}
     .environment(cloudKitManager)
-    .environment(asanaManager)
+    .environment(hourglass)
 }
 
 

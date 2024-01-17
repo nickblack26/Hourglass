@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct NewProjectSetup: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     @State private var showNextSteps: Bool = false
@@ -154,17 +154,17 @@ struct NewProjectSetup: View {
         
         newProject.sections?.append(newSection)
         
-        asanaManager.selectedLink = .project(newProject)
+        hourglass.selectedLink = .project(newProject)
         
         dismiss()
     }
 }
 
 #Preview {
-    @State var asanaManager = HourglassManager()
+    @State var hourglass = HourglassManager()
     
     return NavigationStack {
         NewProjectSetup(isPresented: .constant(false))
     }
-    .environment(asanaManager)
+    .environment(hourglass)
 }

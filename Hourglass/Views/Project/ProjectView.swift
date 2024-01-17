@@ -3,7 +3,7 @@ import SwiftData
 
 struct ProjectView: View {
     @Environment(\.modelContext) private var modelContext
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     
     @State private var selectedTab: Project.Tab = .board
     @State private var showProjectSheet: Bool = false
@@ -48,7 +48,7 @@ struct ProjectView: View {
                     }
                     Button("Add milestone...", action: addNewSection)
                     Button("Add custom field") {
-                        asanaManager.selectedCustomField = .init()
+                        hourglass.selectedCustomField = .init()
                     }
                 }
                 .labelsHidden()
@@ -119,13 +119,13 @@ struct ProjectView: View {
 }
 
 #Preview {
-    @State var asanaManager = HourglassManager()
+    @State var hourglass = HourglassManager()
     let project = Project(name: "")
     
     return NavigationStack {
         ProjectView(project)
     }
-    .environment(asanaManager)
+    .environment(hourglass)
     .modelContainer(previewContainer)
     
 }

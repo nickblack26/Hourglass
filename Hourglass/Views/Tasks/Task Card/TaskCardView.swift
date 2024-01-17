@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TaskCardView: View {
     // MARK: Environment Variables
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @Environment(\.modelContext) private var context
     @Environment(\.colorScheme) private var colorScheme
     
@@ -271,20 +271,20 @@ struct TaskCardView: View {
         }
         .onTapGesture {
             if !task.name.isEmpty {
-                asanaManager.selectedTask = task
+                hourglass.selectedTask = task
             }
         }
     }
 }
 
 #Preview {
-    @State var asanaManager = HourglassManager()
+    @State var hourglass = HourglassManager()
     let task = aTask(name: "", order: 0)
 
     return ZStack {
         Color(uiColor: .systemGray6)
         TaskCardView(task)
     }
-    .environment(asanaManager)
+    .environment(hourglass)
     .modelContainer(previewContainer)
 }

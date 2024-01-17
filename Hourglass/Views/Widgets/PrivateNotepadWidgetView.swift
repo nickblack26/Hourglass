@@ -2,7 +2,7 @@ import SwiftUI
 
 struct PrivateNotepadWidgetView: View {
 	@State var attributedText = NSAttributedString(string: "Testing")
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @FocusState private var isFocused: Bool
     
     var body: some View {        
@@ -40,8 +40,8 @@ struct PrivateNotepadWidgetView: View {
 }
 
 #Preview {
-    @State var asanaManager = HourglassManager()
-    return PrivateNotepadWidgetView().environment(asanaManager)
+    @State var hourglass = HourglassManager()
+    return PrivateNotepadWidgetView().environment(hourglass)
 }
 
 

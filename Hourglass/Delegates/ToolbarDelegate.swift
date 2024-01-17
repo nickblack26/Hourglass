@@ -1,13 +1,5 @@
-//
-//  ToolbarDelegate.swift
-//  Asana
-//
-//  Created by Nick Black on 1/8/24.
-//
-
 import UIKit
 import Foundation
-//import AppKit
 import SwiftUI
 
 class ToolbarDelegate: NSObject  {
@@ -18,10 +10,10 @@ class ToolbarDelegate: NSObject  {
 
 #if targetEnvironment(macCatalyst)
 extension NSToolbarItem.Identifier {
-    static let backButton = NSToolbarItem.Identifier("com.nicholasblack.Asana.backButton")
-    static let forwardButton = NSToolbarItem.Identifier("com.nicholasblack.Asana.forwardButton")
-    static let globalSearch = NSToolbarItem.Identifier("com.nicholasblack.Asana.customSearchBar")
-    static let editRecipe = NSToolbarItem.Identifier("com.nicholasblack.Asana.editRecipe")
+    static let backButton = NSToolbarItem.Identifier("com.nicholasblack.Hourglass.backButton")
+    static let forwardButton = NSToolbarItem.Identifier("com.nicholasblack.Hourglass.forwardButton")
+    static let globalSearch = NSToolbarItem.Identifier("com.nicholasblack.Hourglass.customSearchBar")
+    static let editRecipe = NSToolbarItem.Identifier("com.nicholasblack.Hourglass.editRecipe")
 }
 
 extension ToolbarDelegate: NSToolbarDelegate {

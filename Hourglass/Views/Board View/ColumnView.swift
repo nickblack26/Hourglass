@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct ColumnView: View {
-    @Environment(HourglassManager.self) var asanaManager
+    @Environment(HourglassManager.self) var hourglass
     @Query var tasks: [aTask]
     @Bindable var section: aSection
     

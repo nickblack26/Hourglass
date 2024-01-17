@@ -1,10 +1,3 @@
-//
-//  CloudKit.swift
-//  Asana Clone
-//
-//  Created by Nick Black on 1/4/24.
-//
-
 import Foundation
 import CloudKit
 import CoreTransferable

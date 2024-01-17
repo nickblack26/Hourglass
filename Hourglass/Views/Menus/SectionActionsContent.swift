@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SectionActionsContent: View {
     @Environment(\.modelContext) private var context
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     var viewType: Project.Tab
     @Binding var sections: [aSection]
     @Bindable var section: aSection

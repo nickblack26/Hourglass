@@ -1,10 +1,3 @@
-//
-//  Encodable+Extension.swift
-//  Asana Clone
-//
-//  Created by Nick on 7/17/23.
-//
-
 import Foundation
 
 extension Encodable {

@@ -47,7 +47,7 @@ enum ColorScheme: String, CaseIterable {
 }
 
 struct HomeInspector: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     var availableWidgets: [Widget] {
         allWidgets.filter {
             return !allWidgets.contains($0)
@@ -94,7 +94,7 @@ struct HomeInspector: View {
 					.clipShape(RoundedRectangle(cornerRadius: 10))
                     .onTapGesture {
                         
-//                        if let currentMember = asanaManager.currentMember {
+//                        if let currentMember = hourglass.currentMember {
 //                            withAnimation(.snappy) {
 //                                currentMember.widgets?.append(widget)
 //                            }
@@ -123,14 +123,14 @@ struct HomeInspector: View {
 }
 
 #Preview {
-    @State var asanaManager = HourglassManager()
+    @State var hourglass = HourglassManager()
     
 	return VStack {
 		
 	}
-    .environment(asanaManager)
+    .environment(hourglass)
     .inspector(isPresented: .constant(true)) {
 		HomeInspector(colorScheme: .constant(.maroon))
-            .environment(asanaManager)
+            .environment(hourglass)
 	}
 }

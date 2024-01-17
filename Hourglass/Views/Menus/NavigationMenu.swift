@@ -1,15 +1,15 @@
 import SwiftUI
 
 struct NavigationMenu: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     
     var body: some View {
         HStack(spacing: 16) {
             Button {
-                if asanaManager.columnVisibility == .doubleColumn {
-                    asanaManager.columnVisibility = .detailOnly
+                if hourglass.columnVisibility == .doubleColumn {
+                    hourglass.columnVisibility = .detailOnly
                 } else {
-                    asanaManager.columnVisibility = .doubleColumn
+                    hourglass.columnVisibility = .doubleColumn
                 }
             } label: {
                 Image(systemName: "line.3.horizontal")

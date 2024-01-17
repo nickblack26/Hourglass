@@ -53,7 +53,7 @@ struct ProjectsWidget: View {
 }
 
 struct ProjectListItemView: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @State private var isHovering: Bool = false
     var project: Project
     
@@ -128,7 +128,7 @@ struct ProjectListItemView: View {
             }
         }
         .onTapGesture {
-            asanaManager.selectedLink = .project(project)
+            hourglass.selectedLink = .project(project)
         }
         .onHover(perform: {
             isHovering = $0
@@ -146,12 +146,12 @@ struct ProjectListItemView: View {
 }
 
 #Preview("Project List Item") {
-    @State var asanaManager = HourglassManager()
+    @State var hourglass = HourglassManager()
     let project = Project(name: "")
 
     
     return NavigationStack { ProjectListItemView(project) }
-        .environment(asanaManager)
+        .environment(hourglass)
         .modelContainer(previewContainer)
 
 }

@@ -101,13 +101,13 @@ extension CustomField {
 
 @Model
 final class EnumOption {
-    var color: AsanaColor = AsanaColor.none
+    var color: ThemeColor = ThemeColor.none
     var name: String = ""
     var enabled: Bool = true
     var field: CustomField?
     var order: Int = 0
     
-    init(color: AsanaColor = AsanaColor.none, name: String, order: Int = 0) {
+    init(color: ThemeColor = ThemeColor.none, name: String, order: Int = 0) {
         self.color = color
         self.name = name
         self.order = order

@@ -10,7 +10,7 @@ struct ProjectThemeMenuContent: View {
     var body: some View {
         Section {
             Picker("Colors", selection: $project.color) {
-                ForEach(AsanaColor.allCases, id: \.self) { color in
+                ForEach(ThemeColor.allCases, id: \.self) { color in
                     Image(systemName: project.color == color ? "checkmark.square.fill" : "square.fill")
                         .tint(color.color)
                         .tag(color)

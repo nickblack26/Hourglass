@@ -26,7 +26,7 @@ class HourglassManager {
     }
 }
 
-enum AsanaColor: CaseIterable, Codable {
+enum ThemeColor: CaseIterable, Codable {
     case none
     case red
     case orange

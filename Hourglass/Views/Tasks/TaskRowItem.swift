@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TaskRowItem: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @State private var isHovering: Bool = false
     @Bindable var task: aTask
     
@@ -93,7 +93,7 @@ struct TaskRowItem: View {
         })
         .onTapGesture {
             if !task.name.isEmpty {
-                asanaManager.selectedTask = task
+                hourglass.selectedTask = task
             }
         }
     }

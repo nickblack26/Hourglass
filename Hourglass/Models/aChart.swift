@@ -3,7 +3,7 @@ import SwiftData
 
 @Model
 final class aChart {
-    var color: AsanaColor = AsanaColor.none
+    var color: ThemeColor = ThemeColor.none
     var name: String = ""
     var source: Source = Source.tasks
 //    let filters: [String : PartialKeyPath<aChart>] = ["Test" : \aChart.name]
@@ -14,7 +14,7 @@ final class aChart {
     var statusSection: StatusSection?
     
     init(
-        color: AsanaColor = AsanaColor.none,
+        color: ThemeColor = ThemeColor.none,
         name: String,
         source: aChart.Source = Source.tasks,
         style: aChart.Style = Style.column,

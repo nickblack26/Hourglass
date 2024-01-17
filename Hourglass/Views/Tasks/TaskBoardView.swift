@@ -45,12 +45,12 @@ struct TaskBoardView: View {
 }
 
 //#Preview {
-//    @State var asanaManager = AsanaManager()
+//    @State var hourglass = HourglassManager()
 //    let section = aSection(name: "", order: 0)
 //
 //    
 //    return TaskBoardView([section])
-//        .environment(asanaManager)
+//        .environment(hourglass)
 //        .modelContainer(previewContainer)
 //
 //}

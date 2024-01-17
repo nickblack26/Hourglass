@@ -3,7 +3,7 @@ import SwiftData
 
 
 struct SidebarView: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     
     @Query(
         filter: #Predicate<Project> { !$0.archived && !$0.starred },
@@ -26,9 +26,9 @@ struct SidebarView: View {
     @State private var newProject: Bool = false
     
     var body: some View {
-        @Bindable var asanaManager = asanaManager
+        @Bindable var hourglass = hourglass
         
-        List(selection: $asanaManager.selectedLink) {
+        List(selection: $hourglass.selectedLink) {
             Section {
                 NavigationLink(value: SidebarLink.home) {
                     Label("Home", systemImage: "house")
@@ -91,7 +91,7 @@ struct SidebarView: View {
                 }
             } action: {
                 Button("New client", systemImage: "person.2") {
-                    asanaManager.newClient.toggle()
+                    hourglass.newClient.toggle()
                 }
             }
             
@@ -132,13 +132,13 @@ struct SidebarView: View {
 
 
 #Preview {
-    @State var asanaManager = HourglassManager()
+    @State var hourglass = HourglassManager()
     
     return NavigationSplitView {
         SidebarView()
     } detail: {
         EmptyView()
     }
-    .environment(asanaManager)
+    .environment(hourglass)
     .modelContainer(for: Project.self, inMemory: true)
 }

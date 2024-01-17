@@ -3,7 +3,7 @@ import SwiftUI
 
 struct TaskCalendarView: View {
     @Environment(\.modelContext) private var context
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @State private var showWeekends: Bool = false
     @State private var showMultiDayTasks: Bool = false
     

@@ -25,10 +25,10 @@ let fullSchema = Schema(
 @main
 struct Hourglass_App: App {
     @State var cloudKitManager = CloudKitManager()
-    @State var asana = HourglassManager()
+    @State var hourglass = HourglassManager()
     let container: ModelContainer = {
         do {
-            let config = ModelConfiguration("Asana", cloudKitDatabase: .none)
+            let config = ModelConfiguration("Hourglass", cloudKitDatabase: .none)
             
             let container = try ModelContainer(for: fullSchema, configurations: config)
             
@@ -42,32 +42,32 @@ struct Hourglass_App: App {
         WindowGroup {
             ContentView()
                 .onAppear {
-                    asana.path.append(.home)
+                    hourglass.path.append(.home)
                 }
-                .sheet(item: $asana.selectedTask) { task in
+                .sheet(item: $hourglass.selectedTask) { task in
                     TaskDetailView(task)
-                        .environment(asana)
+                        .environment(hourglass)
                 }
-                .sheet(isPresented: $asana.newClient, content: {
+                .sheet(isPresented: $hourglass.newClient, content: {
                     ClientSheetContent()
                 })
-                .sheet(item: $asana.selectedCustomField) { field in
+                .sheet(item: $hourglass.selectedCustomField) { field in
                     CustomFieldModal(field)
-                        .environment(asana)
+                        .environment(hourglass)
                 }
-                .sheet(item: $asana.selectedDashboard) { dashboard in
+                .sheet(item: $hourglass.selectedDashboard) { dashboard in
                     NavigationStack {
                         NewDashboardModal(dashboard: dashboard)
                     }
-                    .environment(asana)
+                    .environment(hourglass)
                 }
-                .sheet(item: $asana.selectedChart) { chart in
+                .sheet(item: $hourglass.selectedChart) { chart in
                     NavigationStack {
                         
                     }
-                    .environment(asana)
+                    .environment(hourglass)
                 }
-                .environment(asana)
+                .environment(hourglass)
                 .environment(cloudKitManager)
                 .modelContainer(container)
         }

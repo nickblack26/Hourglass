@@ -6,7 +6,7 @@ final class Dashboard {
     var name: String
     var notes: String?
     var icon: Icon = Icon.report
-    var color: AsanaColor
+    var color: ThemeColor
     var starred: Bool = false
     var project: Project?
     
@@ -17,7 +17,7 @@ final class Dashboard {
         name: String,
         notes: String? = nil,
         icon: Icon = Icon.report,
-        color: AsanaColor = AsanaColor.allCases.randomElement() ?? .aqua,
+        color: ThemeColor = ThemeColor.allCases.randomElement() ?? .aqua,
         charts: [aChart] = []
     ) {
         self.name = name

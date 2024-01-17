@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TableTagCellView: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @Binding var projects: [Project]
     
     var body: some View {

@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct ContentDetail: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
 	
     var body: some View {
-        switch asanaManager.selectedLink {
+        switch hourglass.selectedLink {
 			case .home:
 				HomeView()
 			case .myTasks:

@@ -32,13 +32,13 @@ struct TaskDetailView: View {
 }
 
 #Preview("Sheet") {
-    @State var asanaManager = HourglassManager()
+    @State var hourglass = HourglassManager()
     let task = aTask(name: "", order: 0)
 
     return VStack {
         Text("Test")
     }
-    .environment(asanaManager)
+    .environment(hourglass)
     .sheet(isPresented: .constant(true), content: {
         TaskDetailView(task)
     })
@@ -47,7 +47,7 @@ struct TaskDetailView: View {
 }
 
 struct TaskDetailHeader: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @Bindable var task: aTask
     
     init(_ task: aTask) {
@@ -90,7 +90,7 @@ struct TaskDetailHeader: View {
             Image(systemName: "ellipsis")
             
             Button {
-                asanaManager.selectedTask = nil
+                hourglass.selectedTask = nil
             } label: {
                 Image(systemName: "xmark")
             }
@@ -100,17 +100,17 @@ struct TaskDetailHeader: View {
 }
 
 #Preview("Header") {
-    @State var asanaManager = HourglassManager()
+    @State var hourglass = HourglassManager()
     let task = aTask(name: "", order: 0)
 
     return TaskDetailHeader(task)
-        .environment(asanaManager)
+        .environment(hourglass)
         .modelContainer(previewContainer)
 
 }
 
 struct TaskDetailFooter: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @Environment(\.modelContext) private var context
     @State private var message: String = ""
     @Bindable var task: aTask

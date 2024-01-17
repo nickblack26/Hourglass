@@ -8,7 +8,7 @@ struct TaskListView: View {
     #else
     private let isCompact = false
     #endif
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @Environment(\.modelContext) private var modelContext
 //    let data = KeyPath
     @State private var sortOrder = [KeyPathComparator(\aTask.order)]
@@ -52,7 +52,7 @@ struct TaskListView: View {
                 }
                 .onTapGesture {
                     if !task.name.isEmpty {
-                        asanaManager.selectedTask = task
+                        hourglass.selectedTask = task
                     }
                 }
             }
@@ -137,7 +137,7 @@ struct TaskListView: View {
 }
 
 #Preview {
-    @State var asanaManager = HourglassManager()
+    @State var hourglass = HourglassManager()
     let section = aSection(name: "", order: 0)
 
     return TaskListView(
@@ -145,7 +145,7 @@ struct TaskListView: View {
             section
         ]
     )
-    .environment(asanaManager)
+    .environment(hourglass)
     .modelContainer(previewContainer)
 
 }

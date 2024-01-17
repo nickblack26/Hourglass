@@ -20,7 +20,7 @@ struct ProjectToolbar: ToolbarContent {
                 project.starred.toggle()
             } label: {
                 Circle()
-                    .fill(AsanaColor.green.color)
+                    .fill(ThemeColor.green.color)
                     .frame(width: 12, height: 12)
                 
                 Text("Status")

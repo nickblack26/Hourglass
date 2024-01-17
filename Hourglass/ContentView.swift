@@ -9,16 +9,16 @@ struct ContentView: View {
     @State private var colorScheme: ColorScheme = .white
     
     var body: some View {
-        @Bindable var asanaManager = hourglass
+        @Bindable var hourglass = hourglass
         
         NavigationSplitView(
-            columnVisibility: $asanaManager.columnVisibility,
+            columnVisibility: $hourglass.columnVisibility,
             sidebar: {
                 SidebarView()
             }, detail: {
                 NavigationStack {
                     ContentDetail()
-                        .inspector(isPresented: $asanaManager.showHomeCustomization) {
+                        .inspector(isPresented: $hourglass.showHomeCustomization) {
                             HomeInspector(colorScheme: $colorScheme)
                         }
                 }
@@ -28,10 +28,10 @@ struct ContentView: View {
 }
 
 #Preview {
-    @State var asanaManager = HourglassManager()
+    @State var hourglass = HourglassManager()
     
     return ContentView()
-        .environment(asanaManager)
+        .environment(hourglass)
         
 }
 

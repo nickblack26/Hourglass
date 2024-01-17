@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftDataKit
 
 struct ProjectHeader: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @State private var showColorPicker: Bool = false
     @Binding var selectedTab: Project.Tab
     @Bindable var project: Project
@@ -88,10 +88,10 @@ struct ProjectHeader: View {
 }
 
 #Preview {
-    @State var asanaManager = HourglassManager()
+    @State var hourglass = HourglassManager()
     let project = Project(name: "")
     
     return ProjectHeader(selectedTab: .constant(.board), project: project)
-        .environment(asanaManager)
+        .environment(hourglass)
         .modelContainer(previewContainer)
 }

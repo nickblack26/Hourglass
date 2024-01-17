@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TaskContextMenu: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     @Environment(\.modelContext) private var context
     @Bindable var task: aTask
     
@@ -41,7 +41,7 @@ struct TaskContextMenu: View {
         Divider()
         
         Button("Open details", systemImage: "sidebar.trailing") {
-            asanaManager.selectedTask = task
+            hourglass.selectedTask = task
         }
         
         Button("Copy task link", systemImage: "link") {

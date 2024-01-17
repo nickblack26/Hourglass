@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CurrentTimesheetView: View {
     @State private var timeFormatter = ElapsedTimeFormatter()
-    var color: AsanaColor
+    var color: ThemeColor
     var startDate: TimeInterval
     var name: String
     

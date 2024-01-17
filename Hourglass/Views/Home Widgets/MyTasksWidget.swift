@@ -17,7 +17,7 @@ func getCurrentWeeksDates() -> [Date] {
 }
 
 struct MyTasksWidget: View {
-    @Environment(HourglassManager.self) private var asanaManager
+    @Environment(HourglassManager.self) private var hourglass
     static var now: Date { Date.now }
     
     @Query(
@@ -221,7 +221,7 @@ struct MyTasksWidget: View {
         //        .draggable(MyTasksWidget) {
         //            MyTasksWidget()
         //                .onAppear {
-        //                    asanaManager.draggingWidget = MyTasksWidget
+        //                    hourglass.draggingWidget = MyTasksWidget
         //                }
         //        }
     }
