@@ -14,12 +14,9 @@ struct ProjectHeader: View {
             } label: {
                 Image(project.icon.icon)
                     .resizable()
-                    .frame(width: 25, height: 25)
-                    .padding()
-                    .background {
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(project.color.color)
-                    }
+                    .frame(width: 24, height: 24)
+                    .padding(8)
+					.background(project.color.color, in: .rect(cornerRadius: 8))
             }
             
             VStack(alignment: .leading) {
@@ -31,20 +28,9 @@ struct ProjectHeader: View {
                     
                     ProjectActionsMenu(project)
                     
-                    Button {
-                        withAnimation(.snappy) {
-                            project.starred.toggle()
-                        }
-                    } label: {
-                        Image(systemName: project.starred ? "star.fill" : "star")
-                            .fontWeight(.light)
-                            .foregroundStyle(project.color.color)
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(.clear)
-                    .foregroundStyle(.primary)
                     
-                    ProjectStatusMenu(project)
+                    
+                    
                 }
                 
                 HStack {

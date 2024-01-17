@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import CoreData
 
 let fullSchema = Schema(
     [
@@ -24,19 +25,22 @@ let fullSchema = Schema(
 
 @main
 struct Hourglass_App: App {
+	let storeURL = URL.documentsDirectory.appending(path: "shared.store")
+	@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State var cloudKitManager = CloudKitManager()
     @State var hourglass = HourglassManager()
-    let container: ModelContainer = {
-        do {
-            let config = ModelConfiguration("Hourglass", cloudKitDatabase: .automatic)
-			print(config.cloudKitContainerIdentifier, config.url, config.cloudKitDatabase, config.name)
-            let container = try ModelContainer(for: fullSchema, configurations: config)
-//			print(container.configurations[0].name)
-            return container
-        } catch {
-            fatalError("Failed to create model container.")
-        }
-    }()
+    let container: ModelContainer
+	
+	init() {
+		let config = ModelConfiguration(url: storeURL, cloudKitDatabase: .none)
+		var contain: ModelContainer? = nil
+		do {
+			contain = try ModelContainer(for: fullSchema, configurations: config)
+		} catch {
+			print("couldn't create ModelContainer()")
+		}
+		self.container = contain!
+	}
     
     var body: some Scene {
         WindowGroup {
@@ -44,6 +48,11 @@ struct Hourglass_App: App {
                 .onAppear {
                     hourglass.path.append(.home)
                 }
+				.sheet(item: $hourglass.selectedInvoice, content: { invoice in
+					Form {
+						
+					}
+				})
                 .sheet(item: $hourglass.selectedTask) { task in
                     TaskDetailView(task)
                         .environment(hourglass)

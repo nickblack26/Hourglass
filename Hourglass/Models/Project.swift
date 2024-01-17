@@ -21,9 +21,6 @@ final class Project: Codable {
     var dashboard: Dashboard?
     var client: Client?
     
-    @Relationship(deleteRule: .cascade, inverse: \aSection.project)
-    var sections: [aSection]?
-    
     // MARK: Explicit relationships
     @Relationship(deleteRule: .nullify, inverse: \aTask.projects)
     var tasks: [aTask]? = []
@@ -42,6 +39,12 @@ final class Project: Codable {
 	
 	@Relationship(deleteRule: .nullify, inverse: \StatusUpdate.project)
 	var statusUpdates: [StatusUpdate]? = []
+	
+	@Relationship(deleteRule: .cascade, inverse: \aSection.project)
+	var sections: [aSection]? = []
+	
+	@Relationship(deleteRule: .cascade, inverse: \Invoice.project)
+	var invoices: [Invoice]? = []
     
     init(
         name: String,

@@ -18,9 +18,6 @@ final class Client {
     @Relationship(deleteRule: .nullify, inverse: \Project.client)
     var projects: [Project]? = []
 	
-	@Relationship(deleteRule: .nullify, inverse: \Invoice.client)
-	var invoices: [Invoice]? = []
-	
     init(
         name: String,
         addressLine1: String? = nil,

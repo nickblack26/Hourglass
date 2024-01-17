@@ -47,25 +47,23 @@ struct SidebarView: View {
                 }
             }
             
-            SidebarSectionItem(label: "Insights") {
-                NavigationLink(value: SidebarLink.reporting) {
-                    Label("Reporting", systemImage: "chart.xyaxis.line")
-                }
-                
-                NavigationLink(value: SidebarLink.portfolios) {
-                    Label("Portfolios", systemImage: "folder")
-                }
-                
-                NavigationLink(value: SidebarLink.goals) {
-                    Label("Goals", systemImage: "mountain.2")
-                }
-            } action: {
-                
-            }
+//            SidebarSectionItem("Insights") {
+//				NavigationLink(value: SidebarLink.reporting) {
+//					Label("Reporting", systemImage: "chart.xyaxis.line")
+//				}
+//				
+//				NavigationLink(value: SidebarLink.portfolios) {
+//					Label("Portfolios", systemImage: "folder")
+//				}
+//				
+//				NavigationLink(value: SidebarLink.goals) {
+//					Label("Goals", systemImage: "mountain.2")
+//				}
+//            }
 
             
             if !starredProjects.isEmpty {
-                SidebarSectionItem(label: "Starred") {
+                SidebarSection(label: "Starred") {
                     ForEach(starredProjects) { project in
                         NavigationLink(value: SidebarLink.project(project)) {
                             ProjectListItem(
@@ -77,25 +75,18 @@ struct SidebarView: View {
                             ProjectListItemContextMenu(project)
                         }
                     }
-                } action: {
-                    
                 }
-
             }
             
-            SidebarSectionItem(label: "Clients") {
+            SidebarSection("Clients") {
                 ForEach(clients) { client in
                     NavigationLink(value: SidebarLink.client(client)) {
                         Label(client.name, systemImage: "person.2")
                     }
                 }
-            } action: {
-                Button("New client", systemImage: "person.2") {
-                    hourglass.newClient.toggle()
-                }
             }
             
-            SidebarSectionItem(label: "Projects") {
+            SidebarSection("Projects") {
                 ForEach(projects) { project in
                     NavigationLink(value: SidebarLink.project(project)) {
                         ProjectListItem(
@@ -107,12 +98,23 @@ struct SidebarView: View {
                         ProjectListItemContextMenu(project)
                     }
                 }
-            } action: {
-                Button("New project", systemImage: "clipboard") {
-                    newProject.toggle()
-                }
             }
         }
+		.navigationTitle("Hourglass")
+		.toolbar {
+			ToolbarItemGroup(placement: .primaryAction) {
+				Button("New project", systemImage: "folder") {
+					newProject.toggle()
+				}
+				
+				Button("New client", systemImage: "person.2") {
+					hourglass.newClient.toggle()
+				}
+				
+				Button("New task", systemImage: "checkmark.circle") {
+				}
+			}
+		}
         .fullScreenCover(isPresented: $newProject) {
             NavigationStack {
                 NewProjectView(isPresented: $newProject)

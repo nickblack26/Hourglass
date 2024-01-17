@@ -7,6 +7,7 @@ class HourglassManager {
     var newClient: Bool = false
     var selectedTask: aTask?
     var selectedTransaction: Transaction?
+    var selectedInvoice: Invoice?
     var draggingTask: aTask?
     var draggingSection: aSection?
     var draggingWidget: Widget?

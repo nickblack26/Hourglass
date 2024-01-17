@@ -24,44 +24,53 @@ struct ProjectView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            ProjectHeader(
-                selectedTab: $selectedTab,
-                project: project
-            )
+        VStack(alignment: .leading) {
+			HStack {
+				ForEach(Project.Tab.allCases, id: \.self) { tab in
+					Button(tab.rawValue, systemImage: tab.image) {
+						withAnimation(.snappy) {
+							selectedTab = tab
+						}
+					}
+					.tint(selectedTab == tab ? project.color.color : .secondary)
+				}
+			}
+			.padding(.horizontal)
             
             Divider()
             
-            HStack {
-                Button("Add task", systemImage: "plus") {
-                    withAnimation(.snappy) {
-                        addNewTask()
-                    }
-                }
-                .tint(.accent)
-                .buttonStyle(.borderedProminent)
-                
-                Menu("", systemImage: "chevron.down") {
-                    Button("Add section") {
-                        withAnimation(.snappy) {
-                            addNewSection()
-                        }
-                    }
-                    Button("Add milestone...", action: addNewSection)
-                    Button("Add custom field") {
-                        hourglass.selectedCustomField = .init()
-                    }
-                }
-                .labelsHidden()
-                .buttonStyle(.borderedProminent)
-                .tint(.clear)
-                .foregroundStyle(.primary)
-                
-                Spacer()
-                
-                
+			if selectedTab != .overview {
+            	HStack {
+					Button("Add task", systemImage: "plus") {
+						withAnimation(.snappy) {
+							addNewTask()
+						}
+					}
+					.tint(.accent)
+					.buttonStyle(.borderedProminent)
+					
+					Menu("", systemImage: "chevron.down") {
+						Button("Add section") {
+							withAnimation(.snappy) {
+								addNewSection()
+							}
+						}
+						Button("Add milestone...", action: addNewSection)
+						Button("Add custom field") {
+							hourglass.selectedCustomField = .init()
+						}
+					}
+					.labelsHidden()
+					.buttonStyle(.borderedProminent)
+					.tint(.clear)
+					.foregroundStyle(.primary)
+					
+					Spacer()
+					
+					
+				}
+				.padding([.horizontal, .top])
             }
-            .padding([.horizontal, .top])
             
             switch selectedTab {
             case .overview:
@@ -88,6 +97,7 @@ struct ProjectView: View {
                 EmptyView()
             }
         }
+		.searchable(text: .constant(""))
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle($project.name)
         .toolbar { ProjectToolbar(project: project) }

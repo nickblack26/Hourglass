@@ -6,47 +6,39 @@ struct ProjectToolbar: ToolbarContent {
     var project: Project
     
     var body: some ToolbarContent {
-        ToolbarItemGroup(placement: .primaryAction) {
-            Button(
-                "Edit project details",
-                systemImage: "pencil"
-            ) {
-                project.starred.toggle()
-            }
-        }
-        
-        ToolbarItemGroup(placement: .primaryAction) {
-            Button {
-                project.starred.toggle()
-            } label: {
-                Circle()
-                    .fill(ThemeColor.green.color)
-                    .frame(width: 12, height: 12)
-                
-                Text("Status")
-            }
-            .font(.subheadline)
-            .buttonStyle(.bordered)
-            .tint(.green)
-            .clipShape(Capsule())
-        }
-        
-        ToolbarItem(placement: .primaryAction) {
-            let isOnTheClock = asana.currentTimesheet != nil
-            Button(
-                isOnTheClock ? "End timer" : "Start timer",
-                systemImage: isOnTheClock ? "stop.fill" : "play.fill"
-            ) {
-                guard let timesheet = asana.currentTimesheet else {
-                    let newTimesheet = Timesheet(project: project, start: Date())
-                    context.insert(newTimesheet)
-                    asana.currentTimesheet = newTimesheet
-                    return
-                }
-                timesheet.end = Date()
-                asana.currentTimesheet = nil
-            }
-        }
+		ToolbarItem(placement: .topBarLeading) {
+			Image(project.icon.icon)
+				.resizable()
+				.frame(width: 12, height: 12)
+				.padding(8)
+				.background(project.color.color, in: .rect(cornerRadius: 8))
+		}
+		
+		ToolbarItemGroup(placement: .primaryAction) {
+			ShareLink(
+				project.name,
+				item: project,
+				preview: .init(
+					project.name,
+					icon: Image(project.icon.icon)
+				)
+			)
+			.tint(project.color.color)
+			
+			Button(
+				project.starred ? "Unfavorite" : "Favorite",
+				systemImage: project.starred ? "star.fill" : "star"
+			) {
+				withAnimation(.snappy) {
+					project.starred.toggle()
+				}
+			}
+			.tint(project.color.color)
+			
+			
+			ProjectActionsMenu(project)
+				.tint(project.color.color)
+		}
     }
 }
 

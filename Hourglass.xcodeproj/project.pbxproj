@@ -68,7 +68,7 @@
 		017C8BCF2A69E435006A2C74 /* TaskBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017C8BCE2A69E435006A2C74 /* TaskBoardView.swift */; };
 		0180287C2A6B3BBD00ED4BB9 /* ProjectHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0180287B2A6B3BBD00ED4BB9 /* ProjectHeader.swift */; };
 		0180945A2B30CFA200B22D82 /* ProjectListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018094592B30CFA200B22D82 /* ProjectListItem.swift */; };
-		0180945C2B30CFC600B22D82 /* SidebarSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0180945B2B30CFC600B22D82 /* SidebarSectionItem.swift */; };
+		0180945C2B30CFC600B22D82 /* SidebarSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0180945B2B30CFC600B22D82 /* SidebarSection.swift */; };
 		018BCE402A49E75800F2E7B8 /* AchievmentsWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BCE3F2A49E75800F2E7B8 /* AchievmentsWidgetView.swift */; };
 		018DF6782A5E103900752C32 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018DF6772A5E103900752C32 /* AvatarView.swift */; };
 		018DF67C2A5EEABD00752C32 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018DF67B2A5EEABD00752C32 /* Array+Extension.swift */; };
@@ -174,7 +174,7 @@
 		017C8BCE2A69E435006A2C74 /* TaskBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBoardView.swift; sourceTree = "<group>"; };
 		0180287B2A6B3BBD00ED4BB9 /* ProjectHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeader.swift; sourceTree = "<group>"; };
 		018094592B30CFA200B22D82 /* ProjectListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListItem.swift; sourceTree = "<group>"; };
-		0180945B2B30CFC600B22D82 /* SidebarSectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSectionItem.swift; sourceTree = "<group>"; };
+		0180945B2B30CFC600B22D82 /* SidebarSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSection.swift; sourceTree = "<group>"; };
 		018BCE3F2A49E75800F2E7B8 /* AchievmentsWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievmentsWidgetView.swift; sourceTree = "<group>"; };
 		018DF6772A5E103900752C32 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		018DF67B2A5EEABD00752C32 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
@@ -247,14 +247,14 @@
 		0100F5E62A43F3F3001BD781 /* Hourglass */ = {
 			isa = PBXGroup;
 			children = (
-				014BBA712B29687C0081D56F /* Hourglass-Info.plist */,
-				0100F5ED2A43F3F4001BD781 /* Hourglass.entitlements */,
-				0100F5E72A43F3F3001BD781 /* HourglassApp.swift */,
 				0100F5EB2A43F3F4001BD781 /* Assets.xcassets */,
 				0100F5E92A43F3F3001BD781 /* ContentView.swift */,
 				0151D09D2B49C5B500825215 /* Delegates */,
 				018DF67A2A5EEAAC00752C32 /* Extensions */,
 				015E46C12B57266100263B07 /* Formatters */,
+				014BBA712B29687C0081D56F /* Hourglass-Info.plist */,
+				0100F5ED2A43F3F4001BD781 /* Hourglass.entitlements */,
+				0100F5E72A43F3F3001BD781 /* HourglassApp.swift */,
 				0151D09E2B49C5CE00825215 /* Managers */,
 				01EA48472A474A9200B0E6C3 /* Models */,
 				0100F5EE2A43F3F4001BD781 /* Preview Content */,
@@ -437,7 +437,7 @@
 			children = (
 				019144792A56FC7900F33151 /* SidebarView.swift */,
 				018094592B30CFA200B22D82 /* ProjectListItem.swift */,
-				0180945B2B30CFC600B22D82 /* SidebarSectionItem.swift */,
+				0180945B2B30CFC600B22D82 /* SidebarSection.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -641,7 +641,7 @@
 				010D52002A44DD920030989B /* ProjectDashboardView.swift in Sources */,
 				01B178282B51A37400A63122 /* StatusSection.swift in Sources */,
 				01B1781C2B50A63100A63122 /* StatusUpdate.swift in Sources */,
-				0180945C2B30CFC600B22D82 /* SidebarSectionItem.swift in Sources */,
+				0180945C2B30CFC600B22D82 /* SidebarSection.swift in Sources */,
 				014BBA792B2B55820081D56F /* DeleteProjectSheet.swift in Sources */,
 				0106F2EF2A4B98050010B058 /* MyTasksWidget.swift in Sources */,
 				0197E6682B5700D40007BF19 /* Invoice.swift in Sources */,

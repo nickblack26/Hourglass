@@ -1,4 +1,6 @@
 import UIKit
+import CoreData
+import SwiftData
 import CloudKit
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -6,6 +8,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 		
 		return true
 	}
+			
+	var container: NSPersistentContainer = .init(name: "Hourglass", managedObjectModel: .init().makeManagedObjectModel(for: fullSchema)!)
 	
 	lazy var persistentContainer: NSPersistentCloudKitContainer = {
 		let container = NSPersistentCloudKitContainer(name: "Hourglass")

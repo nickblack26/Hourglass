@@ -4,6 +4,8 @@ import Charts
 
 struct ProjectOverviewTab: View {
     static var milestoneType: String = aTask.TaskType.milestone.rawValue
+	
+	@Environment(HourglassManager.self) private var hourglass
     
     @Query(
         filter: #Predicate<aTask> {
@@ -109,31 +111,56 @@ struct ProjectOverviewTab: View {
                     
                     Section("Invoices") {
                         Card {
-                            Table(invoices) {
-                                TableColumn("Invoice") { transaction in
-                                    if let invoice = transaction.invoice {
-                                        Text("\(invoice.number)")
-                                    }
-                                }
-                                
-                                TableColumn("Created At") { transaction in
-                                    if let invoice = transaction.invoice {
-                                        Text(invoice.createdAt.formatted(date: .abbreviated, time: .omitted))
-                                    }
-                                }
-                                
-                                TableColumn("Due") { transaction in
-                                    if let invoice = transaction.invoice, let dueDate = invoice.dueDate {
-                                        Text(dueDate.formatted(date: .abbreviated, time: .omitted))
-                                    }
-                                }
-                                
-                                TableColumn("Amount") { transaction in
-                                    if let invoice = transaction.invoice {
-                                        Text(invoice.number, format: .currency(code: "USD"))
-                                    }
-                                }
-                            }
+							HStack {
+								if invoices.isEmpty {
+									Image("key_resources")
+										.resizable()
+										.frame(
+											width: 128,
+											height: 128
+										)
+									VStack(alignment: .leading,
+										   content: {
+										Text("Don't let your work float in the void: tether it to payment with a clear, crisp invoice.")
+										
+										Button(
+											"Create invoice",
+											systemImage: "list.clipboard"
+										) {
+											hourglass.selectedInvoice = .init(
+												name: "",
+												project: project
+											)
+										}
+									})
+								} else {
+									Table(invoices) {
+										TableColumn("Invoice") { transaction in
+											if let invoice = transaction.invoice {
+												Text("\(invoice.number)")
+											}
+										}
+										
+										TableColumn("Created At") { transaction in
+											if let invoice = transaction.invoice {
+												Text(invoice.createdAt.formatted(date: .abbreviated, time: .omitted))
+											}
+										}
+										
+										TableColumn("Due") { transaction in
+											if let invoice = transaction.invoice, let dueDate = invoice.dueDate {
+												Text(dueDate.formatted(date: .abbreviated, time: .omitted))
+											}
+										}
+										
+										TableColumn("Amount") { transaction in
+											if let invoice = transaction.invoice {
+												Text(invoice.number, format: .currency(code: "USD"))
+											}
+										}
+									}
+								}
+							}
                         }
                     }
                     .listRowSeparator(.hidden)

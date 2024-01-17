@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ProjectActionsMenu: View {
+	@Environment(\.modelContext) private var context
     @State private var showDetails: Bool = false
     @State private var showProjectPermissions: Bool = false
     @State private var showDuplicateProject: Bool = false
@@ -12,7 +13,10 @@ struct ProjectActionsMenu: View {
     }
     
     var body: some View {
-        Menu {
+		Menu(
+			"Project actions",
+			systemImage: "chevron.down"
+		) {
             Section {
                 Button("Edit project details", systemImage: "pencil") {
                     showDetails.toggle()
@@ -46,31 +50,26 @@ struct ProjectActionsMenu: View {
             }
             
             Section {
-                Button("Archive", systemImage: "archivebox") {
-                    
+				Button(
+					project.archived ? "Unarchive" : "Archive",
+					systemImage: project.archived ? "archivebox" : "archivebox.fill"
+				) {
+					withAnimation(.snappy) {
+						project.archived.toggle()
+					}
                 }
                 
-                Button("Delete project", systemImage: "trash", role: .destructive) {
-                    showDeleteProject.toggle()
+				Button(
+					"Delete project",
+					systemImage: "trash",
+					role: .destructive
+				) {
+					withAnimation(.snappy) {
+						context.delete(project)
+					}
                 }
             }
-            
-        } label: {
-            Image(systemName: "chevron.down")
         }
-        .labelsHidden()
-        .sheet(isPresented: $showDetails, content: {
-            
-        })
-        .sheet(isPresented: $showProjectPermissions, content: {
-            
-        })
-        .sheet(isPresented: $showDuplicateProject, content: {
-            
-        })
-        .sheet(isPresented: $showDeleteProject, content: {
-            DeleteProjectSheet(project)
-        })
     }
 }
 

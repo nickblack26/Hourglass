@@ -14,11 +14,8 @@ class CloudKitManager {
     var userName: String = ""
     
     init() {
-//        let shared = CKContainer.default().sharedCloudDatabase
-//        shared.acceptShare
-        SwiftUI.Task {
+        Task {
             try? await getUserInformation()
-            
         }
     }
     
