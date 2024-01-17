@@ -3,7 +3,7 @@ import SwiftData
 
 @Model
 final class Goal {
-    var name : String
+    var name : String = ""
     var liked: Bool = false
     var dueOn: Date?
     var htmlNotes: Data?
@@ -11,6 +11,8 @@ final class Goal {
     var startOn : Date?
     var status : StatusType?
     var numLikes : Int?
+	
+	@Relationship(inverse: \StatusUpdate.goal)
     var currentStatusUpdate: StatusUpdate?
 
     init(

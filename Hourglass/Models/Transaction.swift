@@ -12,9 +12,11 @@ final class Transaction {
     var project: Project?
     var merchant: Merchant?
     var purpose: String = ""
-    var invoice: Invoice?
     var note: String?
     var createdAt: Date = Date()
+	
+	@Relationship(deleteRule: .nullify, inverse: \Invoice.transaction)
+	var invoice: Invoice?
     
     init(
         name: String,

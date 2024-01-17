@@ -30,7 +30,7 @@ struct StatusUpdateBuilder: View {
                         
                         Divider()
                         
-                        ForEach(statusUpdate.sections) { section in
+                        ForEach(statusUpdate.sections ?? []) { section in
                             StatusSectionView(section: section)
                         }
                     }

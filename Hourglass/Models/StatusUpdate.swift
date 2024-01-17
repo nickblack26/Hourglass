@@ -13,12 +13,13 @@ final class StatusUpdate {
     var modifiedAt: String?
     var numHearts: Int?
     var numLikes: Int?
+	var goal: Goal?
     
 //    var portfolio: Por
     var project: Project?
     
     @Relationship(deleteRule: .cascade, inverse: \StatusSection.statusUpdate)
-    var sections: [StatusSection] = []
+    var sections: [StatusSection]? = []
     
     init(
         htmlText: Data? = nil,

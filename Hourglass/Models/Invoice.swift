@@ -9,9 +9,10 @@ final class Invoice {
     var dueDate: Date?
     var customDueDate: DueDate?
     var createdAt: Date = Date.now
-    
+	var transaction: Transaction?
+	
     @Relationship(deleteRule: .nullify, inverse: \Contact.invoice)
-    var contacts: [Contact] = []
+    var contacts: [Contact]? = []
     
     init(name: String) {
         self.name = name

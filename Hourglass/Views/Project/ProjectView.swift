@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import SwiftDataKit
 
 struct ProjectView: View {
     @Environment(\.modelContext) private var modelContext

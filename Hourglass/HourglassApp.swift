@@ -28,10 +28,10 @@ struct Hourglass_App: App {
     @State var hourglass = HourglassManager()
     let container: ModelContainer = {
         do {
-            let config = ModelConfiguration("Hourglass", cloudKitDatabase: .none)
-            
+            let config = ModelConfiguration("Hourglass", cloudKitDatabase: .automatic)
+			print(config.cloudKitContainerIdentifier, config.url, config.cloudKitDatabase, config.name)
             let container = try ModelContainer(for: fullSchema, configurations: config)
-            
+//			print(container.configurations[0].name)
             return container
         } catch {
             fatalError("Failed to create model container.")

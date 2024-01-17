@@ -9,7 +9,7 @@ final class StatusSection {
     var statusUpdate: StatusUpdate?
     
     @Relationship(deleteRule: .cascade, inverse: \aChart.statusSection)
-    var charts: [aChart] = []
+    var charts: [aChart]? = []
     
     init(name: String, htmlText: Data? = nil, order: Int = 0) {
         self.name = name

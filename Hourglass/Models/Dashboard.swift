@@ -3,15 +3,17 @@ import SwiftData
 
 @Model
 final class Dashboard {
-    var name: String
+    var name: String = ""
     var notes: String?
     var icon: Icon = Icon.report
-    var color: ThemeColor
+	var color: ThemeColor = ThemeColor.none
     var starred: Bool = false
+	
+	@Relationship(inverse: \Project.dashboard)
     var project: Project?
     
     @Relationship(deleteRule: .cascade, inverse: \aChart.dashboard)
-    var charts: [aChart] = []
+    var charts: [aChart]? = []
     
     init(
         name: String,

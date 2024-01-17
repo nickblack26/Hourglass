@@ -66,7 +66,7 @@ struct ClientDetailOverviewTab: View {
                 
                 Card {
                     VStack(alignment: .leading) {
-                        Text("Contacts (\(client.contacts.count))")
+						Text("Contacts (\(client.contacts?.count ?? 0))")
                             .font(.title3)
                         
                         LazyVGrid(
@@ -98,7 +98,7 @@ struct ClientDetailOverviewTab: View {
                             .tint(.clear)
                             .foregroundStyle(.secondary)
                             
-                            ForEach(client.contacts) { contact in
+							ForEach(client.contacts ?? []) { contact in
                                 HStack {
                                     AvatarView(
                                         image: nil,

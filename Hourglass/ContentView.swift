@@ -4,7 +4,8 @@ import SwiftData
 struct ContentView: View {
     // MARK: Environment Variables
     @Environment(HourglassManager.self) private var hourglass
-    
+	@Environment(\.modelContext) private var context
+	
     // MARK: State Variables
     @State private var colorScheme: ColorScheme = .white
     
@@ -24,6 +25,9 @@ struct ContentView: View {
                 }
             }
         )
+		.onAppear {
+			print(context)
+		}
     }
 }
 

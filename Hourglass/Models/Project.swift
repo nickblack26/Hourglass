@@ -35,10 +35,13 @@ final class Project: Codable {
     var customFields: [CustomField]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \Transaction.project)
-    var transactions: [Transaction] = []
+    var transactions: [Transaction]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \Timesheet.project)
-    var timesheets: [Timesheet] = []
+    var timesheets: [Timesheet]? = []
+	
+	@Relationship(deleteRule: .nullify, inverse: \StatusUpdate.project)
+	var statusUpdates: [StatusUpdate]? = []
     
     init(
         name: String,
