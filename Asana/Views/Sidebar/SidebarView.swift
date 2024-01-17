@@ -17,6 +17,12 @@ struct SidebarView: View {
     )
     private var starredProjects: [Project]
     
+    @Query(
+        filter: #Predicate<Client> { !$0.archived },
+        sort: \Client.name
+    )
+    private var clients: [Client]
+    
     @State private var newProject: Bool = false
     
     var body: some View {
@@ -35,8 +41,12 @@ struct SidebarView: View {
                 NavigationLink(value: SidebarLink.inbox) {
                     Label("Inbox", systemImage: "bell")
                 }
+                
+                NavigationLink(value: SidebarLink.transactions) {
+                    Label("Transactions", systemImage: "chart.bar")
+                }
             }
-               
+            
             SidebarSectionItem(label: "Insights") {
                 NavigationLink(value: SidebarLink.reporting) {
                     Label("Reporting", systemImage: "chart.xyaxis.line")
@@ -49,7 +59,10 @@ struct SidebarView: View {
                 NavigationLink(value: SidebarLink.goals) {
                     Label("Goals", systemImage: "mountain.2")
                 }
+            } action: {
+                
             }
+
             
             if !starredProjects.isEmpty {
                 SidebarSectionItem(label: "Starred") {
@@ -64,6 +77,21 @@ struct SidebarView: View {
                             ProjectListItemContextMenu(project)
                         }
                     }
+                } action: {
+                    
+                }
+
+            }
+            
+            SidebarSectionItem(label: "Clients") {
+                ForEach(clients) { client in
+                    NavigationLink(value: SidebarLink.client(client)) {
+                        Label(client.name, systemImage: "person.2")
+                    }
+                }
+            } action: {
+                Button("New client", systemImage: "person.2") {
+                    asanaManager.newClient.toggle()
                 }
             }
             
@@ -79,12 +107,13 @@ struct SidebarView: View {
                         ProjectListItemContextMenu(project)
                     }
                 }
+            } action: {
+                Button("New project", systemImage: "clipboard") {
+                    newProject.toggle()
+                }
             }
         }
-#if targetEnvironment(macCatalyst)
-        .toolbar(removing: .sidebarToggle)        
-#endif
-        .fullScreenCover(isPresented: $newProject, content: {
+        .fullScreenCover(isPresented: $newProject) {
             NavigationStack {
                 NewProjectView(isPresented: $newProject)
                     .toolbar {
@@ -97,8 +126,7 @@ struct SidebarView: View {
                         }
                     }
             }
-        })
-        .navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 400)
+        }
     }
 }
 

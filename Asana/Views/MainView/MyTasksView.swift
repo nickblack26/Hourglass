@@ -147,18 +147,22 @@ struct MyTasksView: View {
         }
         .onAppear {
             if sections.isEmpty {
-                let section = aSection(
-                    name: "",
-                    order: 0
-                )
-                modelContext.insert(section)
+                let recentlyAssignedSection: aSection = .init(name: "Recently assigned", order: 0)
+                let doTodaySection: aSection = .init(name: "Do today", order: 1)
+                let doNextWeekSection: aSection = .init(name: "Do next week", order: 2)
+                let doLaterSection: aSection = .init(name: "Do later", order: 3)
+                
+                modelContext.insert(recentlyAssignedSection)
+                modelContext.insert(doTodaySection)
+                modelContext.insert(doNextWeekSection)
+                modelContext.insert(doLaterSection)
             }
         }
     }
     
     private func addNewSection() {
         let section = aSection(name: "", order: sections.count)
-       
+        
         modelContext.insert(section)
     }
     

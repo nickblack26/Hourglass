@@ -10,6 +10,16 @@ extension Binding where Value == String {
     }
 }
 
+extension Binding where Value == Int {
+    init(value: Binding<Int?>) {
+        self.init {
+            value.wrappedValue ?? 0
+        } set: { newValue in
+            value.wrappedValue = newValue
+        }
+    }
+}
+
 extension Binding where Value == NSAttributedString {
     init(value: Binding<Data?>) {
         self.init {

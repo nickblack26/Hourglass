@@ -18,7 +18,6 @@ struct ContentView: View {
             }, detail: {
                 NavigationStack {
                     ContentDetail()
-//                        .toolbar(.hidden)
                         .inspector(isPresented: $asanaManager.showHomeCustomization) {
                             HomeInspector(colorScheme: $colorScheme)
                         }

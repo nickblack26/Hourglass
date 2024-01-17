@@ -1,29 +1,31 @@
 import SwiftUI
 import SwiftData
 
-
 struct HomeView: View {
-    static var weekStartDate: Date { Date().startOfWeek() }
-    static var monthStartDate: Date { Date().startOfMonth() }
+    static var weekStartDate: Date = Date().startOfWeek()
+    static var monthStartDate: Date = Date().startOfMonth()
     
     // MARK: Environment Variables
     @Environment(CloudKitManager.self) private var cloudKitManager
     @Environment(AsanaManager.self) private var asanaManager
-    @Environment(\.colorScheme) var backgroundColor
     
     // MARK: Data Variables
     @Query(sort: \aTask.order )
     private var tasks: [aTask]
     
-    @Query(filter: #Predicate<aTask> { $0.isCompleted && $0.completedAt != nil && $0.completedAt! >= weekStartDate } )
+    @Query(
+        filter: #Predicate<aTask> { 
+            $0.isCompleted && $0.completedAt != nil && $0.completedAt! >= weekStartDate
+        }
+    )
     private var weeklyTaskCompleted: [aTask]
     
-    @Query(filter: #Predicate<aTask> { $0.isCompleted && $0.completedAt != nil && $0.completedAt! >= monthStartDate } )
+    @Query(
+        filter: #Predicate<aTask> {
+            $0.isCompleted && $0.completedAt != nil && $0.completedAt! >= monthStartDate
+        }
+    )
     private var monthlyTasksCompleted: [aTask]
-    
-    // MARK: State Variables
-	@State private var colorScheme: ColorScheme = .white
-		
 	
 	var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -67,96 +69,36 @@ struct HomeView: View {
                         }
                         
                     }
-                    
-                    let gridItems = [
-                        GridItem(.fixed(500), spacing: 32, alignment: .leading),
-                        GridItem(.fixed(500), spacing: 32, alignment: .leading)
-                    ]
-                    
-                    
-                    Grid {
-                        GridRow {
-                            Color.clear
-                            Color.clear
-                        }
-                        let widgets = asanaManager.availableWidgets
-                        var widgetTotal = widgets.count
-                        ForEach(widgets.indices, id: \.self) { index in
-                            if index != widgetTotal {
-                                
-                            }
-                            GridRow {
-                                ZStack {
-                                    switch widgets[index].type {
-                                        case .myTasks:
-                                            MyTasksWidget()
-                                        case .people:
-                                            Text(widgets[index].name)
-                                        case .projects:
-                                            ProjectsWidget()
-                                        case .notepad:
-                                            PrivateNotepadWidgetView()
-                                        case .tasksAssigned:
-                                            Text(widgets[index].name)
-                                        case .draftComments:
-                                            Text(widgets[index].name)
-                                        case .forms:
-                                            Text(widgets[index].name)
-                                        case .myGoals:
-                                            Text(widgets[index].name)
-                                    }
+                
+                    LazyVGrid(columns: [GridItem(), GridItem()], spacing: 32) {
+                        ForEach(asanaManager.availableWidgets) { widget in
+                            ZStack {
+                                switch widget.type {
+                                    case .myTasks:
+                                        MyTasksWidget()
+                                    case .people:
+                                        Text(widget.name)
+                                    case .projects:
+                                        ProjectsWidget()
+                                    case .notepad:
+                                        PrivateNotepadWidgetView()
+                                    case .tasksAssigned:
+                                        Text(widget.name)
+                                    case .draftComments:
+                                        Text(widget.name)
+                                    case .forms:
+                                        Text(widget.name)
+                                    case .myGoals:
+                                        Text(widget.name)
                                 }
-                                .gridCellColumns(widgets[index].columns)
                             }
                         }
                     }
-                    
-                    
-//                    LazyVGrid(columns: gridItems, spacing: 32) {
-//                        ForEach(asanaManager.availableWidgets) { widget in
-
-//                            .frame(
-//                                width: widget.columns == 2 ? 1032 : .infinity,
-//                                height: 400
-//                            )
-////                            .frame(
-////                                maxWidth: .infinity,
-////                                maxHeight: .infinity,
-////                                alignment: .topLeading
-////                            )
-////                            .frame(
-////                                maxWidth: .infinity,
-////                                maxHeight: .infinity,
-////                                alignment: .topLeading
-////                            )
-////                            .padding(8)
-//                            
-//                            if widget.columns == 2 { Color.clear }
-//                        }
-//                    }
-//                    .frame(
-//                        maxWidth: .infinity,
-//                        maxHeight: .infinity,
-//                        alignment: .topLeading
-//                    )
                 }
                 .frame(maxWidth: 1575)
             }
         }
 		.padding()
-		.background {
-			if(backgroundColor == .dark && colorScheme == .white) {
-				Image("\(colorScheme.preferences.image)_background")
-					.resizable()
-					.scaledToFill()
-					.edgesIgnoringSafeArea(.all)
-			} else if (colorScheme != .white) {
-				Image("\(colorScheme.preferences.image)_background")
-					.resizable()
-					.scaledToFill()
-					.edgesIgnoringSafeArea(.all)
-			}
-		}
 	}
 }
 

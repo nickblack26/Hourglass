@@ -8,7 +8,9 @@ struct ContentDetail: View {
 			case .home:
 				HomeView()
 			case .myTasks:
-				MyTasksView()
+                MyTasksView()
+            case .transactions:
+				TransactionsOverviewView()
 			case .inbox:
 				InboxView()
 			case .reporting:
@@ -19,6 +21,8 @@ struct ContentDetail: View {
 				GoalView()
 			case .project(let project):
 				ProjectView(project)
+            case .client(let client):
+                Text(client.name)
 			case nil:
 				ContentUnavailableView {
 					Image(systemName: "magnifyingglass.circle")

@@ -1,35 +1,64 @@
 import SwiftUI
 import SwiftData
+import Charts
 
 struct ProjectOverviewTab: View {
-    static var milestoneType: String { aTask.TaskType.milestone.rawValue }
+    static var milestoneType: String = aTask.TaskType.milestone.rawValue
+    
     @Query(
-        filter: #Predicate<aTask> { !$0.isCompleted && $0.taskType.rawValue == milestoneType }
+        filter: #Predicate<aTask> {
+            !$0.isCompleted
+        }
     )
     private var milestones: [aTask]
-	@State private var description: String = "This project is a personal project that will develop my SwiftUI skills."
-	
-	var body: some View {
-		HStack(alignment: .top) {
-            ScrollView {
-                LazyVStack(alignment: .leading) {
-                    Section {
+    
+    @Query private var goals: [Goal]
+    @Query private var invoices: [Transaction]
+    @Query private var transactions: [Transaction]
+    @Query private var timesheets: [Timesheet]
+    
+    var project: Project
+    
+    init(_ project: Project) {
+        let projectId = project.persistentModelID
+        self.project = project
+        self._invoices = Query(
+            filter: #Predicate<Transaction> {
+                $0.project != nil && $0.invoice != nil && $0.project?.persistentModelID == projectId
+            }
+        )
+        self._transactions = Query(
+            filter: #Predicate<Transaction> {
+                $0.project != nil && $0.invoice == nil && $0.project?.persistentModelID == projectId
+            }
+        )
+    }
+    
+    var body: some View {
+        Grid(alignment: .topLeading) {
+            GridRow(alignment: .top) {
+                List {
+                    Section("Project description") {
                         TextView(
                             attributedText: .constant(
                                 NSAttributedString(string: "")
                             )
                         )
-                    } header: {
-                        Text("Project description")
-                            .font(.title2)
-                            .fontWeight(.medium)
+                        .frame(minHeight: 100)
                     }
+                    .listRowSeparator(.hidden)
                     
-                    Section {
-                        Card(.constant(false)) {
+                    Section("Connected goals") {
+                        Card {
                             HStack {
                                 Image("shooting_target")
-                                VStack {
+                                    .resizable()
+                                    .frame(
+                                        width: 128,
+                                        height: 128
+                                    )
+                                
+                                VStack(alignment: .leading) {
                                     Text("Connect or create a goal to link this project to a larger purpose.")
                                     Menu {
                                         Button("Connect existing goal", systemImage: "triangle") {
@@ -55,19 +84,17 @@ struct ProjectOverviewTab: View {
                                 }
                             }
                         }
-                    } header: {
-                       Text("Connected goals")
-                            .font(.title2)
                     }
+                    .listRowSeparator(.hidden)
                     
-                    Section {
-                        Card(.constant(false)) {
+                    Section("Connected portfolios") {
+                        Card {
                             HStack {
                                 Image("organization_structure")
-                                VStack {
+                                VStack(alignment: .leading) {
                                     Text("Connect a portfolio to link this project to a larger body of work.")
                                     Menu {
-                                       
+                                        
                                     } label: {
                                         HStack {
                                             Image(systemName: "folder")
@@ -77,63 +104,116 @@ struct ProjectOverviewTab: View {
                                 }
                             }
                         }
-                    } header: {
-                       Text("Connected portfolios")
-                            .font(.title2)
                     }
+                    .listRowSeparator(.hidden)
                     
-                    Section {
-                        Card(.constant(false)) {
-                            HStack {
-                                Image("key_resources")
-                                VStack {
-                                    Text("Align your team around a shared vision with a project brief and supporting resources.")
-                                    HStack {
-                                        Menu {
-                                           
-                                        } label: {
-                                            HStack {
-                                                Image(systemName: "folder")
-                                                Text("Create project brief")
-                                            }
-                                        }
-                                        Menu {
-                                           
-                                        } label: {
-                                            HStack {
-                                                Image(systemName: "paperclip")
-                                                Text("Add links & files")
-                                            }
-                                        }
+                    Section("Invoices") {
+                        Card {
+                            Table(invoices) {
+                                TableColumn("Invoice") { transaction in
+                                    if let invoice = transaction.invoice {
+                                        Text("\(invoice.number)")
+                                    }
+                                }
+                                
+                                TableColumn("Created At") { transaction in
+                                    if let invoice = transaction.invoice {
+                                        Text(invoice.createdAt.formatted(date: .abbreviated, time: .omitted))
+                                    }
+                                }
+                                
+                                TableColumn("Due") { transaction in
+                                    if let invoice = transaction.invoice, let dueDate = invoice.dueDate {
+                                        Text(dueDate.formatted(date: .abbreviated, time: .omitted))
+                                    }
+                                }
+                                
+                                TableColumn("Amount") { transaction in
+                                    if let invoice = transaction.invoice {
+                                        Text(invoice.number, format: .currency(code: "USD"))
                                     }
                                 }
                             }
                         }
-                    } header: {
-                       Text("Key resources")
-                            .font(.title2)
                     }
+                    .listRowSeparator(.hidden)
                     
-                    Section {
+                    Section("Transactions") {
+                        Chart {
+                            ForEach(timesheets) {
+                                BarMark(
+                                    x: .value(
+                                        "Day",
+                                        $0.start,
+                                        unit: .day
+                                    ),
+                                    y: .value(
+                                        "Hour",
+                                        $0.start,
+                                        unit: .hour
+                                    )
+                                )
+                            }
+                            
+                            RuleMark(y: .value("", 28))
+                        }
+                        
+                        Card {
+                            Table(transactions) {
+                                TableColumn("Description") { transaction in
+                                    Text(transaction.purpose)
+                                }
+                                
+                                TableColumn("Merchant") { transaction in
+                                    Text(transaction.merchant?.name ?? "")
+                                }
+                                
+                                TableColumn("Created At") { transaction in
+                                    Text(transaction.createdAt.formatted(date: .abbreviated, time: .omitted))
+                                }
+                                
+                                TableColumn("Due") { transaction in
+                                    Text(transaction.date.formatted(date: .abbreviated, time: .omitted))
+                                }
+                                
+                                TableColumn("Amount") { transaction in
+                                    Text(transaction.total, format: .currency(code: "USD"))
+                                }
+                            }
+                        }
+                    }
+                    .listRowSeparator(.hidden)
+                    
+                    Section("Milestones") {
                         ForEach(milestones) { milestone in
                             Text(milestone.name)
                             Divider()
                         }
                         .listStyle(.plain)
-                    } header: {
-                       HStack {
-                           Text("Milestones")
-                                .font(.title2)
-                           
-                           Image(systemName: "plus")
-                       }
                     }
+                    .listRowSeparator(.hidden)
                 }
+                .listStyle(.plain)
+                .padding()
+                .gridCellColumns(2)
+                
+                List {
+                    
+                }
+                .gridCellColumns(1)
+                .listStyle(.plain)
+                .padding()
+                .scrollContentBackground(.hidden)
+                .background(
+                    Color(
+                        uiColor: .systemGray6
+                    )
+                )
             }
-		}
-	}
+        }
+    }
 }
 
 #Preview {
-	ProjectOverviewTab()
+    ProjectOverviewTab(.init(name: ""))
 }

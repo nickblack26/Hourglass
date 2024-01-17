@@ -9,9 +9,15 @@ struct Card<Content: View>: View {
         self.content = content
     }
     
+    init(content: @escaping () -> Content) {
+        self._isHovering = .constant(false)
+        self.content = content
+    }
+    
     var body: some View {
         content()
             .padding(16)
+            .frame(maxWidth: .infinity)
             .background {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(.background)

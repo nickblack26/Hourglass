@@ -24,7 +24,6 @@
 		010D52062A44DDB40030989B /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D52052A44DDB40030989B /* ProjectView.swift */; };
 		011E97682B508A7F000EBE14 /* CustomToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E97672B508A7F000EBE14 /* CustomToolbarItem.swift */; };
 		011E976A2B509529000EBE14 /* ReportingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E97692B509529000EBE14 /* ReportingView.swift */; };
-		011EBC892B4A03430003BC76 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011EBC882B4A03430003BC76 /* Story.swift */; };
 		011EBC8B2B4C412D0003BC76 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011EBC8A2B4C412D0003BC76 /* Dashboard.swift */; };
 		011EBC8D2B4C49F90003BC76 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011EBC8C2B4C49F90003BC76 /* Goal.swift */; };
 		011EBC8F2B4C5AC50003BC76 /* CustomField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011EBC8E2B4C5AC50003BC76 /* CustomField.swift */; };
@@ -49,6 +48,12 @@
 		014BBA8C2B2BA1F20081D56F /* SectionActionsContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BBA8B2B2BA1F20081D56F /* SectionActionsContent.swift */; };
 		014BDE0C2B2E76FC00361BF5 /* TaskCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BDE0B2B2E76FC00361BF5 /* TaskCalendarView.swift */; };
 		0151D09C2B47795C00825215 /* PageTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0151D09B2B47795C00825215 /* PageTabButton.swift */; };
+		015E46C32B57266B00263B07 /* DateComponentsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015E46C22B57266B00263B07 /* DateComponentsFormatter.swift */; };
+		015E46C52B57295100263B07 /* CurrentTimesheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015E46C42B57295100263B07 /* CurrentTimesheetView.swift */; };
+		015E46C72B57357F00263B07 /* TransactionsOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015E46C62B57357F00263B07 /* TransactionsOverviewView.swift */; };
+		015E46C92B573A2F00263B07 /* ClientSheetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015E46C82B573A2F00263B07 /* ClientSheetContent.swift */; };
+		015E46CB2B573D5D00263B07 /* ClientDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015E46CA2B573D5D00263B07 /* ClientDetailView.swift */; };
+		015E46CE2B573E1E00263B07 /* ClientDetailOverviewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015E46CD2B573E1E00263B07 /* ClientDetailOverviewTab.swift */; };
 		0168B9F62B51B2A600B9BB4B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0168B9F52B51B2A600B9BB4B /* Card.swift */; };
 		016F4B672B52F313000514FC /* ColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016F4B662B52F313000514FC /* ColumnView.swift */; };
 		016F4B692B52F333000514FC /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016F4B682B52F333000514FC /* TasksView.swift */; };
@@ -70,6 +75,12 @@
 		018E722F2A49FA2E001481F3 /* HomeInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E722E2A49FA2E001481F3 /* HomeInspector.swift */; };
 		018E72322A49FB4A001481F3 /* SwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E72312A49FB4A001481F3 /* SwatchView.swift */; };
 		0191447A2A56FC7900F33151 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019144792A56FC7900F33151 /* SidebarView.swift */; };
+		0197E6682B5700D40007BF19 /* Invoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197E6672B5700D40007BF19 /* Invoice.swift */; };
+		0197E66A2B5709C50007BF19 /* Merchant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197E6692B5709C50007BF19 /* Merchant.swift */; };
+		0197E66C2B5709E70007BF19 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197E66B2B5709E70007BF19 /* Transaction.swift */; };
+		0197E66E2B570A120007BF19 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197E66D2B570A120007BF19 /* Contact.swift */; };
+		0197E6702B570A560007BF19 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197E66F2B570A560007BF19 /* Client.swift */; };
+		0197E6722B570C790007BF19 /* Timesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197E6712B570C790007BF19 /* Timesheet.swift */; };
 		01A142052A5C562B0090BDEF /* ContentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A142042A5C562B0090BDEF /* ContentDetail.swift */; };
 		01A1420A2A5C63770090BDEF /* NewDashboardModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A142092A5C63770090BDEF /* NewDashboardModal.swift */; };
 		01A1420C2A5C6D120090BDEF /* aChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1420B2A5C6D120090BDEF /* aChart.swift */; };
@@ -120,7 +131,6 @@
 		010D52052A44DDB40030989B /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		011E97672B508A7F000EBE14 /* CustomToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolbarItem.swift; sourceTree = "<group>"; };
 		011E97692B509529000EBE14 /* ReportingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportingView.swift; sourceTree = "<group>"; };
-		011EBC882B4A03430003BC76 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		011EBC8A2B4C412D0003BC76 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		011EBC8C2B4C49F90003BC76 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		011EBC8E2B4C5AC50003BC76 /* CustomField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomField.swift; sourceTree = "<group>"; };
@@ -145,6 +155,12 @@
 		014BBA8B2B2BA1F20081D56F /* SectionActionsContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionActionsContent.swift; sourceTree = "<group>"; };
 		014BDE0B2B2E76FC00361BF5 /* TaskCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCalendarView.swift; sourceTree = "<group>"; };
 		0151D09B2B47795C00825215 /* PageTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTabButton.swift; sourceTree = "<group>"; };
+		015E46C22B57266B00263B07 /* DateComponentsFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponentsFormatter.swift; sourceTree = "<group>"; };
+		015E46C42B57295100263B07 /* CurrentTimesheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTimesheetView.swift; sourceTree = "<group>"; };
+		015E46C62B57357F00263B07 /* TransactionsOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsOverviewView.swift; sourceTree = "<group>"; };
+		015E46C82B573A2F00263B07 /* ClientSheetContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSheetContent.swift; sourceTree = "<group>"; };
+		015E46CA2B573D5D00263B07 /* ClientDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailView.swift; sourceTree = "<group>"; };
+		015E46CD2B573E1E00263B07 /* ClientDetailOverviewTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailOverviewTab.swift; sourceTree = "<group>"; };
 		0168B9F52B51B2A600B9BB4B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		016F4B662B52F313000514FC /* ColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnView.swift; sourceTree = "<group>"; };
 		016F4B682B52F333000514FC /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
@@ -166,6 +182,12 @@
 		018E722E2A49FA2E001481F3 /* HomeInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInspector.swift; sourceTree = "<group>"; };
 		018E72312A49FB4A001481F3 /* SwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwatchView.swift; sourceTree = "<group>"; };
 		019144792A56FC7900F33151 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		0197E6672B5700D40007BF19 /* Invoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoice.swift; sourceTree = "<group>"; };
+		0197E6692B5709C50007BF19 /* Merchant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Merchant.swift; sourceTree = "<group>"; };
+		0197E66B2B5709E70007BF19 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		0197E66D2B570A120007BF19 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		0197E66F2B570A560007BF19 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		0197E6712B570C790007BF19 /* Timesheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timesheet.swift; sourceTree = "<group>"; };
 		01A142042A5C562B0090BDEF /* ContentDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetail.swift; sourceTree = "<group>"; };
 		01A142092A5C63770090BDEF /* NewDashboardModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDashboardModal.swift; sourceTree = "<group>"; };
 		01A1420B2A5C6D120090BDEF /* aChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aChart.swift; sourceTree = "<group>"; };
@@ -227,6 +249,7 @@
 		0100F5E62A43F3F3001BD781 /* Asana */ = {
 			isa = PBXGroup;
 			children = (
+				015E46C12B57266100263B07 /* Formatters */,
 				014BBA712B29687C0081D56F /* Asana-Info.plist */,
 				0100F5ED2A43F3F4001BD781 /* Asana.entitlements */,
 				0100F5E72A43F3F3001BD781 /* AsanaApp.swift */,
@@ -274,6 +297,10 @@
 				01A1926A2B228888009BF39B /* Tasks */,
 				01AE46232B557BFA00E89259 /* Toolbars */,
 				013810722B27DD4D003EE7E1 /* Widgets */,
+				015E46C42B57295100263B07 /* CurrentTimesheetView.swift */,
+				015E46C62B57357F00263B07 /* TransactionsOverviewView.swift */,
+				015E46C82B573A2F00263B07 /* ClientSheetContent.swift */,
+				015E46CC2B573E0A00263B07 /* Client Detail */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -334,6 +361,23 @@
 				01AA7BEB2B25596800EF3CD7 /* CloudKitManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		015E46C12B57266100263B07 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				015E46C22B57266B00263B07 /* DateComponentsFormatter.swift */,
+			);
+			path = Formatters;
+			sourceTree = "<group>";
+		};
+		015E46CC2B573E0A00263B07 /* Client Detail */ = {
+			isa = PBXGroup;
+			children = (
+				015E46CA2B573D5D00263B07 /* ClientDetailView.swift */,
+				015E46CD2B573E1E00263B07 /* ClientDetailOverviewTab.swift */,
+			);
+			path = "Client Detail";
 			sourceTree = "<group>";
 		};
 		016F4B652B52F307000514FC /* Board View */ = {
@@ -493,15 +537,20 @@
 				01A1420B2A5C6D120090BDEF /* aChart.swift */,
 				1D6031FF2B1A7D5B00ECEB91 /* aSection.swift */,
 				01EA484E2A4750C000B0E6C3 /* aTask.swift */,
+				0197E66F2B570A560007BF19 /* Client.swift */,
 				013810702B27D83F003EE7E1 /* Comment.swift */,
+				0197E66D2B570A120007BF19 /* Contact.swift */,
 				011EBC8E2B4C5AC50003BC76 /* CustomField.swift */,
 				011EBC8A2B4C412D0003BC76 /* Dashboard.swift */,
 				01B178252B51A23F00A63122 /* DataController.swift */,
 				011EBC8C2B4C49F90003BC76 /* Goal.swift */,
+				0197E6672B5700D40007BF19 /* Invoice.swift */,
+				0197E6692B5709C50007BF19 /* Merchant.swift */,
 				01EA48482A474A9F00B0E6C3 /* Project.swift */,
 				01B178272B51A37400A63122 /* StatusSection.swift */,
 				01B1781B2B50A63100A63122 /* StatusUpdate.swift */,
-				011EBC882B4A03430003BC76 /* Story.swift */,
+				0197E6712B570C790007BF19 /* Timesheet.swift */,
+				0197E66B2B5709E70007BF19 /* Transaction.swift */,
 				0106F2EC2A4B83210010B058 /* Widget.swift */,
 			);
 			path = Models;
@@ -587,6 +636,7 @@
 				010D51FA2A44DD5E0030989B /* HomeView.swift in Sources */,
 				0127EDB02B474BF4003FABBD /* CloudKit+Extension.swift in Sources */,
 				010C12FD2A66397F001C2722 /* Encodable+Extension.swift in Sources */,
+				0197E66E2B570A120007BF19 /* Contact.swift in Sources */,
 				011EBC8B2B4C412D0003BC76 /* Dashboard.swift in Sources */,
 				01B178212B50AFFD00A63122 /* StatusSectionView.swift in Sources */,
 				014BBA772B2B4E1F0081D56F /* ProjectThemeMenuContent.swift in Sources */,
@@ -597,6 +647,7 @@
 				0180945C2B30CFC600B22D82 /* SidebarSectionItem.swift in Sources */,
 				014BBA792B2B55820081D56F /* DeleteProjectSheet.swift in Sources */,
 				0106F2EF2A4B98050010B058 /* MyTasksWidget.swift in Sources */,
+				0197E6682B5700D40007BF19 /* Invoice.swift in Sources */,
 				010D52022A44DD9E0030989B /* PortfolioView.swift in Sources */,
 				01A142052A5C562B0090BDEF /* ContentDetail.swift in Sources */,
 				016F4B672B52F313000514FC /* ColumnView.swift in Sources */,
@@ -608,6 +659,7 @@
 				010D51FE2A44DD850030989B /* InboxView.swift in Sources */,
 				013810712B27D83F003EE7E1 /* Comment.swift in Sources */,
 				01AE46252B557C0800E89259 /* ProjectToolbarContent.swift in Sources */,
+				015E46C52B57295100263B07 /* CurrentTimesheetView.swift in Sources */,
 				0151D09C2B47795C00825215 /* PageTabButton.swift in Sources */,
 				016F4B692B52F333000514FC /* TasksView.swift in Sources */,
 				013810742B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift in Sources */,
@@ -616,11 +668,14 @@
 				0174A5862B30F03D0043978F /* ProjectListItemContextMenu.swift in Sources */,
 				018E72322A49FB4A001481F3 /* SwatchView.swift in Sources */,
 				01DF50772A570C9200768649 /* ProjectOverviewTab.swift in Sources */,
+				015E46C72B57357F00263B07 /* TransactionsOverviewView.swift in Sources */,
 				01EA48492A474A9F00B0E6C3 /* Project.swift in Sources */,
 				011EBC912B4C63890003BC76 /* CustomFieldModal.swift in Sources */,
 				01743B892A4F34B6002CBC30 /* NewProjectSetup.swift in Sources */,
 				0191447A2A56FC7900F33151 /* SidebarView.swift in Sources */,
 				011EBC932B4C698A0003BC76 /* LabeledInput.swift in Sources */,
+				015E46CB2B573D5D00263B07 /* ClientDetailView.swift in Sources */,
+				0197E6722B570C790007BF19 /* Timesheet.swift in Sources */,
 				01743B7E2A4F25F4002CBC30 /* ProjectsWidget.swift in Sources */,
 				01DFFF732B4EC93E0031C289 /* CoreDataHelper+Extension.swift in Sources */,
 				018DF6782A5E103900752C32 /* AvatarView.swift in Sources */,
@@ -631,10 +686,11 @@
 				01A1420E2A5C6F970090BDEF /* ChartSelector.swift in Sources */,
 				01EA484F2A4750C000B0E6C3 /* aTask.swift in Sources */,
 				010D51FC2A44DD7A0030989B /* MyTasksView.swift in Sources */,
+				015E46C92B573A2F00263B07 /* ClientSheetContent.swift in Sources */,
 				1D578D9F2B1A270A005AAB54 /* AppDelegate.swift in Sources */,
 				1D6032002B1A7D5B00ECEB91 /* aSection.swift in Sources */,
 				01B178232B51911100A63122 /* StatusUpdateHeader.swift in Sources */,
-				011EBC892B4A03430003BC76 /* Story.swift in Sources */,
+				015E46CE2B573E1E00263B07 /* ClientDetailOverviewTab.swift in Sources */,
 				011E976A2B509529000EBE14 /* ReportingView.swift in Sources */,
 				0168B9F62B51B2A600B9BB4B /* Card.swift in Sources */,
 				01AA7BEC2B25596800EF3CD7 /* CloudKitManager.swift in Sources */,
@@ -649,9 +705,11 @@
 				01C0EDD82B4CAE2C00081A4A /* ToolbarDelegate.swift in Sources */,
 				01B178262B51A23F00A63122 /* DataController.swift in Sources */,
 				01B1781F2B50AABA00A63122 /* StatusUpdateBuilder.swift in Sources */,
+				015E46C32B57266B00263B07 /* DateComponentsFormatter.swift in Sources */,
 				017C8BCD2A69CF72006A2C74 /* TaskCardView.swift in Sources */,
 				018DF67C2A5EEABD00752C32 /* Array+Extension.swift in Sources */,
 				0138106B2B277252003EE7E1 /* TaskDetailView.swift in Sources */,
+				0197E66C2B5709E70007BF19 /* Transaction.swift in Sources */,
 				014BBA842B2B72C70081D56F /* ProjectPills.swift in Sources */,
 				014BBA812B2B71910081D56F /* TaskContextMenu.swift in Sources */,
 				01AA7BEA2B250AEA00EF3CD7 /* FilterBuilderView.swift in Sources */,
@@ -669,8 +727,10 @@
 				01743B842A4F2ED1002CBC30 /* ProjectTile.swift in Sources */,
 				0106F2ED2A4B83210010B058 /* Widget.swift in Sources */,
 				01A1420A2A5C63770090BDEF /* NewDashboardModal.swift in Sources */,
+				0197E6702B570A560007BF19 /* Client.swift in Sources */,
 				014BBA862B2B77160081D56F /* TaskRowItem.swift in Sources */,
 				018E722F2A49FA2E001481F3 /* HomeInspector.swift in Sources */,
+				0197E66A2B5709C50007BF19 /* Merchant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

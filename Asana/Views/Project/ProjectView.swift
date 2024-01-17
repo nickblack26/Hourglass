@@ -4,6 +4,7 @@ import SwiftData
 struct ProjectView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AsanaManager.self) private var asanaManager
+    
     @State private var selectedTab: Project.Tab = .board
     @State private var showProjectSheet: Bool = false
     @Bindable var project: Project
@@ -36,8 +37,8 @@ struct ProjectView: View {
                         addNewTask()
                     }
                 }
-                    .tint(.accent)
-                    .buttonStyle(.borderedProminent)
+                .tint(.accent)
+                .buttonStyle(.borderedProminent)
                 
                 Menu("", systemImage: "chevron.down") {
                     Button("Add section") {
@@ -63,7 +64,7 @@ struct ProjectView: View {
             
             switch selectedTab {
             case .overview:
-                ProjectOverviewTab()
+                ProjectOverviewTab(project)
             case .list:
                 TaskListView(sections)
             case .board:
@@ -88,13 +89,7 @@ struct ProjectView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle($project.name)
-        .toolbar {
-            ToolbarItem(placement: .secondaryAction) {
-                Button("Add to favorites", systemImage: "star") {
-                    
-                }
-            }
-        }
+        .toolbar { ProjectToolbar(project: project) }
         .toolbarRole(.editor)
         .onAppear {
             if sections.isEmpty {
@@ -102,9 +97,9 @@ struct ProjectView: View {
                 modelContext.insert(section)
             }
         }
-        .sheet(isPresented: $showProjectSheet, content: {
+        .sheet(isPresented: $showProjectSheet) {
             SectionForm(project: project)
-        })
+        }
     }
     
     private func addNewSection() {
@@ -125,12 +120,12 @@ struct ProjectView: View {
 
 #Preview {
     @State var asanaManager = AsanaManager()
-//    let project = Project(name: "")
-
+    let project = Project(name: "")
+    
     return NavigationStack {
-        ProjectView(.init(name: ""))
+        ProjectView(project)
     }
     .environment(asanaManager)
-//    .modelContainer(previewContainer)
-
+    .modelContainer(previewContainer)
+    
 }

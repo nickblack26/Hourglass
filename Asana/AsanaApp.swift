@@ -6,40 +6,31 @@ let fullSchema = Schema(
         aSection.self,
         aTask.self,
         aChart.self,
+        Client.self,
         Comment.self,
+        Contact.self,
         CustomField.self,
         Dashboard.self,
         Goal.self,
+        Invoice.self,
+        Merchant.self,
         Project.self,
         StatusSection.self,
         StatusUpdate.self,
-        Story.self
+        Timesheet.self,
+        Transaction.self
     ]
 )
 
 @main
 struct Asana_App: App {
-    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
-    @State private var statusUpdate: StatusUpdate? = nil
     @State var cloudKitManager = CloudKitManager()
     @State var asana = AsanaManager()
     let container: ModelContainer = {
         do {
-            let config = ModelConfiguration("Asana", schema: fullSchema, cloudKitDatabase: .none)
+            let config = ModelConfiguration("Asana", cloudKitDatabase: .none)
             
             let container = try ModelContainer(for: fullSchema, configurations: config)
-            
-            let statusUpdateFetchDescriptor = FetchDescriptor<StatusUpdate>()
-            let sectionFetchDescriptor = FetchDescriptor<aSection>()
-            
-            let updates = try? container.mainContext.fetch(statusUpdateFetchDescriptor)
-            
-            guard try container.mainContext.fetchCount(sectionFetchDescriptor) > 0  else { return container }
-            
-            let recentlyAssignedSection: aSection = .init(name: "Recently assigned", order: 0)
-            let doTodaySection: aSection = .init(name: "Do today", order: 1)
-            let doNextWeekSection: aSection = .init(name: "Do next week", order: 2)
-            let doLaterSection: aSection = .init(name: "Do later", order: 3)
             
             return container
         } catch {
@@ -57,6 +48,9 @@ struct Asana_App: App {
                     TaskDetailView(task)
                         .environment(asana)
                 }
+                .sheet(isPresented: $asana.newClient, content: {
+                    ClientSheetContent()
+                })
                 .sheet(item: $asana.selectedCustomField) { field in
                     CustomFieldModal(field)
                         .environment(asana)
@@ -76,7 +70,6 @@ struct Asana_App: App {
                 .environment(asana)
                 .environment(cloudKitManager)
                 .modelContainer(container)
-//                .toolbar(.hidden)
         }
     }
 }

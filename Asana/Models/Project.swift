@@ -19,10 +19,9 @@ final class Project: Codable {
     var status: Status?
     var starred: Bool = false
     var dashboard: Dashboard?
+    var client: Client?
     
-    // MARK: Inferred relationships
-    // These are inferred from setting the relationship on the parent
-    // or if the model has just a singular variable
+    @Relationship(deleteRule: .cascade, inverse: \aSection.project)
     var sections: [aSection]?
     
     // MARK: Explicit relationships
@@ -34,6 +33,12 @@ final class Project: Codable {
     
     @Relationship(deleteRule: .nullify, inverse: \CustomField.project)
     var customFields: [CustomField]? = []
+    
+    @Relationship(deleteRule: .nullify, inverse: \Transaction.project)
+    var transactions: [Transaction] = []
+    
+    @Relationship(deleteRule: .nullify, inverse: \Timesheet.project)
+    var timesheets: [Timesheet] = []
     
     init(
         name: String,
@@ -225,7 +230,7 @@ extension Project {
     
     func createCloudKitRecord() -> CKRecord {
         
-//        let project = CKRecord(recordType: "projects", recordID: self.persistentModelID.id)
+        //        let project = CKRecord(recordType: "projects", recordID: self.persistentModelID.id)
         return CKRecord(recordType: "users")
     }
 }

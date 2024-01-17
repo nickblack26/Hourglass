@@ -4,7 +4,9 @@ import Observation
 
 @Observable 
 class AsanaManager {
+    var newClient: Bool = false
     var selectedTask: aTask?
+    var selectedTransaction: Transaction?
     var draggingTask: aTask?
     var draggingSection: aSection?
     var draggingWidget: Widget?
@@ -16,6 +18,7 @@ class AsanaManager {
     var showHomeCustomization: Bool = false
     var newDashboard: Bool = false
     var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+    var currentTimesheet: Timesheet?
     var availableWidgets: [Widget] {
         allWidgets.filter {
             return allWidgets.contains($0)
@@ -67,8 +70,10 @@ enum SidebarLink: Hashable {
     case home
     case myTasks
     case inbox
+    case transactions
     case reporting
     case portfolios
     case goals
     case project(Project)
+    case client(Client)
 }

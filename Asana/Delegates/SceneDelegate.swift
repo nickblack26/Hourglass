@@ -14,13 +14,13 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject {
 #if targetEnvironment(macCatalyst)
         guard let windowScene = scene as? UIWindowScene else { return }
         
-        let toolbar = NSToolbar(identifier: "main")
-        toolbar.delegate = toolbarDelegate
-        toolbar.displayMode = .iconOnly
+//        let toolbar = NSToolbar(identifier: "main")
+//        toolbar.delegate = toolbarDelegate
+//        toolbar.displayMode = .iconOnly
         
         if let titlebar = windowScene.titlebar {
-            titlebar.toolbar = toolbar
-            titlebar.toolbarStyle = .unifiedCompact
+            titlebar.toolbar = nil
+//            titlebar.toolbarStyle = .unifiedCompact
         }
 #endif
     }
