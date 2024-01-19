@@ -129,6 +129,25 @@ struct ClientDetailOverviewTab: View {
                 .gridCellUnsizedAxes(.vertical)
             }
         }
+        .inspector(isPresented: .constant(true)) {
+            List {
+                Section("Contacts") {
+                    ForEach(contacts, id: \.identifier) { contact in
+                        HStack {
+                            AvatarView(
+                                image: contact.imageDataAvailable ? Image(uiImage: UIImage(data: contact.imageData ?? .init()) ?? .init()) : nil,
+                                fallback: "\(contact.givenName) \(contact.familyName)",
+                                size: .small
+                            )
+                            
+                            VStack(alignment: .leading) {
+                                Text("\(contact.givenName) \(contact.familyName)")
+                            }
+                        }
+                    }
+                }
+            }
+        }
         .onChange(of: client) { oldValue, newValue in
             self.contacts = store.fetchContacts(client: client.name)
         }

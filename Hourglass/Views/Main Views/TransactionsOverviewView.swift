@@ -7,7 +7,7 @@ struct TransactionsOverviewView: View {
     @Query private var transactions: [Transaction]
     
     var body: some View {
-        let total: Int = transactions.reduce(0) { partialResult, transaction in
+        let total: Decimal = transactions.reduce(0) { partialResult, transaction in
             if let invoice = transaction.invoice {
                 return partialResult - transaction.amount
             }
