@@ -16,20 +16,17 @@ final class Project: Codable {
     var icon: Icon = Icon.calendar
     var defaultTab: Tab = Tab.list
     var archived: Bool = false
-    var status: Status?
     var starred: Bool = false
+    var depositRequired: Bool = false
+    var status: Status?
+    
+    var invoiceSchedule: InvoiceSchedule = InvoiceSchedule.once
     var dashboard: Dashboard?
     var client: Client?
     
     // MARK: Explicit relationships
-    @Relationship(deleteRule: .nullify, inverse: \aTask.projects)
-    var tasks: [aTask]? = []
-    
-    @Relationship(deleteRule: .nullify, inverse: \Comment.projects)
-    var comments: [Comment]? = []
-    
-    @Relationship(deleteRule: .nullify, inverse: \CustomField.project)
-    var customFields: [CustomField]? = []
+    @Relationship(deleteRule: .cascade, inverse: \LineItem.project)
+    var services: [LineItem]? = []
     
     @Relationship(deleteRule: .nullify, inverse: \Transaction.project)
     var transactions: [Transaction]? = []
@@ -51,8 +48,8 @@ final class Project: Codable {
         startDate: Date? = nil,
         endDate: Date? = nil,
         details: String? = nil,
-        tasks: [aTask] = [],
         sections: [aSection] = [],
+        invoiceSchedule: InvoiceSchedule = .once,
         color: ThemeColor = ThemeColor.allCases.randomElement() ?? .aqua,
         icon: Icon = Icon.allCases.randomElement() ?? .calendar,
         defaultTab: Tab = .list,
@@ -63,7 +60,7 @@ final class Project: Codable {
         self.startDate = startDate
         self.endDate = endDate
         self.details = details
-        self.tasks = tasks
+        self.invoiceSchedule = invoiceSchedule
         self.sections = sections
         self.color = color
         self.icon = icon
@@ -206,6 +203,14 @@ extension Project {
         }
     }
     
+    enum InvoiceSchedule: String, CaseIterable, Codable {
+        case once = "Once"
+        case weekly = "Weekly"
+        case monthly = "Monthly"
+        case onMilestones = "On milestones"
+        case custom = "Custom"
+    }
+    
     enum FirstStep: String, CaseIterable {
         case tasks
         case share
@@ -223,17 +228,6 @@ extension Project {
 
 // MARK: HELPER FUNCTIONS
 extension Project {
-    func addCustomField() {
-        guard let sections = sections else { return }
-        for section in sections {
-            if let tasks = section.tasks {
-                for task in tasks {
-                    task.customFields = customFields
-                }
-            }
-        }
-    }
-    
     func createCloudKitRecord() -> CKRecord {
         
         //        let project = CKRecord(recordType: "projects", recordID: self.persistentModelID.id)

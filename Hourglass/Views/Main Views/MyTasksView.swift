@@ -1,7 +1,31 @@
 import SwiftUI
 import SwiftData
 
-private enum MyTaskTab: String, CaseIterable, Identifiable {
+enum TaskGroupBy: String, CaseIterable, Identifiable {
+    var id: Self {
+        return self
+    }
+    
+    case none = "None"
+    case dueDate = "Due Date"
+    case project = "Project"
+    case createdBy = "Created By"
+    case customSections = "Custom Sections"
+}
+
+enum TaskSortOption: String, CaseIterable, Identifiable {
+    var id: Self {
+        return self
+    }
+    
+    case manual = "Manual"
+    case dueDate = "Due Date"
+    case creationDate = "Creation Date"
+    case priority = "Priority"
+    case title = "Title"
+}
+
+enum MyTaskTab: String, CaseIterable, Identifiable {
     var id: Self {
         return self
     }
@@ -9,9 +33,27 @@ private enum MyTaskTab: String, CaseIterable, Identifiable {
     case list = "List"
     case board = "Board"
     case calendar = "Calendar"
+    case files = "Files"
+    
+    var icon: String {
+        switch self {
+        case .list:
+            "list.dash"
+        case .board:
+            "rectangle.split.3x1"
+        case .calendar:
+            "calendar"
+        case .files:
+            "doc.richtext"
+        }
+    }
 }
 
 struct MyTasksView: View {
+    @State private var sort: TaskSortOption = .manual
+    @State private var group: TaskGroupBy = .customSections
+    @State private var defaultView: MyTaskTab = .list
+    
     @Environment(\.modelContext) private var modelContext
     @Environment(HourglassManager.self) private var hourglass
     @Query(
@@ -22,129 +64,57 @@ struct MyTasksView: View {
         animation: .snappy
     )
     var sections: [aSection]
-    @State private var selectedTab: MyTaskTab? = .list
+    @State private var selectedTab: MyTaskTab = .list
     @State private var showFilters: Bool = false
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack(spacing: 24) {
-                AvatarView(
-                    image: tempUrl,
-                    fallback: "Nick Black",
-                    size: .xlarge
-                )
-                
-                VStack(alignment: .leading) {
-                    Text("My tasks")
-                        .font(.title)
-                        .fontWeight(.medium)
-                    
-                    HStack(spacing: 16) {
-                        ForEach(MyTaskTab.allCases) { tab in
-                            Button(tab.rawValue) {
-                                selectedTab = tab
-                            }
-                            .buttonStyle(.plain)
-                            .foregroundStyle(tab == selectedTab ? .primary : .secondary)
-                        }
-                    }
-                }
-                
-                Spacer()
-                
-                Button("Share", systemImage: "lock.fill") {
-                    
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.clear)
-                .foregroundStyle(.primary)
-                
-                Divider()
-                    .frame(maxHeight: 36)
-                
-                Button("Customize", systemImage: "square.grid.2x2") {
-                    
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.clear)
-                .foregroundStyle(.primary)
-            }
-            .padding(.horizontal)
-            .padding(.top)
-            
-            Divider()
-            
-            HStack {
-                Button("Add task", systemImage: "plus", action: addNewTask)
-                    .tint(.accent)
-                    .buttonStyle(.borderedProminent)
-                
-                Menu("", systemImage: "chevron.down") {
-                    Button("Add section") {
-                        withAnimation(.snappy) {
-                            addNewSection()
-                        }
-                    }
-                    Button("Add milestone...") {
-                        withAnimation(.snappy) {
-                            addNewSection()
-                        }
-                    }
-                }
-                .labelsHidden()
-                .buttonStyle(.borderedProminent)
-                .tint(.clear)
-                .foregroundStyle(.primary)
-                
-                Spacer()
-                
-                Button("Filter", systemImage: "line.3.horizontal.decrease") {
-                    showFilters.toggle()
-                }
-                .popover(isPresented: $showFilters, content: {
-                    FilterBuilderView()
-                        .padding()
-                })
-                .buttonStyle(.borderedProminent)
-                .tint(.clear)
-                .foregroundStyle(.primary)
-                
-                Menu("Group by", systemImage: "checklist.unchecked") {
-                    Text("None")
-                    Text("Due date")
-                    Text("Project")
-                    Text("Created by")
-                    Text("Custom sections")
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.clear)
-                .foregroundStyle(.primary)
-                
-                Menu("Sort", systemImage: "arrow.up.arrow.down") {
-                    Text("None")
-                    Text("Due date")
-                    Text("Created on")
-                    Text("Completed on")
-                    Text("Likes")
-                    Text("Alphabetical")
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.clear)
-                .foregroundStyle(.primary)
-            }
-            .padding(.horizontal)
-            
+        ZStack {
             switch selectedTab {
             case .list:
                 TaskListView(sections)
             case .board:
-                TaskBoardView(sections: sections)
+                TaskBoardView(sections)
             case .calendar:
                 TaskCalendarView()
-            case nil:
+            case .files:
                 EmptyView()
             }
         }
+        .navigationTitle("My tasks")
+        .toolbar {
+            TaskToolbarContent(
+                sort: $sort,
+                group: $group,
+                defaultView: $defaultView,
+                selectedTab: $selectedTab
+            )
+            
+            ToolbarItemGroup(placement: .bottomBar) {
+                Menu(
+                    "Add",
+                    systemImage: "plus"
+                ) {
+                    Button(
+                        "New task",
+                        systemImage: "checkmark.circle"
+                    ) {
+                        withAnimation(.snappy) {
+                            addNewTask()
+                        }
+                    }
+                    
+                    Button(
+                        "New section",
+                        systemImage: "chart.bar.doc.horizontal"
+                    ) {
+                        withAnimation(.snappy) {
+                            addNewSection()
+                        }
+                    }
+                }
+            }
+        }
+        .searchable(text: .constant(""))
         .onAppear {
             if sections.isEmpty {
                 let recentlyAssignedSection: aSection = .init(name: "Recently assigned", order: 0)

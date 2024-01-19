@@ -8,6 +8,11 @@ struct TaskBoardView: View {
     var project: Project?
     var sections: [aSection]
     
+    init(_ sections: [aSection], project: Project? = nil) {
+        self.sections = sections
+        self.project = project
+    }
+    
     var body: some View {
         ScrollView(.horizontal) {
             HStack(alignment: .top, spacing: 16) {
@@ -43,17 +48,6 @@ struct TaskBoardView: View {
         .padding(.horizontal)
     }
 }
-
-//#Preview {
-//    @State var hourglass = HourglassManager()
-//    let section = aSection(name: "", order: 0)
-//
-//    
-//    return TaskBoardView([section])
-//        .environment(hourglass)
-//        .modelContainer(previewContainer)
-//
-//}
 
 
 

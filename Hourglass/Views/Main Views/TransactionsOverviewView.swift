@@ -7,12 +7,12 @@ struct TransactionsOverviewView: View {
     @Query private var transactions: [Transaction]
     
     var body: some View {
-        let total: Float = transactions.reduce(0) { partialResult, transaction in
+        let total: Int = transactions.reduce(0) { partialResult, transaction in
             if let invoice = transaction.invoice {
-                return partialResult - transaction.total
+                return partialResult - transaction.amount
             }
             
-            return partialResult + transaction.total
+            return partialResult + transaction.amount
         }
         
         Card {
@@ -24,6 +24,7 @@ struct TransactionsOverviewView: View {
             }
             
         }
+        .navigationTitle("Transactions")
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
                 Button("New expense", systemImage: "minus") {
@@ -31,7 +32,7 @@ struct TransactionsOverviewView: View {
                         let expense = Transaction(
                             name: "",
                             date: Date(),
-                            total: 0.00,
+                            total: 0,
                             purpose: ""
                         )
                         context.insert(expense)

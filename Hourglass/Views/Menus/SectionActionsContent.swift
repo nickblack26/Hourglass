@@ -16,7 +16,7 @@ struct SectionActionsContent: View {
             
         }
         
-        Menu("Add section", systemImage: "lines.measurement.vertical") {
+        Menu("Add section", systemImage: "chart.bar.doc.horizontal") {
             let firstSection: String = viewType == .board ? "left" : "above"
             let firstSectionArrow: String = viewType == .board ? "arrow.left" : "arrow.up"
             let secondSection: String = viewType == .board ? "right" : "below"

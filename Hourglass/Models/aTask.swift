@@ -21,7 +21,6 @@ final class aTask: Hashable, Codable {
     // MARK: Inferred relationships
     // Relationships inferred from parent
     var parentTask: aTask?
-    var projects: [Project]? = []
     var section: aSection?
    
     // MARK: Explicit relationships
@@ -45,7 +44,6 @@ final class aTask: Hashable, Codable {
         completedAt: Date? = nil,
         parentTask: aTask? = nil,
         taskType: TaskType = TaskType.task,
-        projects: [Project] = [],
         section: aSection? = nil,
         comments: [Comment] = [],
         subtasks: [aTask] = []
@@ -60,7 +58,6 @@ final class aTask: Hashable, Codable {
         self.completedAt = completedAt
         self.parentTask = parentTask
         self.taskType = taskType
-        self.projects = projects
         self.section = section
         self.comments = comments
         self.subtasks = subtasks

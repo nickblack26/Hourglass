@@ -5,10 +5,10 @@ import SwiftData
 final class Transaction {
     var name: String = ""
     var date: Date = Date()
-    var total: Float = 0.00
+    var amount: Decimal = 0
+    var taxAmount: Decimal?
     var taxType: TaxType = TaxType.amount
     var taxLabel: String?
-    var taxAmount: Float?
     var project: Project?
     var merchant: Merchant?
     var purpose: String = ""
@@ -21,10 +21,10 @@ final class Transaction {
     init(
         name: String,
         date: Date,
-        total: Float,
+        total: Decimal,
         taxType: TaxType = TaxType.amount,
         taxLabel: String? = nil,
-        taxAmount: Float? = nil,
+        taxAmount: Decimal? = nil,
         project: Project? = nil,
         merchant: Merchant? = nil,
         purpose: String,
@@ -34,7 +34,7 @@ final class Transaction {
     ) {
         self.name = name
         self.date = date
-        self.total = total
+        self.amount = total
         self.taxType = taxType
         self.taxLabel = taxLabel
         self.taxAmount = taxAmount

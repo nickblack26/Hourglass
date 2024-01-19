@@ -12,9 +12,6 @@ final class Client {
     var archived: Bool = false
     var taxIdNumber: Int?
     
-    @Relationship(deleteRule: .cascade, inverse: \Contact.client)
-    var contacts: [Contact]? = []
-    
     @Relationship(deleteRule: .nullify, inverse: \Project.client)
     var projects: [Project]? = []
 	
@@ -26,7 +23,6 @@ final class Client {
         postalCode: String? = nil,
         taxIdLabel: String? = nil,
         taxIdNumber: Int? = nil,
-        contacts: [Contact] = [],
         projects: [Project] = []
     ) {
         self.name = name
@@ -36,7 +32,6 @@ final class Client {
         self.postalCode = postalCode
         self.taxIdLabel = taxIdLabel
         self.taxIdNumber = taxIdNumber
-        self.contacts = contacts
         self.projects = projects
     }
 }

@@ -11,11 +11,13 @@ private enum ClientTab: String, CaseIterable {
 struct ClientDetailView: View {
     @State private var selectedTab: ClientTab = .overview
     @Bindable var client: Client
+    
     var body: some View {
         TabView(selection: $selectedTab) {
             ClientDetailOverviewTab(client: client)
                 .tag(ClientTab.overview)
         }
+        .padding()
         .toolbar {
             
         }

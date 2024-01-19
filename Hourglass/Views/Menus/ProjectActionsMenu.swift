@@ -18,33 +18,54 @@ struct ProjectActionsMenu: View {
 			systemImage: "chevron.down"
 		) {
             Section {
-                Button("Edit project details", systemImage: "pencil") {
+                Button(
+                    "Edit project details",
+                    systemImage: "pencil"
+                ) {
                     showDetails.toggle()
                 }
                 
-                Button("Review project permissions", systemImage: "circle.hexagongrid.circle") {
+                Button(
+                    "Review project permissions",
+                    systemImage: "circle.hexagongrid.circle"
+                ) {
                     showProjectPermissions.toggle()
                 }
                 
-                Menu("Set color & icon", systemImage: "square.fill") {
+                Menu(
+                    "Set color & icon",
+                    systemImage: "square.fill"
+                ) {
                     ProjectThemeMenuContent(project)
                 }
             }
             
             Section {
-                Button("Copy project link", systemImage: "link") {
+                Button(
+                    "Copy project link",
+                    systemImage: "link"
+                ) {
                     
                 }
                 
-                Button("Duplicate", systemImage: "plus.square.on.square") {
+                Button(
+                    "Duplicate",
+                    systemImage: "plus.square.on.square"
+                ) {
                     showDuplicateProject.toggle()
                 }
                 
-                Button("Save as template", systemImage: "doc.on.doc") {
+                Button(
+                    "Save as template",
+                    systemImage: "doc.on.doc"
+                ) {
                     
                 }
                 
-                Button("Add to portffolio", systemImage: "plus") {
+                Button(
+                    "Add to portfolio",
+                    systemImage: "plus"
+                ) {
                     
                 }
             }
@@ -68,6 +89,11 @@ struct ProjectActionsMenu: View {
 						context.delete(project)
 					}
                 }
+            }
+        }
+        .sheet(isPresented: $showDetails) {
+            NavigationStack {
+                ProjectDetailView(project)
             }
         }
     }

@@ -39,48 +39,48 @@ enum AvatarStyle {
 }
 
 struct AvatarView: View {
-	let image: String?
+	let image: Image?
 	let fallback: String?
     let size: AvatarSize
 		
-	init(image: String?, fallback: String, size: AvatarSize) {
+	init(image: Image? = nil, fallback: String, size: AvatarSize) {
 		self.image = image
 		self.fallback = fallback
 		self.size = size
 	}
 	
 	var body: some View {
-        AsyncImage(url: URL(string: image ?? "")) { Image in
-			Image
-				.resizable()
-				.frame(width: size.sizing, height: size.sizing)
-				.scaledToFill()
-				.clipShape(Circle())
-		} placeholder: {
-			if let fallback = fallback {
-				let components = fallback.components(separatedBy: " ")
-				
-				HStack(spacing: 0) {
-					if components.isIndexValid(index: 0) {
-						Text(components[0].prefix(1))
-							.font(size.text)
-						
-					}
-					
-					if components.isIndexValid(index: 1) {
-						Text(components[1].prefix(1))
-							.font(size.text)
-					}
-				}
-				.textCase(.uppercase)
+        if let image {
+            image
+                .resizable()
                 .frame(width: size.sizing, height: size.sizing)
-				.background(.blue)
-				.clipShape(Circle())
-			}
-		}
+                .scaledToFill()
+                .clipShape(Circle())
+        } else {
+            if let fallback = fallback {
+                let components = fallback.components(separatedBy: " ")
+                
+                HStack(spacing: 0) {
+                    if components.isIndexValid(index: 0) {
+                        Text(components[0].prefix(1))
+                            .font(size.text)
+                        
+                    }
+                    
+                    if components.isIndexValid(index: 1) {
+                        Text(components[1].prefix(1))
+                            .font(size.text)
+                    }
+                }
+                .textCase(.uppercase)
+                .frame(width: size.sizing, height: size.sizing)
+                .background(.blue)
+                .clipShape(Circle())
+            }
+        }
 	}
 }
 
 #Preview {
-	AvatarView(image: "IMG_0455.jpeg", fallback: "Nicholas", size: .medium)
+	AvatarView(image: nil, fallback: "Nicholas", size: .medium)
 }

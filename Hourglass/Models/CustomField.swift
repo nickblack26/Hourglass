@@ -18,7 +18,6 @@ final class CustomField: Codable {
     var textValue: String?
     var type: String?
     var task: aTask?
-    var project: Project?
     
     @Relationship(deleteRule: .cascade, inverse: \EnumOption.field)
     var enumOptions: [EnumOption]? = []

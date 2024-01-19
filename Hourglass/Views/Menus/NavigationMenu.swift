@@ -37,7 +37,7 @@ struct NavigationMenu: View {
                 
             } label: {
                 HStack {
-                    AvatarView(image: tempUrl, fallback: "Nick Black", size: .medium)
+                    AvatarView(fallback: "Nick Black", size: .medium)
                     Image(systemName: "chevron.down")
                 }
             }

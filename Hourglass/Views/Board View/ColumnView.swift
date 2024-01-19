@@ -63,7 +63,7 @@ struct ColumnView: View {
     
     private func addTaskToSection() {
         if let project = section.project {
-            let newTask = aTask(name: "", order: tasks.count, projects: [project], section: section)
+            let newTask = aTask(name: "", order: tasks.count, section: section)
             
             section.tasks?.append(newTask)
         } else  {

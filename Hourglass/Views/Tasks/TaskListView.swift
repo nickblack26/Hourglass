@@ -67,15 +67,13 @@ struct TaskListView: View {
                 
             }
             
-            TableColumn("Projects") { task in
-                @Bindable var task = task
-                
-                HStack {
-                    ForEach(task.projects ?? []) { project in
-                        Text(project.name)
-                    }
-                }
-            }
+//            TableColumn("Projects") { task in                
+//                HStack {
+//                    ForEach(task.projects ?? []) { project in
+//                        Text(project.name)
+//                    }
+//                }
+//            }
             
             TableColumn(
                 """

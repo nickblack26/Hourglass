@@ -3,7 +3,7 @@ import SwiftUI
 extension Binding where Value == String {
     init(value: Binding<String?>) {
         self.init {
-            value.wrappedValue ?? ""
+            value.wrappedValue ?? .init()
         } set: { newValue in
             value.wrappedValue = newValue
         }
@@ -13,7 +13,35 @@ extension Binding where Value == String {
 extension Binding where Value == Int {
     init(value: Binding<Int?>) {
         self.init {
-            value.wrappedValue ?? 0
+            value.wrappedValue ?? .init()
+        } set: { newValue in
+            value.wrappedValue = newValue
+        }
+    }
+}
+
+extension Binding where Value == Decimal {
+    init(value: Binding<Decimal?>) {
+        self.init {
+            value.wrappedValue ?? .init()
+        } set: { newValue in
+            value.wrappedValue = newValue
+        }
+    }
+    
+    init(value: Binding<Decimal>) {
+        self.init {
+            value.wrappedValue
+        } set: { newValue in
+            value.wrappedValue = newValue
+        }
+    }
+}
+
+extension Binding where Value == Date {
+    init(value: Binding<Date?>) {
+        self.init {
+            value.wrappedValue ?? .init()
         } set: { newValue in
             value.wrappedValue = newValue
         }
@@ -27,7 +55,7 @@ extension Binding where Value == NSAttributedString {
                 return NSAttributedString(string: "")
             }
             
-            return attributedString
+            return .init()
         } set: { newValue in
             let data = try? NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: true)
             return value.wrappedValue = data

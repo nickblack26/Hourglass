@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct TaskDetailView: View {
+    @Environment(\.dismiss) private var dismiss
     @Bindable var task: aTask
     
     init(_ task: aTask) {
@@ -22,6 +23,74 @@ struct TaskDetailView: View {
             Divider()
             
             TaskDetailFooter(task)
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .topBarLeading) {
+                Button(task.isCompleted ? "Completed" : "Mark complete", systemImage: "checkmark") {
+                    withAnimation(.snappy) {
+                        task.isCompleted.toggle()
+                        if task.isCompleted {
+                            task.completedAt = Date()
+                        }
+                    }
+                }
+                .buttonStyle(.bordered)
+                .tint(task.isCompleted ? .green : .white)
+                .foregroundStyle(task.isCompleted ? .green : .primary)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(task.isCompleted ? .green : .primary, lineWidth: 1)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+            
+            ToolbarItemGroup(placement: .primaryAction) {
+                Button("Like this task", systemImage: "hand.thumbsup") {}
+                
+                Button("Copy task link", systemImage: "link") {}
+                
+                Menu("More", systemImage: "ellipsis.circle") {
+                    Button("Add to another project", systemImage: "folder") {
+                        
+                    }
+                    
+                    Button("Add subtask", systemImage: "checklist.unchecked") {
+                        
+                    }
+                    
+                    Button("Add tags", systemImage: "tag") {
+                        
+                    }
+                    
+                    Button("Create follow-up task", systemImage: "circle.dotted") {
+                        
+                    }
+                    
+                    Button("Merge duplicate tasks", systemImage: "arrow.triangle.merge") {
+                        
+                    }
+                    
+                    Button("Attach files", systemImage: "paperclip") {
+                        
+                    }
+                }
+                
+                Image("subtask_icon")
+                    .resizable()
+                    .frame(width: 18, height: 18)
+                
+                Image(systemName: "link")
+                
+                Image(systemName: "arrow.down.left.and.arrow.up.right")
+                
+                Image(systemName: "ellipsis")
+                
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                }
+            }
         }
         .frame(
             maxWidth: .infinity,
@@ -122,7 +191,6 @@ struct TaskDetailFooter: View {
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
             AvatarView(
-                image: tempUrl,
                 fallback: "Nick Black",
                 size: .medium
             )
@@ -142,7 +210,6 @@ struct TaskDetailFooter: View {
                     
                     HStack(alignment: .center, spacing: 0) {
                         AvatarView(
-                            image: tempUrl,
                             fallback: "Nick Black",
                             size: .small
                         )
@@ -344,54 +411,54 @@ struct TaskDetailBody: View {
                     .padding(.leading, 64)
                 }
                 
-                LabeledContent("Projects") {
-                    HStack {
-						ForEach(task.projects ?? []) { project in
-                            HStack {
-                                HStack(spacing: 4) {
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(project.color.color)
-                                        .frame(width: 8, height: 8)
-                                    
-                                    Text(project.name)
-                                        .font(.caption)
-                                }
-                                
-                                Menu {
-									ForEach(project.sections ?? []) { section in
-                                        Button(section.name) {
-                                            task.section = section
-                                        }
-                                    }
-                                } label: {
-									if let sections = project.sections, sections.isEmpty {
-                                        Text("Untitled Sections")
-                                    } else {
-										Text(project.sections?[0].name ?? "")
-                                    }
-                                }
-                            }
-                        }
-                        
-                        Button("Add to projects") {
-                            showProjectPicker.toggle()
-                        }
-                        .fontWeight(.medium)
-                        .popover(isPresented: $showProjectPicker) {
-                            VStack {
-                                ForEach(allProjects) { project in
-                                    Button(project.name) {
-										task.projects?.append(project)
-                                    }
-                                }
-                            }
-                            .padding()
-                        }
-                        
-                        Spacer()
-                    }
-                    .padding(.leading, 64)
-                }
+//                LabeledContent("Projects") {
+//                    HStack {
+//						ForEach(task.projects ?? []) { project in
+//                            HStack {
+//                                HStack(spacing: 4) {
+//                                    RoundedRectangle(cornerRadius: 4)
+//                                        .fill(project.color.color)
+//                                        .frame(width: 8, height: 8)
+//                                    
+//                                    Text(project.name)
+//                                        .font(.caption)
+//                                }
+//                                
+//                                Menu {
+//									ForEach(project.sections ?? []) { section in
+//                                        Button(section.name) {
+//                                            task.section = section
+//                                        }
+//                                    }
+//                                } label: {
+//									if let sections = project.sections, sections.isEmpty {
+//                                        Text("Untitled Sections")
+//                                    } else {
+//										Text(project.sections?[0].name ?? "")
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        
+//                        Button("Add to projects") {
+//                            showProjectPicker.toggle()
+//                        }
+//                        .fontWeight(.medium)
+//                        .popover(isPresented: $showProjectPicker) {
+//                            VStack {
+//                                ForEach(allProjects) { project in
+//                                    Button(project.name) {
+//										task.projects?.append(project)
+//                                    }
+//                                }
+//                            }
+//                            .padding()
+//                        }
+//                        
+//                        Spacer()
+//                    }
+//                    .padding(.leading, 64)
+//                }
                 
                 VStack(alignment: .leading) {
                     Text("Description")
@@ -468,7 +535,6 @@ struct TaskDetailBody: View {
                 
                 HStack(alignment: .top) {
                     AvatarView(
-                        image: tempUrl,
                         fallback: "Nick Black",
                         size: .medium
                     )

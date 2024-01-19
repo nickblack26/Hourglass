@@ -1,7 +1,16 @@
 import SwiftUI
+import Contacts
 
 struct ClientDetailOverviewTab: View {
+    @State private var contacts: [CNContact] = []
+    let store = ContactManager.shared
+
     @Bindable var client: Client
+    
+    init(client: Client) {
+        self.client = client
+        self._contacts = State(initialValue: store.fetchContacts(client: client.name))
+    }
     
     var body: some View {
         Grid {
@@ -66,7 +75,7 @@ struct ClientDetailOverviewTab: View {
                 
                 Card {
                     VStack(alignment: .leading) {
-						Text("Contacts (\(client.contacts?.count ?? 0))")
+						Text("Contacts (\(contacts.count))")
                             .font(.title3)
                         
                         LazyVGrid(
@@ -98,17 +107,19 @@ struct ClientDetailOverviewTab: View {
                             .tint(.clear)
                             .foregroundStyle(.secondary)
                             
-							ForEach(client.contacts ?? []) { contact in
+                            ForEach(contacts, id: \.identifier) { contact in
                                 HStack {
                                     AvatarView(
-                                        image: nil,
-                                        fallback: contact.name,
-                                        size: .tiny
+                                        image: Image(
+                                            uiImage: UIImage(data: contact.imageData ?? .init()) ?? .init()
+                                        ),
+                                        fallback: "\(contact.givenName) \(contact.familyName)",
+                                        size: .small
                                     )
                                     
                                     VStack(alignment: .leading) {
-                                        Text(contact.name)
-                                        Text(contact.phone ?? "")
+                                        Text("\(contact.givenName) \(contact.familyName)")
+//                                        Text(contact.familyName)
                                     }
                                 }
                             }
@@ -117,6 +128,9 @@ struct ClientDetailOverviewTab: View {
                 }
                 .gridCellUnsizedAxes(.vertical)
             }
+        }
+        .onChange(of: client) { oldValue, newValue in
+            self.contacts = store.fetchContacts(client: client.name)
         }
     }
 }

@@ -13,17 +13,14 @@ final class Comment: Codable {
     
     // MARK: Inferred relationships
     var task: aTask? // set on task model
-    var projects: [Project]? = [] // set on project model
     
     init(
         subject: String? = nil,
         message: String,
-        projects: [Project] = [],
         status: Status = .Draft
     ) {
         self.subject = subject
         self.message = message
-        self.projects = projects
         self.sentAt = nil
         self.status = status
     }

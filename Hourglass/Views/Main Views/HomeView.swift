@@ -16,7 +16,7 @@ struct HomeView: View {
     private var tasks: [aTask]
 	
 	var body: some View {
-        List {
+        ScrollView {
 			VStack {
 				Text(Date.now.getFormattedDate())
 					.font(.title3)
@@ -65,6 +65,8 @@ struct HomeView: View {
 				alignment: .center
 			)
         }
+        .padding()
+        .scrollIndicators(.hidden)
 		.searchable(text: $searchText)
 		.navigationTitle("Home")
 		.toolbar {
@@ -77,7 +79,6 @@ struct HomeView: View {
 		.inspector(isPresented: $showCustomization) {
 			HomeInspector(colorScheme: $colorScheme)
 		}
-		.listStyle(.plain)
 	}
 }
 

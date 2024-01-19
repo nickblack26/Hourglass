@@ -9,7 +9,6 @@ let fullSchema = Schema(
         aChart.self,
         Client.self,
         Comment.self,
-        Contact.self,
         CustomField.self,
         Dashboard.self,
         Goal.self,
@@ -25,17 +24,17 @@ let fullSchema = Schema(
 
 @main
 struct Hourglass_App: App {
-	let storeURL = URL.documentsDirectory.appending(path: "shared.store")
+//	let storeURL = URL.documentsDirectory.appending(path: "shared.store")
 	@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State var cloudKitManager = CloudKitManager()
     @State var hourglass = HourglassManager()
     let container: ModelContainer
 	
 	init() {
-		let config = ModelConfiguration(url: storeURL, cloudKitDatabase: .none)
+        let config = ModelConfiguration(schema: fullSchema, cloudKitDatabase: .automatic)
 		var contain: ModelContainer? = nil
 		do {
-			contain = try ModelContainer(for: fullSchema, configurations: config)
+ 			contain = try ModelContainer(for: fullSchema, configurations: config)
 		} catch {
 			print("couldn't create ModelContainer()")
 		}

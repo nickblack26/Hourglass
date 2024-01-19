@@ -1,11 +1,11 @@
 import SwiftUI
 import SwiftData
 import SwiftDataKit
+import Contacts
 
 struct ProjectView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(HourglassManager.self) private var hourglass
-    
     @State private var selectedTab: Project.Tab = .board
     @State private var showProjectSheet: Bool = false
     @Bindable var project: Project
@@ -25,51 +25,51 @@ struct ProjectView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-			HStack {
-				ForEach(Project.Tab.allCases, id: \.self) { tab in
-					Button(tab.rawValue, systemImage: tab.image) {
-						withAnimation(.snappy) {
-							selectedTab = tab
-						}
-					}
-					.tint(selectedTab == tab ? project.color.color : .secondary)
-				}
-			}
-			.padding(.horizontal)
+            HStack {
+                ForEach(Project.Tab.allCases, id: \.self) { tab in
+                    Button(tab.rawValue, systemImage: tab.image) {
+                        withAnimation(.snappy) {
+                            selectedTab = tab
+                        }
+                    }
+                    .tint(selectedTab == tab ? project.color.color : .secondary)
+                }
+            }
+            .padding(.horizontal)
             
             Divider()
             
-			if selectedTab != .overview {
-            	HStack {
-					Button("Add task", systemImage: "plus") {
-						withAnimation(.snappy) {
-							addNewTask()
-						}
-					}
-					.tint(.accent)
-					.buttonStyle(.borderedProminent)
-					
-					Menu("", systemImage: "chevron.down") {
-						Button("Add section") {
-							withAnimation(.snappy) {
-								addNewSection()
-							}
-						}
-						Button("Add milestone...", action: addNewSection)
-						Button("Add custom field") {
-							hourglass.selectedCustomField = .init()
-						}
-					}
-					.labelsHidden()
-					.buttonStyle(.borderedProminent)
-					.tint(.clear)
-					.foregroundStyle(.primary)
-					
-					Spacer()
-					
-					
-				}
-				.padding([.horizontal, .top])
+            if selectedTab != .overview {
+                HStack {
+                    Button("Add task", systemImage: "plus") {
+                        withAnimation(.snappy) {
+                            addNewTask()
+                        }
+                    }
+                    .tint(.accent)
+                    .buttonStyle(.borderedProminent)
+                    
+                    Menu("", systemImage: "chevron.down") {
+                        Button("Add section", systemImage: "chart.bar.doc.horizontal") {
+                            withAnimation(.snappy) {
+                                addNewSection()
+                            }
+                        }
+                        Button("Add milestone...", action: addNewSection)
+                        Button("Add custom field") {
+                            hourglass.selectedCustomField = .init()
+                        }
+                    }
+                    .labelsHidden()
+                    .buttonStyle(.borderedProminent)
+                    .tint(.clear)
+                    .foregroundStyle(.primary)
+                    
+                    Spacer()
+                    
+                    
+                }
+                .padding([.horizontal, .top])
             }
             
             switch selectedTab {
@@ -79,8 +79,8 @@ struct ProjectView: View {
                 TaskListView(sections)
             case .board:
                 TaskBoardView(
-                    project: project,
-                    sections: sections
+                    sections,
+                    project: project
                 )
             case .timeline:
                 EmptyView()
@@ -97,7 +97,7 @@ struct ProjectView: View {
                 EmptyView()
             }
         }
-		.searchable(text: .constant(""))
+        .searchable(text: .constant(""))
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle($project.name)
         .toolbar { ProjectToolbar(project: project) }
@@ -109,7 +109,7 @@ struct ProjectView: View {
             }
         }
         .sheet(isPresented: $showProjectSheet) {
-//            SectionForm(project: project)
+            //            SectionForm(project: project)
         }
     }
     
@@ -121,13 +121,14 @@ struct ProjectView: View {
     private func addNewTask() {
         let task = aTask(name: "", order: sections[0].tasks?.count ?? 0)
         
-        if let tasks = project.tasks, tasks.isEmpty {
-            sections[0].tasks?.append(task)
-        } else {
-            sections[0].tasks?.insert(task, at: 0)
-        }
+        //        if let tasks = project.tasks, tasks.isEmpty {
+        //            sections[0].tasks?.append(task)
+        //        } else {
+        //            sections[0].tasks?.insert(task, at: 0)
+        //        }
     }
 }
+
 
 #Preview {
     @State var hourglass = HourglassManager()

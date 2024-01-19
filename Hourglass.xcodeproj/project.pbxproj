@@ -36,6 +36,10 @@
 		0138106D2B2796ED003EE7E1 /* HourglassManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138106C2B2796ED003EE7E1 /* HourglassManager.swift */; };
 		013810712B27D83F003EE7E1 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013810702B27D83F003EE7E1 /* Comment.swift */; };
 		013810742B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013810732B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift */; };
+		014923112B597381005124C2 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014923102B597381005124C2 /* Service.swift */; };
+		014923132B598327005124C2 /* CurrencyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014923122B598327005124C2 /* CurrencyField.swift */; };
+		014923152B5999A8005124C2 /* ContactManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014923142B5999A8005124C2 /* ContactManager.swift */; };
+		014923172B59B67C005124C2 /* LineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014923162B59B67C005124C2 /* LineItem.swift */; };
 		014BBA752B2B4A4D0081D56F /* ProjectActionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BBA742B2B4A4D0081D56F /* ProjectActionsMenu.swift */; };
 		014BBA772B2B4E1F0081D56F /* ProjectThemeMenuContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BBA762B2B4E1E0081D56F /* ProjectThemeMenuContent.swift */; };
 		014BBA792B2B55820081D56F /* DeleteProjectSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014BBA782B2B55820081D56F /* DeleteProjectSheet.swift */; };
@@ -59,9 +63,8 @@
 		016F4B692B52F333000514FC /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016F4B682B52F333000514FC /* TasksView.swift */; };
 		016F4B6B2B532B7A000514FC /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016F4B6A2B532B7A000514FC /* Date+Extension.swift */; };
 		01743B7E2A4F25F4002CBC30 /* ProjectsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B7D2A4F25F4002CBC30 /* ProjectsWidget.swift */; };
-		01743B822A4F2B71002CBC30 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B812A4F2B71002CBC30 /* NewProjectView.swift */; };
+		01743B822A4F2B71002CBC30 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B812A4F2B71002CBC30 /* ProjectDetailView.swift */; };
 		01743B842A4F2ED1002CBC30 /* ProjectTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B832A4F2ED1002CBC30 /* ProjectTile.swift */; };
-		01743B892A4F34B6002CBC30 /* NewProjectSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01743B882A4F34B6002CBC30 /* NewProjectSetup.swift */; };
 		0174A5862B30F03D0043978F /* ProjectListItemContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0174A5852B30F03D0043978F /* ProjectListItemContextMenu.swift */; };
 		0174A5882B31C34B0043978F /* NavigationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0174A5872B31C34B0043978F /* NavigationMenu.swift */; };
 		017C8BCD2A69CF72006A2C74 /* TaskCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017C8BCC2A69CF72006A2C74 /* TaskCardView.swift */; };
@@ -78,7 +81,6 @@
 		0197E6682B5700D40007BF19 /* Invoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197E6672B5700D40007BF19 /* Invoice.swift */; };
 		0197E66A2B5709C50007BF19 /* Merchant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197E6692B5709C50007BF19 /* Merchant.swift */; };
 		0197E66C2B5709E70007BF19 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197E66B2B5709E70007BF19 /* Transaction.swift */; };
-		0197E66E2B570A120007BF19 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197E66D2B570A120007BF19 /* Contact.swift */; };
 		0197E6702B570A560007BF19 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197E66F2B570A560007BF19 /* Client.swift */; };
 		0197E6722B570C790007BF19 /* Timesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197E6712B570C790007BF19 /* Timesheet.swift */; };
 		01A142052A5C562B0090BDEF /* ContentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A142042A5C562B0090BDEF /* ContentDetail.swift */; };
@@ -86,6 +88,10 @@
 		01A1420C2A5C6D120090BDEF /* aChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1420B2A5C6D120090BDEF /* aChart.swift */; };
 		01A1420E2A5C6F970090BDEF /* ChartSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1420D2A5C6F970090BDEF /* ChartSelector.swift */; };
 		01A142102A5C7A8B0090BDEF /* NewGenericGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1420F2A5C7A8B0090BDEF /* NewGenericGoal.swift */; };
+		01A659B02B59C7AA00F4BBC9 /* LineItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A659AF2B59C7AA00F4BBC9 /* LineItemView.swift */; };
+		01A659B22B59D3C900F4BBC9 /* InvoiceListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A659B12B59D3C900F4BBC9 /* InvoiceListItemView.swift */; };
+		01A659B42B5A1B9300F4BBC9 /* TransactionDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A659B32B5A1B9300F4BBC9 /* TransactionDetailSheet.swift */; };
+		01A659B62B5AA7F300F4BBC9 /* MerchantField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A659B52B5AA7F300F4BBC9 /* MerchantField.swift */; };
 		01AA7BE82B24FBF700EF3CD7 /* TableTagCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7BE72B24FBF700EF3CD7 /* TableTagCellView.swift */; };
 		01AA7BEA2B250AEA00EF3CD7 /* FilterBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7BE92B250AEA00EF3CD7 /* FilterBuilderView.swift */; };
 		01AA7BEC2B25596800EF3CD7 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7BEB2B25596800EF3CD7 /* CloudKitManager.swift */; };
@@ -103,6 +109,7 @@
 		01DFFF732B4EC93E0031C289 /* CoreDataHelper+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DFFF722B4EC93E0031C289 /* CoreDataHelper+Extension.swift */; };
 		01EA48492A474A9F00B0E6C3 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA48482A474A9F00B0E6C3 /* Project.swift */; };
 		01EA484F2A4750C000B0E6C3 /* aTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA484E2A4750C000B0E6C3 /* aTask.swift */; };
+		01F6909E2B58B44D007409B5 /* TaskToolbarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6909D2B58B44D007409B5 /* TaskToolbarContent.swift */; };
 		01FAC8102B51D844000E442D /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FAC80F2B51D844000E442D /* ChartView.swift */; };
 		1D578D9F2B1A270A005AAB54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D578D9E2B1A270A005AAB54 /* AppDelegate.swift */; };
 		1D578DA12B1A2721005AAB54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D578DA02B1A2721005AAB54 /* SceneDelegate.swift */; };
@@ -141,6 +148,10 @@
 		0138106C2B2796ED003EE7E1 /* HourglassManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourglassManager.swift; sourceTree = "<group>"; };
 		013810702B27D83F003EE7E1 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		013810732B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateNotepadWidgetView.swift; sourceTree = "<group>"; };
+		014923102B597381005124C2 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		014923122B598327005124C2 /* CurrencyField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyField.swift; sourceTree = "<group>"; };
+		014923142B5999A8005124C2 /* ContactManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactManager.swift; sourceTree = "<group>"; };
+		014923162B59B67C005124C2 /* LineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItem.swift; sourceTree = "<group>"; };
 		014BBA712B29687C0081D56F /* Hourglass-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hourglass-Info.plist"; sourceTree = SOURCE_ROOT; };
 		014BBA742B2B4A4D0081D56F /* ProjectActionsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectActionsMenu.swift; sourceTree = "<group>"; };
 		014BBA762B2B4E1E0081D56F /* ProjectThemeMenuContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectThemeMenuContent.swift; sourceTree = "<group>"; };
@@ -165,9 +176,8 @@
 		016F4B682B52F333000514FC /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		016F4B6A2B532B7A000514FC /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		01743B7D2A4F25F4002CBC30 /* ProjectsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsWidget.swift; sourceTree = "<group>"; };
-		01743B812A4F2B71002CBC30 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
+		01743B812A4F2B71002CBC30 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
 		01743B832A4F2ED1002CBC30 /* ProjectTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTile.swift; sourceTree = "<group>"; };
-		01743B882A4F34B6002CBC30 /* NewProjectSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectSetup.swift; sourceTree = "<group>"; };
 		0174A5852B30F03D0043978F /* ProjectListItemContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListItemContextMenu.swift; sourceTree = "<group>"; };
 		0174A5872B31C34B0043978F /* NavigationMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenu.swift; sourceTree = "<group>"; };
 		017C8BCC2A69CF72006A2C74 /* TaskCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCardView.swift; sourceTree = "<group>"; };
@@ -184,7 +194,6 @@
 		0197E6672B5700D40007BF19 /* Invoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoice.swift; sourceTree = "<group>"; };
 		0197E6692B5709C50007BF19 /* Merchant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Merchant.swift; sourceTree = "<group>"; };
 		0197E66B2B5709E70007BF19 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
-		0197E66D2B570A120007BF19 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		0197E66F2B570A560007BF19 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		0197E6712B570C790007BF19 /* Timesheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timesheet.swift; sourceTree = "<group>"; };
 		01A142042A5C562B0090BDEF /* ContentDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetail.swift; sourceTree = "<group>"; };
@@ -192,6 +201,10 @@
 		01A1420B2A5C6D120090BDEF /* aChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aChart.swift; sourceTree = "<group>"; };
 		01A1420D2A5C6F970090BDEF /* ChartSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSelector.swift; sourceTree = "<group>"; };
 		01A1420F2A5C7A8B0090BDEF /* NewGenericGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGenericGoal.swift; sourceTree = "<group>"; };
+		01A659AF2B59C7AA00F4BBC9 /* LineItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItemView.swift; sourceTree = "<group>"; };
+		01A659B12B59D3C900F4BBC9 /* InvoiceListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceListItemView.swift; sourceTree = "<group>"; };
+		01A659B32B5A1B9300F4BBC9 /* TransactionDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailSheet.swift; sourceTree = "<group>"; };
+		01A659B52B5AA7F300F4BBC9 /* MerchantField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MerchantField.swift; sourceTree = "<group>"; };
 		01AA7BE72B24FBF700EF3CD7 /* TableTagCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTagCellView.swift; sourceTree = "<group>"; };
 		01AA7BE92B250AEA00EF3CD7 /* FilterBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBuilderView.swift; sourceTree = "<group>"; };
 		01AA7BEB2B25596800EF3CD7 /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
@@ -209,6 +222,7 @@
 		01DFFF722B4EC93E0031C289 /* CoreDataHelper+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreDataHelper+Extension.swift"; sourceTree = "<group>"; };
 		01EA48482A474A9F00B0E6C3 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		01EA484E2A4750C000B0E6C3 /* aTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aTask.swift; sourceTree = "<group>"; };
+		01F6909D2B58B44D007409B5 /* TaskToolbarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskToolbarContent.swift; sourceTree = "<group>"; };
 		01FAC80F2B51D844000E442D /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		1D578D9E2B1A270A005AAB54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D578DA02B1A2721005AAB54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -259,6 +273,8 @@
 				01EA48472A474A9200B0E6C3 /* Models */,
 				0100F5EE2A43F3F4001BD781 /* Preview Content */,
 				010D51F82A44DD520030989B /* Views */,
+				01A659AF2B59C7AA00F4BBC9 /* LineItemView.swift */,
+				01A659B12B59D3C900F4BBC9 /* InvoiceListItemView.swift */,
 			);
 			path = Hourglass;
 			sourceTree = "<group>";
@@ -295,8 +311,10 @@
 				01B1781D2B50AAAC00A63122 /* Status Update */,
 				01A1926A2B228888009BF39B /* Tasks */,
 				01AE46232B557BFA00E89259 /* Toolbars */,
-				015E46C62B57357F00263B07 /* TransactionsOverviewView.swift */,
 				013810722B27DD4D003EE7E1 /* Widgets */,
+				014923122B598327005124C2 /* CurrencyField.swift */,
+				01A659B32B5A1B9300F4BBC9 /* TransactionDetailSheet.swift */,
+				01A659B52B5AA7F300F4BBC9 /* MerchantField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -355,6 +373,7 @@
 			children = (
 				0138106C2B2796ED003EE7E1 /* HourglassManager.swift */,
 				01AA7BEB2B25596800EF3CD7 /* CloudKitManager.swift */,
+				014923142B5999A8005124C2 /* ContactManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -383,15 +402,6 @@
 				016F4B682B52F333000514FC /* TasksView.swift */,
 			);
 			path = "Board View";
-			sourceTree = "<group>";
-		};
-		01743B852A4F3371002CBC30 /* New Project */ = {
-			isa = PBXGroup;
-			children = (
-				01743B812A4F2B71002CBC30 /* NewProjectView.swift */,
-				01743B882A4F34B6002CBC30 /* NewProjectSetup.swift */,
-			);
-			path = "New Project";
 			sourceTree = "<group>";
 		};
 		018BCE3E2A49E73B00F2E7B8 /* Home Widgets */ = {
@@ -479,6 +489,7 @@
 			isa = PBXGroup;
 			children = (
 				01AE46242B557C0800E89259 /* ProjectToolbarContent.swift */,
+				01F6909D2B58B44D007409B5 /* TaskToolbarContent.swift */,
 			);
 			path = Toolbars;
 			sourceTree = "<group>";
@@ -496,11 +507,12 @@
 		01B178242B519DE900A63122 /* Main Views */ = {
 			isa = PBXGroup;
 			children = (
-				010D52012A44DD9E0030989B /* PortfolioView.swift */,
 				01A142042A5C562B0090BDEF /* ContentDetail.swift */,
 				010D51F92A44DD5E0030989B /* HomeView.swift */,
 				010D51FD2A44DD850030989B /* InboxView.swift */,
 				010D51FB2A44DD7A0030989B /* MyTasksView.swift */,
+				015E46C62B57357F00263B07 /* TransactionsOverviewView.swift */,
+				010D52012A44DD9E0030989B /* PortfolioView.swift */,
 				011E97692B509529000EBE14 /* ReportingView.swift */,
 			);
 			path = "Main Views";
@@ -509,23 +521,23 @@
 		01DF50742A570C5100768649 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				01743B812A4F2B71002CBC30 /* ProjectDetailView.swift */,
 				01743B832A4F2ED1002CBC30 /* ProjectTile.swift */,
+				01DF50752A570C5C00768649 /* Project Tabs */,
 				010D52052A44DDB40030989B /* ProjectView.swift */,
-				01DF50752A570C5C00768649 /* Project View Tabs */,
-				01743B852A4F3371002CBC30 /* New Project */,
 				0180287B2A6B3BBD00ED4BB9 /* ProjectHeader.swift */,
 				014BBA782B2B55820081D56F /* DeleteProjectSheet.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
 		};
-		01DF50752A570C5C00768649 /* Project View Tabs */ = {
+		01DF50752A570C5C00768649 /* Project Tabs */ = {
 			isa = PBXGroup;
 			children = (
 				01DF50762A570C9200768649 /* ProjectOverviewTab.swift */,
 				01DF50782A57195600768649 /* ProjectListTab.swift */,
 			);
-			path = "Project View Tabs";
+			path = "Project Tabs";
 			sourceTree = "<group>";
 		};
 		01EA48472A474A9200B0E6C3 /* Models */ = {
@@ -536,14 +548,15 @@
 				01EA484E2A4750C000B0E6C3 /* aTask.swift */,
 				0197E66F2B570A560007BF19 /* Client.swift */,
 				013810702B27D83F003EE7E1 /* Comment.swift */,
-				0197E66D2B570A120007BF19 /* Contact.swift */,
 				011EBC8E2B4C5AC50003BC76 /* CustomField.swift */,
 				011EBC8A2B4C412D0003BC76 /* Dashboard.swift */,
 				01B178252B51A23F00A63122 /* DataController.swift */,
 				011EBC8C2B4C49F90003BC76 /* Goal.swift */,
 				0197E6672B5700D40007BF19 /* Invoice.swift */,
+				014923162B59B67C005124C2 /* LineItem.swift */,
 				0197E6692B5709C50007BF19 /* Merchant.swift */,
 				01EA48482A474A9F00B0E6C3 /* Project.swift */,
+				014923102B597381005124C2 /* Service.swift */,
 				01B178272B51A37400A63122 /* StatusSection.swift */,
 				01B1781B2B50A63100A63122 /* StatusUpdate.swift */,
 				0197E6712B570C790007BF19 /* Timesheet.swift */,
@@ -633,7 +646,7 @@
 				010D51FA2A44DD5E0030989B /* HomeView.swift in Sources */,
 				0127EDB02B474BF4003FABBD /* CloudKit+Extension.swift in Sources */,
 				010C12FD2A66397F001C2722 /* Encodable+Extension.swift in Sources */,
-				0197E66E2B570A120007BF19 /* Contact.swift in Sources */,
+				01A659B62B5AA7F300F4BBC9 /* MerchantField.swift in Sources */,
 				011EBC8B2B4C412D0003BC76 /* Dashboard.swift in Sources */,
 				01B178212B50AFFD00A63122 /* StatusSectionView.swift in Sources */,
 				014BBA772B2B4E1F0081D56F /* ProjectThemeMenuContent.swift in Sources */,
@@ -643,14 +656,18 @@
 				01B1781C2B50A63100A63122 /* StatusUpdate.swift in Sources */,
 				0180945C2B30CFC600B22D82 /* SidebarSection.swift in Sources */,
 				014BBA792B2B55820081D56F /* DeleteProjectSheet.swift in Sources */,
+				01F6909E2B58B44D007409B5 /* TaskToolbarContent.swift in Sources */,
+				01A659B22B59D3C900F4BBC9 /* InvoiceListItemView.swift in Sources */,
 				0106F2EF2A4B98050010B058 /* MyTasksWidget.swift in Sources */,
 				0197E6682B5700D40007BF19 /* Invoice.swift in Sources */,
 				010D52022A44DD9E0030989B /* PortfolioView.swift in Sources */,
 				01A142052A5C562B0090BDEF /* ContentDetail.swift in Sources */,
 				016F4B672B52F313000514FC /* ColumnView.swift in Sources */,
 				0100F5EA2A43F3F3001BD781 /* ContentView.swift in Sources */,
+				014923152B5999A8005124C2 /* ContactManager.swift in Sources */,
 				1D6031FE2B1A2BF100ECEB91 /* TaskListView.swift in Sources */,
 				0174A5882B31C34B0043978F /* NavigationMenu.swift in Sources */,
+				014923172B59B67C005124C2 /* LineItem.swift in Sources */,
 				018BCE402A49E75800F2E7B8 /* AchievmentsWidgetView.swift in Sources */,
 				017C8BCF2A69E435006A2C74 /* TaskBoardView.swift in Sources */,
 				010D51FE2A44DD850030989B /* InboxView.swift in Sources */,
@@ -660,22 +677,23 @@
 				0151D09C2B47795C00825215 /* PageTabButton.swift in Sources */,
 				016F4B692B52F333000514FC /* TasksView.swift in Sources */,
 				013810742B27DD66003EE7E1 /* PrivateNotepadWidgetView.swift in Sources */,
-				01743B822A4F2B71002CBC30 /* NewProjectView.swift in Sources */,
+				01743B822A4F2B71002CBC30 /* ProjectDetailView.swift in Sources */,
 				0174A5862B30F03D0043978F /* ProjectListItemContextMenu.swift in Sources */,
 				018E72322A49FB4A001481F3 /* SwatchView.swift in Sources */,
 				01DF50772A570C9200768649 /* ProjectOverviewTab.swift in Sources */,
 				015E46C72B57357F00263B07 /* TransactionsOverviewView.swift in Sources */,
 				01EA48492A474A9F00B0E6C3 /* Project.swift in Sources */,
 				011EBC912B4C63890003BC76 /* CustomFieldModal.swift in Sources */,
-				01743B892A4F34B6002CBC30 /* NewProjectSetup.swift in Sources */,
 				0191447A2A56FC7900F33151 /* SidebarView.swift in Sources */,
 				011EBC932B4C698A0003BC76 /* LabeledInput.swift in Sources */,
+				01A659B02B59C7AA00F4BBC9 /* LineItemView.swift in Sources */,
 				015E46CB2B573D5D00263B07 /* ClientDetailView.swift in Sources */,
 				0197E6722B570C790007BF19 /* Timesheet.swift in Sources */,
 				01743B7E2A4F25F4002CBC30 /* ProjectsWidget.swift in Sources */,
 				01DFFF732B4EC93E0031C289 /* CoreDataHelper+Extension.swift in Sources */,
 				018DF6782A5E103900752C32 /* AvatarView.swift in Sources */,
 				0100F5E82A43F3F3001BD781 /* HourglassApp.swift in Sources */,
+				014923132B598327005124C2 /* CurrencyField.swift in Sources */,
 				010D52062A44DDB40030989B /* ProjectView.swift in Sources */,
 				0138106D2B2796ED003EE7E1 /* HourglassManager.swift in Sources */,
 				01DFFF712B4EC9250031C289 /* ModelContext+Extension.swift in Sources */,
@@ -688,6 +706,7 @@
 				01B178232B51911100A63122 /* StatusUpdateHeader.swift in Sources */,
 				015E46CE2B573E1E00263B07 /* ClientDetailOverviewTab.swift in Sources */,
 				011E976A2B509529000EBE14 /* ReportingView.swift in Sources */,
+				01A659B42B5A1B9300F4BBC9 /* TransactionDetailSheet.swift in Sources */,
 				0168B9F62B51B2A600B9BB4B /* Card.swift in Sources */,
 				01AA7BEC2B25596800EF3CD7 /* CloudKitManager.swift in Sources */,
 				01AA7BE82B24FBF700EF3CD7 /* TableTagCellView.swift in Sources */,
@@ -705,6 +724,7 @@
 				017C8BCD2A69CF72006A2C74 /* TaskCardView.swift in Sources */,
 				018DF67C2A5EEABD00752C32 /* Array+Extension.swift in Sources */,
 				0138106B2B277252003EE7E1 /* TaskDetailView.swift in Sources */,
+				014923112B597381005124C2 /* Service.swift in Sources */,
 				0197E66C2B5709E70007BF19 /* Transaction.swift in Sources */,
 				014BBA842B2B72C70081D56F /* ProjectPills.swift in Sources */,
 				014BBA812B2B71910081D56F /* TaskContextMenu.swift in Sources */,
@@ -870,6 +890,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Hourglass-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSContactsUsageDescription = "We use your contacts to link contacts to clients. No information is shared. ";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -913,6 +935,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Hourglass-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSContactsUsageDescription = "We use your contacts to link contacts to clients. No information is shared. ";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

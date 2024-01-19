@@ -47,21 +47,20 @@ struct SidebarView: View {
                 }
             }
             
-//            SidebarSectionItem("Insights") {
-//				NavigationLink(value: SidebarLink.reporting) {
-//					Label("Reporting", systemImage: "chart.xyaxis.line")
-//				}
-//				
-//				NavigationLink(value: SidebarLink.portfolios) {
-//					Label("Portfolios", systemImage: "folder")
-//				}
-//				
-//				NavigationLink(value: SidebarLink.goals) {
-//					Label("Goals", systemImage: "mountain.2")
-//				}
-//            }
+            Section("Insights") {
+                NavigationLink(value: SidebarLink.reporting) {
+                    Label("Reporting", systemImage: "chart.xyaxis.line")
+                }
+                
+                NavigationLink(value: SidebarLink.portfolios) {
+                    Label("Portfolios", systemImage: "folder")
+                }
+                
+                NavigationLink(value: SidebarLink.goals) {
+                    Label("Goals", systemImage: "mountain.2")
+                }
+            }
 
-            
             if !starredProjects.isEmpty {
                 SidebarSection(label: "Starred") {
                     ForEach(starredProjects) { project in
@@ -91,6 +90,7 @@ struct SidebarView: View {
                     NavigationLink(value: SidebarLink.project(project)) {
                         ProjectListItem(
                             name: project.name,
+                            subtitle: project.client?.name,
                             color: project.color.color
                         )
                     }
@@ -115,18 +115,9 @@ struct SidebarView: View {
 				}
 			}
 		}
-        .fullScreenCover(isPresented: $newProject) {
+        .sheet(isPresented: $newProject) {
             NavigationStack {
-                NewProjectView(isPresented: $newProject)
-                    .toolbar {
-                        ToolbarItem {
-                            Button {
-                                newProject.toggle()
-                            } label: {
-                                Label("Close", systemImage: "xmark")
-                            }
-                        }
-                    }
+                ProjectDetailView()
             }
         }
     }

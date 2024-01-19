@@ -14,7 +14,9 @@ struct ProjectsWidget: View {
 			let columns = Array(repeating: GridItem(spacing: 15), count: colNum)
 			
 			LazyVGrid(columns: columns, alignment: .leading, spacing: 15) {
-				NavigationLink(destination: NewProjectView(isPresented: .constant(true))) {
+                NavigationLink(
+                    destination: ProjectDetailView()
+                ) {
 					HStack {
 						Image(systemName: "plus")
 							.foregroundStyle(.secondary)
@@ -64,9 +66,9 @@ struct ProjectListItemView: View {
     var body: some View {
         let calendar = Calendar.current
         let addOneWeekToCurrentDate = calendar.date(byAdding: .weekOfYear, value: 2, to: Date())
-		let upcomingTasks = project.tasks?.filter {
-            $0.endDate != nil && $0.endDate! > addOneWeekToCurrentDate!
-        }
+//		let upcomingTasks = tasks?.filter {
+//            $0.endDate != nil && $0.endDate! > addOneWeekToCurrentDate!
+//        }
         
         HStack {
             Image(project.icon.icon)
@@ -83,11 +85,11 @@ struct ProjectListItemView: View {
                     Label("Archived", systemImage: "archivebox.fill")
                         .font(.caption)
                 } else {
-                    if let upcomingTasks, upcomingTasks.count > 0 {
-                        Text("\(upcomingTasks.count) tasks due soon")
-                            .foregroundStyle(.secondary)
-                            .lineLimit(1)
-                    }
+//                    if let upcomingTasks, upcomingTasks.count > 0 {
+//                        Text("\(upcomingTasks.count) tasks due soon")
+//                            .foregroundStyle(.secondary)
+//                            .lineLimit(1)
+//                    }
                 }
             }
             

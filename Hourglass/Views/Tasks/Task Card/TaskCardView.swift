@@ -48,9 +48,9 @@ struct TaskCardView: View {
     var body: some View {        
         Card($isHovering) {
             VStack(alignment: .leading, spacing: 16) {
-                if let projects = task.projects, !projects.isEmpty {
-                    ProjectPills(projects)
-                }
+//                if let projects = task.projects, !projects.isEmpty {
+//                    ProjectPills(projects)
+//                }
                 
                 HStack(alignment: .top) {
                     Button {

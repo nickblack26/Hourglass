@@ -177,7 +177,6 @@ struct MyTasksWidget: View {
                 } header: {
                     HStack(spacing: 20) {
                         AvatarView(
-                            image: tempUrl,
                             fallback: "Nick Black",
                             size: .xlarge
                         )

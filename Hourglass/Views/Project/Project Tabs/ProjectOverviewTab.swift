@@ -15,18 +15,23 @@ struct ProjectOverviewTab: View {
     private var milestones: [aTask]
     
     @Query private var goals: [Goal]
-    @Query private var invoices: [Transaction]
+    @Query private var invoices: [Invoice]
     @Query private var transactions: [Transaction]
+    @Query private var lineItems: [LineItem]
     @Query private var timesheets: [Timesheet]
-    
     var project: Project
     
     init(_ project: Project) {
         let projectId = project.persistentModelID
         self.project = project
         self._invoices = Query(
-            filter: #Predicate<Transaction> {
-                $0.project != nil && $0.invoice != nil && $0.project?.persistentModelID == projectId
+            filter: #Predicate<Invoice> {
+                $0.project != nil && $0.project?.persistentModelID == projectId
+            }
+        )
+        self._lineItems = Query(
+            filter: #Predicate<LineItem> {
+                $0.project != nil && $0.project?.persistentModelID == projectId
             }
         )
         self._transactions = Query(
@@ -135,27 +140,26 @@ struct ProjectOverviewTab: View {
 									})
 								} else {
 									Table(invoices) {
-										TableColumn("Invoice") { transaction in
-											if let invoice = transaction.invoice {
-												Text("\(invoice.number)")
-											}
+										TableColumn("Invoice") { invoice in
+                                            Text("\(invoice.number)")
 										}
 										
-										TableColumn("Created At") { transaction in
-											if let invoice = transaction.invoice {
-												Text(invoice.createdAt.formatted(date: .abbreviated, time: .omitted))
-											}
+										TableColumn("Created At") { invoice in
+                                            Text(invoice.createdAt.formatted(date: .abbreviated, time: .omitted))
 										}
 										
-										TableColumn("Due") { transaction in
-											if let invoice = transaction.invoice, let dueDate = invoice.dueDate {
+										TableColumn("Due") { invoice in
+											if let dueDate = invoice.dueDate {
 												Text(dueDate.formatted(date: .abbreviated, time: .omitted))
 											}
 										}
 										
-										TableColumn("Amount") { transaction in
-											if let invoice = transaction.invoice {
-												Text(invoice.number, format: .currency(code: "USD"))
+										TableColumn("Amount") { invoice in
+                                            if let lines = invoice.lines {
+                                                let total = lines.reduce(0) { partialResult, lineItem in
+                                                    return partialResult + lineItem.amount
+                                                }
+												Text(total, format: .currency(code: "USD"))
 											}
 										}
 									}
@@ -166,24 +170,24 @@ struct ProjectOverviewTab: View {
                     .listRowSeparator(.hidden)
                     
                     Section("Transactions") {
-                        Chart {
-                            ForEach(timesheets) {
-                                BarMark(
-                                    x: .value(
-                                        "Day",
-                                        $0.start,
-                                        unit: .day
-                                    ),
-                                    y: .value(
-                                        "Hour",
-                                        $0.start,
-                                        unit: .hour
-                                    )
-                                )
-                            }
-                            
-                            RuleMark(y: .value("", 28))
-                        }
+//                        Chart {
+//                            ForEach(timesheets) {
+//                                BarMark(
+//                                    x: .value(
+//                                        "Day",
+//                                        $0.start,
+//                                        unit: .day
+//                                    ),
+//                                    y: .value(
+//                                        "Hour",
+//                                        $0.start,
+//                                        unit: .hour
+//                                    )
+//                                )
+//                            }
+//                            
+//                            RuleMark(y: .value("", 28))
+//                        }
                         
                         Card {
                             Table(transactions) {
@@ -203,9 +207,9 @@ struct ProjectOverviewTab: View {
                                     Text(transaction.date.formatted(date: .abbreviated, time: .omitted))
                                 }
                                 
-                                TableColumn("Amount") { transaction in
-                                    Text(transaction.total, format: .currency(code: "USD"))
-                                }
+//                                TableColumn("Amount") { transaction in
+//                                    Text(transaction.total, format: .currency(code: "USD"))
+//                                }
                             }
                         }
                     }

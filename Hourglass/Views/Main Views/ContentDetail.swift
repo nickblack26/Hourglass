@@ -22,7 +22,7 @@ struct ContentDetail: View {
 			case .project(let project):
 				ProjectView(project)
             case .client(let client):
-                Text(client.name)
+                ClientDetailView(client: client)
 			case nil:
 				ContentUnavailableView {
 					Image(systemName: "magnifyingglass.circle")

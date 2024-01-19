@@ -3,30 +3,26 @@ import SwiftUI
 struct ProjectListItem: View {
     @State private var isHovering: Bool = true
     var name: String
+    var subtitle: String?
     var color: Color
     
     var body: some View {
-        Label {
-            Text(name)
-                .lineLimit(1)
-        } icon: {
+        HStack {
             RoundedRectangle(cornerRadius: 5)
                 .fill(color)
                 .frame(width: 25, height: 25)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .listRowBackground(isHovering ? Color.navigationBackgroundHover : nil)
-        .onHover {
-            isHovering = $0
-#if targetEnvironment(macCatalyst)
-            DispatchQueue.main.async {
-                if (self.isHovering) {
-                    NSCursor.pointingHand.push()
-                } else {
-                    NSCursor.pop()
+            
+            VStack(alignment: .leading) {
+                Text(name)
+                
+                if let subtitle {
+                    Text(subtitle)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
             }
-#endif
+            .lineLimit(1)
+            .multilineTextAlignment(.leading)
         }
     }
 }

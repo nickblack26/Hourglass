@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct ReportingView: View {
+    @State private var isExpanded: Bool = true
     @Environment(HourglassManager.self) private var asana
     
     // Get all dashboards not tied to a project
@@ -11,16 +12,11 @@ struct ReportingView: View {
     private var dashboards: [Dashboard]
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Reporting")
-                .font(.largeTitle)
-            
-            Button("Create", systemImage: "plus") {
-                asana.selectedDashboard = .init(name: "")
-            }
-            .buttonStyle(.borderedProminent)
-            
-            Section("Recents") {
+        List {
+            Section(
+                "Recents",
+                isExpanded: $isExpanded
+            ) {
                 LazyVGrid(
                     columns: Array(
                         repeating: GridItem(),
@@ -46,21 +42,27 @@ struct ReportingView: View {
                     }
                 }
             }
+            .listRowSeparator(.hidden)
             .headerProminence(.increased)
-            .padding(.horizontal)
         }
-        .padding()
-        .frame(
-            maxWidth: .infinity,
-            maxHeight: .infinity,
-            alignment: .topLeading
-        )
+        .listStyle(.plain)
+        .navigationTitle("Reporting")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button("Create dashboard", systemImage: "plus") {
+                    asana.selectedDashboard = .init(name: "")
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    NavigationStack {
+    @State var hourglass = HourglassManager()
+    
+    return NavigationStack {
         ReportingView()
     }
+    .environment(hourglass)
     .modelContainer(for: Dashboard.self)
 }
