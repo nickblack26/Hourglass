@@ -1,10 +1,3 @@
-//
-//  TasksView.swift
-//  Asana
-//
-//  Created by Nick Black on 1/13/24.
-//
-
 import SwiftUI
 
 struct TasksView: View {
@@ -12,12 +5,14 @@ struct TasksView: View {
     
     init(_ tasks: [aTask]) {
         self.tasks = tasks
+		let testing: aTask = .init(name: "", order: 0)
+//		matchedPredicates(obj: testing, predicates: [(\aTask.isCompleted, true)])
+
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             ForEach(tasks) { task in
-                @Bindable var task = task
                 TaskCardView(task)
             }
         }

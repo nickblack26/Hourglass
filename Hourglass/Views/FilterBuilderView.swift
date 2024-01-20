@@ -14,6 +14,7 @@ var quickFilters: [FilterModel] = [
 
 struct FilterBuilderView: View {
     @State private var filters: [FilterModel] = []
+	let tasks: [aTask] = []
     
     var body: some View {
         VStack(alignment: .leading) {

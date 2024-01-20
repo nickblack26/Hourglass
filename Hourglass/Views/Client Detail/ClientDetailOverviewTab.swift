@@ -129,8 +129,14 @@ struct ClientDetailOverviewTab: View {
                 .gridCellUnsizedAxes(.vertical)
             }
         }
-        .inspector(isPresented: .constant(true)) {
+		.inspector(
+			isPresented: .constant(true)
+		) {
             List {
+				Section("Notifications") {}
+				
+				Section("Activites") {}
+				
                 Section("Contacts") {
                     ForEach(contacts, id: \.identifier) { contact in
                         HStack {

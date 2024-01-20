@@ -5,8 +5,9 @@ struct ColumnView: View {
     @Environment(HourglassManager.self) var hourglass
     @Query var tasks: [aTask]
     @Bindable var section: aSection
+	var filter: aTask.Filter?
     
-    init(section: aSection) {
+    init(section: aSection, filter: aTask.Filter? = nil) {
         self.section = section
         let sectionId = section.persistentModelID
         self._tasks = .init(

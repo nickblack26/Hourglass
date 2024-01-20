@@ -7,9 +7,7 @@ final class Timesheet {
     var start: Date = Date()
     var end: Date?
     var notes: String?
-    var onTheClock: Bool {
-        end == nil ? true : false
-    }
+    var onTheClock: Bool { end == nil }
     
     init(project: Project? = nil, start: Date = Date(), end: Date? = nil, notes: String? = nil) {
         self.project = project

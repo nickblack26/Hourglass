@@ -13,12 +13,14 @@ struct ProjectOverviewTab: View {
         }
     )
     private var milestones: [aTask]
-    
     @Query private var goals: [Goal]
     @Query private var invoices: [Invoice]
     @Query private var transactions: [Transaction]
     @Query private var lineItems: [LineItem]
     @Query private var timesheets: [Timesheet]
+	
+	@State private var timeFormatter = ElapsedTimeFormatter()
+
     var project: Project
     
     init(_ project: Project) {
@@ -37,7 +39,14 @@ struct ProjectOverviewTab: View {
         self._transactions = Query(
             filter: #Predicate<Transaction> {
                 $0.project != nil && $0.invoice == nil && $0.project?.persistentModelID == projectId
-            }
+            },
+			sort: [SortDescriptor(\Transaction.createdAt, order: .reverse)]
+        )
+		self._timesheets = Query(
+            filter: #Predicate<Timesheet> {
+                $0.project != nil && $0.project?.persistentModelID == projectId
+            },
+			sort: [SortDescriptor(\Timesheet.start, order: .reverse)]
         )
     }
     
@@ -169,26 +178,31 @@ struct ProjectOverviewTab: View {
                     }
                     .listRowSeparator(.hidden)
                     
+                    Section("Timesheets") {
+                        Card {
+							VStack(alignment: .leading) {
+                            	ForEach(timesheets) { timesheet in
+									HStack {
+										if let end = timesheet.end {
+											Text(
+												NSNumber(value: end.timeIntervalSince(timesheet.start)),
+												formatter: timeFormatter
+											)
+										} else {
+											Text(
+												NSNumber(value: timesheet.start.timeIntervalSinceNow),
+												formatter: timeFormatter
+											)
+										}
+										Text(timesheet.start.formatted(date: .omitted, time: .shortened))
+									}
+								}
+                            }
+                        }
+                    }
+                    .listRowSeparator(.hidden)
+                    
                     Section("Transactions") {
-//                        Chart {
-//                            ForEach(timesheets) {
-//                                BarMark(
-//                                    x: .value(
-//                                        "Day",
-//                                        $0.start,
-//                                        unit: .day
-//                                    ),
-//                                    y: .value(
-//                                        "Hour",
-//                                        $0.start,
-//                                        unit: .hour
-//                                    )
-//                                )
-//                            }
-//                            
-//                            RuleMark(y: .value("", 28))
-//                        }
-                        
                         Card {
                             Table(transactions) {
                                 TableColumn("Description") { transaction in

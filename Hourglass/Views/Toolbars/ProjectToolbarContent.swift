@@ -23,7 +23,14 @@ struct ProjectToolbar: ToolbarContent {
 					icon: Image(project.icon.icon)
 				)
 			)
-			.tint(project.color.color)
+			
+			Button("Start timer", systemImage: "clock") {
+				withAnimation(.snappy) {
+					let timesheet = Timesheet(project: project, start: Date())
+					context.insert(timesheet)
+					asana.currentTimesheet = timesheet
+				}
+			}
 			
 			Button(
 				project.starred ? "Unfavorite" : "Favorite",
@@ -33,11 +40,8 @@ struct ProjectToolbar: ToolbarContent {
 					project.starred.toggle()
 				}
 			}
-			.tint(project.color.color)
-			
 			
 			ProjectActionsMenu(project)
-				.tint(project.color.color)
 		}
     }
 }

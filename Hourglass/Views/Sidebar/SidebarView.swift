@@ -1,7 +1,6 @@
 import SwiftUI
 import SwiftData
 
-
 struct SidebarView: View {
     @Environment(HourglassManager.self) private var hourglass
     
@@ -22,6 +21,11 @@ struct SidebarView: View {
         sort: \Client.name
     )
     private var clients: [Client]
+	
+	@Query(
+		filter: #Predicate<Timesheet> { $0.end == nil }
+	)
+	private var timesheets: [Timesheet]
     
     @State private var newProject: Bool = false
     
@@ -29,6 +33,14 @@ struct SidebarView: View {
         @Bindable var hourglass = hourglass
         
         List(selection: $hourglass.selectedLink) {
+			if !timesheets.isEmpty {
+				Section {
+					ForEach(timesheets) { timesheet in
+						CurrentTimesheetView(timesheet: timesheet)
+					}
+				}
+			}
+			
             Section {
                 NavigationLink(value: SidebarLink.home) {
                     Label("Home", systemImage: "house")
@@ -100,7 +112,7 @@ struct SidebarView: View {
                 }
             }
         }
-		.navigationTitle("Hourglass")
+		.scrollContentBackground(.hidden)
 		.toolbar {
 			ToolbarItemGroup(placement: .primaryAction) {
 				Button("New project", systemImage: "folder") {
