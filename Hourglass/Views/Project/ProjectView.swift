@@ -1,6 +1,5 @@
 import SwiftUI
 import SwiftData
-import SwiftDataKit
 import Contacts
 
 struct ProjectView: View {
@@ -24,7 +23,7 @@ struct ProjectView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack {
                 ForEach(Project.Tab.allCases, id: \.self) { tab in
                     Button(tab.rawValue, systemImage: tab.image) {
@@ -36,41 +35,9 @@ struct ProjectView: View {
                 }
             }
             .padding(.horizontal)
+            .padding(.leading)
             
             Divider()
-            
-            if selectedTab != .overview {
-                HStack {
-                    Button("Add task", systemImage: "plus") {
-                        withAnimation(.snappy) {
-                            addNewTask()
-                        }
-                    }
-                    .tint(.accent)
-                    .buttonStyle(.borderedProminent)
-                    
-                    Menu("", systemImage: "chevron.down") {
-                        Button("Add section", systemImage: "chart.bar.doc.horizontal") {
-                            withAnimation(.snappy) {
-                                addNewSection()
-                            }
-                        }
-                        Button("Add milestone...", action: addNewSection)
-                        Button("Add custom field") {
-                            hourglass.selectedCustomField = .init()
-                        }
-                    }
-                    .labelsHidden()
-                    .buttonStyle(.borderedProminent)
-                    .tint(.clear)
-                    .foregroundStyle(.primary)
-                    
-                    Spacer()
-                    
-                    
-                }
-                .padding([.horizontal, .top])
-            }
             
             switch selectedTab {
             case .overview:
@@ -98,7 +65,9 @@ struct ProjectView: View {
             }
         }
         .searchable(text: .constant(""))
+#if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+#endif
         .navigationTitle($project.name)
         .toolbar { ProjectToolbar(project: project) }
         .toolbarRole(.editor)
@@ -108,30 +77,12 @@ struct ProjectView: View {
                 modelContext.insert(section)
             }
         }
-        .sheet(isPresented: $showProjectSheet) {
-            //            SectionForm(project: project)
-        }
-    }
-    
-    private func addNewSection() {
-        let section = aSection(name: "", order: sections.count, project: project)
-        modelContext.insert(section)
-    }
-    
-    private func addNewTask() {
-        let task = aTask(name: "", order: sections[0].tasks?.count ?? 0)
-        
-        //        if let tasks = project.tasks, tasks.isEmpty {
-        //            sections[0].tasks?.append(task)
-        //        } else {
-        //            sections[0].tasks?.insert(task, at: 0)
-        //        }
     }
 }
 
 
 #Preview {
-    @State var hourglass = HourglassManager()
+    @Previewable @State var hourglass = HourglassManager()
     let project = Project(name: "")
     
     return NavigationStack {

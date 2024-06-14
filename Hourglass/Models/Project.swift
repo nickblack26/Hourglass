@@ -2,8 +2,6 @@ import Foundation
 import SwiftData
 import SwiftUI
 import CoreTransferable
-import CloudKit
-import SwiftDataKit
 
 @Model
 final class Project: Codable {
@@ -18,6 +16,7 @@ final class Project: Codable {
     var archived: Bool = false
     var starred: Bool = false
     var depositRequired: Bool = false
+    var depositAmount: Decimal?
     var status: Status?
     
     var invoiceSchedule: InvoiceSchedule = InvoiceSchedule.once
@@ -31,10 +30,7 @@ final class Project: Codable {
     @Relationship(deleteRule: .nullify, inverse: \Transaction.project)
     var transactions: [Transaction]? = []
     
-    @Relationship(deleteRule: .nullify, inverse: \Timesheet.project)
-    var timesheets: [Timesheet]? = []
-	
-	@Relationship(deleteRule: .nullify, inverse: \StatusUpdate.project)
+    @Relationship(deleteRule: .nullify, inverse: \StatusUpdate.project)
 	var statusUpdates: [StatusUpdate]? = []
 	
 	@Relationship(deleteRule: .cascade, inverse: \aSection.project)
@@ -54,7 +50,8 @@ final class Project: Codable {
         icon: Icon = Icon.allCases.randomElement() ?? .calendar,
         defaultTab: Tab = .list,
         archived: Bool = false,
-        status: Status? = nil
+        status: Status? = nil,
+        client: Client? = nil
     ) {
         self.name = name
         self.startDate = startDate
@@ -66,6 +63,7 @@ final class Project: Codable {
         self.icon = icon
         self.defaultTab = defaultTab
         self.archived = archived
+        self.client = client
     }
     
     enum CodingKeys: String, CodingKey {
@@ -223,14 +221,5 @@ extension Project {
             case .workflow: return ("workflowIcon", "Start adding tasks", "Assign, set due dates, and get to work")
             }
         }
-    }
-}
-
-// MARK: HELPER FUNCTIONS
-extension Project {
-    func createCloudKitRecord() -> CKRecord {
-        
-        //        let project = CKRecord(recordType: "projects", recordID: self.persistentModelID.id)
-        return CKRecord(recordType: "users")
     }
 }

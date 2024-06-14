@@ -40,24 +40,46 @@ struct PrivateNotepadWidgetView: View {
 }
 
 #Preview {
-    @State var hourglass = HourglassManager()
-    return PrivateNotepadWidgetView().environment(hourglass)
+    @Previewable  @State var hourglass = HourglassManager()
+    
+    PrivateNotepadWidgetView().environment(hourglass)
 }
 
-
+#if os(iOS)
 struct TextView: UIViewRepresentable {
-	@Binding var attributedText: NSAttributedString
-	@State var allowsEditingTextAttributes: Bool = false
-	
-	@State var font: UIFont? = UIFont.preferredFont(forTextStyle: .body)
-	
-	func makeUIView(context: Context) -> UITextView {
-		UITextView()
-	}
-	
-	func updateUIView(_ uiView: UITextView, context: Context) {
-		uiView.attributedText = attributedText
-		uiView.allowsEditingTextAttributes = allowsEditingTextAttributes
-		uiView.font = font
-	}
+    @Binding var attributedText: NSAttributedString
+    @State var allowsEditingTextAttributes: Bool = false
+    
+    @State var font: UIFont? = UIFont.preferredFont(forTextStyle: .body)
+    
+    func makeUIView(context: Context) -> UITextView {
+        UITextView()
+    }
+    
+    func updateUIView(_ uiView: UITextView, context: Context) {
+        uiView.attributedText = attributedText
+        uiView.allowsEditingTextAttributes = allowsEditingTextAttributes
+        uiView.font = font
+    }
 }
+#endif
+#if os(macOS)
+struct TextView: NSViewRepresentable {
+    @Binding var attributedText: NSAttributedString
+    @State var allowsEditingTextAttributes: Bool = false
+    
+    @State var font: NSFont? = NSFont.preferredFont(forTextStyle: .body)
+    
+    func makeNSView(context: Context) -> NSTextView {
+        NSTextView()
+    }
+    
+    func updateNSView(_ nsView: NSTextView, context: Context) {
+//        nsView.attr
+//        nsView.attributedText = attributedText
+//        uiView.allowsEditingTextAttributes = allowsEditingTextAttributes
+//        uiView.font = font
+    }
+}
+#endif
+

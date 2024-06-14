@@ -8,9 +8,9 @@ struct TransactionsOverviewView: View {
     
     var body: some View {
         let total: Decimal = transactions.reduce(0) { partialResult, transaction in
-            if let invoice = transaction.invoice {
-                return partialResult - transaction.amount
-            }
+//            if let invoice = transaction.invoice {
+//                return partialResult - transaction.amount
+//            }
             
             return partialResult + transaction.amount
         }
@@ -19,7 +19,7 @@ struct TransactionsOverviewView: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
                     Text("Profit before taxes")
-                    Text(total, format: .currency(code: "USD"))
+                    FormattedCurrencyField(total)
                 }
             }
             

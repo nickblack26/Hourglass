@@ -58,7 +58,7 @@ struct ReportingView: View {
 }
 
 #Preview {
-    @State var hourglass = HourglassManager()
+    @Previewable @State var hourglass = HourglassManager()
     
     return NavigationStack {
         ReportingView()

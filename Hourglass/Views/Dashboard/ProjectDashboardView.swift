@@ -6,31 +6,31 @@ struct ProjectDashboardView: View {
     var body: some View {
         Grid {
             GridRow {
-                ChartView(
-                    project: project,
-                    style: .column,
-                    source: .tasks
-                )
-                
-                ChartView(
-                    project: project,
-                    style: .line,
-                    source: .tasks
-                )                
+//                ChartView(
+//                    project: project,
+//                    style: .column,
+//                    source: .tasks
+//                )
+//                
+//                ChartView(
+//                    project: project,
+//                    style: .line,
+//                    source: .tasks
+//                )                
             }
             
             GridRow {
-                ChartView(
-                    project: project,
-                    style: .burnup,
-                    source: .tasks
-                )
-                
-                ChartView(
-                    project: project,
-                    style: .donut,
-                    source: .tasks
-                )                
+//                ChartView(
+//                    project: project,
+//                    style: .burnup,
+//                    source: .tasks
+//                )
+//                
+//                ChartView(
+//                    project: project,
+//                    style: .donut,
+//                    source: .tasks
+//                )                
             }
         }
         .frame(

@@ -1,47 +1,55 @@
 import Foundation
 import SwiftData
-import CoreTransferable
 
+// MARK: - Team
 @Model
-final class Team: Codable {
-    var name: String = ""
+class Team {
+    var id: UUID
+    var name: String?
     var details: String?
-        
-    @Relationship(deleteRule: .nullify, inverse: \Project.team)
-    var projects: [Project]? = []
-    
-    @Relationship(deleteRule: .nullify, inverse: \Comment.teams)
-    var messages: [Comment]? = []
-    
+    var htmlDescription: String?
+    var workspace: Workspace?
+    var permalinkUrl: String?
+    var visibility: String?
+    var editTeamNameOrDescriptionAccessLevel: AccessLevel?
+    var editTeamVisibilityOrTrashTeamAccessLevel: AccessLevel?
+    var memberInviteManagementAccessLevel: AccessLevel?
+    var guestInviteManagementAccessLevel: AccessLevel?
+    var joinRequestManagementAccessLevel: AccessLevel?
+    var teamMemberRemovalAccessLevel: AccessLevel?
+
     init(
-        name: String,
-        details: String? = nil,
-        projects: [Project] = [],
-        messages: [Comment] = []
+        name: String?,
+        details: String?,
+        htmlDescription: String?,
+        workspace: Workspace?,
+        permalinkUrl: String?,
+        visibility: String?,
+        editTeamNameOrDescriptionAccessLevel: AccessLevel?,
+        editTeamVisibilityOrTrashTeamAccessLevel: AccessLevel?,
+        memberInviteManagementAccessLevel: AccessLevel?,
+        guestInviteManagementAccessLevel: AccessLevel?,
+        joinRequestManagementAccessLevel: AccessLevel?,
+        teamMemberRemovalAccessLevel: AccessLevel?
     ) {
+        self.id = .init()
         self.name = name
         self.details = details
-        self.projects = projects
-        self.messages = messages
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case name
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        let container = encoder.container(keyedBy: CodingKeys.self)
-        
+        self.htmlDescription = htmlDescription
+        self.workspace = workspace
+        self.permalinkUrl = permalinkUrl
+        self.visibility = visibility
+        self.editTeamNameOrDescriptionAccessLevel = editTeamNameOrDescriptionAccessLevel
+        self.editTeamVisibilityOrTrashTeamAccessLevel = editTeamVisibilityOrTrashTeamAccessLevel
+        self.memberInviteManagementAccessLevel = memberInviteManagementAccessLevel
+        self.guestInviteManagementAccessLevel = guestInviteManagementAccessLevel
+        self.joinRequestManagementAccessLevel = joinRequestManagementAccessLevel
+        self.teamMemberRemovalAccessLevel = teamMemberRemovalAccessLevel
     }
 }
 
-extension Team: Transferable {
-    static var transferRepresentation: some TransferRepresentation {
-        CodableRepresentation(contentType: .data)
+extension Team {
+    enum AccessLevel: String, CaseIterable, Codable {
+        case allTeamMembers, onlyTeamAdmins
     }
 }

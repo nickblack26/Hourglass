@@ -8,32 +8,50 @@ struct ProjectListItemContextMenu: View {
     }
     
     var body: some View {
-        Button("Share project", systemImage: "person.2") {
+        Button(
+            "Share project",
+            systemImage: "person.2"
+        ) {
             
         }
         
-        Button("Open in new tab", systemImage: "arrow.down.left.topright.rectangle") {
+        Button(
+            "Open in new tab",
+            systemImage: "arrow.down.left.topright.rectangle"
+        ) {
             
         }
         
-        Button("Copy link", systemImage: "link") {
+        Button(
+            "Copy link",
+            systemImage: "link"
+        ) {
             
         }
         
-        Menu("Copy link", systemImage: "link") {
-            ProjectThemeMenuContent(project)
-        }
-        
-        Button("Rename", systemImage: "pencil") {
+        Button(
+            "Rename",
+            systemImage: "pencil"
+        ) {
             
         }
         
-        Button(project.starred ? "Remove from starred" : "Add to starred", systemImage: "star") {
-            project.starred.toggle()
+        Button(
+            project.starred ? "Remove from starred" : "Add to starred",
+            systemImage: "star"
+        ) {
+            withAnimation(.snappy) {
+                project.starred.toggle()
+            }
         }
         
-        Button("Archive project", systemImage: "archivebox") {
-            project.archived.toggle()
+        Button(
+            "Archive project",
+            systemImage: "archivebox"
+        ) {
+            withAnimation(.snappy) {
+                project.archived.toggle()
+            }
         }
     }
 }

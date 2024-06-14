@@ -1,115 +1,112 @@
 import Foundation
+import SwiftUICore
 import SwiftData
 
+// MARK: - CustomField
 @Model
-final class CustomField: Codable {
+class CustomField {
+    var id: UUID
+    var createdBy: User?
     var currencyCode: String?
     var customLabel: String?
     var customLabelPosition: String?
-    var dateValue: String?
-    var notes: String?
+    var dateValue: Date?
+    var details: String?
     var displayValue: String?
     var enabled: Bool?
-    var format: FieldType = FieldType.singleSelect
-    var name: String?
+    var enumOptions: [EnumOption]?
+    var enumValue: EnumOption?
+    var format: String?
+    var hasNotificationsEnabled: Bool?
+    var isFormulaField: Bool?
+    var isGlobalToWorkspace: Bool?
+    var isValueReadOnly: Bool?
+    var multiEnumValues: [EnumOption]?
+    var name: String
     var numberValue: Double?
+    var peopleValue: [User]?
     var precision: Int?
-    var resourceSubtype: String?
+    var resourceSubtype: SubType?
     var textValue: String?
     var type: String?
+    
+    // MARK: Object Relationships
     var task: aTask?
     
-    @Relationship(deleteRule: .cascade, inverse: \EnumOption.field)
-    var enumOptions: [EnumOption]? = []
-    
-    @Relationship(deleteRule: .cascade, inverse: \EnumOption.field)
-    var enumValue: [EnumOption]?
-
-    enum CodingKeys: String, CodingKey {
-        case currencyCode = "currency_code"
-        case customLabel = "custom_label"
-        case customLabelPosition = "custom_label_position"
-        case dateValue = "date_value"
-        case notes = "notes"
-        case displayValue = "display_value"
-        case enabled = "enabled"
-        case format = "format"
-        case name = "name"
-        case numberValue = "number_value"
-        case precision = "precision"
-        case resourceSubtype = "resource_subtype"
-        case textValue = "text_value"
-        case type = "type"
-    }
-
     init(
+        createdBy: User?,
         currencyCode: String? = nil,
         customLabel: String? = nil,
         customLabelPosition: String? = nil,
-        dateValue: String? = nil,
-        notes: String? = nil,
+        dateValue: Date? = nil,
+        details: String? = nil,
         displayValue: String? = nil,
         enabled: Bool? = nil,
-        format: FieldType = .singleSelect,
-        name: String? = nil,
+        enumOptions: [EnumOption]? = nil,
+        enumValue: EnumOption? = nil,
+        format: String? = nil,
+        hasNotificationsEnabled: Bool? = nil,
+        isFormulaField: Bool? = nil,
+        isGlobalToWorkspace: Bool? = nil,
+        isValueReadOnly: Bool? = nil,
+        multiEnumValues: [EnumOption]? = nil,
+        name: String,
         numberValue: Double? = nil,
+        peopleValue: [User]? = nil,
         precision: Int? = nil,
-        resourceSubtype: String? = nil,
-        textValue: String? = nil,
-        type: String? = nil
+        resourceSubtype: SubType,
+        textValue: String? = nil
     ) {
+        self.id = .init()
+        self.createdBy = createdBy
         self.currencyCode = currencyCode
         self.customLabel = customLabel
         self.customLabelPosition = customLabelPosition
         self.dateValue = dateValue
-        self.notes = notes
+        self.details = details
         self.displayValue = displayValue
         self.enabled = enabled
+        self.enumOptions = enumOptions
+        self.enumValue = enumValue
         self.format = format
+        self.hasNotificationsEnabled = hasNotificationsEnabled
+        self.isFormulaField = isFormulaField
+        self.isGlobalToWorkspace = isGlobalToWorkspace
+        self.isValueReadOnly = isValueReadOnly
+        self.multiEnumValues = multiEnumValues
         self.name = name
         self.numberValue = numberValue
+        self.peopleValue = peopleValue
         self.precision = precision
         self.resourceSubtype = resourceSubtype
         self.textValue = textValue
-        self.type = type
     }
     
-    init(from decoder: Decoder) throws {
-        var _ = try decoder.container(keyedBy: CodingKeys.self)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var _ = encoder.container(keyedBy: CodingKeys.self)
+    enum SubType: String, CaseIterable, Codable {
+        case text, `enum`, multiEnum, number, date, people
     }
 }
 
-extension CustomField {
-    enum FieldType: String, CaseIterable, Codable {
-        case singleSelect = "Single-select"
-        case multiSelect = "Multi-select"
-        case date = "Date"
-        case people = "People"
-        case text = "Text"
-        case number = "Number"
-    }
-    
-    enum NumberFormat: String, CaseIterable, Codable {
-        case number, percent, usd, eur, jpy, gbp, cad, aud, mxn, brl, krw, unformatted
-    }
-}
 
 @Model
 final class EnumOption {
-    var color: ThemeColor = ThemeColor.none
-    var name: String = ""
-    var enabled: Bool = true
-    var field: CustomField?
-    var order: Int = 0
+    var name: String
+    var enabled: Bool
+    var color: String
+    var insertBefore: String?
+    var insertAfter: String?
     
-    init(color: ThemeColor = ThemeColor.none, name: String, order: Int = 0) {
-        self.color = color
+    init(
+        name: String,
+        enabled: Bool,
+        color: String,
+        insertBefore: String? = nil,
+        insertAfter: String? = nil
+    ) {
         self.name = name
-        self.order = order
+        self.enabled = enabled
+        self.color = color
+        self.insertBefore = insertBefore
+        self.insertAfter = insertAfter
     }
 }
-

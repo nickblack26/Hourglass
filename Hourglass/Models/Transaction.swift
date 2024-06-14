@@ -3,6 +3,7 @@ import SwiftData
 
 @Model
 final class Transaction {
+    var id: UUID
     var name: String = ""
     var date: Date = Date()
     var amount: Decimal = 0
@@ -15,8 +16,8 @@ final class Transaction {
     var note: String?
     var createdAt: Date = Date()
 	
-	@Relationship(deleteRule: .nullify, inverse: \Invoice.transaction)
-	var invoice: Invoice?
+//	@Relationship(deleteRule: .nullify, inverse: \Invoice.transaction)
+//	var invoice: Invoice?
     
     init(
         name: String,
@@ -28,10 +29,11 @@ final class Transaction {
         project: Project? = nil,
         merchant: Merchant? = nil,
         purpose: String,
-        invoice: Invoice? = nil,
+//        invoice: Invoice? = nil,
         note: String? = nil,
         createdAt: Date = Date()
     ) {
+        self.id = .init()
         self.name = name
         self.date = date
         self.amount = total
@@ -41,7 +43,7 @@ final class Transaction {
         self.project = project
         self.merchant = merchant
         self.purpose = purpose
-        self.invoice = invoice
+//        self.invoice = invoice
         self.note = note
         self.createdAt = createdAt
     }

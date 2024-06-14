@@ -227,7 +227,7 @@ struct MyTasksWidget: View {
 }
 
 #Preview {
-    @State var asana = HourglassManager()
+    @Previewable @State var asana = HourglassManager()
     
     return MyTasksWidget()
         .environment(asana)

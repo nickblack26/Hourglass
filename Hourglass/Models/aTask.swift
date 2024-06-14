@@ -18,6 +18,18 @@ final class aTask: Hashable, Codable {
         taskType.rawValue
     }
     
+    static var keyPaths: [String: PartialKeyPath<aTask>] {
+        return [
+            "Name" : \aTask.name,
+            "Is Completed" : \aTask.isCompleted,
+            "Start Date" : \aTask.startDate,
+            "End Date" : \aTask.endDate,
+            "Created At" : \aTask.createdAt,
+            "Completed At" : \aTask.completedAt,
+            "Task Type" : \aTask.taskType
+        ]
+      }
+    
     // MARK: Inferred relationships
     // Relationships inferred from parent
     var parentTask: aTask?
@@ -96,19 +108,6 @@ extension aTask {
 		case complete
 		case dueThisWeek
 		case dueNextWeek
-		
-		var predicate: Predicate<aTask> {
-			switch self {
-				case .incomplete:
-					#Predicate<aTask> { !$0.isCompleted }
-				case .complete:
-					#Predicate<aTask> { $0.isCompleted }
-				case .dueThisWeek:
-					#Predicate<aTask> { !$0.isCompleted && $0.endDate != nil && ($0.endDate! >= currentWeek.start || $0.endDate! <= currentWeek.end ) }
-				case .dueNextWeek:
-					#Predicate<aTask> { !$0.isCompleted && $0.endDate != nil && ($0.endDate! >= nextWeek.start || $0.endDate! <= nextWeek.end ) }
-			}
-		}
 	}
 }
 
@@ -118,13 +117,35 @@ extension aTask: Transferable {
     }
 }
 
-// Helper function
+// Helper functions
 extension aTask {
-	func filteredData(filter: aTask.Filter) -> Bool {
-//		self
-		false
-	}
+    func updateSection(section: aSection?) {
+        self.section?.tasks?.removeAll(where: { $0 == self })
+        section?.tasks?.append(self)
+    }
 }
+
+extension [aTask] {
+    mutating func replaceItem(draggingTask: aTask?, droppingTask: aTask, section: aSection?) {
+        if let sourceIndex = self.firstIndex(where: { $0 == draggingTask }), let destinationIndex = self.firstIndex(where: { $0 == droppingTask }) {
+            let sourceItem = self.remove(at: sourceIndex)
+            sourceItem.section = section
+            self.insert(sourceItem, at: destinationIndex)
+            self.updateOrderIndices()
+        }
+    }
+    
+    func appendTask(_ section: aSection) {
+        
+    }
+    
+    func updateOrderIndices() {
+        for (index, item) in enumerated() {
+            item.order = index
+        }
+    }
+}
+
 //extension Collection where Element: Orderable {
 //    mutating func updateOrderIndices() {
 //        for (index, item) in enumerated() {
@@ -137,40 +158,3 @@ extension aTask {
 protocol Orderable {
     var order: Int { get set }
 }
-
-
-/*
- The goal of this function is to pass in an array of keypaths and desired outputs
- Will return if all of the keypaths match the desired outputs
-*/
-func matchedPredicates<T: Equatable, K: Equatable>(
-	obj: T,
-	predicates: [(KeyPath<T, Any>, Any)]
-) -> Bool where T.Type == K.Type {
-	let matches = false
-	for (keyPath, value) in predicates {
-		if let key = obj[keyPath: keyPath] {
-			return false
-		}
-	}
-	return true
-}
-
-func processValue<T: Equatable>(of object: T, at keyPath: KeyPath<T, Any>) {
-	// Access the value using key path subscripting
-	let value = object[keyPath: keyPath]
-	
-	
-	// Perform operations with the value
-	print("Value:", value)
-}
-
-//func desiredOutputsMatch<T>(object: T, desiredOutputs: [(KeyPath<T, Any>, Any)]) where Any == Comparable -> Bool {
-//	for (keyPath, desiredValue) in desiredOutputs {
-//		let currentValue = object[keyPath: keyPath]
-//		if currentValue != desiredValue {
-//			return false
-//		}
-//	}
-//	return true
-//}

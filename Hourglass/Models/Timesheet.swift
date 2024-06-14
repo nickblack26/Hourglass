@@ -2,17 +2,34 @@ import Foundation
 import SwiftData
 
 @Model
-final class Timesheet {
-    var project: Project?
-    var start: Date = Date()
-    var end: Date?
-    var notes: String?
-    var onTheClock: Bool { end == nil }
+final class TimeTrackingEntry {
+    var id: UUID
+    var createdBy: User?
+    var durationMinutes: Int?
+    var enteredOn: Date?
+    var createdAt: Date?
+    var task: aTask?
     
-    init(project: Project? = nil, start: Date = Date(), end: Date? = nil, notes: String? = nil) {
-        self.project = project
-        self.start = start
-        self.end = end
-        self.notes = notes
+    enum CodingKeys: String, CodingKey {
+        case gid = "gid"
+        case createdBy = "created_by"
+        case durationMinutes = "duration_minutes"
+        case enteredOn = "entered_on"
+        case createdAt = "created_at"
+        case task = "task"
+    }
+    
+    init(
+        createdBy: User?,
+        durationMinutes: Int?,
+        enteredOn: Date?,
+        task: aTask?
+    ) {
+        self.id = .init()
+        self.createdBy = createdBy
+        self.durationMinutes = durationMinutes
+        self.enteredOn = enteredOn
+        self.createdAt = .now
+        self.task = task
     }
 }

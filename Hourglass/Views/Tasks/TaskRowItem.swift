@@ -78,18 +78,14 @@ struct TaskRowItem: View {
         }
         .padding(.vertical, 4)
         .padding(.horizontal, 8)
+#if os(iOS)
         .background(isHovering ? Color(uiColor: .systemGray6) : .clear)
+#endif
+#if os(macOS)
+        .background(isHovering ? Color(nsColor: .systemGray) : .clear)
+#endif
         .onHover(perform: { hovering in
             isHovering = hovering
-#if TARGET_OS_MACCATALYST
-			DispatchQueue.main.async {
-				if (self.isHovering) {
-					NSCursor.pointingHand.push()
-				} else {
-					NSCursor.pop()
-				}
-			}
-#endif
         })
         .onTapGesture {
             if !task.name.isEmpty {

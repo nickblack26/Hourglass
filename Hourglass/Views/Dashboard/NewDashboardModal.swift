@@ -12,7 +12,7 @@ struct NewDashboardModal: View {
 				LazyVGrid(columns: columns, content: {
                     Button {
                         dismiss()
-                        asana.selectedChart = .init(name: "")
+//                        asana.selectedChart = .init(name: "")
                     } label: {
 						Image(systemName: "chart.bar.xaxis")
 						Text("Add custom chart")

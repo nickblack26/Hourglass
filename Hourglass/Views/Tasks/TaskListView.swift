@@ -135,7 +135,7 @@ struct TaskListView: View {
 }
 
 #Preview {
-    @State var hourglass = HourglassManager()
+    @Previewable @State var hourglass = HourglassManager()
     let section = aSection(name: "", order: 0)
 
     return TaskListView(

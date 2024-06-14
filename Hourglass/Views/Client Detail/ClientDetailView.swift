@@ -17,13 +17,11 @@ struct ClientDetailView: View {
             ClientDetailOverviewTab(client: client)
                 .tag(ClientTab.overview)
         }
-        .padding()
-        .toolbar {
-            
-        }
         .toolbarRole(.editor)
         .navigationTitle($client.name)
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
     }
 }
 

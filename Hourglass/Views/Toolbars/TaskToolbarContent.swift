@@ -7,7 +7,7 @@ struct TaskToolbarContent: ToolbarContent {
     @Binding var selectedTab: MyTaskTab
     
     var body: some ToolbarContent {
-        ToolbarItemGroup(placement: .topBarLeading) {
+        ToolbarItemGroup(placement: .secondaryAction) {
             ForEach(MyTaskTab.allCases) { tab in
                 let isSelected = selectedTab == tab
                 Button(

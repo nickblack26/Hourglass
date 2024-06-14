@@ -53,6 +53,13 @@ extension aSection: Transferable {
     }
 }
 
+extension aSection {
+    func addTaskToSection() {
+        let newTask = aTask(name: "", order: self.tasks?.count ?? 0)
+        self.tasks?.append(newTask)
+    }
+}
+
 extension [aSection] {
     func updateOrderIndices() {
         for (index, item) in enumerated() {

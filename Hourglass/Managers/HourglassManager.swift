@@ -12,14 +12,13 @@ class HourglassManager {
     var draggingSection: aSection?
     var draggingWidget: Widget?
     var selectedCustomField: CustomField?
-    var selectedChart: aChart?
     var selectedDashboard: Dashboard?
     var selectedLink: SidebarLink? = .home
     var path: [SidebarLink] = []
     var showHomeCustomization: Bool = false
     var newDashboard: Bool = false
     var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    var currentTimesheet: Timesheet?
+    var currentTimesheet: TimeTrackingEntry?
     var availableWidgets: [Widget] {
         allWidgets.filter {
             return allWidgets.contains($0)

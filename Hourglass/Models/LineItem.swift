@@ -13,8 +13,7 @@ final class LineItem {
     var periodStart: Date?
     var periodEnd: Date?
     var notes: String?
-    var name: String 
-    = ""
+    var name: String = ""
     
     var invoice: Invoice?
     var project: Project?

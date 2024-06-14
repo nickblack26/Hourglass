@@ -1,12 +1,10 @@
 import SwiftUI
 import SwiftData
-import CoreData
 
 let fullSchema = Schema(
     [
         aSection.self,
         aTask.self,
-        aChart.self,
         Client.self,
         Comment.self,
         CustomField.self,
@@ -17,44 +15,42 @@ let fullSchema = Schema(
         Project.self,
         StatusSection.self,
         StatusUpdate.self,
-        Timesheet.self,
         Transaction.self
     ]
 )
 
 @main
 struct Hourglass_App: App {
-//	let storeURL = URL.documentsDirectory.appending(path: "shared.store")
-	@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @State var cloudKitManager = CloudKitManager()
     @State var hourglass = HourglassManager()
-    let container: ModelContainer
-	
-	init() {
-        let config = ModelConfiguration(schema: fullSchema, cloudKitDatabase: .automatic)
-		var contain: ModelContainer? = nil
-		do {
- 			contain = try ModelContainer(for: fullSchema, configurations: config)
-		} catch {
-			print("couldn't create ModelContainer()")
-		}
-		self.container = contain!
-	}
     
     var body: some Scene {
+        #if os(macOS)
+        MenuBarExtra("Utility App", systemImage: "hammer") {
+            ScrollView {
+                
+            }
+        }
+        .menuBarExtraStyle(.window)
+        #endif
+        
         WindowGroup {
             ContentView()
+                .toolbar(removing: .title)
+                .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
+                .containerBackground(.thickMaterial, for: .window)
                 .onAppear {
                     hourglass.path.append(.home)
                 }
-				.sheet(item: $hourglass.selectedInvoice, content: { invoice in
-					Form {
-						
-					}
-				})
+                .sheet(item: $hourglass.selectedInvoice, content: { invoice in
+                    Form {
+                        
+                    }
+                })
                 .sheet(item: $hourglass.selectedTask) { task in
-                    TaskDetailView(task)
-                        .environment(hourglass)
+                    NavigationStack {
+                        TaskDetailView(task)
+                    }
+                    .environment(hourglass)
                 }
                 .sheet(isPresented: $hourglass.newClient, content: {
                     ClientSheetContent()
@@ -69,20 +65,37 @@ struct Hourglass_App: App {
                     }
                     .environment(hourglass)
                 }
-                .sheet(item: $hourglass.selectedChart) { chart in
-                    NavigationStack {
-                        
-                    }
-                    .environment(hourglass)
-                }
                 .environment(hourglass)
-                .environment(cloudKitManager)
-                .modelContainer(container)
+                .modelContainer(for: [
+                    aSection.self,
+                    aTask.self,
+                    Attachment.self,
+                    Business.self,
+                    Client.self,
+                    Comment.self,
+                    CustomField.self,
+                    Dashboard.self,
+                    Goal.self,
+                    Invoice.self,
+                    LineItem.self,
+                    Merchant.self,
+                    Portfolio.self,
+                    Project.self,
+                    Service.self,
+                    StatusSection.self,
+                    StatusUpdate.self,
+                    Story.self,
+                    Tag.self,
+                    TaskTemplate.self,
+                    Team.self,
+                    TimePeriod.self,
+                    Transaction.self,
+                    User.self,
+                    Workspace.self
+                ])
         }
     }
 }
-
-
 
 let myTasksWidget: Widget = .init(name: "My Tasks", image: "myTasksWidgetPreview", type: .myTasks)
 let peopleWidget: Widget = .init(name: "People", image: "peopleWidgetPreview",  columns: 2, type: .people)

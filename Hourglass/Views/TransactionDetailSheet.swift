@@ -34,11 +34,7 @@ struct TransactionDetailSheet: View {
             Section {
                 Grid {
                     GridRow {
-                        TextField(
-                            "Total",
-                            value: $transaction.amount,
-                            format: .currency(code: "USD")
-                        )
+                        CurrencyField("Total", amount: $transaction.amount)
                         
                         DatePicker(
                             "Date",
@@ -48,11 +44,7 @@ struct TransactionDetailSheet: View {
                     }
                     
                     GridRow {
-                        TextField(
-                            "Merchant",
-                            value: $transaction.amount,
-                            format: .currency(code: "USD")
-                        )
+                        CurrencyField("Merchant", amount: $transaction.amount)
                     }
                 }
             }

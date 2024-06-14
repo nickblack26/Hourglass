@@ -26,24 +26,54 @@ struct ProjectDetailView: View {
     var body: some View {
         Form {
             Section {
-                Image(project.icon.icon)
-                    .resizable()
-                    .frame(width: 64, height: 64)
-                    .padding()
-                    .background(
-                        project.color.color,
-                        in: .rect(cornerRadius: 8)
-                    )
-                    .frame(
-                        maxWidth: .infinity,
-                        alignment: .center
-                    )
-                
+                Grid {
+                    GridRow {
+                        Image(project.icon.icon)
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .padding(8)
+                            .background(
+                                project.color.color,
+                                in: .rect(cornerRadius: 8)
+                            )
+                        
+                        Grid(verticalSpacing: 8) {
+                            GridRow {
+                                ForEach(ThemeColor.allCases, id: \.self) { color in
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(color.color)
+                                        
+                                        Image(systemName: "checkmark")
+                                            .imageScale(.small)
+                                            .foregroundStyle(.background)
+                                            .opacity(project.color == color ? 1 : 0)
+                                    }
+                                    .frame(width: 16, height: 16)
+                                }
+                            }
+                            
+                            GridRow {
+                                ForEach(
+                                    Project.Icon.allCases,
+                                    id: \.self
+                                ) { icon in
+                                    Image(icon.icon)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .padding(8)
+                                        .background {
+                                            RoundedRectangle(cornerRadius: 4)
+                                                .fill(project.icon == icon ? project.color.color : .clear)
+                                        }
+                                        .frame(width: 16, height: 16)
+                                }
+                            }
+                        }
+                    }
+                }
+               
                 TextField("Project name", text: $project.name)
-                    .font(.title3)
-                    .padding(8)
-                    .background(Color(uiColor: .systemGray4))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 
                 Picker(
                     "Client",
@@ -86,7 +116,6 @@ struct ProjectDetailView: View {
                     }
                 }
             }
-            .listRowSeparator(.hidden)
             
             Section("Services") {
                 if let services = project.services, !services.isEmpty {
@@ -116,6 +145,13 @@ struct ProjectDetailView: View {
                     systemImage: "dollarsign",
                     isOn: $project.depositRequired
                 )
+                
+                if project.depositRequired {
+                    CurrencyField(
+                        "Deposit",
+                        amount: Binding(value: $project.depositAmount)
+                    )
+                }
                 
                 Picker(
                     "Invoice schedule",
@@ -154,49 +190,11 @@ struct ProjectDetailView: View {
             }
             
             Section {
-                Picker(
-                    "Color",
-                    selection: $project.color
-                ) {
-                    HStack {
-                        ForEach(ThemeColor.allCases, id: \.self) { color in
-                            Circle()
-                                .fill(color.color)
-                                .tag(color)
-                        }
-                    }
-                }
-                .pickerStyle(.inline)
-                .labelsHidden()
+                
             }
             
             Section {
-                Picker(
-                    "Icon",
-                    selection: $project.icon
-                ) {
-                    HStack {
-                        ForEach(
-                            Project.Icon.allCases,
-                            id: \.self
-                        ) { icon in
-                            Image(icon.icon)
-                                .resizable()
-                                .scaledToFit()
-                                .padding(8)
-                                .background(
-                                    Color(
-                                        uiColor: .systemGray6
-                                    ),
-                                    in: Circle()
-                                )
-                                .tag(icon)
-                        }
-                        
-                    }
-                }
-                .pickerStyle(.inline)
-                .labelsHidden()
+                
             }
         }
         .onAppear(perform: {
@@ -209,9 +207,11 @@ struct ProjectDetailView: View {
         .navigationTitle(
             project.name.isEmpty ? "New project" : project.name
         )
+#if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+#endif
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .secondaryAction) {
                 Button("Cancel") {
                     if isNew {
                         context.delete(project)
@@ -261,19 +261,23 @@ struct ProjectDetailView: View {
     
     private func createInvoice () {
         withAnimation(.snappy) {
-            let invoice = Invoice(name: "")
-            project.invoices?.append(invoice)
+//            let invoice = Invoice(name: "")
+//            project.invoices?.append(invoice)
         }
     }
 }
 
 #Preview {
-    VStack {
+    let project = Project(name: "")
+    previewContainer.mainContext.insert(project)
+    
+    return VStack {
         Text("")
     }
     .sheet(isPresented: .constant(true), content: {
         NavigationStack {
-            ProjectDetailView()
+            ProjectDetailView(project)
+                .modelContainer(previewContainer)
         }
     })
 }

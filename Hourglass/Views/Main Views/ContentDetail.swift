@@ -36,7 +36,7 @@ struct ContentDetail: View {
 }
 
 #Preview {
-    @State var asana = HourglassManager()
+    @Previewable @State var asana = HourglassManager()
     
 	return ContentDetail()
         .environment(asana)

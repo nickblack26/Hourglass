@@ -123,9 +123,9 @@ struct HomeInspector: View {
 }
 
 #Preview {
-    @State var hourglass = HourglassManager()
+    @Previewable @State var hourglass = HourglassManager()
     
-	return VStack {
+	VStack {
 		
 	}
     .environment(hourglass)

@@ -11,86 +11,82 @@ struct TaskDetailView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            TaskDetailHeader(task)
-            
-            Divider()
-            
             ScrollView(.vertical, showsIndicators: false) {
                 TaskDetailBody(task)
+            }
+            .toolbar {
+                ToolbarItemGroup(placement: .secondaryAction) {
+                    Button(task.isCompleted ? "Completed" : "Mark complete", systemImage: "checkmark") {
+                        withAnimation(.snappy) {
+                            task.isCompleted.toggle()
+                            if task.isCompleted {
+                                task.completedAt = Date()
+                            }
+                        }
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(task.isCompleted ? .green : .white)
+                    .foregroundStyle(task.isCompleted ? .green : .primary)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(task.isCompleted ? .green : .primary, lineWidth: 1)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+                
+                ToolbarItemGroup(placement: .primaryAction) {
+                    Button("Like this task", systemImage: "hand.thumbsup") {}
+                    
+                    Button("Copy task link", systemImage: "link") {}
+                    
+                    Menu("More", systemImage: "ellipsis.circle") {
+                        Button("Add to another project", systemImage: "folder") {
+                            
+                        }
+                        
+                        Button("Add subtask", systemImage: "checklist.unchecked") {
+                            
+                        }
+                        
+                        Button("Add tags", systemImage: "tag") {
+                            
+                        }
+                        
+                        Button("Create follow-up task", systemImage: "circle.dotted") {
+                            
+                        }
+                        
+                        Button("Merge duplicate tasks", systemImage: "arrow.triangle.merge") {
+                            
+                        }
+                        
+                        Button("Attach files", systemImage: "paperclip") {
+                            
+                        }
+                    }
+                    
+                    Image("subtask_icon")
+                        .resizable()
+                        .frame(width: 18, height: 18)
+                    
+                    Image(systemName: "link")
+                    
+                    Image(systemName: "arrow.down.left.and.arrow.up.right")
+                    
+                    Image(systemName: "ellipsis")
+                    
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
             }
             .scrollIndicators(.hidden)
             
             Divider()
             
             TaskDetailFooter(task)
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .topBarLeading) {
-                Button(task.isCompleted ? "Completed" : "Mark complete", systemImage: "checkmark") {
-                    withAnimation(.snappy) {
-                        task.isCompleted.toggle()
-                        if task.isCompleted {
-                            task.completedAt = Date()
-                        }
-                    }
-                }
-                .buttonStyle(.bordered)
-                .tint(task.isCompleted ? .green : .white)
-                .foregroundStyle(task.isCompleted ? .green : .primary)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(task.isCompleted ? .green : .primary, lineWidth: 1)
-                )
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-            }
-            
-            ToolbarItemGroup(placement: .primaryAction) {
-                Button("Like this task", systemImage: "hand.thumbsup") {}
-                
-                Button("Copy task link", systemImage: "link") {}
-                
-                Menu("More", systemImage: "ellipsis.circle") {
-                    Button("Add to another project", systemImage: "folder") {
-                        
-                    }
-                    
-                    Button("Add subtask", systemImage: "checklist.unchecked") {
-                        
-                    }
-                    
-                    Button("Add tags", systemImage: "tag") {
-                        
-                    }
-                    
-                    Button("Create follow-up task", systemImage: "circle.dotted") {
-                        
-                    }
-                    
-                    Button("Merge duplicate tasks", systemImage: "arrow.triangle.merge") {
-                        
-                    }
-                    
-                    Button("Attach files", systemImage: "paperclip") {
-                        
-                    }
-                }
-                
-                Image("subtask_icon")
-                    .resizable()
-                    .frame(width: 18, height: 18)
-                
-                Image(systemName: "link")
-                
-                Image(systemName: "arrow.down.left.and.arrow.up.right")
-                
-                Image(systemName: "ellipsis")
-                
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                }
-            }
         }
         .frame(
             maxWidth: .infinity,
@@ -101,7 +97,7 @@ struct TaskDetailView: View {
 }
 
 #Preview("Sheet") {
-    @State var hourglass = HourglassManager()
+    @Previewable @State var hourglass = HourglassManager()
     let task = aTask(name: "", order: 0)
 
     return VStack {
@@ -169,7 +165,7 @@ struct TaskDetailHeader: View {
 }
 
 #Preview("Header") {
-    @State var hourglass = HourglassManager()
+    @Previewable @State var hourglass = HourglassManager()
     let task = aTask(name: "", order: 0)
 
     return TaskDetailHeader(task)
@@ -260,7 +256,7 @@ struct TaskDetailFooter: View {
 #Preview("Footer") {
     let task = aTask(name: "", order: 0)
 
-   return TaskDetailFooter(task)
+   TaskDetailFooter(task)
         .modelContainer(previewContainer)
 
 }

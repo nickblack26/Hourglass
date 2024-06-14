@@ -3,7 +3,6 @@ import SwiftData
 
 struct HomeView: View {
     // MARK: Environment Variables
-    @Environment(CloudKitManager.self) private var cloudKitManager
     @Environment(HourglassManager.self) private var hourglass
 	
 	// MARK: State Variables
@@ -22,7 +21,7 @@ struct HomeView: View {
 					.font(.title3)
 					.fontWeight(.medium)
 				
-				Text("Good afternoon, \(cloudKitManager.userName.isEmpty ? "User" : cloudKitManager.userName)")
+				Text("Good afternoon, Nick")
 					.font(.largeTitle)
 					.fontWeight(.regular)
 			}
@@ -83,13 +82,12 @@ struct HomeView: View {
 }
 
 #Preview {
-    @State var cloudKitManager = CloudKitManager()
-    @State var hourglass = HourglassManager()
-	return NavigationStack {
+    @Previewable @State var hourglass = HourglassManager()
+    
+    NavigationStack {
 		ScrollView {
 			HomeView()
 		}
 	}
-    .environment(cloudKitManager)
     .environment(hourglass)
 }

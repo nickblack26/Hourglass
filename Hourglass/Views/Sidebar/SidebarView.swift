@@ -22,24 +22,32 @@ struct SidebarView: View {
     )
     private var clients: [Client]
 	
-	@Query(
-		filter: #Predicate<Timesheet> { $0.end == nil }
-	)
-	private var timesheets: [Timesheet]
+//	@Query(
+//        filter: #Predicate<TimeTrackingEntry> {
+//            return $0.durationMinutes != nil && $0.durationMinutes! > 0
+//        }
+//	)
+//    private var timesheets: [TimeTrackingEntry]
+    
+    @Query(
+        filter: #Predicate<Business> { !$0.archived }
+    )
+    private var businesses: [Business]
     
     @State private var newProject: Bool = false
+    @State private var selectedBusiness: Business?
     
     var body: some View {
         @Bindable var hourglass = hourglass
         
         List(selection: $hourglass.selectedLink) {
-			if !timesheets.isEmpty {
-				Section {
-					ForEach(timesheets) { timesheet in
-						CurrentTimesheetView(timesheet: timesheet)
-					}
-				}
-			}
+//			if !timesheets.isEmpty {
+//				Section {
+//					ForEach(timesheets) { timesheet in
+//						CurrentTimesheetView(timesheet: timesheet)
+//					}
+//				}
+//			}
 			
             Section {
                 NavigationLink(value: SidebarLink.home) {
@@ -78,7 +86,7 @@ struct SidebarView: View {
                     ForEach(starredProjects) { project in
                         NavigationLink(value: SidebarLink.project(project)) {
                             ProjectListItem(
-                                name: project.name,
+                                title: project.name,
                                 color: project.color.color
                             )
                         }
@@ -93,6 +101,13 @@ struct SidebarView: View {
                 ForEach(clients) { client in
                     NavigationLink(value: SidebarLink.client(client)) {
                         Label(client.name, systemImage: "person.2")
+                            .contextMenu(menuItems: {
+                                Button("Archive", systemImage: "archivebox") {
+                                    withAnimation(.snappy) {
+                                        client.archived.toggle()
+                                    }
+                                }
+                            })
                     }
                 }
             }
@@ -101,7 +116,7 @@ struct SidebarView: View {
                 ForEach(projects) { project in
                     NavigationLink(value: SidebarLink.project(project)) {
                         ProjectListItem(
-                            name: project.name,
+                            title: project.name,
                             subtitle: project.client?.name,
                             color: project.color.color
                         )
@@ -114,19 +129,29 @@ struct SidebarView: View {
         }
 		.scrollContentBackground(.hidden)
 		.toolbar {
-			ToolbarItemGroup(placement: .primaryAction) {
-				Button("New project", systemImage: "folder") {
-					newProject.toggle()
-				}
-				
-				Button("New client", systemImage: "person.2") {
-					hourglass.newClient.toggle()
-				}
-				
-				Button("New task", systemImage: "checkmark.circle") {
-				}
+			ToolbarItem(placement: .primaryAction) {
+                Menu("New", systemImage: "Plus") {
+                    Button("New project", systemImage: "folder") {
+                        newProject.toggle()
+                    }
+                    
+                    Button("New client", systemImage: "person.2") {
+                        hourglass.newClient.toggle()
+                    }
+                    
+                    Button("New task", systemImage: "checkmark.circle") {
+                    }
+                }
 			}
-		}
+#if os(iOS)
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: {}, label: {
+                    Image("gearshape")
+                    Text("Settings")
+                })
+            }
+#endif
+        }
         .sheet(isPresented: $newProject) {
             NavigationStack {
                 ProjectDetailView()
@@ -137,13 +162,21 @@ struct SidebarView: View {
 
 
 #Preview {
-    @State var hourglass = HourglassManager()
+    @Previewable @State var hourglass = HourglassManager()
     
-    return NavigationSplitView {
+    NavigationSplitView {
         SidebarView()
     } detail: {
         EmptyView()
     }
     .environment(hourglass)
-    .modelContainer(for: Project.self, inMemory: true)
+    .modelContainer(
+        for: [
+            Business.self,
+            Client.self,
+            Project.self,
+            TimeTrackingEntry.self
+        ],
+        inMemory: true
+    )
 }

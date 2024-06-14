@@ -117,6 +117,7 @@ struct TableDateCellView: View {
                     .padding([.horizontal])
                 }
                 
+                #if os(iOS)
                 MultiDatePicker(
                     "Date picker",
                     selection: Binding(
@@ -151,7 +152,7 @@ struct TableDateCellView: View {
                 )
                 
                 MultiDatePicker(title, selection: $dates)
-                
+                #endif
                 Divider()
                 
                 HStack {

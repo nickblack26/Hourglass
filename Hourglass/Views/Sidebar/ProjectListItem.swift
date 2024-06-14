@@ -2,23 +2,24 @@ import SwiftUI
 
 struct ProjectListItem: View {
     @State private var isHovering: Bool = true
-    var name: String
+    var title: String
     var subtitle: String?
     var color: Color
     
     var body: some View {
         HStack {
-            RoundedRectangle(cornerRadius: 5)
+            RoundedRectangle(cornerRadius: 4)
                 .fill(color)
-                .frame(width: 25, height: 25)
+                .frame(width: 24, height: 24)
             
             VStack(alignment: .leading) {
-                Text(name)
+                Text(title)
+                    .font(.headline)
+                    .fontWeight(.regular)
                 
                 if let subtitle {
                     Text(subtitle)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
                 }
             }
             .lineLimit(1)
@@ -28,19 +29,15 @@ struct ProjectListItem: View {
 }
 
 #Preview {
-    let project = Project(name: "")
-
-    return NavigationSplitView {
+    NavigationSplitView {
         List {
             ProjectListItem(
-                name: project.name,
-                color: project.color.color
+                title: "Create Marketing Campaign",
+                subtitle: "Acme Corp.",
+                color: .aqua
             )
         }
-        .listStyle(.insetGrouped)
     } detail: {
         EmptyView()
     }
-    .modelContainer(previewContainer)
-
 }

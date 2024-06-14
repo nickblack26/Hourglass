@@ -89,7 +89,7 @@ struct MyTasksView: View {
                 selectedTab: $selectedTab
             )
             
-            ToolbarItemGroup(placement: .bottomBar) {
+            ToolbarItemGroup(placement: .primaryAction) {
                 Menu(
                     "Add",
                     systemImage: "plus"

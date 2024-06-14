@@ -12,21 +12,16 @@ final class Dashboard {
 	@Relationship(inverse: \Project.dashboard)
     var project: Project?
     
-    @Relationship(deleteRule: .cascade, inverse: \aChart.dashboard)
-    var charts: [aChart]? = []
-    
     init(
         name: String,
         notes: String? = nil,
         icon: Icon = Icon.report,
-        color: ThemeColor = ThemeColor.allCases.randomElement() ?? .aqua,
-        charts: [aChart] = []
+        color: ThemeColor = ThemeColor.allCases.randomElement() ?? .aqua
     ) {
         self.name = name
         self.notes = notes
         self.icon = icon
         self.color = color
-        self.charts = charts
     }
 }
 

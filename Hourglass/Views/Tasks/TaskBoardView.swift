@@ -2,8 +2,9 @@ import SwiftUI
 import SwiftData
 
 struct TaskBoardView: View {
+    @Environment(HourglassManager.self) private var hourglass
     @Environment(\.modelContext) private var context
-    @State private var currentlyDraggingTask: aTask?
+    @State private var draggingTask: aTask?
     @State private var currentlyDraggingSection: aSection?
     var project: Project?
     var sections: [aSection]
@@ -39,7 +40,12 @@ struct TaskBoardView: View {
                 }
                 .frame(width: 375, alignment: .topLeading)
                 .frame(maxHeight: .infinity)
+#if os(iOS)
                 .background(Color(uiColor: .systemGray6).opacity(0.5).gradient)
+#endif
+#if os(macOS)
+                .background(Color(nsColor: .systemGray).opacity(0.5).gradient)
+#endif
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 
             }

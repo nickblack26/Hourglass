@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftDataKit
 
 struct ProjectHeader: View {
     @Environment(HourglassManager.self) private var hourglass
@@ -74,7 +73,7 @@ struct ProjectHeader: View {
 }
 
 #Preview {
-    @State var hourglass = HourglassManager()
+    @Previewable @State var hourglass = HourglassManager()
     let project = Project(name: "")
     
     return ProjectHeader(selectedTab: .constant(.board), project: project)

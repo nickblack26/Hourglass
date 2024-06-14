@@ -30,7 +30,7 @@ struct LineItemView: View {
                     TextField(
                         "Hours",
                         value: Binding(value: $lineItem.quantity),
-                        format: .number.precision(.fractionLength(2))
+                        format: .number
                     )
                     .gridCellColumns(2)
                 }
@@ -49,7 +49,7 @@ struct LineItemView: View {
             
             GridRow {
                 LabeledContent("Service total") {
-                    Text(lineItem.amount, format: .currency(code: "USD"))
+                    FormattedCurrencyField(lineItem.amount)
                 }
                 .gridCellColumns(2)
             }

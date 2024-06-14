@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct ColumnView: View {
-    @Environment(HourglassManager.self) var hourglass
+    @Environment(HourglassManager.self) private var hourglass
     @Query var tasks: [aTask]
     @Bindable var section: aSection
 	var filter: aTask.Filter?
@@ -22,7 +22,7 @@ struct ColumnView: View {
     var body: some View {
         ScrollView(.vertical) {
             Section {
-                TasksView(tasks)
+                TasksView($section.tasks)
             } header: {
                 HStack {
                     TextField(
@@ -35,7 +35,7 @@ struct ColumnView: View {
                     
                     Button {
                         withAnimation(.snappy) {
-                            addTaskToSection()
+                            section.addTaskToSection()
                         }
                     } label: {
                         Image(systemName: "plus")
@@ -58,19 +58,21 @@ struct ColumnView: View {
             .padding(.top)
         }
         .frame(width: 375, alignment: .leading)
+        #if os(iOS)
         .background(section.tasks != nil && section.tasks!.isEmpty ? Color(uiColor: .systemGray6).opacity(0.5) : .clear)
+        #endif
+        #if os(macOS)
+        .background(section.tasks != nil && section.tasks!.isEmpty ? Color(nsColor: .systemGray).opacity(0.5) : .clear)
+        #endif
         .clipShape(RoundedRectangle(cornerRadius: 8))
-    }
-    
-    private func addTaskToSection() {
-        if let project = section.project {
-            let newTask = aTask(name: "", order: tasks.count, section: section)
-            
-            section.tasks?.append(newTask)
-        } else  {
-            let newTask = aTask(name: "", order: tasks.count, section: section)
-            section.tasks?.append(newTask)
-        }
+        .dropDestination(for: aTask.self) { items, location in
+            withAnimation(.snappy) {
+                if let draggingTask = hourglass.draggingTask {
+                    draggingTask.updateSection(section: section)
+                }
+            }
+            return true
+        } isTargeted: { status in }
     }
 }
 

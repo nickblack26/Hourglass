@@ -12,12 +12,11 @@ import SwiftUI
 struct SwatchView: View {
 	let colorPreference: ColorScheme
 	@Binding var selected: ColorScheme
-	let defaults = UserDefaults.standard
 	
     var body: some View {
 		Button {
 			selected = colorPreference
-			defaults.setValue(selected.rawValue, forKey: "color_scheme")
+//			defaults.setValue(selected.rawValue, forKey: "color_scheme")
 		} label: {
 			ZStack {
 				Circle()

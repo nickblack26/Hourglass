@@ -23,7 +23,9 @@ struct NewGenericGoal: View {
 				Text("Nick Black")
 					.tag("Nick")
 			}
-			MultiDatePicker("Time period", selection: $timePeriod)
+#if os(iOS)
+            MultiDatePicker("Time period", selection: $timePeriod)
+#endif
 		}
     }
 }

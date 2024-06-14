@@ -17,7 +17,7 @@ struct ProjectOverviewTab: View {
     @Query private var invoices: [Invoice]
     @Query private var transactions: [Transaction]
     @Query private var lineItems: [LineItem]
-    @Query private var timesheets: [Timesheet]
+//    @Query private var timesheets: [Timesheet]
 	
 	@State private var timeFormatter = ElapsedTimeFormatter()
 
@@ -26,28 +26,28 @@ struct ProjectOverviewTab: View {
     init(_ project: Project) {
         let projectId = project.persistentModelID
         self.project = project
-        self._invoices = Query(
-            filter: #Predicate<Invoice> {
-                $0.project != nil && $0.project?.persistentModelID == projectId
-            }
-        )
-        self._lineItems = Query(
-            filter: #Predicate<LineItem> {
-                $0.project != nil && $0.project?.persistentModelID == projectId
-            }
-        )
-        self._transactions = Query(
-            filter: #Predicate<Transaction> {
-                $0.project != nil && $0.invoice == nil && $0.project?.persistentModelID == projectId
-            },
-			sort: [SortDescriptor(\Transaction.createdAt, order: .reverse)]
-        )
-		self._timesheets = Query(
-            filter: #Predicate<Timesheet> {
-                $0.project != nil && $0.project?.persistentModelID == projectId
-            },
-			sort: [SortDescriptor(\Timesheet.start, order: .reverse)]
-        )
+//        self._invoices = Query(
+//            filter: #Predicate<Invoice> {
+//                $0.project != nil && $0.project?.persistentModelID == projectId
+//            }
+//        )
+//        self._lineItems = Query(
+//            filter: #Predicate<LineItem> {
+//                $0.project != nil && $0.project?.persistentModelID == projectId
+//            }
+//        )
+//        self._transactions = Query(
+//            filter: #Predicate<Transaction> {
+//                $0.project != nil && $0.invoice == nil && $0.project?.persistentModelID == projectId
+//            },
+//			sort: [SortDescriptor(\Transaction.createdAt, order: .reverse)]
+//        )
+//		self._timesheets = Query(
+//            filter: #Predicate<Timesheet> {
+//                $0.project != nil && $0.project?.persistentModelID == projectId
+//            },
+//			sort: [SortDescriptor(\Timesheet.start, order: .reverse)]
+//        )
     }
     
     var body: some View {
@@ -141,35 +141,35 @@ struct ProjectOverviewTab: View {
 											"Create invoice",
 											systemImage: "list.clipboard"
 										) {
-											hourglass.selectedInvoice = .init(
-												name: "",
-												project: project
-											)
+//											hourglass.selectedInvoice = .init(
+//												name: "",
+//												project: project
+//											)
 										}
 									})
 								} else {
 									Table(invoices) {
 										TableColumn("Invoice") { invoice in
-                                            Text("\(invoice.number)")
+//                                            Text("\(invoice.number)")
 										}
 										
 										TableColumn("Created At") { invoice in
-                                            Text(invoice.createdAt.formatted(date: .abbreviated, time: .omitted))
+//                                            Text(invoice.createdAt.formatted(date: .abbreviated, time: .omitted))
 										}
 										
 										TableColumn("Due") { invoice in
-											if let dueDate = invoice.dueDate {
-												Text(dueDate.formatted(date: .abbreviated, time: .omitted))
-											}
+//											if let dueDate = invoice.dueDate {
+//												Text(dueDate.formatted(date: .abbreviated, time: .omitted))
+//											}
 										}
 										
 										TableColumn("Amount") { invoice in
-                                            if let lines = invoice.lines {
-                                                let total = lines.reduce(0) { partialResult, lineItem in
-                                                    return partialResult + lineItem.amount
-                                                }
-												Text(total, format: .currency(code: "USD"))
-											}
+//                                            if let lines = invoice.lines {
+//                                                let total = lines.reduce(0) { partialResult, lineItem in
+//                                                    return partialResult + lineItem.amount
+//                                                }
+//                                                FormattedCurrencyField(total)
+//											}
 										}
 									}
 								}
@@ -178,29 +178,29 @@ struct ProjectOverviewTab: View {
                     }
                     .listRowSeparator(.hidden)
                     
-                    Section("Timesheets") {
-                        Card {
-							VStack(alignment: .leading) {
-                            	ForEach(timesheets) { timesheet in
-									HStack {
-										if let end = timesheet.end {
-											Text(
-												NSNumber(value: end.timeIntervalSince(timesheet.start)),
-												formatter: timeFormatter
-											)
-										} else {
-											Text(
-												NSNumber(value: timesheet.start.timeIntervalSinceNow),
-												formatter: timeFormatter
-											)
-										}
-										Text(timesheet.start.formatted(date: .omitted, time: .shortened))
-									}
-								}
-                            }
-                        }
-                    }
-                    .listRowSeparator(.hidden)
+//                    Section("Timesheets") {
+//                        Card {
+//							VStack(alignment: .leading) {
+//                            	ForEach(timesheets) { timesheet in
+//									HStack {
+//										if let end = timesheet.end {
+//											Text(
+//												NSNumber(value: end.timeIntervalSince(timesheet.start)),
+//												formatter: timeFormatter
+//											)
+//										} else {
+//											Text(
+//												NSNumber(value: timesheet.start.timeIntervalSinceNow),
+//												formatter: timeFormatter
+//											)
+//										}
+//										Text(timesheet.start.formatted(date: .omitted, time: .shortened))
+//									}
+//								}
+//                            }
+//                        }
+//                    }
+//                    .listRowSeparator(.hidden)
                     
                     Section("Transactions") {
                         Card {
@@ -218,11 +218,14 @@ struct ProjectOverviewTab: View {
                                 }
                                 
                                 TableColumn("Due") { transaction in
-                                    Text(transaction.date.formatted(date: .abbreviated, time: .omitted))
+                                    FormattedDateField(
+                                        date: transaction.date,
+                                        timeStyle: .omitted
+                                    )
                                 }
                                 
 //                                TableColumn("Amount") { transaction in
-//                                    Text(transaction.total, format: .currency(code: "USD"))
+//                                    FormattedCurrencyField(transaction.total)
 //                                }
                             }
                         }
@@ -249,11 +252,12 @@ struct ProjectOverviewTab: View {
                 .listStyle(.plain)
                 .padding()
                 .scrollContentBackground(.hidden)
-                .background(
-                    Color(
-                        uiColor: .systemGray6
-                    )
-                )
+#if os(iOS)
+                .background(Color(uiColor: .systemGray6))
+#endif
+#if os(macOS)
+                .background(Color(nsColor: .systemGray))
+#endif
             }
         }
     }
